@@ -26,6 +26,7 @@
 ### Task 1: Single source of truth for figures
 
 **Files:**
+
 - Create: `src/utils/figures.ts`
 - Modify: `src/components/sections/SwiftStats.astro`, `src/components/sections/InvestmentSection.astro`, `src/components/sections/InsightsSection.astro`, `src/components/sections/LeadCTA.astro`, `src/components/sections/Footer.astro`
 
@@ -45,7 +46,13 @@ export const figures = {
   profitShareOperator: 20,
   tiers: [
     { name: 'Starter', shares: 12, capsules: 1, priceFrom: 1200 },
-    { name: 'Cluster', shares: 48, capsules: 4, priceFrom: 4800, featured: true },
+    {
+      name: 'Cluster',
+      shares: 48,
+      capsules: 4,
+      priceFrom: 4800,
+      featured: true,
+    },
     { name: 'Block', shares: 120, capsules: 10, priceFrom: 12000 },
   ],
   contacts: {
@@ -67,10 +74,26 @@ Replace the hardcoded `stats` array with imports:
 ---
 import { figures } from '@utils/figures';
 const stats = [
-  { value: `$${figures.sharePriceFrom}`, label: 'Entry share price', note: 'Fractional ownership' },
-  { value: `$${figures.adrLow}–${figures.adrHigh}`, label: 'Average daily rate', note: 'ADR per capsule' },
-  { value: `${figures.occupancyLow}–${figures.occupancyHigh}%`, label: 'Occupancy (ramp)', note: 'Stabilising upward' },
-  { value: `${figures.yieldLow}–${figures.yieldHigh}%`, label: 'Target annual yield', note: 'Net of management' },
+  {
+    value: `$${figures.sharePriceFrom}`,
+    label: 'Entry share price',
+    note: 'Fractional ownership',
+  },
+  {
+    value: `$${figures.adrLow}–${figures.adrHigh}`,
+    label: 'Average daily rate',
+    note: 'ADR per capsule',
+  },
+  {
+    value: `${figures.occupancyLow}–${figures.occupancyHigh}%`,
+    label: 'Occupancy (ramp)',
+    note: 'Stabilising upward',
+  },
+  {
+    value: `${figures.yieldLow}–${figures.yieldHigh}%`,
+    label: 'Target annual yield',
+    note: 'Net of management',
+  },
 ];
 const split = `${figures.profitShareInvestor} / ${figures.profitShareOperator}`;
 ---
@@ -103,6 +126,7 @@ git commit -m "refactor: single source of truth for Swift figures"
 ### Task 2: Responsive image component
 
 **Files:**
+
 - Create: `src/components/common/ResponsiveImage.astro`
 
 - [ ] **Step 1: Write the component**
@@ -126,6 +150,7 @@ const {
   sizes = '(min-width: 1024px) 50vw, 100vw',
 } = Astro.props;
 ---
+
 <Image
   src={src}
   alt={alt}
@@ -154,6 +179,7 @@ git commit -m "feat: responsive image component (astro:assets)"
 ### Task 3: Wire imagery into sections
 
 **Files:**
+
 - Modify: `src/components/sections/InvestmentSection.astro`, `src/components/sections/About.astro`, `src/components/sections/MarketInsights.astro`, `src/components/sections/HeroSection.astro`
 - Create (assets): `src/assets/images/photos/capsule-1.webp`, `src/assets/images/photos/village-aerial.webp`, `src/assets/images/photos/about-team.webp`
 
@@ -171,8 +197,14 @@ import capsule from '@images/photos/capsule-1.webp';
 Add, just inside the section after the heading:
 
 ```astro
-<div class="reveal mt-10 overflow-hidden border border-slate-900/15" style="--d:180ms">
-  <ResponsiveImage src={capsule} alt="A completed Swift Holdings prefab capsule in Oyarifa" />
+<div
+  class="reveal mt-10 overflow-hidden border border-slate-900/15"
+  style="--d:180ms"
+>
+  <ResponsiveImage
+    src={capsule}
+    alt="A completed Swift Holdings prefab capsule in Oyarifa"
+  />
 </div>
 ```
 
@@ -201,11 +233,13 @@ git commit -m "feat: wire real photography into key sections"
 ### Task 4: Populate image assets
 
 **Files:**
+
 - Create: `src/assets/images/photos/*.webp` (engineer-supplied)
 
 - [ ] **Step 1: Place optimized assets**
 
 Copy the supplied photography / AI capsule renders into `src/assets/images/photos/` with these exact names:
+
 - `capsule-1.webp` — hero capsule render (portrait or square, ≥1200px wide)
 - `village-aerial.webp` — aerial/site view of the village (≥1600px wide)
 - `about-team.webp` — team or brand image (≥1200px wide)
@@ -229,6 +263,7 @@ git commit -m "assets: add Swift Holdings photography"
 ### Task 5: Figure-accuracy test (TDD)
 
 **Files:**
+
 - Create: `src/utils/figures.test.ts`
 
 - [ ] **Step 1: Write the failing test**
@@ -252,7 +287,7 @@ describe('Swift Holdings figures match the Oyarifa proposal', () => {
     expect(figures.profitShareOperator).toBe(20);
   });
   it('keeps the three investment tiers', () => {
-    expect(figures.tiers.map((t) => t.name)).toEqual([
+    expect(figures.tiers.map(t => t.name)).toEqual([
       'Starter',
       'Cluster',
       'Block',
@@ -278,6 +313,7 @@ git commit -m "test: assert Swift figures match proposal"
 ### Task 6: Per-page SEO & structured data review
 
 **Files:**
+
 - Verify: `src/pages/index.astro`, `src/pages/the-model.astro`, `src/pages/investment.astro`, `src/pages/market-insights.astro`, `src/pages/about.astro`, `src/pages/protections.astro`, `src/pages/contact.astro`
 
 - [ ] **Step 1: Confirm every page sets `seo` props**
@@ -307,6 +343,7 @@ git add -A && git commit -m "fix: ensure per-page SEO titles are unique"
 ### Task 7: Accessibility pass
 
 **Files:**
+
 - Modify: `src/components/common/ResponsiveImage.astro`, `src/components/sections/*.astro` as needed
 
 - [ ] **Step 1: Guarantee alt text on every image**
@@ -350,6 +387,7 @@ git commit -m "a11y: alt-text, focus-visible, reduced-motion guarantees"
 ### Task 8: Real form delivery
 
 **Files:**
+
 - Modify: `.env` (local), Vercel project env (production)
 - Verify: `src/utils/form-client.ts`, `src/pages/api/contact.ts`, `src/pages/api/newsletter.ts`
 
@@ -381,6 +419,7 @@ Expected: `200` and the submission appears in the Formspree inbox.
 git add .env.template
 git commit -m "ci: document form delivery endpoints"
 ```
+
 (`.env` must stay gitignored — confirm with `git status --short` that `.env` is NOT listed.)
 
 ---
@@ -388,6 +427,7 @@ git commit -m "ci: document form delivery endpoints"
 ### Task 9: Deploy to Vercel
 
 **Files:**
+
 - Verify: `vercel.json`, `astro.config.mjs`
 
 - [ ] **Step 1: Preview build locally**
@@ -427,6 +467,7 @@ git commit -m "ci: Vercel deploy configuration"
 ## Self-Review
 
 **1. Spec coverage**
+
 - Imagery (real photos / AI renders): Tasks 2–4 ✅
 - Content accuracy: Task 1 (single source) + Task 5 (test) + Task 6 (review) ✅
 - Deploy: Task 9 ✅; form delivery: Task 8 ✅
@@ -434,10 +475,12 @@ git commit -m "ci: Vercel deploy configuration"
 - No spec requirement left without a task.
 
 **2. Placeholder scan**
+
 - No "TBD"/"TODO". Asset filenames are concrete; engineer supplies bytes (expected — not a code placeholder).
 - Every code step shows the code; every verification shows the command + expected output.
 
 **3. Type consistency**
+
 - `figures.ts` exports `figures` (and `Figures` type). Sections import `figures` and read `.adrLow`, `.tiers[].name`, `.contacts.*` — names match across Tasks 1, 3, 5.
 - `ResponsiveImage` prop is `src: ImageMetadata` (astro:assets); usages pass imported `.webp` metadata, consistent.
 - `ResponsiveImage` requires `alt` in every Task 3 usage (Task 7 verifies).

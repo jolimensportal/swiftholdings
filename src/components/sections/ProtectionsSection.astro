@@ -34,16 +34,14 @@ const faqs = [
 ];
 ---
 
-<section
-  class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8 lg:py-24"
->
+<section class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
   <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
     {/* Protections */}
     <div>
       <div class="reveal mb-3 flex items-center gap-3" style="--d:0ms">
         <span class="rule-thin w-10"></span>
         <span
-          class="font-work-sans text-xs font-medium uppercase tracking-[0.3em] text-slate-500"
+          class="font-work-sans text-xs font-medium tracking-[0.3em] text-slate-500 uppercase"
           >Investor Protections</span
         >
       </div>
@@ -53,10 +51,15 @@ const faqs = [
       >
         Built so the downside is honest.
       </h2>
-      <div class="mt-8 space-y-px overflow-hidden border border-slate-900/10 bg-slate-900/10">
+      <div
+        class="mt-8 space-y-px overflow-hidden border border-slate-900/10 bg-slate-900/10"
+      >
         {
           protections.map((p, i) => (
-            <div class="reveal bg-off-white p-6" style={`--d:${240 + i * 90}ms`}>
+            <div
+              class="reveal bg-off-white p-6"
+              style={`--d:${240 + i * 90}ms`}
+            >
               <h3 class="dm-sans text-lg font-medium text-slate-900">
                 {p.title}
               </h3>
@@ -69,14 +72,17 @@ const faqs = [
 
     {/* FAQ */}
     <div>
-      <h2 class="reveal dm-sans text-3xl font-medium tracking-tight text-slate-900 sm:text-4xl" style="--d:160ms">
+      <h2
+        class="reveal dm-sans text-3xl font-medium tracking-tight text-slate-900 sm:text-4xl"
+        style="--d:160ms"
+      >
         Questions, answered plainly.
       </h2>
       <div class="mt-8 space-y-3">
         {
           faqs.map((f, i) => (
             <div
-              class="reveal hs-accordion border border-slate-900/15 bg-off-white"
+              class="reveal hs-accordion bg-off-white border border-slate-900/15"
               id={`protection-faq-${i}`}
               style={`--d:${280 + i * 90}ms`}
             >
@@ -87,7 +93,7 @@ const faqs = [
               >
                 <span>{f.q}</span>
                 <svg
-                  class="size-4 shrink-0 text-slate-500 hs-accordion-active:rotate-180"
+                  class="hs-accordion-active:rotate-180 size-4 shrink-0 text-slate-500"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -98,7 +104,7 @@ const faqs = [
                   stroke-linecap="round"
                   stroke-linejoin="round"
                 >
-                  <path d="m6 9 6 6 6-6"></path>
+                  <path d="m6 9 6 6 6-6" />
                 </svg>
               </button>
               <div

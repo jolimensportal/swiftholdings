@@ -69,7 +69,7 @@ const unitFill = 'rgba(15,23,42,0.05)';
 
       {/* Plots */}
       {
-        units.map((u) => (
+        units.map(u => (
           <g>
             <rect
               x={u.x}
@@ -112,8 +112,7 @@ const unitFill = 'rgba(15,23,42,0.05)';
         fill="rgba(15,23,42,0.03)"
         stroke={lineColor}
         stroke-width="1"
-        opacity="0.6"
-      ></rect>
+        opacity="0.6"></rect>
       <line
         x1={roadX + roadW / 2}
         y1="28"
@@ -121,8 +120,7 @@ const unitFill = 'rgba(15,23,42,0.05)';
         y2="532"
         stroke={lineColor}
         stroke-width="1.5"
-        stroke-dasharray="10 10"
-      ></line>
+        stroke-dasharray="10 10"></line>
 
       {/* Clubhouse / amenity */}
       <rect
@@ -132,8 +130,7 @@ const unitFill = 'rgba(15,23,42,0.05)';
         height={clubH}
         fill="rgba(15,23,42,0.06)"
         stroke={lineColor}
-        stroke-width="1.5"
-      ></rect>
+        stroke-width="1.5"></rect>
       <text
         x={clubX + 16}
         y={clubY + 26}
@@ -151,13 +148,12 @@ const unitFill = 'rgba(15,23,42,0.05)';
         y2={clubY + 40}
         stroke={lineColor}
         stroke-width="1"
-        opacity="0.5"
-      ></line>
+        opacity="0.5"></line>
 
       {/* Trees along the road */}
       <g stroke={lineColor} stroke-width="1" fill="none" opacity="0.55">
         {
-          [120, 220, 320, 420].map((ty) => (
+          [120, 220, 320, 420].map(ty => (
             <g>
               <circle cx={roadX + roadW / 2 - 22} cy={ty} r="9" />
               <circle cx={roadX + roadW / 2 + 22} cy={ty + 40} r="9" />
@@ -167,12 +163,30 @@ const unitFill = 'rgba(15,23,42,0.05)';
       </g>
 
       {/* Title block */}
-      <line x1="60" y1="470" x2="1140" y2="470" stroke={lineColor} stroke-width="1" opacity="0.4"
-      ></line>
-      <text x="60" y="500" font-family="monospace" font-size="15" fill={lineColor}>
+      <line
+        x1="60"
+        y1="470"
+        x2="1140"
+        y2="470"
+        stroke={lineColor}
+        stroke-width="1"
+        opacity="0.4"></line>
+      <text
+        x="60"
+        y="500"
+        font-family="monospace"
+        font-size="15"
+        fill={lineColor}
+      >
         SITE PLAN — OYARIFA PHASE I
       </text>
-      <text x="60" y="522" font-family="monospace" font-size="12" fill={faintColor}>
+      <text
+        x="60"
+        y="522"
+        font-family="monospace"
+        font-size="12"
+        fill={faintColor}
+      >
         SCALE 1:500 · SWIFT HOLDINGS
       </text>
 
@@ -180,7 +194,9 @@ const unitFill = 'rgba(15,23,42,0.05)';
       <g transform="translate(1110,500)" stroke={lineColor} fill={lineColor}>
         <line x1="0" y1="14" x2="0" y2="-14" stroke-width="1.5"></line>
         <path d="M0,-18 L5,-6 L0,-10 L-5,-6 Z"></path>
-        <text x="-4" y="30" font-family="monospace" font-size="11" stroke="none">N</text>
+        <text x="-4" y="30" font-family="monospace" font-size="11" stroke="none"
+          >N</text
+        >
       </g>
     </svg>
   </div>

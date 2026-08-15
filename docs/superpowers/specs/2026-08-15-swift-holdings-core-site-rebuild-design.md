@@ -26,16 +26,16 @@ The core site must:
 
 ## Approved Decisions
 
-| Area | Decision |
-| --- | --- |
-| Primary audience | Diaspora homebuyers looking for a dependable home base in Accra. |
-| Primary conversion | `Request a private briefing`. |
-| Visual direction | Premium and spacious: photo-led, high-end real-estate calm, generous whitespace. |
-| Type | Outfit for headings and body. |
-| Brand violet | `#2A1C46` for primary actions only; `#1C0E2A` for hover states. |
-| Excluded accent | No yellow. Violet is not used as a general page background or heading color. |
-| Image truthfulness | All current images are references, never completed Swift Holdings homes. Visible labels and alt text must say `Illustrative reference` where relevant. |
-| Deployment discipline | Local build and visual QA pass before a Git push or Cloudflare Pages deployment. |
+| Area                  | Decision                                                                                                                                               |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Primary audience      | Diaspora homebuyers looking for a dependable home base in Accra.                                                                                       |
+| Primary conversion    | `Request a private briefing`.                                                                                                                          |
+| Visual direction      | Premium and spacious: photo-led, high-end real-estate calm, generous whitespace.                                                                       |
+| Type                  | Outfit for headings and body.                                                                                                                          |
+| Brand violet          | `#2A1C46` for primary actions only; `#1C0E2A` for hover states.                                                                                        |
+| Excluded accent       | No yellow. Violet is not used as a general page background or heading color.                                                                           |
+| Image truthfulness    | All current images are references, never completed Swift Holdings homes. Visible labels and alt text must say `Illustrative reference` where relevant. |
+| Deployment discipline | Local build and visual QA pass before a Git push or Cloudflare Pages deployment.                                                                       |
 
 ## Scope
 
@@ -61,16 +61,16 @@ primary navigation during Phase 1.
 Existing public marketing URLs have a concrete deployed history, so the new
 route names receive redirects rather than breaking old links.
 
-| New route | Purpose | Existing route redirected to it |
-| --- | --- | --- |
-| `/` | Buyer promise and primary conversion | N/A |
-| `/village` | Oyarifa context, lifestyle, home types | `/platform` |
-| `/how-it-works` | Four-step ownership path and timeline | `/the-model` |
-| `/ownership` | What ownership includes and who it serves | `/investment` |
-| `/protections` | Safeguards, standards, and verified facts | Existing route retained |
-| `/accra` | Oyarifa context and practical diaspora insight | `/market-insights` |
-| `/about` | Why Swift exists and the team behind it | Existing route retained |
-| `/briefing` | Private briefing form and next-step expectations | `/contact` |
+| New route       | Purpose                                          | Existing route redirected to it |
+| --------------- | ------------------------------------------------ | ------------------------------- |
+| `/`             | Buyer promise and primary conversion             | N/A                             |
+| `/village`      | Oyarifa context, lifestyle, home types           | `/platform`                     |
+| `/how-it-works` | Four-step ownership path and timeline            | `/the-model`                    |
+| `/ownership`    | What ownership includes and who it serves        | `/investment`                   |
+| `/protections`  | Safeguards, standards, and verified facts        | Existing route retained         |
+| `/accra`        | Oyarifa context and practical diaspora insight   | `/market-insights`              |
+| `/about`        | Why Swift exists and the team behind it          | Existing route retained         |
+| `/briefing`     | Private briefing form and next-step expectations | `/contact`                      |
 
 ## Information Architecture
 
@@ -82,16 +82,16 @@ The Village | How It Works | Ownership | Protections | Accra | About | Request a
 
 Each page has one job and ends with the same calm next step:
 
-| Page | Job | Required sections |
-| --- | --- | --- |
-| Home | Establish the promise and earn a briefing request | Hero, proof strip, village story, three reasons, selected images, briefing CTA |
-| The Village | Make the location and lifestyle tangible | Oyarifa story, village context, home typologies, curated gallery, briefing CTA |
-| How It Works | Explain the ownership path without jargon | Four-step process, timing expectations, common questions, briefing CTA |
-| Ownership | Explain what a buyer receives and how the decision is structured | Buyer fit, inclusions, decision points, briefing CTA |
-| Protections | Build confidence through specific, verifiable safeguards | Standards, transparency, what is confirmed versus illustrative, briefing CTA |
-| Accra | Give practical local context for diaspora buyers | Oyarifa context, homecoming story, local considerations, briefing CTA |
-| About Swift | Explain the company and its intent | Why Swift, principles, people, briefing CTA |
-| Private Briefing | Collect a qualified lead and set expectations | Short form, privacy explanation, what happens next, fallback contact |
+| Page             | Job                                                              | Required sections                                                              |
+| ---------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| Home             | Establish the promise and earn a briefing request                | Hero, proof strip, village story, three reasons, selected images, briefing CTA |
+| The Village      | Make the location and lifestyle tangible                         | Oyarifa story, village context, home typologies, curated gallery, briefing CTA |
+| How It Works     | Explain the ownership path without jargon                        | Four-step process, timing expectations, common questions, briefing CTA         |
+| Ownership        | Explain what a buyer receives and how the decision is structured | Buyer fit, inclusions, decision points, briefing CTA                           |
+| Protections      | Build confidence through specific, verifiable safeguards         | Standards, transparency, what is confirmed versus illustrative, briefing CTA   |
+| Accra            | Give practical local context for diaspora buyers                 | Oyarifa context, homecoming story, local considerations, briefing CTA          |
+| About Swift      | Explain the company and its intent                               | Why Swift, principles, people, briefing CTA                                    |
+| Private Briefing | Collect a qualified lead and set expectations                    | Short form, privacy explanation, what happens next, fallback contact           |
 
 ## Visual System
 
@@ -145,20 +145,20 @@ and repeated competing calls to action.
 
 The following 12 source files are the approved visual library for Phase 1:
 
-| Role | Source file | Native size | Production crop |
-| --- | --- | --- | --- |
-| Homepage hero | `prefab_2_2048x1365.jpg` | 2048 x 1365 | 16:10 |
-| Village story | `prefab_10_2500x1667.jpg` | 2500 x 1667 | 3:2 |
-| Ownership story | `prefab_6_4368x2912.jpg` | 4368 x 2912 | 3:2 |
-| Diaspora lifestyle | `prefab_8_2943x1962.jpg` | 2943 x 1962 | 4:3 |
-| Wide village banner | `prefab_16_2400x1200.jpg` | 2400 x 1200 | 21:9 |
-| Home detail | `prefab_18_1800x1210.jpg` | 1800 x 1210 | 3:2 |
-| Confidence feature | `prefab_19_1800x1200.jpg` | 1800 x 1200 | 4:3 |
-| Ownership page | `prefab_25_1580x1053.jpg` | 1580 x 1053 | 3:2 |
-| Architecture gallery | `prefab_28_1600x995.jpg` | 1600 x 995 | 4:3 |
-| Warm detail | `prefab_29_1500x1051.jpg` | 1500 x 1051 | 4:3 |
-| Dusk CTA | `prefab_31_1500x1051.jpg` | 1500 x 1051 | 16:10 |
-| Briefing close | `prefab_37_1200x840.jpg` | 1200 x 840 | 3:2 |
+| Role                 | Source file               | Native size | Production crop |
+| -------------------- | ------------------------- | ----------- | --------------- |
+| Homepage hero        | `prefab_2_2048x1365.jpg`  | 2048 x 1365 | 16:10           |
+| Village story        | `prefab_10_2500x1667.jpg` | 2500 x 1667 | 3:2             |
+| Ownership story      | `prefab_6_4368x2912.jpg`  | 4368 x 2912 | 3:2             |
+| Diaspora lifestyle   | `prefab_8_2943x1962.jpg`  | 2943 x 1962 | 4:3             |
+| Wide village banner  | `prefab_16_2400x1200.jpg` | 2400 x 1200 | 21:9            |
+| Home detail          | `prefab_18_1800x1210.jpg` | 1800 x 1210 | 3:2             |
+| Confidence feature   | `prefab_19_1800x1200.jpg` | 1800 x 1200 | 4:3             |
+| Ownership page       | `prefab_25_1580x1053.jpg` | 1580 x 1053 | 3:2             |
+| Architecture gallery | `prefab_28_1600x995.jpg`  | 1600 x 995  | 4:3             |
+| Warm detail          | `prefab_29_1500x1051.jpg` | 1500 x 1051 | 4:3             |
+| Dusk CTA             | `prefab_31_1500x1051.jpg` | 1500 x 1051 | 16:10           |
+| Briefing close       | `prefab_37_1200x840.jpg`  | 1200 x 840  | 3:2             |
 
 ### Derivative Pipeline
 
@@ -176,12 +176,12 @@ The following 12 source files are the approved visual library for Phase 1:
 
 Standard image frames:
 
-| Frame | Target size | Use |
-| --- | --- | --- |
-| Hero | 2400 x 1500 (16:10) | Page opening image |
-| Story | 1800 x 1200 (3:2) | Text-image editorial split |
-| Feature | 1600 x 1200 (4:3) | Controlled gallery and feature image |
-| Banner | 2520 x 1080 (21:9) | Wide CTA or village panorama |
+| Frame   | Target size         | Use                                  |
+| ------- | ------------------- | ------------------------------------ |
+| Hero    | 2400 x 1500 (16:10) | Page opening image                   |
+| Story   | 1800 x 1200 (3:2)   | Text-image editorial split           |
+| Feature | 1600 x 1200 (4:3)   | Controlled gallery and feature image |
+| Banner  | 2520 x 1080 (21:9)  | Wide CTA or village panorama         |
 
 ## Component Architecture
 
@@ -189,17 +189,17 @@ The public core pages compose a concise Swift-specific component set. Existing
 DataNova components remain available during transition but are not the source
 of new buyer-journey layouts.
 
-| Component | Responsibility |
-| --- | --- |
-| `SiteHeader` | Buyer-first navigation, responsive menu, primary briefing CTA |
-| `MarketingHero` | Label, headline, supporting copy, two CTA tiers, 16:10 image frame |
-| `ImageFrame` | Enforces ratio, focal point, alt text, and illustrative label |
-| `ProofStrip` | Three concise project/context facts |
-| `StorySplit` | Editorial text-image section with consistent spacing |
-| `NumberedSteps` | Clear process or ownership sequence |
-| `ConfidenceList` | Protections and verified facts without exaggerated claims |
-| `BriefingForm` | Accessible lead form and direct Formspree submission states |
-| `SiteFooter` | Lightweight close, contact path, reference/privacy wording |
+| Component        | Responsibility                                                     |
+| ---------------- | ------------------------------------------------------------------ |
+| `SiteHeader`     | Buyer-first navigation, responsive menu, primary briefing CTA      |
+| `MarketingHero`  | Label, headline, supporting copy, two CTA tiers, 16:10 image frame |
+| `ImageFrame`     | Enforces ratio, focal point, alt text, and illustrative label      |
+| `ProofStrip`     | Three concise project/context facts                                |
+| `StorySplit`     | Editorial text-image section with consistent spacing               |
+| `NumberedSteps`  | Clear process or ownership sequence                                |
+| `ConfidenceList` | Protections and verified facts without exaggerated claims          |
+| `BriefingForm`   | Accessible lead form and direct Formspree submission states        |
+| `SiteFooter`     | Lightweight close, contact path, reference/privacy wording         |
 
 Route copy and image roles live in small typed data modules rather than inside
 large page files. Pages compose the shared components with route-specific

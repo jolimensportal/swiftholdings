@@ -7,7 +7,7 @@ interface Props {
 const { eyebrow, title, lead } = Astro.props;
 ---
 
-<section class="relative isolate overflow-hidden bg-off-white">
+<section class="bg-off-white relative isolate overflow-hidden">
   <div class="blueprint-grid pointer-events-none absolute inset-0 -z-10"></div>
   <div
     class="mx-auto max-w-[85rem] px-4 pt-40 pb-14 sm:px-6 lg:px-8 lg:pt-44 lg:pb-20"
@@ -15,8 +15,8 @@ const { eyebrow, title, lead } = Astro.props;
     {
       eyebrow && (
         <div class="hero-word mb-4 flex items-center gap-3" style="--d:0ms">
-          <span class="rule-thin w-10"></span>
-          <span class="font-work-sans text-xs font-medium uppercase tracking-[0.3em] text-slate-500">
+          <span class="rule-thin w-10" />
+          <span class="font-work-sans text-xs font-medium tracking-[0.3em] text-slate-500 uppercase">
             {eyebrow}
           </span>
         </div>
