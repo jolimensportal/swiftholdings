@@ -1,0 +1,23 @@
+---
+import HeroContent from '@common/HeroContent.astro';
+
+// HD stand-in photograph (swap for the real village / capsule shot later).
+const heroImg = '/hero-standin.jpg';
+---
+
+<section class="relative flex min-h-[100dvh] items-center overflow-hidden">
+  <img
+    src={heroImg}
+    alt="Prefab homes in the Swift Holdings village, Oyarifa, Accra"
+    class="absolute inset-0 h-full w-full object-cover"
+  />
+  <div
+    class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/15 to-transparent"
+  />
+  <div class="absolute inset-0 blueprint-grid opacity-[0.06]" />
+  <div class="relative z-10 w-full px-4 py-24 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-[85rem]">
+      <HeroContent theme="dark" />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    groups:
+      # Prettier bumps often change formatting across the repo; keep them together
+      # so one format pass (via dependabot-format.yml) covers the whole change.
+      prettier:
+        patterns:
+          - 'prettier'
+          - 'prettier-*'

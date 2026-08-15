@@ -1,0 +1,22 @@
+---
+import BaseLayout from '@layout/BaseLayout.astro';
+import PageHeader from '@sections/PageHeader.astro';
+import ProtectionsSection from '@sections/ProtectionsSection.astro';
+import LeadCTA from '@sections/LeadCTA.astro';
+---
+
+<BaseLayout
+  seo={{
+    title: 'Investor Protections — Swift Holdings',
+    description:
+      'How Swift Holdings protects investors: clear title, aligned operator, quarterly reporting and a secondary window.',
+  }}
+>
+  <PageHeader
+    eyebrow="Protections & FAQ"
+    title="An honest downside."
+    lead="We would rather show you the risks plainly than sell you a story. Here is how the structure protects shareholders — and what can still go wrong."
+  />
+  <ProtectionsSection />
+  <LeadCTA />
+</BaseLayout>

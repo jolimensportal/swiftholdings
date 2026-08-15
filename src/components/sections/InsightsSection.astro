@@ -1,0 +1,66 @@
+---
+import ResponsiveImage from '@common/ResponsiveImage.astro';
+import villageAerial from '@images/photos/village-aerial.webp';
+
+const insights = [
+  {
+    figure: '~2M',
+    label: 'Housing deficit',
+    body: 'Accra’s metro faces a chronic shortfall of quality rental stock — demand that prefab delivery addresses faster than conventional builds.',
+  },
+  {
+    figure: '$4B+',
+    label: 'Diaspora remittances',
+    body: 'Ghana receives over four billion dollars a year from its diaspora. Much of it seeks a home-market asset that is real, not abstract.',
+  },
+  {
+    figure: '$100–200',
+    label: 'Premium ADR',
+    body: 'Nightly rates in Accra’s sought-after corridors sit well above the village’s $100–$132 target — headroom as occupancy stabilises.',
+  },
+];
+---
+
+<section
+  class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8 lg:py-24"
+>
+  <div class="reveal mb-3 flex items-center gap-3" style="--d:0ms">
+    <span class="rule-thin w-10"></span>
+    <span
+      class="font-work-sans text-xs font-medium uppercase tracking-[0.3em] text-slate-500"
+      >Market Insights</span
+    >
+  </div>
+  <h2
+    class="reveal dm-sans max-w-3xl text-3xl font-medium tracking-tight text-slate-900 sm:text-4xl lg:text-5xl"
+    style="--d:120ms"
+  >
+    Why Oyarifa, why now.
+  </h2>
+
+  <div class="reveal mt-10 overflow-hidden border border-slate-900/15" style="--d:160ms">
+    <ResponsiveImage
+      src={villageAerial}
+      alt="Aerial view of the planned Swift Holdings prefab village in Oyarifa"
+    />
+  </div>
+
+  <div class="mt-12 grid gap-px overflow-hidden border border-slate-900/10 bg-slate-900/10 md:grid-cols-3">
+    {
+      insights.map((it, i) => (
+        <div class="reveal bg-off-white p-7 sm:p-9" style={`--d:${240 + i * 110}ms`}>
+          <div class="dm-sans text-4xl font-medium tracking-tight text-slate-900">
+            {it.figure}
+          </div>
+          <div class="mt-2 font-work-sans text-xs font-medium uppercase tracking-[0.2em] text-slate-500">
+            {it.label}
+          </div>
+          <p class="mt-4 text-pretty text-slate-600">{it.body}</p>
+        </div>
+      ))
+    }
+  </div>
+  <p class="mt-5 text-sm text-slate-400">
+    Indicative market context for discussion — not investment advice.
+  </p>
+</section>

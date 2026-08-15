@@ -1,0 +1,40 @@
+---
+import BaseLayout from '@layout/BaseLayout.astro';
+import PageHeader from '@sections/PageHeader.astro';
+import ContactForm from '@ui/forms/ContactForm.astro';
+---
+
+<BaseLayout
+  seo={{
+    title: 'Contact — Swift Holdings',
+    description:
+      'Talk to Swift Holdings about the Oyarifa prefab village. Request the prospectus or join the investor list.',
+  }}
+>
+  <PageHeader
+    eyebrow="Contact"
+    title="Request the prospectus."
+    lead="Send your details and we’ll share the full Oyarifa model, the live capsule plan, and the subscription steps."
+  />
+
+  <section class="mx-auto max-w-[85rem] px-4 pb-16 sm:px-6 lg:px-8 lg:pb-24">
+    <div class="grid items-start gap-12 border border-slate-900/15 bg-off-white lg:grid-cols-2 lg:gap-16">
+      <div class="p-7 sm:p-10">
+        <ContactForm />
+      </div>
+      <div class="border-slate-900/15 p-7 sm:p-10 lg:border-l">
+        <h3 class="dm-sans text-xl font-medium text-slate-900">Direct</h3>
+        <div class="mt-5 space-y-2 text-slate-600">
+          <p>info@swiftholdings.org</p>
+          <p>+233 544 101016</p>
+          <p>+1 437 421 0963</p>
+          <p>20 Edmonton St, Madina, Accra</p>
+        </div>
+        <p class="mt-8 text-sm text-slate-400">
+          Private placement for eligible investors only. Not a regulated
+          securities offering in every jurisdiction.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

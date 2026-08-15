@@ -1,0 +1,22 @@
+---
+import BaseLayout from '@layout/BaseLayout.astro';
+import PageHeader from '@sections/PageHeader.astro';
+import InsightsSection from '@sections/InsightsSection.astro';
+import LeadCTA from '@sections/LeadCTA.astro';
+---
+
+<BaseLayout
+  seo={{
+    title: 'Market Insights — Swift Holdings',
+    description:
+      'Why Oyarifa and Accra, and why prefab delivery now — the market context behind the Swift Holdings model.',
+  }}
+>
+  <PageHeader
+    eyebrow="Market Insights"
+    title="Why Oyarifa, why now."
+    lead="The demand is structural: a housing deficit, a diaspora sending home billions, and a premium rental corridor where prefab beats conventional builds on speed."
+  />
+  <InsightsSection />
+  <LeadCTA />
+</BaseLayout>

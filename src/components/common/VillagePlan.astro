@@ -1,0 +1,187 @@
+---
+// Inline SVG site plan — a technical "blueprint" of the prefab village.
+// Generated positions keep the markup small and the drawing tidy.
+const cols = 4;
+const rows = 3;
+const unitW = 150;
+const unitH = 96;
+const gapX = 36;
+const gapY = 40;
+const startX = 60;
+const startY = 96;
+
+const units = [];
+for (let r = 0; r < rows; r++) {
+  for (let c = 0; c < cols; c++) {
+    units.push({
+      x: startX + c * (unitW + gapX),
+      y: startY + r * (unitH + gapY),
+      label: `${String.fromCharCode(65 + r)}${c + 1}`,
+    });
+  }
+}
+
+const roadX = 792;
+const roadW = 84;
+const clubX = 920;
+const clubW = 220;
+const clubY = 96;
+const clubH = 448;
+
+const lineColor = '#334155';
+const faintColor = '#64748b';
+const unitFill = 'rgba(15,23,42,0.05)';
+---
+
+<div class="hero-word" style="--d:760ms">
+  <div
+    class="relative border border-slate-900/15 bg-white/40 p-3 shadow-sm sm:p-5"
+  >
+    <svg
+      viewBox="0 0 1200 560"
+      class="block w-full text-slate-700"
+      role="img"
+      aria-label="Site plan of the Swift Holdings prefab village in Oyarifa, Accra"
+    >
+      {/* Faint internal grid */}
+      <g stroke={faintColor} stroke-width="1" opacity="0.16">
+        {
+          Array.from({ length: 14 }, (_, i) => (
+            <line x1={20 + i * 84} y1="20" x2={20 + i * 84} y2="540" />
+          ))
+        }
+        {
+          Array.from({ length: 7 }, (_, i) => (
+            <line x1="20" y1={20 + i * 84} x2="1180" y2={20 + i * 84} />
+          ))
+        }
+      </g>
+
+      {/* Perimeter */}
+      <rect
+        x="20"
+        y="20"
+        width="1160"
+        height="520"
+        fill="none"
+        stroke={lineColor}
+        stroke-width="2"></rect>
+
+      {/* Plots */}
+      {
+        units.map((u) => (
+          <g>
+            <rect
+              x={u.x}
+              y={u.y}
+              width={unitW}
+              height={unitH}
+              fill={unitFill}
+              stroke={lineColor}
+              stroke-width="1.5"
+            />
+            <line
+              x1={u.x + 8}
+              y1={u.y + unitH / 2}
+              x2={u.x + unitW - 8}
+              y2={u.y + unitH / 2}
+              stroke={lineColor}
+              stroke-width="1"
+              opacity="0.5"
+            />
+            <text
+              x={u.x + 10}
+              y={u.y + 20}
+              font-family="monospace"
+              font-size="13"
+              fill={lineColor}
+              opacity="0.7"
+            >
+              {u.label}
+            </text>
+          </g>
+        ))
+      }
+
+      {/* Main road */}
+      <rect
+        x={roadX}
+        y="20"
+        width={roadW}
+        height="520"
+        fill="rgba(15,23,42,0.03)"
+        stroke={lineColor}
+        stroke-width="1"
+        opacity="0.6"
+      ></rect>
+      <line
+        x1={roadX + roadW / 2}
+        y1="28"
+        x2={roadX + roadW / 2}
+        y2="532"
+        stroke={lineColor}
+        stroke-width="1.5"
+        stroke-dasharray="10 10"
+      ></line>
+
+      {/* Clubhouse / amenity */}
+      <rect
+        x={clubX}
+        y={clubY}
+        width={clubW}
+        height={clubH}
+        fill="rgba(15,23,42,0.06)"
+        stroke={lineColor}
+        stroke-width="1.5"
+      ></rect>
+      <text
+        x={clubX + 16}
+        y={clubY + 26}
+        font-family="monospace"
+        font-size="14"
+        fill={lineColor}
+        opacity="0.85"
+      >
+        CLUBHOUSE / AMENITY
+      </text>
+      <line
+        x1={clubX + 16}
+        y1={clubY + 40}
+        x2={clubX + clubW - 16}
+        y2={clubY + 40}
+        stroke={lineColor}
+        stroke-width="1"
+        opacity="0.5"
+      ></line>
+
+      {/* Trees along the road */}
+      <g stroke={lineColor} stroke-width="1" fill="none" opacity="0.55">
+        {
+          [120, 220, 320, 420].map((ty) => (
+            <g>
+              <circle cx={roadX + roadW / 2 - 22} cy={ty} r="9" />
+              <circle cx={roadX + roadW / 2 + 22} cy={ty + 40} r="9" />
+            </g>
+          ))
+        }
+      </g>
+
+      {/* Title block */}
+      <line x1="60" y1="470" x2="1140" y2="470" stroke={lineColor} stroke-width="1" opacity="0.4"
+      ></line>
+      <text x="60" y="500" font-family="monospace" font-size="15" fill={lineColor}>
+        SITE PLAN — OYARIFA PHASE I
+      </text>
+      <text x="60" y="522" font-family="monospace" font-size="12" fill={faintColor}>
+        SCALE 1:500 · SWIFT HOLDINGS
+      </text>
+
+      {/* North arrow */}
+      <g transform="translate(1110,500)" stroke={lineColor} fill={lineColor}>
+        <line x1="0" y1="14" x2="0" y2="-14" stroke-width="1.5"></line>
+        <path d="M0,-18 L5,-6 L0,-10 L-5,-6 Z"></path>
+        <text x="-4" y="30" font-family="monospace" font-size="11" stroke="none">N</text>
+      </g>
+    </svg>
+  </div>
+</div>

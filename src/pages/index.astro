@@ -1,0 +1,27 @@
+---
+export const prerender = true;
+import BaseLayout from '@layout/BaseLayout.astro';
+import Hero from '@sections/HeroSection.astro';
+import SwiftStats from '@sections/SwiftStats.astro';
+import TheModelSection from '@sections/TheModelSection.astro';
+import InvestmentSection from '@sections/InvestmentSection.astro';
+import InsightsSection from '@sections/InsightsSection.astro';
+import ProtectionsSection from '@sections/ProtectionsSection.astro';
+import LeadCTA from '@sections/LeadCTA.astro';
+---
+
+<BaseLayout
+  seo={{
+    title: 'Swift Holdings — The Prefab Village, Oyarifa Accra',
+    description:
+      'Fractional ownership of income-generating prefab homes in Oyarifa, Accra. From $100 a share, target yield 6–10%, 80/20 profit share.',
+  }}
+>
+  <Hero />
+  <SwiftStats />
+  <TheModelSection />
+  <InvestmentSection />
+  <InsightsSection />
+  <ProtectionsSection />
+  <LeadCTA />
+</BaseLayout>

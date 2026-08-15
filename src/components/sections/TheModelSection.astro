@@ -1,0 +1,53 @@
+---
+const steps = [
+  {
+    no: '01',
+    title: 'Design & permit',
+    body: 'We design the capsule and secure the permits for the Oyarifa plot. You buy shares before a single unit is staged.',
+  },
+  {
+    no: '02',
+    title: 'Manufacture & deliver',
+    body: 'Units are built off-site in controlled conditions, then delivered and installed on the village grid in weeks — not the years a conventional build takes.',
+  },
+  {
+    no: '03',
+    title: 'Manage & earn',
+    body: 'Swift runs lettings and maintenance. Yield flows to shareholders on an 80 / 20 split, with quarterly reporting you can read in minutes.',
+  },
+];
+---
+
+<section
+  class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8 lg:py-24"
+>
+  <div class="reveal mb-3 flex items-center gap-3" style="--d:0ms">
+    <span class="rule-thin w-10"></span>
+    <span
+      class="font-work-sans text-xs font-medium uppercase tracking-[0.3em] text-slate-500"
+      >The Model</span
+    >
+  </div>
+  <h2
+    class="reveal dm-sans max-w-3xl text-3xl font-medium tracking-tight text-slate-900 sm:text-4xl lg:text-5xl"
+    style="--d:120ms"
+  >
+    A village, manufactured — then income, by the share.
+  </h2>
+
+  <div class="mt-12 grid gap-px overflow-hidden border border-slate-900/10 bg-slate-900/10 md:grid-cols-3">
+    {
+      steps.map((s, i) => (
+        <div class="reveal bg-off-white p-7 sm:p-9" style={`--d:${240 + i * 110}ms`}>
+          <div class="font-work-sans text-sm font-medium tracking-[0.25em] text-slate-400">
+            {s.no}
+          </div>
+          <h3 class="dm-sans mt-4 text-2xl font-medium text-slate-900">
+            {s.title}
+          </h3>
+          <p class="mt-3 text-pretty text-slate-600">{s.body}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>

@@ -1,0 +1,24 @@
+---
+import BaseLayout from '@layout/BaseLayout.astro';
+import PageHeader from '@sections/PageHeader.astro';
+import InvestmentSection from '@sections/InvestmentSection.astro';
+import SwiftStats from '@sections/SwiftStats.astro';
+import LeadCTA from '@sections/LeadCTA.astro';
+---
+
+<BaseLayout
+  seo={{
+    title: 'Investment — Swift Holdings',
+    description:
+      'Fractional ownership of the Oyarifa prefab village, from $100 a share. Target yield 6–10%, 80/20 profit share.',
+  }}
+>
+  <PageHeader
+    eyebrow="Investment"
+    title="Own part of Oyarifa."
+    lead="Shares start at $100. Capsules are let by Swift; net yield is distributed quarterly on an 80 / 20 split after costs."
+  />
+  <InvestmentSection />
+  <SwiftStats />
+  <LeadCTA />
+</BaseLayout>

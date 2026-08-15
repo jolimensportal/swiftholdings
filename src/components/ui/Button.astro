@@ -1,0 +1,67 @@
+---
+import { twMerge } from 'tailwind-merge';
+const { type, href, rel, target, variant, className, id } = Astro.props;
+
+export interface Props {
+  type?: 'button' | 'submit' | 'reset';
+  href?: string;
+  rel?: string;
+  target?: '_self' | '_blank' | '_parent' | '_top';
+  variant?: 'primary' | 'secondary' | 'tertiary';
+  className?: string;
+  id?: string;
+}
+
+/**
+ * Variants: Defines predefined styling options for the 'variant' prop.
+ * - primary: A solid dark-violet button with white text and hover/active effects.
+ * - secondary: A violet outline button with hover fill.
+ * - tertiary: A soft violet background with hover effects.
+ */
+
+const variants = {
+  primary:
+    'bg-[#2A1C46] hover:bg-[#1C0E2A] focus:bg-[#1C0E2A] border border-transparent text-white',
+  secondary:
+    'hover:border-[#2A1C46] hover:bg-[#2A1C46] border-[#2A1C46] border-2 text-[#2A1C46] hover:text-white',
+  tertiary: 'bg-[#2A1C46]/10 hover:bg-[#2A1C46]/20 text-[#2A1C46]',
+};
+---
+
+{
+  /*
+Button Component:
+This component dynamically renders either a `<button>` element or an `<a>` (link) element based on the provided `href` prop.
+
+ - If the `href` prop is provided, an `<a>` tag is rendered to allow navigation.
+ - If no `href` is provided, a `<button>` tag is rendered for performing actions and supports the `type` attribute (e.g., 'button', 'submit', or 'reset') to specify its behavior.
+
+ Both types of elements share a similar structure and styling logic, with customization through the `variant`, `className`, and `id` props.
+*/
+}
+
+{
+  href ? (
+    <a
+      id={id}
+      href={href}
+      rel={rel ? rel : undefined}
+      target={target ? target : undefined}
+      class={twMerge(
+        `rounded-lg px-6 py-2.5 text-center font-medium transition-colors duration-300 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2A1C46]/70 focus-visible:ring-offset-2 ${variants[variant ?? 'primary']} ${className || ''}`
+      )}
+    >
+      <slot />
+    </a>
+  ) : (
+    <button
+      id={id}
+      type={type || 'button'}
+      class={twMerge(
+        `rounded-lg px-6 py-2.5 text-center font-medium transition-colors duration-300 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2A1C46]/70 focus-visible:ring-offset-2 ${variants[variant ?? 'primary']} ${className || ''}`
+      )}
+    >
+      <slot />
+    </button>
+  )
+}

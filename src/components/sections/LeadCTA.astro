@@ -1,0 +1,46 @@
+---
+import ContactForm from '@ui/forms/ContactForm.astro';
+import { figures } from '@utils/figures';
+---
+
+<section
+  class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8 lg:py-24"
+>
+  <div class="grid items-start gap-12 border border-slate-900/15 bg-off-white lg:grid-cols-2 lg:gap-16">
+    <div class="p-7 sm:p-10">
+      <div class="reveal mb-3 flex items-center gap-3" style="--d:0ms">
+        <span class="rule-thin w-10"></span>
+        <span
+          class="font-work-sans text-xs font-medium uppercase tracking-[0.3em] text-slate-500"
+          >Get the prospectus</span
+        >
+      </div>
+      <h2
+        class="reveal dm-sans text-3xl font-medium tracking-tight text-slate-900 sm:text-4xl"
+        style="--d:120ms"
+      >
+        See the full Oyarifa model.
+      </h2>
+      <p
+        class="reveal mt-5 max-w-md text-pretty text-slate-600"
+        style="--d:220ms"
+      >
+        Leave your details and we’ll send the prospectus, the live capsule
+        plan, and the subscription steps. Or join the investor list for
+        quarterly updates.
+      </p>
+      <div
+        class="reveal mt-8 flex flex-col gap-2 text-sm text-slate-500"
+        style="--d:320ms"
+      >
+        <span>{figures.contacts.email}</span>
+        <span>{figures.contacts.phoneGh} · {figures.contacts.phoneCa}</span>
+        <span>{figures.contacts.address}</span>
+      </div>
+    </div>
+
+    <div class="border-slate-900/15 p-7 sm:p-10 lg:border-l">
+      <ContactForm />
+    </div>
+  </div>
+</section>

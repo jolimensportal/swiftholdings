@@ -1,0 +1,116 @@
+---
+const protections = [
+  {
+    title: 'Clear title',
+    body: 'Your shares map to a defined, surveyed interest in the Oyarifa village — not a promise.',
+  },
+  {
+    title: 'Aligned operator',
+    body: 'Swift earns only after you do. The 80 / 20 split keeps our incentives on occupancy, not fees.',
+  },
+  {
+    title: 'Quarterly reporting',
+    body: 'Occupancy, ADR and distributions in a short statement you can read in minutes.',
+  },
+  {
+    title: 'Secondary window',
+    body: 'A structured buy-back and transfer window so liquidity is not theoretical.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Is this a regulated securities offering?',
+    a: 'No. This is a private placement for eligible investors. It is not registered with any securities regulator, and you should obtain independent advice before subscribing.',
+  },
+  {
+    q: 'How do I actually get paid?',
+    a: 'Swift manages lettings and maintenance, then distributes net yield quarterly on an 80 / 20 split after costs. You receive payments to your nominated account.',
+  },
+  {
+    q: 'What are the main risks?',
+    a: 'Occupancy and ADR are not guaranteed; construction, FX and regulatory risk apply. Capital is at risk and returns are not promised. Full risks are in the prospectus.',
+  },
+];
+---
+
+<section
+  class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8 lg:py-24"
+>
+  <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
+    {/* Protections */}
+    <div>
+      <div class="reveal mb-3 flex items-center gap-3" style="--d:0ms">
+        <span class="rule-thin w-10"></span>
+        <span
+          class="font-work-sans text-xs font-medium uppercase tracking-[0.3em] text-slate-500"
+          >Investor Protections</span
+        >
+      </div>
+      <h2
+        class="reveal dm-sans text-3xl font-medium tracking-tight text-slate-900 sm:text-4xl"
+        style="--d:120ms"
+      >
+        Built so the downside is honest.
+      </h2>
+      <div class="mt-8 space-y-px overflow-hidden border border-slate-900/10 bg-slate-900/10">
+        {
+          protections.map((p, i) => (
+            <div class="reveal bg-off-white p-6" style={`--d:${240 + i * 90}ms`}>
+              <h3 class="dm-sans text-lg font-medium text-slate-900">
+                {p.title}
+              </h3>
+              <p class="mt-2 text-pretty text-slate-600">{p.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    {/* FAQ */}
+    <div>
+      <h2 class="reveal dm-sans text-3xl font-medium tracking-tight text-slate-900 sm:text-4xl" style="--d:160ms">
+        Questions, answered plainly.
+      </h2>
+      <div class="mt-8 space-y-3">
+        {
+          faqs.map((f, i) => (
+            <div
+              class="reveal hs-accordion border border-slate-900/15 bg-off-white"
+              id={`protection-faq-${i}`}
+              style={`--d:${280 + i * 90}ms`}
+            >
+              <button
+                class="hs-accordion-toggle flex w-full items-center justify-between gap-4 p-5 text-left font-medium text-slate-900 focus:outline-hidden"
+                aria-expanded="false"
+                aria-controls={`protection-faq-${i}-content`}
+              >
+                <span>{f.q}</span>
+                <svg
+                  class="size-4 shrink-0 text-slate-500 hs-accordion-active:rotate-180"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m6 9 6 6 6-6"></path>
+                </svg>
+              </button>
+              <div
+                id={`protection-faq-${i}-content`}
+                class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
+              >
+                <p class="px-5 pb-5 text-pretty text-slate-600">{f.a}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

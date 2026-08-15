@@ -1,0 +1,24 @@
+---
+import BaseLayout from '@layout/BaseLayout.astro';
+import PageHeader from '@sections/PageHeader.astro';
+import TheModelSection from '@sections/TheModelSection.astro';
+import SwiftStats from '@sections/SwiftStats.astro';
+import LeadCTA from '@sections/LeadCTA.astro';
+---
+
+<BaseLayout
+  seo={{
+    title: 'The Model — Swift Holdings',
+    description:
+      'How Swift Holdings builds an income-generating prefab village in Oyarifa, Accra, and shares it by the share.',
+  }}
+>
+  <PageHeader
+    eyebrow="The Model"
+    title="How the village works."
+    lead="Three stages, from surveyed plot to quarterly yield — designed so a diaspora investor can own part of Accra without managing a single brick."
+  />
+  <TheModelSection />
+  <SwiftStats />
+  <LeadCTA />
+</BaseLayout>

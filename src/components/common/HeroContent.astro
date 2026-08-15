@@ -1,0 +1,83 @@
+---
+import Button from '@ui/Button.astro';
+
+interface Props {
+  theme?: 'light' | 'dark';
+}
+const { theme = 'light' } = Astro.props;
+const dark = theme === 'dark';
+
+const eyebrow = 'Swift Holdings — Oyarifa, Accra';
+const lineOne = ['A', 'prefab', 'village'];
+const lineTwo = ['for', "Accra's", 'diaspora'];
+const subTitle =
+  'Fractional ownership from $100 a share. Yield-backed rental income, delivered in weeks — not years. A manufactured-home community designed for investors who live abroad but want roots at home.';
+const primaryCTA = { text: 'Request the prospectus', href: '/contact' };
+const secondaryCTA = { text: 'See the village plan', href: '/the-model' };
+
+const base = 140;
+const step = 70;
+const afterHead = base + (lineOne.length + lineTwo.length) * step;
+---
+
+<div class="max-w-4xl">
+  {/* Eyebrow */}
+  <div class="hero-word mb-6 flex items-center gap-3" style={`--d:0ms`}>
+    <span class="rule-thin w-10"></span>
+    <span
+      class="font-work-sans text-xs font-medium uppercase tracking-[0.28em] text-white/70"
+      >{eyebrow}</span
+    >
+  </div>
+
+  {/* Headline — two deliberate lines, per-word reveal */}
+  <h1
+    class="dm-sans font-medium tracking-[-0.02em] text-[clamp(2.5rem,6.5vw,5.5rem)] leading-[1.02] text-white"
+  >
+    <span class="block">
+      {
+        lineOne.map((word, i) => (
+          <span class="hero-word" style={`--d:${base + i * step}ms`}>{word} </span>
+        ))
+      }
+    </span>
+    <span class="block">
+      {
+        lineTwo.map((word, i) => (
+          <span class="hero-word" style={`--d:${base + lineOne.length * step + i * step}ms`}>{word} </span>
+        ))
+      }
+    </span>
+  </h1>
+
+  {/* Subcopy */}
+  <p
+    class="hero-word mt-7 max-w-xl text-pretty font-work-sans text-lg leading-relaxed text-white/85"
+    style={`--d:${afterHead + 40}ms`}
+  >
+    {subTitle}
+  </p>
+
+  {/* CTAs */}
+  <div
+    class="hero-word mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
+    style={`--d:${afterHead + 140}ms`}
+  >
+    <Button
+      href={primaryCTA.href}
+      variant="primary"
+      className={dark
+        ? '!border-transparent !bg-[#2A1C46] !text-white hover:!bg-[#1C0E2A]'
+        : '!border-transparent !bg-[#2A1C46] !text-white hover:!bg-[#1C0E2A]'}
+      >{primaryCTA.text}</Button
+    >
+    <Button
+      href={secondaryCTA.href}
+      variant="secondary"
+      className={dark
+        ? '!border-white/50 !text-white hover:!bg-white/10'
+        : '!border-[#2A1C46] !text-[#2A1C46] hover:!bg-[#2A1C46] hover:!text-white'}
+      >{secondaryCTA.text}</Button
+    >
+  </div>
+</div>

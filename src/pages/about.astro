@@ -1,0 +1,74 @@
+---
+import BaseLayout from '@layout/BaseLayout.astro';
+import PageHeader from '@sections/PageHeader.astro';
+import LeadCTA from '@sections/LeadCTA.astro';
+import SwiftStats from '@sections/SwiftStats.astro';
+import ResponsiveImage from '@common/ResponsiveImage.astro';
+import aboutTeam from '@images/photos/about-team.webp';
+
+const principles = [
+  {
+    title: 'Real assets, not abstractions',
+    body: 'Every share maps to a surveyed interest in a physical village in Oyarifa. You can visit it.',
+  },
+  {
+    title: 'Built for the diaspora',
+    body: 'Designed for investors who live abroad but want roots — and income — at home in Accra.',
+  },
+  {
+    title: 'Operator eats last',
+    body: 'Swift is paid after shareholders. The 80 / 20 split keeps our incentives on occupancy.',
+  },
+];
+---
+
+<BaseLayout
+  seo={{
+    title: 'About — Swift Holdings',
+    description:
+      'Swift Holdings develops income-generating prefab housing communities for the African diaspora. Flagship village: Oyarifa, Accra.',
+  }}
+>
+  <PageHeader
+    eyebrow="About"
+    title="Housing for the diaspora, by the share."
+    lead="Swift Holdings exists to turn diaspora capital into a real, let-able asset at home — delivered faster than conventional construction allows."
+  />
+
+  <section class="mx-auto max-w-[85rem] px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+    <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
+      <div class="reveal mb-8 overflow-hidden border border-slate-900/15" style="--d:120ms">
+        <ResponsiveImage src={aboutTeam} alt="The Swift Holdings team" />
+      </div>
+      <div class="prose-sm max-w-none text-pretty text-slate-600">
+        <p>
+          The Prefab Village began with a simple mismatch: Ghana’s diaspora
+          sends home billions each year, yet quality rental housing in Accra
+          remains scarce and slow to build. Conventional construction could not
+          close the gap fast enough.
+        </p>
+        <p class="mt-4">
+          Prefabrication changes the timeline. Units are manufactured off-site
+          in controlled conditions, then delivered and installed on a surveyed
+          village grid in weeks. The result is a community that earns from day
+          one — and can be owned fractionally, from $100 a share.
+        </p>
+      </div>
+      <div class="space-y-px overflow-hidden border border-slate-900/10 bg-slate-900/10">
+        {
+          principles.map(p => (
+            <div class="bg-off-white p-6">
+              <h3 class="dm-sans text-lg font-medium text-slate-900">
+                {p.title}
+              </h3>
+              <p class="mt-2 text-pretty text-slate-600">{p.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <SwiftStats />
+  <LeadCTA />
+</BaseLayout>
