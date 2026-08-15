@@ -1,27 +1,89 @@
 ---
 export const prerender = true;
-import BaseLayout from '@layout/BaseLayout.astro';
-import Hero from '@sections/HeroSection.astro';
-import SwiftStats from '@sections/SwiftStats.astro';
-import TheModelSection from '@sections/TheModelSection.astro';
-import InvestmentSection from '@sections/InvestmentSection.astro';
-import InsightsSection from '@sections/InsightsSection.astro';
-import ProtectionsSection from '@sections/ProtectionsSection.astro';
-import LeadCTA from '@sections/LeadCTA.astro';
+
+import ImageFrame from '@/components/marketing/ImageFrame.astro';
+import MarketingHero from '@/components/marketing/MarketingHero.astro';
+import ProofStrip from '@/components/marketing/ProofStrip.astro';
+import StorySplit from '@/components/marketing/StorySplit.astro';
+import { marketingImages } from '@/data/marketing/image-assets';
+import { marketingPages } from '@/data/marketing/pages';
+import MarketingLayout from '@layout/MarketingLayout.astro';
+
+const page = marketingPages.home;
+const reasons = [
+  {
+    title: 'Built with precision',
+    body: 'A prefab-led approach replaces improvised, distant decision-making with a clearer process.',
+  },
+  {
+    title: 'A guided ownership path',
+    body: 'The first conversation is designed to make the next decision more informed, not more pressured.',
+  },
+  {
+    title: 'Designed for life abroad',
+    body: 'The site speaks to a home base for family, return visits, and the future.',
+  },
+];
 ---
 
-<BaseLayout
-  seo={{
-    title: 'Swift Holdings — The Prefab Village, Oyarifa Accra',
-    description:
-      'Fractional ownership of income-generating prefab homes in Oyarifa, Accra. From $100 a share, target yield 6–10%, 80/20 profit share.',
-  }}
->
-  <Hero />
-  <SwiftStats />
-  <TheModelSection />
-  <InvestmentSection />
-  <InsightsSection />
-  <ProtectionsSection />
-  <LeadCTA />
-</BaseLayout>
+<MarketingLayout seo={page.seo}>
+  <MarketingHero
+    {...page.hero}
+    image={marketingImages.homeHero}
+    mobileRatio="4 / 5"
+    secondaryCta={{ label: 'See how it works', href: '/how-it-works' }}
+  />
+  <ProofStrip items={page.proof} />
+  <StorySplit {...page.story} image={marketingImages.villageStory} />
+
+  <section class="marketing-container py-20">
+    <div
+      class="grid gap-8 border-t border-[var(--marketing-rule)] pt-6 md:grid-cols-3"
+    >
+      {
+        reasons.map((reason, index) => (
+          <article>
+            <p class="text-sm font-bold text-[var(--marketing-violet)]">
+              0{index + 1}
+            </p>
+            <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em]">
+              {reason.title}
+            </h2>
+            <p class="mt-3 leading-7 text-[var(--marketing-muted)]">
+              {reason.body}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="marketing-container grid gap-5 pb-20 md:grid-cols-2">
+    <ImageFrame image={marketingImages.diasporaLifestyle} ratio="4 / 3" />
+    <ImageFrame image={marketingImages.architectureGallery} ratio="4 / 3" />
+  </section>
+
+  <section class="marketing-surface-dark bg-[#2A1C46] py-16 text-white">
+    <div
+      class="marketing-container grid items-center gap-8 md:grid-cols-[1fr_0.8fr]"
+    >
+      <div>
+        <p class="marketing-eyebrow text-white/70">The next step</p>
+        <h2 class="mt-3 text-4xl font-semibold tracking-[-0.04em]">
+          See whether Swift fits your plans.
+        </h2>
+        <a
+          class="mt-6 inline-flex rounded-md border border-white/75 px-4 py-3 font-semibold"
+          href="/briefing"
+        >
+          Request a private briefing
+        </a>
+      </div>
+      <ImageFrame
+        image={marketingImages.duskCta}
+        ratio="16 / 10"
+        mobileRatio="4 / 5"
+      />
+    </div>
+  </section>
+</MarketingLayout>

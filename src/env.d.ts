@@ -1,6 +1,7 @@
 /// <reference path="../.astro/types.d.ts" />
 
 interface ImportMetaEnv {
+  readonly PUBLIC_FORMSPREE_BRIEFING_ENDPOINT?: string;
   readonly TURSO_DATABASE_URL?: string;
   readonly TURSO_AUTH_TOKEN?: string;
   readonly ASTRO_DB_REMOTE_URL?: string;

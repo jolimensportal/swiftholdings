@@ -1,74 +1,78 @@
 ---
-import BaseLayout from '@layout/BaseLayout.astro';
-import PageHeader from '@sections/PageHeader.astro';
-import LeadCTA from '@sections/LeadCTA.astro';
-import SwiftStats from '@sections/SwiftStats.astro';
-import ResponsiveImage from '@common/ResponsiveImage.astro';
-import aboutTeam from '@images/photos/about-team.webp';
+export const prerender = true;
 
+import ImageFrame from '@/components/marketing/ImageFrame.astro';
+import MarketingHero from '@/components/marketing/MarketingHero.astro';
+import { marketingImages } from '@/data/marketing/image-assets';
+import { marketingPages } from '@/data/marketing/pages';
+import MarketingLayout from '@layout/MarketingLayout.astro';
+
+const page = marketingPages.about;
 const principles = [
   {
-    title: 'Real assets, not abstractions',
-    body: 'Every share maps to a surveyed interest in a physical village in Oyarifa. You can visit it.',
+    title: 'A more considered path home',
+    body: 'Swift exists to make a return to Accra feel more legible from abroad.',
   },
   {
-    title: 'Built for the diaspora',
-    body: 'Designed for investors who live abroad but want roots — and income — at home in Accra.',
+    title: 'Clarity before momentum',
+    body: 'The site and briefing are designed to surface questions before a buyer is asked to act.',
   },
   {
-    title: 'Operator eats last',
-    body: 'Swift is paid after shareholders. The 80 / 20 split keeps our incentives on occupancy.',
+    title: 'A village, not a product dashboard',
+    body: 'The work is about a home base, local context, and a more grounded ownership conversation.',
   },
 ];
 ---
 
-<BaseLayout
-  seo={{
-    title: 'About — Swift Holdings',
-    description:
-      'Swift Holdings develops income-generating prefab housing communities for the African diaspora. Flagship village: Oyarifa, Accra.',
-  }}
->
-  <PageHeader
-    eyebrow="About"
-    title="Housing for the diaspora, by the share."
-    lead="Swift Holdings exists to turn diaspora capital into a real, let-able asset at home — delivered faster than conventional construction allows."
+<MarketingLayout seo={page.seo}>
+  <MarketingHero
+    {...page.hero}
+    image={marketingImages.villageStory}
+    ratio="3 / 2"
   />
 
-  <section class="mx-auto max-w-[85rem] px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-    <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
-      <div class="reveal mb-8 overflow-hidden border border-slate-900/15" style="--d:120ms">
-        <ResponsiveImage src={aboutTeam} alt="The Swift Holdings team" />
-      </div>
-      <div class="prose-sm max-w-none text-pretty text-slate-600">
-        <p>
-          The Prefab Village began with a simple mismatch: Ghana’s diaspora
-          sends home billions each year, yet quality rental housing in Accra
-          remains scarce and slow to build. Conventional construction could not
-          close the gap fast enough.
-        </p>
-        <p class="mt-4">
-          Prefabrication changes the timeline. Units are manufactured off-site
-          in controlled conditions, then delivered and installed on a surveyed
-          village grid in weeks. The result is a community that earns from day
-          one — and can be owned fractionally, from $100 a share.
-        </p>
-      </div>
-      <div class="space-y-px overflow-hidden border border-slate-900/10 bg-slate-900/10">
+  <section
+    class="marketing-container grid items-center gap-10 py-16 lg:grid-cols-[1fr_0.9fr] lg:py-24"
+  >
+    <div>
+      <p class="marketing-eyebrow">The Swift approach</p>
+      <h2 class="mt-3 max-w-xl text-4xl font-semibold tracking-[-0.04em]">
+        A more grounded conversation about coming home.
+      </h2>
+      <p class="mt-5 max-w-xl leading-8 text-[var(--marketing-muted)]">
+        Swift begins with a simple premise: a return to Accra should be easier
+        to understand from abroad. The site creates space for practical context
+        before a buyer is asked to make a decision.
+      </p>
+    </div>
+    <ImageFrame image={marketingImages.architectureGallery} ratio="4 / 3" />
+  </section>
+
+  <section class="border-y border-[var(--marketing-rule)] bg-white py-16">
+    <div class="marketing-container">
+      <p class="marketing-eyebrow">Principles</p>
+      <div
+        class="mt-6 grid gap-8 border-t border-[var(--marketing-rule)] pt-6 md:grid-cols-3"
+      >
         {
-          principles.map(p => (
-            <div class="bg-off-white p-6">
-              <h3 class="dm-sans text-lg font-medium text-slate-900">
-                {p.title}
+          principles.map((principle, index) => (
+            <article>
+              <p class="text-sm font-bold text-[var(--marketing-violet)]">
+                0{index + 1}
+              </p>
+              <h3 class="mt-3 text-2xl font-semibold tracking-[-0.03em]">
+                {principle.title}
               </h3>
-              <p class="mt-2 text-pretty text-slate-600">{p.body}</p>
-            </div>
+              <p class="mt-3 leading-7 text-[var(--marketing-muted)]">
+                {principle.body}
+              </p>
+            </article>
           ))
         }
       </div>
+      <a class="marketing-button-primary mt-10" href="/briefing"
+        >Request a private briefing</a
+      >
     </div>
   </section>
-
-  <SwiftStats />
-  <LeadCTA />
-</BaseLayout>
+</MarketingLayout>

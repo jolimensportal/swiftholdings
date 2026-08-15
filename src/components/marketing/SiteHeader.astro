@@ -1,0 +1,70 @@
+---
+import { marketingSite } from '@/data/marketing/site';
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="border-b border-[var(--marketing-rule)] bg-white">
+  <div
+    class="marketing-container flex min-h-18 items-center justify-between gap-4 py-4"
+  >
+    <a
+      href="/"
+      class="text-sm font-bold tracking-[0.04em]"
+      aria-label="Swift Holdings home"
+    >
+      SWIFT <span class="font-normal">HOLDINGS</span>
+    </a>
+    <nav
+      class="hidden items-center gap-5 lg:flex"
+      aria-label="Primary navigation"
+    >
+      {
+        marketingSite.navigation.map(item => (
+          <a
+            href={item.href}
+            aria-current={currentPath === item.href ? 'page' : undefined}
+            class="text-sm text-[var(--marketing-muted)] hover:text-[var(--marketing-ink)]"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <a
+        class="marketing-button-primary text-sm"
+        href={marketingSite.primaryCta.href}
+      >
+        {marketingSite.primaryCta.label}
+      </a>
+    </nav>
+    <details class="relative lg:hidden">
+      <summary
+        class="cursor-pointer rounded border border-[var(--marketing-rule)] px-3 py-2 text-sm"
+      >
+        Menu
+      </summary>
+      <nav
+        class="absolute top-14 right-0 z-20 grid min-w-60 gap-1 border border-[var(--marketing-rule)] bg-white p-3 shadow-lg"
+        aria-label="Mobile navigation"
+      >
+        {
+          marketingSite.navigation.map(item => (
+            <a
+              href={item.href}
+              aria-current={currentPath === item.href ? 'page' : undefined}
+              class="rounded px-3 py-2 text-sm hover:bg-[#f1edf5]"
+            >
+              {item.label}
+            </a>
+          ))
+        }
+        <a
+          class="marketing-button-primary mt-2 text-sm"
+          href={marketingSite.primaryCta.href}
+        >
+          {marketingSite.primaryCta.label}
+        </a>
+      </nav>
+    </details>
+  </div>
+</header>

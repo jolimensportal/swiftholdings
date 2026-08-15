@@ -1,0 +1,35 @@
+---
+import ImageFrame from '@/components/marketing/ImageFrame.astro';
+import type { MarketingImageAsset } from '@/data/marketing/image-assets';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  body: string;
+  image: MarketingImageAsset;
+  reverse?: boolean;
+  ratio?: string;
+  mobileRatio?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  body,
+  image,
+  reverse = false,
+  ratio = '3 / 2',
+  mobileRatio = ratio,
+} = Astro.props;
+---
+
+<section
+  class="marketing-container grid items-center gap-10 py-16 lg:grid-cols-2 lg:py-24"
+>
+  <div class:list={{ 'lg:order-2': reverse }}>
+    <p class="marketing-eyebrow">{eyebrow}</p>
+    <h2 class="mt-3 text-4xl font-semibold tracking-[-0.04em]">{title}</h2>
+    <p class="mt-5 max-w-xl leading-8 text-[var(--marketing-muted)]">{body}</p>
+  </div>
+  <ImageFrame image={image} {ratio} {mobileRatio} />
+</section>

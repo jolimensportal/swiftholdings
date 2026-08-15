@@ -1,22 +1,57 @@
 ---
-import BaseLayout from '@layout/BaseLayout.astro';
-import PageHeader from '@sections/PageHeader.astro';
-import ProtectionsSection from '@sections/ProtectionsSection.astro';
-import LeadCTA from '@sections/LeadCTA.astro';
+export const prerender = true;
+
+import ConfidenceList from '@/components/marketing/ConfidenceList.astro';
+import ImageFrame from '@/components/marketing/ImageFrame.astro';
+import MarketingHero from '@/components/marketing/MarketingHero.astro';
+import { marketingImages } from '@/data/marketing/image-assets';
+import { marketingPages } from '@/data/marketing/pages';
+import MarketingLayout from '@layout/MarketingLayout.astro';
+
+const page = marketingPages.protections;
+const confirmed = [
+  'The site presents a buyer-first private briefing before asking for a decision.',
+  'Reference imagery is labelled clearly while project photography is finalized.',
+  'Questions that affect a purchase are surfaced before a visitor is asked to proceed.',
+];
+const discuss = [
+  'Current project status and the documentation available for review.',
+  'Ownership, timing, pricing, and delivery details relevant to your situation.',
+  'Which details are confirmed now and which are still being finalized.',
+];
 ---
 
-<BaseLayout
-  seo={{
-    title: 'Investor Protections — Swift Holdings',
-    description:
-      'How Swift Holdings protects investors: clear title, aligned operator, quarterly reporting and a secondary window.',
-  }}
->
-  <PageHeader
-    eyebrow="Protections & FAQ"
-    title="An honest downside."
-    lead="We would rather show you the risks plainly than sell you a story. Here is how the structure protects shareholders — and what can still go wrong."
+<MarketingLayout seo={page.seo}>
+  <MarketingHero
+    {...page.hero}
+    image={marketingImages.confidenceFeature}
+    ratio="4 / 3"
   />
-  <ProtectionsSection />
-  <LeadCTA />
-</BaseLayout>
+  <ConfidenceList
+    eyebrow="What confidence looks like"
+    title="A useful distinction between what is clear and what needs direct discussion."
+    {confirmed}
+    {discuss}
+  />
+
+  <section class="border-y border-[var(--marketing-rule)] bg-white py-16">
+    <div
+      class="marketing-container grid items-center gap-8 md:grid-cols-[0.9fr_1fr]"
+    >
+      <ImageFrame image={marketingImages.briefingClose} ratio="3 / 2" />
+      <div>
+        <p class="marketing-eyebrow">Private briefing</p>
+        <h2 class="mt-3 text-4xl font-semibold tracking-[-0.04em]">
+          Ask the questions that shape your decision.
+        </h2>
+        <p class="mt-5 max-w-xl leading-8 text-[var(--marketing-muted)]">
+          Swift will use a private briefing to explain what is available to
+          discuss and what needs further confirmation for your situation.
+        </p>
+        <a class="marketing-button-primary mt-7" href="/briefing"
+          >Request a private briefing</a
+        >
+      </div>
+    </div>
+  </section>
+</MarketingLayout>

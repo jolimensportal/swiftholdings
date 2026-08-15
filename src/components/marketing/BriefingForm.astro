@@ -1,0 +1,387 @@
+---
+import { marketingSite } from '@/data/marketing/site';
+
+const endpoint =
+  import.meta.env.PUBLIC_FORMSPREE_BRIEFING_ENDPOINT?.trim() ?? '';
+const fallbackHref = `mailto:${marketingSite.email}?subject=${encodeURIComponent(
+  'Private briefing request'
+)}`;
+---
+
+<form id="briefing-form" class="grid gap-5" data-endpoint={endpoint} novalidate>
+  <div class="hidden" aria-hidden="true">
+    <label for="briefing-website">Website</label>
+    <input
+      id="briefing-website"
+      name="website"
+      type="text"
+      tabindex="-1"
+      autocomplete="off"
+    />
+  </div>
+
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div>
+      <label class="text-sm font-semibold" for="briefing-name">Full name</label>
+      <input
+        id="briefing-name"
+        name="name"
+        type="text"
+        required
+        autocomplete="name"
+        aria-required="true"
+        aria-describedby="briefing-name-error"
+        class="mt-2 w-full rounded-md border border-[var(--marketing-rule)] bg-white px-3 py-3"
+      />
+      <p
+        id="briefing-name-error"
+        class="mt-2 text-sm text-red-700"
+        data-error-for="name"
+        hidden
+      >
+      </p>
+    </div>
+    <div>
+      <label class="text-sm font-semibold" for="briefing-email"
+        >Email address</label
+      >
+      <input
+        id="briefing-email"
+        name="email"
+        type="email"
+        required
+        autocomplete="email"
+        aria-required="true"
+        aria-describedby="briefing-email-error"
+        class="mt-2 w-full rounded-md border border-[var(--marketing-rule)] bg-white px-3 py-3"
+      />
+      <p
+        id="briefing-email-error"
+        class="mt-2 text-sm text-red-700"
+        data-error-for="email"
+        hidden
+      >
+      </p>
+    </div>
+  </div>
+
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div>
+      <label class="text-sm font-semibold" for="briefing-phone"
+        >WhatsApp or phone</label
+      >
+      <input
+        id="briefing-phone"
+        name="phone"
+        type="tel"
+        autocomplete="tel"
+        aria-describedby="briefing-phone-error"
+        class="mt-2 w-full rounded-md border border-[var(--marketing-rule)] bg-white px-3 py-3"
+      />
+      <p
+        id="briefing-phone-error"
+        class="mt-2 text-sm text-red-700"
+        data-error-for="phone"
+        hidden
+      >
+      </p>
+    </div>
+    <div>
+      <label class="text-sm font-semibold" for="briefing-country"
+        >Current country</label
+      >
+      <input
+        id="briefing-country"
+        name="country"
+        type="text"
+        required
+        autocomplete="country-name"
+        aria-required="true"
+        aria-describedby="briefing-country-error"
+        class="mt-2 w-full rounded-md border border-[var(--marketing-rule)] bg-white px-3 py-3"
+      />
+      <p
+        id="briefing-country-error"
+        class="mt-2 text-sm text-red-700"
+        data-error-for="country"
+        hidden
+      >
+      </p>
+    </div>
+  </div>
+
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div>
+      <label class="text-sm font-semibold" for="briefing-interest"
+        >What brings you to Swift?</label
+      >
+      <select
+        id="briefing-interest"
+        name="interest"
+        required
+        aria-required="true"
+        aria-describedby="briefing-interest-error"
+        class="mt-2 w-full rounded-md border border-[var(--marketing-rule)] bg-white px-3 py-3"
+      >
+        <option value="">Select an option</option>
+        <option value="Owning a home">Owning a home</option>
+        <option value="Understanding the village"
+          >Understanding the village</option
+        >
+        <option value="Investor information">Investor information</option>
+      </select>
+      <p
+        id="briefing-interest-error"
+        class="mt-2 text-sm text-red-700"
+        data-error-for="interest"
+        hidden
+      >
+      </p>
+    </div>
+    <div>
+      <label class="text-sm font-semibold" for="briefing-timeframe"
+        >Timeframe</label
+      >
+      <select
+        id="briefing-timeframe"
+        name="timeframe"
+        required
+        aria-required="true"
+        aria-describedby="briefing-timeframe-error"
+        class="mt-2 w-full rounded-md border border-[var(--marketing-rule)] bg-white px-3 py-3"
+      >
+        <option value="">Select a timeframe</option>
+        <option value="Within 3 months">Within 3 months</option>
+        <option value="3-6 months">3-6 months</option>
+        <option value="6-12 months">6-12 months</option>
+        <option value="More than 12 months">More than 12 months</option>
+        <option value="Still exploring">Still exploring</option>
+      </select>
+      <p
+        id="briefing-timeframe-error"
+        class="mt-2 text-sm text-red-700"
+        data-error-for="timeframe"
+        hidden
+      >
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <label class="text-sm font-semibold" for="briefing-message"
+      >Anything else we should know?</label
+    >
+    <textarea
+      id="briefing-message"
+      name="message"
+      rows="4"
+      aria-describedby="briefing-message-error"
+      class="mt-2 w-full rounded-md border border-[var(--marketing-rule)] bg-white px-3 py-3"
+    ></textarea>
+    <p
+      id="briefing-message-error"
+      class="mt-2 text-sm text-red-700"
+      data-error-for="message"
+      hidden
+    >
+    </p>
+  </div>
+
+  <div>
+    <label
+      class="flex items-start gap-3 text-sm text-[var(--marketing-muted)]"
+      for="briefing-consent"
+    >
+      <input
+        id="briefing-consent"
+        name="consent"
+        type="checkbox"
+        required
+        aria-required="true"
+        aria-describedby="briefing-consent-error"
+        class="mt-1 size-4 rounded border-[var(--marketing-rule)] text-[#2A1C46]"
+      />
+      <span
+        >I agree that Swift Holdings may use my details only to reply to this
+        request.</span
+      >
+    </label>
+    <p
+      id="briefing-consent-error"
+      class="mt-2 text-sm text-red-700"
+      data-error-for="consent"
+      hidden
+    >
+    </p>
+  </div>
+
+  <p
+    class="text-sm text-[var(--marketing-muted)]"
+    role="status"
+    aria-live="polite"
+    data-briefing-status
+  >
+  </p>
+  <p
+    class="rounded-md border border-[var(--marketing-rule)] bg-white p-4 text-sm text-[var(--marketing-muted)]"
+    data-briefing-fallback
+    hidden={Boolean(endpoint)}
+  >
+    Private briefing delivery is currently available by email. <a
+      class="marketing-button-link"
+      href={fallbackHref}>Email Swift directly</a
+    >.
+  </p>
+
+  <button
+    class="marketing-button-primary w-full sm:w-auto"
+    type="submit"
+    data-briefing-submit
+  >
+    Request a private briefing
+  </button>
+</form>
+
+<noscript>
+  <p class="mt-4 text-sm text-[var(--marketing-muted)]">
+    JavaScript is unavailable. <a
+      class="marketing-button-link"
+      href={fallbackHref}>Email Swift directly</a
+    > to request a private briefing.
+  </p>
+</noscript>
+
+<script>
+  import {
+    submitBriefing,
+    validateBriefing,
+    type BriefingPayload,
+  } from '@/utils/briefing-form';
+
+  type BriefingField =
+    HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+
+  function bindBriefingForm(): void {
+    const form = document.querySelector<HTMLFormElement>('#briefing-form');
+
+    if (!form || form.dataset.bound === 'true') return;
+
+    const submitButton = form.querySelector<HTMLButtonElement>(
+      '[data-briefing-submit]'
+    );
+    const status = form.querySelector<HTMLElement>('[data-briefing-status]');
+    const fallback = form.querySelector<HTMLElement>(
+      '[data-briefing-fallback]'
+    );
+
+    if (!submitButton || !status || !fallback) return;
+
+    form.dataset.bound = 'true';
+    const endpoint = form.dataset.endpoint ?? '';
+    const defaultSubmitLabel =
+      submitButton.textContent?.trim() ?? 'Request a private briefing';
+
+    const clearErrors = (): void => {
+      form.querySelectorAll<HTMLElement>('[data-error-for]').forEach(slot => {
+        slot.textContent = '';
+        slot.hidden = true;
+      });
+      form.querySelectorAll<BriefingField>('[name]').forEach(field => {
+        field.removeAttribute('aria-invalid');
+      });
+    };
+
+    const setError = (
+      fieldName: keyof BriefingPayload,
+      message: string
+    ): void => {
+      const slot = form.querySelector<HTMLElement>(
+        `[data-error-for="${fieldName}"]`
+      );
+      const field = form.elements.namedItem(fieldName) as BriefingField | null;
+
+      if (slot) {
+        slot.textContent = message;
+        slot.hidden = false;
+      }
+      field?.setAttribute('aria-invalid', 'true');
+    };
+
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+      const formData = new FormData(form);
+      const payload: BriefingPayload = {
+        name: String(formData.get('name') ?? ''),
+        email: String(formData.get('email') ?? ''),
+        phone: String(formData.get('phone') ?? ''),
+        country: String(formData.get('country') ?? ''),
+        interest: String(formData.get('interest') ?? ''),
+        timeframe: String(formData.get('timeframe') ?? ''),
+        message: String(formData.get('message') ?? ''),
+        consent: formData.get('consent') === 'on',
+        website: String(formData.get('website') ?? ''),
+      };
+      const errors = validateBriefing(payload);
+
+      clearErrors();
+      status.textContent = '';
+
+      const firstError = Object.entries(errors)[0] as
+        [keyof BriefingPayload, string] | undefined;
+
+      if (firstError) {
+        for (const [fieldName, message] of Object.entries(errors) as Array<
+          [keyof BriefingPayload, string]
+        >) {
+          setError(fieldName, message);
+        }
+
+        status.textContent =
+          'Please correct the highlighted fields and try again.';
+        const firstInvalid = form.elements.namedItem(
+          firstError[0]
+        ) as BriefingField | null;
+        firstInvalid?.focus();
+        return;
+      }
+
+      if (!endpoint) {
+        fallback.hidden = false;
+        status.textContent =
+          'Please email Swift directly to request a private briefing.';
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = 'Sending request...';
+
+      const result = await submitBriefing({ endpoint, payload });
+
+      submitButton.disabled = false;
+      submitButton.textContent = defaultSubmitLabel;
+
+      if (result.kind === 'success') {
+        form.reset();
+        fallback.hidden = true;
+        status.textContent =
+          'Thank you. Your private briefing request has been received.';
+        return;
+      }
+
+      fallback.hidden = false;
+      status.textContent =
+        result.kind === 'fallback'
+          ? 'Please email Swift directly to request a private briefing.'
+          : result.message;
+    });
+  }
+
+  document.addEventListener('astro:page-load', bindBriefingForm);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bindBriefingForm, {
+      once: true,
+    });
+  } else {
+    bindBriefingForm();
+  }
+</script>

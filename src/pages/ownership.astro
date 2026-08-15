@@ -1,0 +1,63 @@
+---
+export const prerender = true;
+
+import MarketingHero from '@/components/marketing/MarketingHero.astro';
+import StorySplit from '@/components/marketing/StorySplit.astro';
+import { marketingImages } from '@/data/marketing/image-assets';
+import { marketingPages } from '@/data/marketing/pages';
+import MarketingLayout from '@layout/MarketingLayout.astro';
+
+const page = marketingPages.ownership;
+const decisionPoints = [
+  {
+    title: 'Who this is for',
+    body: 'Diaspora buyers seeking a considered home base rather than a generic investment dashboard.',
+  },
+  {
+    title: 'What a briefing should clarify',
+    body: 'Current project status, buyer fit, practical questions, and next steps.',
+  },
+  {
+    title: 'What not to assume',
+    body: 'Reference visuals are illustrative; legal, price, schedule, and construction details require direct confirmation.',
+  },
+];
+---
+
+<MarketingLayout seo={page.seo}>
+  <MarketingHero
+    {...page.hero}
+    image={marketingImages.ownershipPage}
+    ratio="3 / 2"
+  />
+  <StorySplit {...page.story} image={marketingImages.ownershipStory} reverse />
+
+  <section class="marketing-container py-16 lg:py-24">
+    <p class="marketing-eyebrow">Before you decide</p>
+    <h2 class="mt-3 max-w-2xl text-4xl font-semibold tracking-[-0.04em]">
+      The right conversation should make room for what is still open.
+    </h2>
+    <div
+      class="mt-10 grid gap-8 border-t border-[var(--marketing-rule)] pt-6 md:grid-cols-3"
+    >
+      {
+        decisionPoints.map((point, index) => (
+          <article>
+            <p class="text-sm font-bold text-[var(--marketing-violet)]">
+              0{index + 1}
+            </p>
+            <h3 class="mt-3 text-2xl font-semibold tracking-[-0.03em]">
+              {point.title}
+            </h3>
+            <p class="mt-3 leading-7 text-[var(--marketing-muted)]">
+              {point.body}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+    <a class="marketing-button-primary mt-10" href="/briefing"
+      >Request a private briefing</a
+    >
+  </section>
+</MarketingLayout>

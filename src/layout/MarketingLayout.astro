@@ -1,0 +1,84 @@
+---
+import { AstroFont } from 'astro-font';
+import { SEO } from 'astro-seo';
+import { Schema } from 'astro-seo-schema';
+import type { Thing, WithContext } from 'schema-dts';
+import SiteFooter from '@/components/marketing/SiteFooter.astro';
+import SiteHeader from '@/components/marketing/SiteHeader.astro';
+import '@styles/global.css';
+import '@styles/marketing.css';
+import { marketingSite } from '@/data/marketing/site';
+
+interface Props {
+  seo: { title: string; description: string };
+}
+
+const { seo } = Astro.props;
+const siteUrl = Astro.site ?? new URL('https://swiftholdings.pages.dev');
+const socialImage = new URL('/social.png', siteUrl).href;
+const schema: WithContext<Thing> = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: marketingSite.name,
+  url: siteUrl.href,
+  email: marketingSite.email,
+};
+---
+
+<html lang="en">
+  <head>
+    <SEO
+      charset="utf-8"
+      title={seo.title}
+      description={seo.description}
+      openGraph={{
+        basic: { title: seo.title, type: 'website', image: socialImage },
+        optional: { description: seo.description },
+      }}
+      twitter={{
+        card: 'summary_large_image',
+        title: seo.title,
+        description: seo.description,
+        image: socialImage,
+        imageAlt: 'Swift Holdings illustrative prefab residence',
+      }}
+      extend={{
+        link: [
+          { rel: 'icon', href: '/icon.svg', type: 'image/svg+xml' },
+          { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+          { rel: 'manifest', href: '/manifest.webmanifest' },
+        ],
+        meta: [
+          { name: 'viewport', content: 'width=device-width' },
+          { name: 'generator', content: Astro.generator },
+        ],
+      }}
+    />
+    <Schema item={schema} />
+    <AstroFont
+      config={[
+        {
+          src: [],
+          name: 'Outfit',
+          googleFontsURL:
+            'https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap',
+          preload: true,
+          display: 'swap',
+          selector: 'body',
+          fallback: 'sans-serif',
+        },
+      ]}
+    />
+  </head>
+  <body class="marketing-shell selection:bg-[#2A1C46] selection:text-white">
+    <a
+      href="#main-content"
+      class="marketing-button-primary sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50"
+    >
+      Skip to content
+    </a>
+    <SiteHeader />
+    <main id="main-content" tabindex="-1"><slot /></main>
+    <SiteFooter />
+  </body>
+</html>

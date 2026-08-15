@@ -1,0 +1,70 @@
+---
+export const prerender = true;
+
+import BriefingForm from '@/components/marketing/BriefingForm.astro';
+import ImageFrame from '@/components/marketing/ImageFrame.astro';
+import { marketingImages } from '@/data/marketing/image-assets';
+import { marketingPages } from '@/data/marketing/pages';
+import MarketingLayout from '@layout/MarketingLayout.astro';
+
+const page = marketingPages.briefing;
+const nextSteps = [
+  'You share the essentials.',
+  'Swift reviews your request.',
+  'You get a personal reply.',
+];
+---
+
+<MarketingLayout seo={page.seo}>
+  <section
+    class="marketing-container grid gap-12 py-12 lg:grid-cols-[0.8fr_1.2fr] lg:py-20"
+  >
+    <div>
+      <p class="marketing-eyebrow">{page.hero.eyebrow}</p>
+      <h1
+        class="mt-4 max-w-lg text-5xl font-semibold tracking-[-0.05em] sm:text-6xl"
+      >
+        {page.hero.title}
+      </h1>
+      <p class="mt-6 max-w-lg text-lg leading-8 text-[var(--marketing-muted)]">
+        {page.hero.lead}
+      </p>
+      <ol class="mt-10 grid gap-5 border-t border-[var(--marketing-rule)] pt-6">
+        {
+          nextSteps.map((step, index) => (
+            <li class="grid grid-cols-[auto_1fr] gap-3">
+              <span class="grid size-7 place-items-center rounded-full bg-[#2A1C46] text-xs font-bold text-white">
+                {index + 1}
+              </span>
+              <p class="pt-0.5 font-semibold">{step}</p>
+            </li>
+          ))
+        }
+      </ol>
+      <p class="mt-8 max-w-md text-sm leading-6 text-[var(--marketing-muted)]">
+        We use your details only to reply to this request.
+      </p>
+    </div>
+    <div class="border-t border-[var(--marketing-rule)] pt-6">
+      <BriefingForm />
+    </div>
+  </section>
+
+  <section class="border-y border-[var(--marketing-rule)] bg-white py-16">
+    <div
+      class="marketing-container grid items-center gap-8 md:grid-cols-[0.85fr_1fr]"
+    >
+      <ImageFrame image={marketingImages.briefingClose} ratio="3 / 2" />
+      <div>
+        <p class="marketing-eyebrow">A personal next step</p>
+        <h2 class="mt-3 text-4xl font-semibold tracking-[-0.04em]">
+          Start with the context that matters to you.
+        </h2>
+        <p class="mt-5 max-w-xl leading-8 text-[var(--marketing-muted)]">
+          There is no public sales funnel here. Share the essentials and Swift
+          can reply with the next relevant conversation.
+        </p>
+      </div>
+    </div>
+  </section>
+</MarketingLayout>

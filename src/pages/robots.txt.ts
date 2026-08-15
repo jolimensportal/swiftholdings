@@ -1,20 +1,15 @@
 import type { APIRoute } from 'astro';
 
-const getRobotsTxt = (sitemapURL: string) => `
-User-agent: *
-Allow: /
-Disallow: /keystatic
-Disallow: /api/
+export const prerender = true;
 
-Sitemap: ${sitemapURL}
-`;
-
-export const GET: APIRoute = ({ site }) => {
-  const sitemapURL = new URL(
-    'sitemap-index.xml',
-    site ?? 'https://swift-holdings.pages.dev'
+export const GET: APIRoute = () =>
+  new Response(
+    [
+      'User-agent: *',
+      'Allow: /',
+      'Disallow: /keystatic',
+      'Disallow: /api/',
+      '',
+    ].join('\n'),
+    { headers: { 'Content-Type': 'text/plain; charset=utf-8' } }
   );
-  return new Response(getRobotsTxt(sitemapURL.href), {
-    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
-  });
-};

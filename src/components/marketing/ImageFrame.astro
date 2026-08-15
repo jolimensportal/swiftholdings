@@ -1,0 +1,56 @@
+---
+import type { MarketingImageAsset } from '@/data/marketing/image-assets';
+
+interface Props {
+  image: MarketingImageAsset;
+  ratio: string;
+  mobileRatio?: string;
+  loading?: 'eager' | 'lazy';
+  class?: string;
+}
+
+const {
+  image,
+  ratio,
+  mobileRatio = ratio,
+  loading = 'lazy',
+  class: className = '',
+} = Astro.props;
+---
+
+<figure
+  class:list={['marketing-image-frame', className]}
+  style={`--marketing-image-desktop-ratio: ${ratio}; --marketing-image-mobile-ratio: ${mobileRatio}`}
+>
+  <picture>
+    {
+      image.mobile && (
+        <source
+          media="(max-width: 767px)"
+          srcset={image.mobile.webp.src}
+          type="image/webp"
+        />
+      )
+    }
+    {
+      image.mobile && (
+        <source
+          media="(max-width: 767px)"
+          srcset={image.mobile.jpeg.src}
+          type="image/jpeg"
+        />
+      )
+    }
+    <source srcset={image.desktop.webp.src} type="image/webp" />
+    <img
+      src={image.desktop.jpeg.src}
+      width={image.desktop.jpeg.width}
+      height={image.desktop.jpeg.height}
+      alt={image.alt}
+      loading={loading}
+      decoding={loading === 'eager' ? 'sync' : 'async'}
+      class="h-full w-full object-cover"
+    />
+  </picture>
+  <figcaption class="marketing-image-label">{image.label}</figcaption>
+</figure>
