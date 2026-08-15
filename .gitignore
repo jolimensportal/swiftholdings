@@ -27,3 +27,6 @@ pnpm-debug.log*
 
 # Cloudflare adapter build cache
 .wrangler/
+
+# brainstorming visual companion
+.superpowers/
