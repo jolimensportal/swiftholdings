@@ -1,35 +1,76 @@
 ---
 import { marketingSite } from '@/data/marketing/site';
-
-const phoneHref = `tel:${marketingSite.phone.replace(/\s/g, '')}`;
 ---
 
-<footer class="border-t border-[var(--marketing-rule)] bg-white py-10">
+<footer
+  class="border-t border-[var(--marketing-gold-line)] bg-[var(--marketing-obsidian-900)] text-[var(--marketing-ink-on-dark)]"
+>
   <div
-    class="marketing-container grid gap-8 text-sm md:grid-cols-[1fr_auto] md:items-end"
+    class="marketing-container grid gap-10 py-14 lg:grid-cols-[1.2fr_1fr_1fr]"
   >
     <div>
-      <p class="font-bold tracking-[0.04em]">
-        SWIFT <span class="font-normal">HOLDINGS</span>
+      <p class="marketing-display text-lg tracking-[0.14em]">
+        THE SWIFT <span class="text-[var(--marketing-gold-500)]">PROJECT</span>
       </p>
-      <p class="mt-3 max-w-md leading-6 text-[var(--marketing-muted)]">
-        Illustrative reference imagery used for concept direction.
+      <p
+        class="mt-4 max-w-sm text-sm leading-7 text-[var(--marketing-dim-on-dark)]"
+      >
+        A membership ecosystem of owned P7 capsules across Ghana — built,
+        operated, and shared on a 70 / 30 model.
+      </p>
+      <p class="mt-6 text-xs text-[var(--marketing-dim-on-dark)]">
+        {marketingSite.legalName} · {marketingSite.address}
       </p>
     </div>
-    <div class="grid gap-2 text-[var(--marketing-muted)] md:text-right">
-      <a
-        class="hover:text-[var(--marketing-ink)]"
-        href={`mailto:${marketingSite.email}`}
-      >
-        {marketingSite.email}
-      </a>
-      <a class="hover:text-[var(--marketing-ink)]" href={phoneHref}
-        >{marketingSite.phone}</a
-      >
-      <p>{marketingSite.address}</p>
-      <a class="marketing-button-link mt-2" href="/briefing"
-        >Request a private briefing</a
-      >
+    <div>
+      <p class="marketing-eyebrow">Explore</p>
+      <nav class="mt-4 grid gap-3 text-sm" aria-label="Footer navigation">
+        {
+          marketingSite.navigation.map(item => (
+            <a
+              class="text-[var(--marketing-dim-on-dark)] hover:text-[var(--marketing-ink-on-dark)]"
+              href={item.href}
+            >
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
     </div>
+    <div>
+      <p class="marketing-eyebrow">Contact</p>
+      <div class="mt-4 grid gap-3 text-sm text-[var(--marketing-dim-on-dark)]">
+        <a
+          class="hover:text-[var(--marketing-ink-on-dark)]"
+          href={`tel:${marketingSite.phone}`}
+        >
+          {marketingSite.phone}
+        </a>
+        <a
+          class="hover:text-[var(--marketing-ink-on-dark)]"
+          href={`tel:${marketingSite.phoneNorthAmerica}`}
+        >
+          {marketingSite.phoneNorthAmerica}
+        </a>
+        <a
+          class="hover:text-[var(--marketing-ink-on-dark)]"
+          href={`mailto:${marketingSite.email}`}
+        >
+          {marketingSite.email}
+        </a>
+        <a
+          class="hover:text-[var(--marketing-ink-on-dark)]"
+          href={`mailto:${marketingSite.partnershipsEmail}`}
+        >
+          {marketingSite.partnershipsEmail}
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="border-t border-[var(--marketing-gold-line)]">
+    <p class="marketing-container py-5 text-xs text-[var(--marketing-dim-on-dark)]">
+      © {new Date().getFullYear()} {marketingSite.legalName}. Photography is
+      illustrative reference unless labelled otherwise.
+    </p>
   </div>
 </footer>

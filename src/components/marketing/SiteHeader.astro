@@ -1,22 +1,40 @@
 ---
 import { marketingSite } from '@/data/marketing/site';
 
+interface Props {
+  theme?: 'light' | 'dark';
+}
+
+const { theme = 'light' } = Astro.props;
 const currentPath = Astro.url.pathname;
+const onDark = theme === 'dark';
+const ink = onDark
+  ? 'text-[var(--marketing-ink-on-dark)]'
+  : 'text-[var(--marketing-ink)]';
+const muted = onDark
+  ? 'text-[var(--marketing-dim-on-dark)]'
+  : 'text-[var(--marketing-muted)]';
+const surface = onDark
+  ? 'bg-[var(--marketing-obsidian-900)]'
+  : 'bg-[var(--marketing-canvas)]';
+const rule = onDark
+  ? 'border-[var(--marketing-gold-line)]'
+  : 'border-[var(--marketing-rule)]';
 ---
 
-<header class="border-b border-[var(--marketing-rule)] bg-white">
+<header class={`border-b ${surface} ${rule}`}>
   <div
     class="marketing-container flex min-h-18 items-center justify-between gap-4 py-4"
   >
     <a
       href="/"
-      class="text-sm font-bold tracking-[0.04em]"
-      aria-label="Swift Holdings home"
+      class={`marketing-display text-lg tracking-[0.14em] ${ink}`}
+      aria-label="The Swift Project home"
     >
-      SWIFT <span class="font-normal">HOLDINGS</span>
+      THE SWIFT <span class="text-[var(--marketing-gold-500)]">PROJECT</span>
     </a>
     <nav
-      class="hidden items-center gap-5 lg:flex"
+      class="hidden items-center gap-6 lg:flex"
       aria-label="Primary navigation"
     >
       {
@@ -24,7 +42,7 @@ const currentPath = Astro.url.pathname;
           <a
             href={item.href}
             aria-current={currentPath === item.href ? 'page' : undefined}
-            class="text-sm text-[var(--marketing-muted)] hover:text-[var(--marketing-ink)]"
+            class={`text-sm ${muted} hover:${onDark ? 'text-[var(--marketing-ink-on-dark)]' : 'text-[var(--marketing-ink)]'}`}
           >
             {item.label}
           </a>
@@ -39,12 +57,12 @@ const currentPath = Astro.url.pathname;
     </nav>
     <details class="relative lg:hidden">
       <summary
-        class="cursor-pointer rounded border border-[var(--marketing-rule)] px-3 py-2 text-sm"
+        class={`cursor-pointer rounded border ${rule} px-3 py-2 text-sm ${ink}`}
       >
         Menu
       </summary>
       <nav
-        class="absolute top-14 right-0 z-20 grid min-w-60 gap-1 border border-[var(--marketing-rule)] bg-white p-3 shadow-lg"
+        class={`absolute top-14 right-0 z-20 grid min-w-60 gap-1 border ${rule} bg-[var(--marketing-canvas)] p-3 shadow-lg`}
         aria-label="Mobile navigation"
       >
         {
@@ -52,7 +70,7 @@ const currentPath = Astro.url.pathname;
             <a
               href={item.href}
               aria-current={currentPath === item.href ? 'page' : undefined}
-              class="rounded px-3 py-2 text-sm hover:bg-[#f1edf5]"
+              class="rounded px-3 py-2 text-sm text-[var(--marketing-ink)] hover:bg-[rgba(200,160,108,0.12)]"
             >
               {item.label}
             </a>
