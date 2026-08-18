@@ -1,0 +1,26 @@
+---
+import type { GatedDocument } from '@/data/marketing/documents';
+
+interface Props {
+  document: GatedDocument;
+  index: number;
+}
+
+const { document, index } = Astro.props;
+const ordinal = `${String(index + 1).padStart(2, '0')}`;
+---
+
+<div class="border-b border-[var(--marketing-rule)] py-8 last:border-b-0">
+  <div class="grid gap-4 sm:grid-cols-[4rem_1fr_auto] sm:items-center">
+    <span class="marketing-ledger-label">{ordinal}</span>
+    <div>
+      <h3 class="marketing-display text-2xl text-[var(--marketing-ink)]">
+        {document.title}
+      </h3>
+      <p class="mt-2 text-sm leading-6 text-[var(--marketing-muted)]">
+        {document.form} · {document.pages} pages · {document.length}
+      </p>
+    </div>
+    <p class="text-sm text-[var(--marketing-gold-600)]">{document.gate}</p>
+  </div>
+</div>

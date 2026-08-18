@@ -1,0 +1,37 @@
+---
+export const prerender = true;
+
+import MarketingHero from '@/components/marketing/MarketingHero.astro';
+import DocRow from '@/components/marketing/DocRow.astro';
+import { marketingImages } from '@/data/marketing/image-assets';
+import { marketingPages } from '@/data/marketing/pages';
+import { documents } from '@/data/marketing/documents';
+import MarketingLayout from '@layout/MarketingLayout.astro';
+
+const page = marketingPages.resources;
+---
+
+<MarketingLayout seo={page.seo}>
+  <MarketingHero
+    {...page.hero}
+    secondaryCta={page.secondaryCta}
+    image={marketingImages.architectureGallery}
+    ratio="3 / 2"
+  />
+
+  <section class="marketing-container py-16 lg:py-24">
+    <p class="marketing-eyebrow">The library</p>
+    <div class="mt-6 border-t border-[var(--marketing-rule)]">
+      {
+        documents.map((document, index) => (
+          <DocRow {document} {index} />
+        ))
+      }
+    </div>
+    <p class="mt-10 max-w-2xl text-sm leading-7 text-[var(--marketing-muted)]">
+      These documents stay inside the ecosystem. They open after a discovery
+      briefing, are delivered by invitation, and remain available to members
+      from the portal.
+    </p>
+  </section>
+</MarketingLayout>
