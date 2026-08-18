@@ -1,0 +1,51 @@
+---
+import type { Pathway } from '@/data/marketing/pathways';
+
+interface Props {
+  pathway: Pathway;
+}
+
+const { pathway } = Astro.props;
+const isFund = pathway.accent === 'platinum';
+---
+
+<div class="marketing-surface-dark border border-[var(--marketing-gold-line)] p-8 lg:p-10">
+  <p class="marketing-eyebrow">{isFund ? 'Partnership Pathway 2' : 'Partnership Pathway 1'}</p>
+  <h3
+    class="marketing-display mt-3 text-3xl text-[var(--marketing-ink-on-dark)]"
+  >
+    {pathway.name}
+  </h3>
+  <p class="mt-4 leading-7 text-[var(--marketing-dim-on-dark)]">
+    {pathway.summary}
+  </p>
+  {pathway.minimum && (
+    <p class="mt-4 text-sm text-[var(--marketing-dim-on-dark)]">
+      {pathway.minimum}
+    </p>
+  )}
+  <ul class="mt-6 grid gap-3 text-sm">
+    {
+      pathway.keyFacts.map(fact => (
+        <li class="marketing-ledger-row">
+          <span class="marketing-ledger-label">{fact}</span>
+          <span
+            class={`marketing-ledger-value ${
+              isFund ? 'text-[var(--marketing-platinum-200)]' : 'text-[var(--marketing-gold-400)]'
+            }`}
+          >
+            ✓
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+  <a
+    class={`mt-8 block text-center ${
+      isFund ? 'marketing-button-fund' : 'marketing-button-primary'
+    }`}
+    href={pathway.cta.href}
+  >
+    {pathway.cta.label}
+  </a>
+</div>
