@@ -34,17 +34,27 @@ const page = marketingPages.about;
     title="A project kept deliberately small and legible."
     body="Everything in The Swift Project is built to be explained in one conversation — and written down for the dossier."
     items={[
-      { label: 'Capsule', value: '38 m²', note: 'nine-layer wall system, CIGS solar-ready' },
+      {
+        label: 'Capsule',
+        value: '38 m²',
+        note: 'nine-layer wall system, CIGS solar-ready',
+      },
       { label: 'Entry', value: '$50,000' },
       { label: 'Share', value: '70 / 30' },
       { label: 'Lock-in', value: '5 years' },
-      { label: 'Hubs', value: '4', note: 'Oyarifa · Kumasi · Tamale · Takoradi' },
+      {
+        label: 'Hubs',
+        value: '4',
+        note: 'Oyarifa · Kumasi · Tamale · Takoradi',
+      },
     ]}
     cta={{ label: 'Request a briefing', href: '/briefing' }}
   />
 
   <section class="marketing-surface-dark">
-    <div class="marketing-container grid items-center gap-10 py-16 lg:grid-cols-[0.9fr_1fr] lg:py-20">
+    <div
+      class="marketing-container grid items-center gap-10 py-16 lg:grid-cols-[0.9fr_1fr] lg:py-20"
+    >
       <div>
         <p class="marketing-eyebrow">Contact</p>
         <h2
@@ -66,19 +76,28 @@ const page = marketingPages.about;
         </div>
         <div class="marketing-ledger-row">
           <span class="marketing-ledger-label">North America</span>
-          <a class="marketing-ledger-value" href={`tel:${marketingSite.phoneNorthAmerica}`}>
+          <a
+            class="marketing-ledger-value"
+            href={`tel:${marketingSite.phoneNorthAmerica}`}
+          >
             {marketingSite.phoneNorthAmerica}
           </a>
         </div>
         <div class="marketing-ledger-row">
           <span class="marketing-ledger-label">Email</span>
-          <a class="marketing-ledger-value" href={`mailto:${marketingSite.email}`}>
+          <a
+            class="marketing-ledger-value"
+            href={`mailto:${marketingSite.email}`}
+          >
             {marketingSite.email}
           </a>
         </div>
         <div class="marketing-ledger-row">
           <span class="marketing-ledger-label">Partnerships</span>
-          <a class="marketing-ledger-value" href={`mailto:${marketingSite.partnershipsEmail}`}>
+          <a
+            class="marketing-ledger-value"
+            href={`mailto:${marketingSite.partnershipsEmail}`}
+          >
             {marketingSite.partnershipsEmail}
           </a>
         </div>

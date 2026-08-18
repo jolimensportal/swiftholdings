@@ -24,23 +24,43 @@ const page = marketingPages.protections;
     title="A useful distinction between what is clear and what needs direct discussion."
     body="Every protection below is confirmed in the dossier, and every open question is the subject of the private briefing."
     items={[
-      { label: 'Deposits', value: 'Into escrow', note: 'before any build begins' },
-      { label: 'Title', value: 'Ghanaian land law', note: 'verified before permits' },
-      { label: 'Build', value: 'Insured', note: 'nine-layer wall system, CIGS solar-ready' },
-      { label: 'Operations', value: 'One operator', note: 'The Swift Project, five-year lock-in' },
-      { label: 'Documents', value: 'Gated dossier', note: 'three long-form documents, behind the briefing' },
+      {
+        label: 'Deposits',
+        value: 'Into escrow',
+        note: 'before any build begins',
+      },
+      {
+        label: 'Title',
+        value: 'Ghanaian land law',
+        note: 'verified before permits',
+      },
+      {
+        label: 'Build',
+        value: 'Insured',
+        note: 'nine-layer wall system, CIGS solar-ready',
+      },
+      {
+        label: 'Operations',
+        value: 'One operator',
+        note: 'The Swift Project, five-year lock-in',
+      },
+      {
+        label: 'Documents',
+        value: 'Gated dossier',
+        note: 'three long-form documents, behind the briefing',
+      },
     ]}
     cta={{ label: 'Read the dossier', href: '/resources' }}
   />
 
   <section class="border-y border-[var(--marketing-rule)] py-16">
-    <div class="marketing-container grid items-center gap-8 lg:grid-cols-[0.9fr_1fr]">
+    <div
+      class="marketing-container grid items-center gap-8 lg:grid-cols-[0.9fr_1fr]"
+    >
       <ImageFrame image={marketingImages.briefingClose} ratio="3 / 2" />
       <div>
         <p class="marketing-eyebrow">Private briefing</p>
-        <h2
-          class="marketing-display mt-3 text-4xl text-[var(--marketing-ink)]"
-        >
+        <h2 class="marketing-display mt-3 text-4xl text-[var(--marketing-ink)]">
           Ask the questions that shape your decision.
         </h2>
         <p class="mt-5 max-w-xl leading-8 text-[var(--marketing-muted)]">

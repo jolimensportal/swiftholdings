@@ -25,7 +25,13 @@ const { eyebrow, title, body, items, cta } = Astro.props;
       >
         {title}
       </h2>
-      {body && <p class="mt-4 max-w-md leading-7 text-[var(--marketing-muted)]">{body}</p>}
+      {
+        body && (
+          <p class="mt-4 max-w-md leading-7 text-[var(--marketing-muted)]">
+            {body}
+          </p>
+        )
+      }
       {
         cta && (
           <a class="marketing-button-outline mt-6" href={cta.href}>

@@ -5,7 +5,8 @@ interface Props {
   ariaLabel?: string;
 }
 
-const { ariaLabel = 'Map of The Swift Project hubs across Ghana' } = Astro.props;
+const { ariaLabel = 'Map of The Swift Project hubs across Ghana' } =
+  Astro.props;
 ---
 
 <section class="marketing-surface-dark">
@@ -35,24 +36,21 @@ const { ariaLabel = 'Map of The Swift Project hubs across Ghana' } = Astro.props
               x2="28"
               y2="44"
               class="stroke-[var(--marketing-gold-700)]"
-              stroke-width="0.25"
-            />
+              stroke-width="0.25"></line>
             <line
               x1="28"
               y1="44"
               x2="52"
               y2="14"
               class="stroke-[var(--marketing-gold-700)]"
-              stroke-width="0.25"
-            />
+              stroke-width="0.25"></line>
             <line
               x1="28"
               y1="44"
               x2="22"
               y2="66"
               class="stroke-[var(--marketing-gold-700)]"
-              stroke-width="0.25"
-            />
+              stroke-width="0.25"></line>
             {
               swiftHubs.map(hub => (
                 <g>
@@ -87,7 +85,9 @@ const { ariaLabel = 'Map of The Swift Project hubs across Ghana' } = Astro.props
                   {hub.region} · {hub.role}
                 </span>
               </span>
-              <span class="marketing-ledger-value">{hub.capsules} capsules</span>
+              <span class="marketing-ledger-value">
+                {hub.capsules} capsules
+              </span>
             </div>
           ))
         }

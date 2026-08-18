@@ -49,7 +49,7 @@ export default function Calculator({
             min={CALCULATOR_DEFAULTS.occupancyMin * 100}
             max={CALCULATOR_DEFAULTS.occupancyMax * 100}
             value={Math.round(occupancy * 100)}
-            onChange={(event) => setOccupancy(Number(event.target.value) / 100)}
+            onChange={event => setOccupancy(Number(event.target.value) / 100)}
             className="accent-[var(--marketing-gold-500)]"
           />
           <span className="text-xs text-[var(--marketing-dim-on-dark)]">
@@ -65,12 +65,12 @@ export default function Calculator({
             min={CALCULATOR_DEFAULTS.adrMin}
             max={CALCULATOR_DEFAULTS.adrMax}
             value={adr}
-            onChange={(event) => setAdr(Number(event.target.value))}
+            onChange={event => setAdr(Number(event.target.value))}
             className="accent-[var(--marketing-gold-500)]"
           />
           <span className="text-xs text-[var(--marketing-dim-on-dark)]">
-            ${adr} · market range ${CALCULATOR_DEFAULTS.adrMin}–
-            ${CALCULATOR_DEFAULTS.adrMax}
+            ${adr} · market range ${CALCULATOR_DEFAULTS.adrMin}– $
+            {CALCULATOR_DEFAULTS.adrMax}
           </span>
         </label>
       </div>

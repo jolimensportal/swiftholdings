@@ -22,11 +22,7 @@ const page = marketingPages.resources;
   <section class="marketing-container py-16 lg:py-24">
     <p class="marketing-eyebrow">The library</p>
     <div class="mt-6 border-t border-[var(--marketing-rule)]">
-      {
-        documents.map((document, index) => (
-          <DocRow {document} {index} />
-        ))
-      }
+      {documents.map((document, index) => <DocRow {document} {index} />)}
     </div>
     <p class="mt-10 max-w-2xl text-sm leading-7 text-[var(--marketing-muted)]">
       These documents stay inside the ecosystem. They open after a discovery

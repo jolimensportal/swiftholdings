@@ -30,16 +30,16 @@ const page = marketingPages.home;
         The ecosystem, open at three levels.
       </h2>
     </div>
-    <div class="mt-10 grid gap-px border border-[var(--marketing-gold-line)] bg-[var(--marketing-gold-line)] lg:grid-cols-3">
+    <div
+      class="mt-10 grid gap-px border border-[var(--marketing-gold-line)] bg-[var(--marketing-gold-line)] lg:grid-cols-3"
+    >
       {
         marketingSite.tiers.map((tier, index) => (
           <article class="bg-[var(--marketing-obsidian-900)] p-8 text-[var(--marketing-ink-on-dark)] lg:p-10">
             <p class="marketing-ledger-label">
               {String(index + 1).padStart(2, '0')}
             </p>
-            <h3 class="marketing-display mt-4 text-2xl">
-              {tier.name}
-            </h3>
+            <h3 class="marketing-display mt-4 text-2xl">{tier.name}</h3>
             <p class="mt-3 text-sm leading-6 text-[var(--marketing-dim-on-dark)]">
               {tier.summary}
             </p>
@@ -75,7 +75,9 @@ const page = marketingPages.home;
   />
 
   <section class="marketing-surface-dark">
-    <div class="marketing-container grid items-center gap-10 py-16 lg:grid-cols-[1fr_0.9fr] lg:py-20">
+    <div
+      class="marketing-container grid items-center gap-10 py-16 lg:grid-cols-[1fr_0.9fr] lg:py-20"
+    >
       <ImageFrame image={marketingImages.duskCta} ratio="3 / 2" />
       <div>
         <p class="marketing-eyebrow">The next step</p>
