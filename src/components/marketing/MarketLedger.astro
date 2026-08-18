@@ -1,0 +1,53 @@
+---
+interface LedgerItem {
+  label: string;
+  value: string;
+  note?: string;
+}
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  body?: string;
+  items: readonly LedgerItem[];
+  cta?: { label: string; href: string };
+}
+
+const { eyebrow, title, body, items, cta } = Astro.props;
+---
+
+<section class="marketing-container py-16 lg:py-24">
+  <div class="grid gap-10 lg:grid-cols-[1fr_1.4fr]">
+    <div>
+      <p class="marketing-eyebrow">{eyebrow}</p>
+      <h2
+        class="marketing-display mt-3 max-w-md text-4xl leading-[1.08] text-[var(--marketing-ink)]"
+      >
+        {title}
+      </h2>
+      {body && <p class="mt-4 max-w-md leading-7 text-[var(--marketing-muted)]">{body}</p>}
+      {
+        cta && (
+          <a class="marketing-button-outline mt-6" href={cta.href}>
+            {cta.label}
+          </a>
+        )
+      }
+    </div>
+    <div class="border-t border-[var(--marketing-rule)] pt-2">
+      {
+        items.map(item => (
+          <div class="marketing-ledger-row">
+            <span class="marketing-ledger-label">
+              {item.label}
+              {item.note && (
+                <span class="mt-0.5 block text-xs">— {item.note}</span>
+              )}
+            </span>
+            <span class="marketing-ledger-value">{item.value}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

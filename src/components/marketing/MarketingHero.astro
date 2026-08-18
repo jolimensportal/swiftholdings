@@ -18,40 +18,42 @@ const {
   title,
   lead,
   image,
-  ratio = '16 / 10',
+  ratio = '4 / 3',
   mobileRatio = ratio,
   secondaryCta,
 } = Astro.props;
 ---
 
-<section
-  class="marketing-container grid items-center gap-10 py-12 lg:grid-cols-[1.04fr_0.96fr] lg:py-20"
->
-  <div>
-    <p class="marketing-eyebrow">{eyebrow}</p>
-    <h1
-      class="mt-4 max-w-xl text-5xl font-semibold tracking-[-0.05em] text-[var(--marketing-ink)] sm:text-6xl lg:text-7xl"
-    >
-      {title}
-    </h1>
-    <p class="mt-6 max-w-xl text-lg leading-8 text-[var(--marketing-muted)]">
-      {lead}
-    </p>
-    <div class="mt-8 flex flex-wrap items-center gap-5">
-      <a class="marketing-button-primary" href={marketingSite.primaryCta.href}>
-        {marketingSite.primaryCta.label}
-      </a>
-      {
-        secondaryCta && (
-          <a class="marketing-button-link" href={secondaryCta.href}>
-            {secondaryCta.label}
-          </a>
-        )
-      }
+<section class="marketing-surface-dark bg-[var(--marketing-obsidian-900)]">
+  <div
+    class="marketing-container grid items-center gap-10 py-14 lg:grid-cols-[1.04fr_0.96fr] lg:py-20"
+  >
+    <div>
+      <p class="marketing-eyebrow">{eyebrow}</p>
+      <h1
+        class="marketing-display mt-4 max-w-xl text-5xl leading-[1.04] text-[var(--marketing-ink-on-dark)] sm:text-6xl"
+      >
+        {title}
+      </h1>
+      <p class="mt-6 max-w-xl text-lg leading-8 text-[var(--marketing-dim-on-dark)]">
+        {lead}
+      </p>
+      <div class="mt-8 flex flex-wrap items-center gap-5">
+        <a class="marketing-button-primary" href={marketingSite.primaryCta.href}>
+          {marketingSite.primaryCta.label}
+        </a>
+        {
+          secondaryCta && (
+            <a class="marketing-button-outline" href={secondaryCta.href}>
+              {secondaryCta.label}
+            </a>
+          )
+        }
+      </div>
+      <p class="mt-6 text-sm text-[var(--marketing-dim-on-dark)]">
+        A guided conversation, not a public sales funnel.
+      </p>
     </div>
-    <p class="mt-6 text-sm text-[var(--marketing-muted)]">
-      A guided conversation, not a public sales funnel.
-    </p>
+    <ImageFrame image={image} {ratio} {mobileRatio} loading="eager" />
   </div>
-  <ImageFrame image={image} {ratio} {mobileRatio} loading="eager" />
 </section>
