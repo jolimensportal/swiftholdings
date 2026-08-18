@@ -1,16 +1,41 @@
 export const marketingSite = {
-  name: 'Swift Holdings',
+  name: 'The Swift Project',
+  legalName: 'Swift Holdings',
   email: 'info@swiftholdings.org',
+  partnershipsEmail: 'partnerships@swiftholdings-ghana.com',
   phone: '+233 544 101016',
+  phoneNorthAmerica: '+1 437 421 0963',
   address: '20 Edmonton St, Madina, Accra',
-  primaryCta: { label: 'Request a private briefing', href: '/briefing' },
+  primaryCta: { label: 'Request a briefing', href: '/briefing' },
   navigation: [
     { href: '/village', label: 'The Village' },
     { href: '/how-it-works', label: 'How It Works' },
-    { href: '/ownership', label: 'Ownership' },
+    { href: '/ownership', label: 'Ownership & Financials' },
     { href: '/protections', label: 'Protections' },
-    { href: '/accra', label: 'Accra' },
+    { href: '/locations', label: 'Locations' },
+    { href: '/partnership', label: 'Partnership' },
     { href: '/about', label: 'About' },
+    { href: '/resources', label: 'Resources' },
+  ],
+  tiers: [
+    {
+      name: 'Guest',
+      summary:
+        'Browse and book short stays at project capsules — like a gated community open to the public.',
+      cta: { label: 'Explore stays', href: '/village' },
+    },
+    {
+      name: 'Member',
+      summary:
+        'Join through the discovery briefing for full yield data, availability, pricing, and the legal dossier.',
+      cta: { label: 'Join through a briefing', href: '/briefing' },
+    },
+    {
+      name: 'Owner-Investor',
+      summary:
+        'Set up a P7 capsule from a $50,000 entry and share revenue 70 / 30. Primary audience: the diaspora.',
+      cta: { label: 'See the model', href: '/ownership' },
+    },
   ],
 } as const;
 
@@ -20,6 +45,8 @@ export type MarketingPageKey =
   | 'howItWorks'
   | 'ownership'
   | 'protections'
-  | 'accra'
+  | 'locations'
+  | 'partnership'
   | 'about'
+  | 'resources'
   | 'briefing';
