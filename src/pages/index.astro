@@ -3,87 +3,95 @@ export const prerender = true;
 
 import ImageFrame from '@/components/marketing/ImageFrame.astro';
 import MarketingHero from '@/components/marketing/MarketingHero.astro';
-import ProofStrip from '@/components/marketing/ProofStrip.astro';
 import StorySplit from '@/components/marketing/StorySplit.astro';
+import MarketLedger from '@/components/marketing/MarketLedger.astro';
 import { marketingImages } from '@/data/marketing/image-assets';
 import { marketingPages } from '@/data/marketing/pages';
+import { marketingSite } from '@/data/marketing/site';
 import MarketingLayout from '@layout/MarketingLayout.astro';
 
 const page = marketingPages.home;
-const reasons = [
-  {
-    title: 'Built with precision',
-    body: 'A prefab-led approach replaces improvised, distant decision-making with a clearer process.',
-  },
-  {
-    title: 'A guided ownership path',
-    body: 'The first conversation is designed to make the next decision more informed, not more pressured.',
-  },
-  {
-    title: 'Designed for life abroad',
-    body: 'The site speaks to a home base for family, return visits, and the future.',
-  },
-];
 ---
 
-<MarketingLayout seo={page.seo}>
+<MarketingLayout seo={page.seo} headerTheme="dark">
   <MarketingHero
     {...page.hero}
+    secondaryCta={page.secondaryCta}
     image={marketingImages.homeHero}
-    mobileRatio="4 / 5"
-    secondaryCta={{ label: 'See how it works', href: '/how-it-works' }}
+    ratio="4 / 3"
   />
-  <ProofStrip items={page.proof} />
-  <StorySplit {...page.story} image={marketingImages.villageStory} />
 
-  <section class="marketing-container py-20">
-    <div
-      class="grid gap-8 border-t border-[var(--marketing-rule)] pt-6 md:grid-cols-3"
-    >
+  <section class="marketing-container py-16 lg:py-24">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <p class="marketing-eyebrow">One project, three doors</p>
+      <h2
+        class="marketing-display mt-3 max-w-2xl text-4xl leading-[1.08] text-[var(--marketing-ink)]"
+      >
+        The ecosystem, open at three levels.
+      </h2>
+    </div>
+    <div class="mt-10 grid gap-px border border-[var(--marketing-gold-line)] bg-[var(--marketing-gold-line)] lg:grid-cols-3">
       {
-        reasons.map((reason, index) => (
-          <article>
-            <p class="text-sm font-bold text-[var(--marketing-violet)]">
-              0{index + 1}
+        marketingSite.tiers.map((tier, index) => (
+          <article class="bg-[var(--marketing-obsidian-900)] p-8 text-[var(--marketing-ink-on-dark)] lg:p-10">
+            <p class="marketing-ledger-label">
+              {String(index + 1).padStart(2, '0')}
             </p>
-            <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em]">
-              {reason.title}
-            </h2>
-            <p class="mt-3 leading-7 text-[var(--marketing-muted)]">
-              {reason.body}
+            <h3 class="marketing-display mt-4 text-2xl">
+              {tier.name}
+            </h3>
+            <p class="mt-3 text-sm leading-6 text-[var(--marketing-dim-on-dark)]">
+              {tier.summary}
             </p>
+            <a class="marketing-button-link mt-6" href={tier.cta.href}>
+              {tier.cta.label}
+            </a>
           </article>
         ))
       }
     </div>
   </section>
 
-  <section class="marketing-container grid gap-5 pb-20 md:grid-cols-2">
-    <ImageFrame image={marketingImages.diasporaLifestyle} ratio="4 / 3" />
-    <ImageFrame image={marketingImages.architectureGallery} ratio="4 / 3" />
-  </section>
+  <MarketLedger
+    eyebrow="The market"
+    title="The numbers that ground the project."
+    body="Ghana's accommodation deficit is documented, not assumed. The ledger is public; the sources live in the dossier."
+    items={[
+      { label: 'Accra accommodation deficit', value: '300,000+' },
+      { label: 'National deficit', value: '2,000,000+' },
+      { label: 'Demand growth per year', value: '6–10%' },
+      { label: 'Market occupancy', value: '33–44%' },
+      { label: 'Unit target occupancy', value: '88%' },
+    ]}
+    cta={{ label: 'See the financials', href: '/ownership' }}
+  />
 
-  <section class="marketing-surface-dark bg-[#2A1C46] py-16 text-white">
-    <div
-      class="marketing-container grid items-center gap-8 md:grid-cols-[1fr_0.8fr]"
-    >
+  <StorySplit
+    eyebrow="For the diaspora"
+    title="A base to come home to."
+    body="Every part of the project is shaped for the diaspora: USD-denominated numbers, English documentation, escrow before build, and a settlement in GHS when you are home."
+    image={marketingImages.diasporaLifestyle}
+    reverse
+  />
+
+  <section class="marketing-surface-dark">
+    <div class="marketing-container grid items-center gap-10 py-16 lg:grid-cols-[1fr_0.9fr] lg:py-20">
+      <ImageFrame image={marketingImages.duskCta} ratio="3 / 2" />
       <div>
-        <p class="marketing-eyebrow text-white/70">The next step</p>
-        <h2 class="mt-3 text-4xl font-semibold tracking-[-0.04em]">
-          See whether Swift fits your plans.
-        </h2>
-        <a
-          class="mt-6 inline-flex rounded-md border border-white/75 px-4 py-3 font-semibold"
-          href="/briefing"
+        <p class="marketing-eyebrow">The next step</p>
+        <h2
+          class="marketing-display mt-3 max-w-lg text-4xl leading-[1.08] text-[var(--marketing-ink-on-dark)]"
         >
-          Request a private briefing
+          Every conversation starts with a briefing.
+        </h2>
+        <p class="mt-4 max-w-lg leading-7 text-[var(--marketing-dim-on-dark)]">
+          Tell us what you are planning. The briefing decides the level of
+          detail you see — and it is the only door into the member material.
+        </p>
+        <a class="marketing-button-primary mt-7" href="/briefing">
+          Request a briefing
         </a>
       </div>
-      <ImageFrame
-        image={marketingImages.duskCta}
-        ratio="16 / 10"
-        mobileRatio="4 / 5"
-      />
     </div>
   </section>
 </MarketingLayout>
