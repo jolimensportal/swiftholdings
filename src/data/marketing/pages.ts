@@ -11,139 +11,142 @@ interface MarketingHeroContent {
   lead: string;
 }
 
-interface MarketingStoryContent {
-  eyebrow: string;
-  title: string;
-  body: string;
-}
-
 interface MarketingPage {
   seo: MarketingSeo;
   hero: MarketingHeroContent;
-  proof?: ReadonlyArray<{ label: string; value: string }>;
-  story?: MarketingStoryContent;
+  secondaryCta?: { label: string; href: string };
 }
 
 export const marketingPages = {
   home: {
     seo: {
-      title: 'Swift Holdings | A home in Accra, built with certainty.',
+      title:
+        'The Swift Project | A luxury hospitality asset in Ghana, built with absolute certainty.',
       description:
-        'Explore a more considered path to a home base in Oyarifa, Accra. Start with a private briefing.',
+        'Own a P7 capsule in Ghana on a 70 / 30 model. The Swift Project — a membership ecosystem of luxury modular hospitality across Accra, Kumasi, Tamale, and Takoradi.',
     },
     hero: {
-      eyebrow: 'Oyarifa, Accra',
-      title: 'A home in Accra, built with certainty.',
-      lead: 'Swift Holdings starts with a clearer conversation for people planning a dependable home base in Accra from abroad.',
+      eyebrow: 'Oyarifa · Accra',
+      title:
+        'A luxury hospitality asset in Ghana, built with absolute certainty.',
+      lead: 'The Swift Project is a membership ecosystem: guests book stays, members hold the detail, and owner-investors operate their own capsule on a 70 / 30 revenue share.',
     },
-    proof: [
-      { label: 'Location', value: 'Oyarifa, Accra' },
-      { label: 'Approach', value: 'Prefab-led precision' },
-      { label: 'First step', value: 'Private briefing' },
-    ],
-    story: {
-      eyebrow: 'A considered return',
-      title: 'The better way to make Accra home from abroad.',
-      body: 'A homecoming deserves more than distant assumptions. Swift brings together local context, a prefab-led direction, and a private briefing designed to make the next decision more informed.',
-    },
+    secondaryCta: { label: 'See the model', href: '/ownership' },
   },
   village: {
     seo: {
-      title: 'The Village | Swift Holdings',
+      title: 'The Village | The Swift Project',
       description:
-        'Explore the Oyarifa context and the calmer homecoming rhythm Swift Holdings is designed to support.',
+        'The Oyarifa village: P7 capsules, shared land, the nine-layer wall system, and solar-ready design.',
     },
     hero: {
-      eyebrow: 'Oyarifa, Accra',
-      title: 'A quieter way to return to Accra.',
-      lead: 'A village direction for diaspora buyers seeking a more grounded home base, closer to family and local context.',
+      eyebrow: 'Oyarifa · Accra',
+      title: 'A village of capsules, held in common.',
+      lead: 'Owner-investors hold the capsule; the village holds the land. Shared infrastructure, secure compounds, and a calmer rhythm than the city core.',
     },
-    story: {
-      eyebrow: 'A sense of place',
-      title: 'Start with the setting, then the decisions.',
-      body: 'A private briefing is the place to discuss what Oyarifa could mean for your return rhythm, your family, and the questions you want answered before you decide.',
-    },
+    secondaryCta: { label: 'See the locations', href: '/locations' },
   },
   howItWorks: {
     seo: {
-      title: 'How It Works | Swift Holdings',
+      title: 'How It Works | The Swift Project',
       description:
-        'Understand the four-part Swift Holdings briefing and decision path for a considered home base in Accra.',
+        'From discovery briefing to revenue: the five-phase path to a P7 capsule and the five-year operating lock-in.',
     },
     hero: {
-      eyebrow: 'A clearer next step',
-      title: 'From first conversation to a home base.',
-      lead: 'The process begins with the questions that matter to you, then moves only as the next details become clear.',
+      eyebrow: 'The path',
+      title: 'From first conversation to first revenue.',
+      lead: 'Five phases, a five-year operating lock-in, and a 70 / 30 share settled monthly. The path is the same for every capsule.',
     },
+    secondaryCta: { label: 'Check the numbers', href: '/ownership' },
   },
   ownership: {
     seo: {
-      title: 'Ownership | Swift Holdings',
+      title: 'Ownership & Financials | The Swift Project',
       description:
-        'Learn what a private briefing can clarify before you make a decision about a Swift Holdings home base.',
+        'A $50,000 entry, a 70 / 30 revenue share, and an operating model built on documented market data across Ghana.',
     },
     hero: {
-      eyebrow: 'A considered decision',
+      eyebrow: 'Ownership & financials',
       title: 'Know what you are choosing before you commit.',
-      lead: 'Swift is for buyers who want practical context and direct answers before deciding whether a home base in Accra is right for them.',
+      lead: 'One entry point, one share, one operator. The Swift Project keeps the owner path legible: $50,000, 70 / 30, and a monthly settlement.',
     },
-    story: {
-      eyebrow: 'Clarity first',
-      title: 'A briefing should make the next decision easier to understand.',
-      body: 'Use the conversation to discuss buyer fit, current project context, practical questions, and the details that need direct confirmation.',
-    },
+    secondaryCta: { label: 'See the protections', href: '/protections' },
   },
   protections: {
     seo: {
-      title: 'Protections | Swift Holdings',
+      title: 'Protections | The Swift Project',
       description:
-        'See what Swift Holdings presents clearly, what remains to be confirmed, and what to ask in a private briefing.',
+        'Escrow, Ghanaian land law, insurance, and the legal dossier behind every capsule.',
     },
     hero: {
-      eyebrow: 'Buyer confidence',
+      eyebrow: 'Protections',
       title: 'Clarity before confidence.',
-      lead: 'The most useful safeguards begin with clear distinctions between what is known, what is illustrative, and what needs direct discussion.',
+      lead: 'Deposits into escrow, title under Ghanaian law, insured builds, and a legal dossier members can read in full.',
     },
+    secondaryCta: { label: 'Read the dossier', href: '/resources' },
   },
-  accra: {
+  locations: {
     seo: {
-      title: 'Accra | Swift Holdings',
+      title: 'Locations | The Swift Project',
       description:
-        'Consider the local context, return rhythm, and practical questions behind a home base in Oyarifa, Accra.',
+        'Four hubs — Oyarifa (Accra), Kumasi, Tamale, and Takoradi — and the market case for each.',
     },
     hero: {
-      eyebrow: 'Oyarifa perspective',
-      title: 'A homecoming needs local context.',
-      lead: 'A considered return starts with how you will use the home, who it serves, and what needs to be clear before you decide.',
+      eyebrow: 'Locations',
+      title: 'Four hubs, one standard.',
+      lead: 'The same capsule, the same 70 / 30, the same build standard — across the cities where Ghanaian demand is growing fastest.',
     },
-    story: {
-      eyebrow: 'Practical context',
-      title: 'Start with the questions that matter in Oyarifa.',
-      body: 'How often will you be in Accra? Who will use the home? What needs to be clear before you decide? A private briefing creates space for those questions.',
+    secondaryCta: { label: 'Start with the village', href: '/village' },
+  },
+  partnership: {
+    seo: {
+      title: 'Partnership | The Swift Project',
+      description:
+        'Two pathways: become an owner-investor, or partner with the Ecosystem Fund for institutional deployment.',
     },
+    hero: {
+      eyebrow: 'Partnership',
+      title: 'Two ways into the project.',
+      lead: 'Owner-investors set up capsules on the 70 / 30. The Ecosystem Fund deploys institutional capital across hubs at scale.',
+    },
+    secondaryCta: { label: 'See the financials', href: '/ownership' },
   },
   about: {
     seo: {
-      title: 'About Swift Holdings',
+      title: 'About | The Swift Project',
       description:
-        'Learn why Swift Holdings exists and why a buyer-first conversation matters for a considered return to Accra.',
+        'Why The Swift Project exists: certainty, craft, and a better model for modular hospitality in Ghana.',
     },
     hero: {
-      eyebrow: 'About Swift',
-      title: 'Why Swift exists.',
-      lead: 'Swift exists to make a return to Accra feel more legible, more grounded, and more considered from abroad.',
+      eyebrow: 'About',
+      title: 'Built with certainty, not promises.',
+      lead: 'Swift Holdings builds, operates, and shares the Swift Project — a membership ecosystem designed for the diaspora returning home.',
     },
+    secondaryCta: { label: 'Request a briefing', href: '/briefing' },
+  },
+  resources: {
+    seo: {
+      title: 'Resources | The Swift Project',
+      description:
+        'The partnership summary, investor summary, and institutional whitepaper — behind the discovery briefing.',
+    },
+    hero: {
+      eyebrow: 'Resources',
+      title: 'The detail, held for members.',
+      lead: 'Three long-form documents carry the real substance. They open after a discovery briefing, and stay with members in the portal.',
+    },
+    secondaryCta: { label: 'Join through a briefing', href: '/briefing' },
   },
   briefing: {
     seo: {
-      title: 'Private Briefing | Swift Holdings',
+      title: 'Briefing | The Swift Project',
       description:
-        'Tell Swift Holdings what you are planning and begin with a private, buyer-first conversation about a home base in Accra.',
+        'Request a private discovery briefing on owning a P7 capsule in Ghana.',
     },
     hero: {
       eyebrow: 'Private briefing',
       title: 'Tell us what you are planning.',
-      lead: 'Share the essentials and Swift will use them only to reply to your request with a more relevant next conversation.',
+      lead: 'Share the essentials, and we reply with a more relevant next conversation. Briefings are encrypted, recorded, and summarised.',
     },
   },
 } as const satisfies Record<MarketingPageKey, MarketingPage>;
