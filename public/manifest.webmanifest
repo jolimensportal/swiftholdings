@@ -1,6 +1,6 @@
 {
-  "short_name": "Swift",
-  "name": "Swift Holdings",
+  "short_name": "Swift Project",
+  "name": "The Swift Project",
   "icons": [
     {
       "src": "/icon-192.png",
@@ -18,6 +18,6 @@
   "display": "minimal-ui",
   "id": "/",
   "start_url": "/",
-  "theme_color": "#2A1C46",
-  "background_color": "#F8F7F4"
+  "theme_color": "#14141A",
+  "background_color": "#F4EFE6"
 }

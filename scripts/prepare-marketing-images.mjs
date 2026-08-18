@@ -65,19 +65,21 @@ async function main() {
   const monogram = Buffer.from(
     `
     <svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-      <rect width="512" height="512" rx="96" fill="#2A1C46"/>
-      <path d="M152 156h208v54H220v39h112c39 0 68 23 68 59 0 35-28 58-70 58H152v-54h176c10 0 17-5 17-13 0-9-8-14-19-14H214c-39 0-64-23-64-58 0-42 29-71 72-71Z" fill="white"/>
+      <rect width="512" height="512" rx="96" fill="#14141A"/>
+      <rect x="120" y="120" width="272" height="272" rx="12" fill="none" stroke="#D6AC7A" stroke-width="6"/>
+      <path d="M196 336V176h46v56h44c30 0 52 20 52 52s-22 52-52 52h-90Z" fill="none" stroke="#E1BE92" stroke-width="6"/>
+      <path d="M196 336h-8" stroke="#E1BE92" stroke-width="6" stroke-linecap="round"/>
     </svg>
   `.trim()
   );
   const socialOverlay = Buffer.from(`
     <svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
-      <defs><linearGradient id="shade" x1="0" x2="1"><stop stop-color="#2A1C46" stop-opacity="0.92"/><stop offset="0.7" stop-color="#2A1C46" stop-opacity="0.18"/><stop offset="1" stop-color="#2A1C46" stop-opacity="0"/></linearGradient></defs>
+      <defs><linearGradient id="shade" x1="0" x2="1"><stop stop-color="#14141A" stop-opacity="0.94"/><stop offset="0.7" stop-color="#14141A" stop-opacity="0.22"/><stop offset="1" stop-color="#14141A" stop-opacity="0"/></linearGradient></defs>
       <rect width="1200" height="630" fill="url(#shade)"/>
-      <text x="72" y="90" fill="white" font-family="Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="3">SWIFT HOLDINGS</text>
-      <text x="72" y="135" fill="white" font-family="Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="2">ILLUSTRATIVE REFERENCE</text>
-      <text x="72" y="390" fill="white" font-family="Arial, sans-serif" font-size="64" font-weight="700">A home in Accra,</text>
-      <text x="72" y="462" fill="white" font-family="Arial, sans-serif" font-size="64" font-weight="700">built with certainty.</text>
+      <text x="72" y="90" fill="#E1BE92" font-family="Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="3">THE SWIFT PROJECT</text>
+      <text x="72" y="135" fill="#C9CDD6" font-family="Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="2">ILLUSTRATIVE REFERENCE</text>
+      <text x="72" y="390" fill="#F4EFE6" font-family="Arial, sans-serif" font-size="64" font-weight="700">A home in Accra,</text>
+      <text x="72" y="462" fill="#F4EFE6" font-family="Arial, sans-serif" font-size="64" font-weight="700">built with certainty.</text>
     </svg>
   `);
 
