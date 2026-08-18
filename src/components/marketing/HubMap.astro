@@ -1,0 +1,97 @@
+---
+import { swiftHubs } from '@/data/marketing/locations';
+
+interface Props {
+  ariaLabel?: string;
+}
+
+const { ariaLabel = 'Map of The Swift Project hubs across Ghana' } = Astro.props;
+---
+
+<section class="marketing-surface-dark">
+  <div class="marketing-container py-16 lg:py-24">
+    <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+      <div>
+        <p class="marketing-eyebrow">Four hubs</p>
+        <h2
+          class="marketing-display mt-3 max-w-md text-4xl leading-[1.08] text-[var(--marketing-ink-on-dark)]"
+        >
+          One standard, four cities.
+        </h2>
+        <p class="mt-4 max-w-md leading-7 text-[var(--marketing-dim-on-dark)]">
+          The same capsule, the same build, the same share — from the flagship
+          village in Oyarifa to the northern gateway in Tamale.
+        </p>
+        <div class="mt-8 max-w-md">
+          <svg
+            viewBox="0 0 100 80"
+            role="img"
+            aria-label={ariaLabel}
+            class="w-full border border-[var(--marketing-gold-line)] bg-[var(--marketing-obsidian-800)]"
+          >
+            <line
+              x1="62"
+              y1="34"
+              x2="28"
+              y2="44"
+              class="stroke-[var(--marketing-gold-700)]"
+              stroke-width="0.25"
+            />
+            <line
+              x1="28"
+              y1="44"
+              x2="52"
+              y2="14"
+              class="stroke-[var(--marketing-gold-700)]"
+              stroke-width="0.25"
+            />
+            <line
+              x1="28"
+              y1="44"
+              x2="22"
+              y2="66"
+              class="stroke-[var(--marketing-gold-700)]"
+              stroke-width="0.25"
+            />
+            {
+              swiftHubs.map(hub => (
+                <g>
+                  <circle
+                    cx={hub.x}
+                    cy={hub.y}
+                    r="1.5"
+                    class="fill-[var(--marketing-gold-400)]"
+                  />
+                  <text
+                    x={hub.x}
+                    y={hub.y - 3}
+                    class="fill-[var(--marketing-ink-on-dark)]"
+                    font-size="3.5"
+                    letter-spacing="0.08em"
+                  >
+                    {hub.city.toUpperCase()}
+                  </text>
+                </g>
+              ))
+            }
+          </svg>
+        </div>
+      </div>
+      <div class="border-t border-[var(--marketing-gold-line)] pt-2">
+        {
+          swiftHubs.map(hub => (
+            <div class="marketing-ledger-row">
+              <span class="marketing-ledger-label">
+                {hub.city}
+                <span class="mt-0.5 block text-xs">
+                  {hub.region} · {hub.role}
+                </span>
+              </span>
+              <span class="marketing-ledger-value">{hub.capsules} capsules</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

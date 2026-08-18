@@ -1,0 +1,38 @@
+---
+export const prerender = true;
+
+import MarketingHero from '@/components/marketing/MarketingHero.astro';
+import MarketLedger from '@/components/marketing/MarketLedger.astro';
+import HubMap from '@/components/marketing/HubMap.astro';
+import { marketingImages } from '@/data/marketing/image-assets';
+import { marketingPages } from '@/data/marketing/pages';
+import { marketStatistics } from '@/data/marketing/locations';
+import MarketingLayout from '@layout/MarketingLayout.astro';
+
+const page = marketingPages.locations;
+---
+
+<MarketingLayout seo={page.seo}>
+  <MarketingHero
+    {...page.hero}
+    secondaryCta={page.secondaryCta}
+    image={marketingImages.villageBanner}
+    ratio="3 / 2"
+  />
+
+  <HubMap />
+
+  <MarketLedger
+    eyebrow="The market"
+    title="Demand that outruns supply."
+    body="Ghana is short of rooms the way few markets are. The ledger below is public; the sources are in the dossier."
+    items={[
+      { label: 'Accra accommodation deficit', value: marketStatistics.accommodationDeficit },
+      { label: 'National deficit', value: marketStatistics.nationalDeficit },
+      { label: 'Demand growth per year', value: marketStatistics.growth },
+      { label: 'Market occupancy', value: marketStatistics.marketOccupancy },
+      { label: 'Unit target occupancy', value: marketStatistics.unitTarget },
+    ]}
+    cta={{ label: 'Check the financials', href: '/ownership' }}
+  />
+</MarketingLayout>
