@@ -9,70 +9,39 @@ import { marketingPages } from '@/data/marketing/pages';
 import MarketingLayout from '@layout/MarketingLayout.astro';
 
 const page = marketingPages.village;
-const supports = [
-  {
-    title: 'A home base',
-    body: 'A more considered place to begin a return to Accra, shaped around your own plans and questions.',
-  },
-  {
-    title: 'Time with family',
-    body: 'A setting to discuss in relation to the people, visits, and rhythms that matter to you.',
-  },
-  {
-    title: 'A calmer return rhythm',
-    body: 'A conversation that starts with local context before it asks you to make a decision.',
-  },
-];
 ---
 
 <MarketingLayout seo={page.seo}>
   <MarketingHero
     {...page.hero}
+    secondaryCta={page.secondaryCta}
     image={marketingImages.villageBanner}
     ratio="21 / 9"
   />
-  <StorySplit {...page.story} image={marketingImages.homeDetail} reverse />
 
-  <section class="marketing-container py-16 lg:py-24">
-    <p class="marketing-eyebrow">Village direction</p>
-    <h2 class="mt-3 max-w-2xl text-4xl font-semibold tracking-[-0.04em]">
-      What the village is designed to support.
-    </h2>
-    <div
-      class="mt-10 grid gap-8 border-t border-[var(--marketing-rule)] pt-6 md:grid-cols-3"
-    >
-      {
-        supports.map((item, index) => (
-          <article>
-            <p class="text-sm font-bold text-[var(--marketing-violet)]">
-              0{index + 1}
-            </p>
-            <h3 class="mt-3 text-2xl font-semibold tracking-[-0.03em]">
-              {item.title}
-            </h3>
-            <p class="mt-3 leading-7 text-[var(--marketing-muted)]">
-              {item.body}
-            </p>
-          </article>
-        ))
-      }
-    </div>
+  <StorySplit
+    eyebrow="The village"
+    title="Capsules in common, land held in common."
+    body="Owner-investors hold the capsule; the village holds the land. Shared walls, shared infrastructure, and a calmer rhythm than the city core — a compound, not a complex."
+    image={marketingImages.villageStory}
+    reverse
+  />
+
+  <section class="marketing-container grid gap-5 py-16 lg:py-24">
+    <ImageFrame image={marketingImages.homeDetail} ratio="4 / 3" />
   </section>
 
-  <section class="marketing-container grid gap-5 pb-20 md:grid-cols-2">
-    <ImageFrame image={marketingImages.warmDetail} ratio="4 / 3" />
-    <ImageFrame image={marketingImages.architectureGallery} ratio="4 / 3" />
-  </section>
-
-  <section class="border-y border-[var(--marketing-rule)] bg-white py-16">
+  <section class="border-y border-[var(--marketing-rule)] py-16">
     <div class="marketing-container max-w-3xl text-center">
       <p class="marketing-eyebrow">Private briefing</p>
-      <h2 class="mt-3 text-4xl font-semibold tracking-[-0.04em]">
+      <h2
+        class="marketing-display mt-3 text-4xl text-[var(--marketing-ink)]"
+      >
         Bring your plans to the conversation.
       </h2>
       <p class="mx-auto mt-5 max-w-xl leading-8 text-[var(--marketing-muted)]">
-        A private briefing is the place to ask about the village direction,
-        local context, and the next details that matter to you.
+        A private briefing is the place to ask about the village, local
+        context, and the details that matter to you.
       </p>
       <a class="marketing-button-primary mt-7" href="/briefing"
         >Request a private briefing</a
