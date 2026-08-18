@@ -11,9 +11,10 @@ import { marketingSite } from '@/data/marketing/site';
 
 interface Props {
   seo: { title: string; description: string };
+  headerTheme?: 'light' | 'dark';
 }
 
-const { seo } = Astro.props;
+const { seo, headerTheme = 'light' } = Astro.props;
 const siteUrl = Astro.site ?? new URL('https://swiftholdings.pages.dev');
 const socialImage = new URL('/social.png', siteUrl).href;
 const schema: WithContext<Thing> = {
@@ -40,7 +41,7 @@ const schema: WithContext<Thing> = {
         title: seo.title,
         description: seo.description,
         image: socialImage,
-        imageAlt: 'Swift Holdings illustrative prefab residence',
+        imageAlt: 'The Swift Project illustrative prefab residence',
       }}
       extend={{
         link: [
@@ -59,25 +60,37 @@ const schema: WithContext<Thing> = {
       config={[
         {
           src: [],
-          name: 'Outfit',
+          name: 'Manrope',
           googleFontsURL:
-            'https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap',
+            'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap',
           preload: true,
           display: 'swap',
           selector: 'body',
           fallback: 'sans-serif',
         },
+        {
+          src: [],
+          name: 'Cormorant Garamond',
+          googleFontsURL:
+            'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap',
+          preload: true,
+          display: 'swap',
+          selector: '.marketing-display',
+          fallback: 'serif',
+        },
       ]}
     />
   </head>
-  <body class="marketing-shell selection:bg-[#2A1C46] selection:text-white">
+  <body
+    class="marketing-shell selection:bg-[#C8A06C] selection:text-[#171719]"
+  >
     <a
       href="#main-content"
       class="marketing-button-primary sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50"
     >
       Skip to content
     </a>
-    <SiteHeader />
+    <SiteHeader theme={headerTheme} />
     <main id="main-content" tabindex="-1"><slot /></main>
     <SiteFooter />
   </body>

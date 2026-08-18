@@ -22,6 +22,17 @@ describe('marketing foundation regressions', () => {
     expect(imageFrame).toContain('--marketing-image-mobile-ratio');
   });
 
+  it('uses the phase 2 token set (obsidian, canvas, gold) and no violet', () => {
+    const marketingCss = readProjectFile('../../assets/styles/marketing.css');
+    const layout = readProjectFile('../../layout/MarketingLayout.astro');
+
+    expect(marketingCss).toContain('--marketing-obsidian-900:');
+    expect(marketingCss).toContain('--marketing-canvas:');
+    expect(marketingCss).toContain('--marketing-gold-gradient');
+    expect(marketingCss).not.toContain('#2A1C46');
+    expect(layout).not.toContain('#2A1C46');
+  });
+
   it('uses contrasting text and focus styling on dark marketing surfaces', () => {
     const marketingCss = readProjectFile('../../assets/styles/marketing.css');
     const homePage = readProjectFile('../../pages/index.astro');
@@ -44,5 +55,12 @@ describe('marketing foundation regressions', () => {
     ]) {
       expect(validator).toContain(asset);
     }
+  });
+
+  it('loads Cormorant Garamond and Manrope through astro-font', () => {
+    const layout = readProjectFile('../../layout/MarketingLayout.astro');
+
+    expect(layout).toContain('Cormorant+Garamond');
+    expect(layout).toContain('family=Manrope');
   });
 });

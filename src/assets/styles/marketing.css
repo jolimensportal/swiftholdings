@@ -1,16 +1,33 @@
 :root {
-  --marketing-paper: #f8f7f4;
-  --marketing-ink: #21182b;
-  --marketing-muted: #685f6c;
-  --marketing-rule: #ddd6cf;
-  --marketing-violet: #2a1c46;
-  --marketing-violet-hover: #1c0e2a;
+  --marketing-obsidian-950: #14141a;
+  --marketing-obsidian-900: #171719;
+  --marketing-obsidian-850: #1d2026;
+  --marketing-obsidian-800: #211f1d;
+  --marketing-canvas: #f4efe6;
+  --marketing-ink: #211f1d;
+  --marketing-muted: #5c574f;
+  --marketing-rule: #ded7cb;
+  --marketing-gold-400: #e1be92;
+  --marketing-gold-500: #d6ac7a;
+  --marketing-gold-600: #c8a06c;
+  --marketing-gold-700: #a88459;
+  --marketing-gold-gradient: linear-gradient(92deg, #d7b777 0%, #b99255 100%);
+  --marketing-gold-line: rgba(214, 172, 122, 0.14);
+  --marketing-ink-on-dark: #ede7dc;
+  --marketing-dim-on-dark: rgba(237, 231, 220, 0.5);
+  --marketing-fund-fill: #c9cdd6;
+  --marketing-fund-ink: #17191d;
 }
 
 .marketing-shell {
   min-height: 100vh;
-  background: var(--marketing-paper);
+  background: var(--marketing-canvas);
   color: var(--marketing-ink);
+}
+
+.marketing-shell-dark {
+  background: var(--marketing-obsidian-900);
+  color: var(--marketing-ink-on-dark);
 }
 
 .marketing-container {
@@ -19,33 +36,99 @@
 }
 
 .marketing-eyebrow {
-  color: var(--marketing-muted);
+  color: var(--marketing-gold-600);
   font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.13em;
+  font-weight: 600;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
+}
+
+.marketing-display {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  letter-spacing: -0.01em;
 }
 
 .marketing-button-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.375rem;
-  background: var(--marketing-violet);
-  color: #fff;
-  font-weight: 650;
-  padding: 0.75rem 1rem;
-  transition: background-color 160ms ease;
+  border-radius: 0.3125rem;
+  background: var(--marketing-gold-gradient);
+  color: #1a1a19;
+  font-weight: 600;
+  padding: 0.75rem 1.25rem;
+  transition: filter 160ms ease;
 }
 
 .marketing-button-primary:hover,
 .marketing-button-primary:focus-visible {
-  background: var(--marketing-violet-hover);
+  filter: brightness(1.06);
+}
+
+.marketing-button-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.3125rem;
+  border: 1px solid var(--marketing-gold-600);
+  color: var(--marketing-gold-600);
+  font-weight: 600;
+  padding: 0.75rem 1.25rem;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.marketing-button-outline:hover,
+.marketing-button-outline:focus-visible {
+  background: rgba(200, 160, 108, 0.1);
+}
+
+.marketing-button-fund {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.3125rem;
+  background: var(--marketing-fund-fill);
+  color: var(--marketing-fund-ink);
+  font-weight: 600;
+  padding: 0.75rem 1.25rem;
+  transition: filter 160ms ease;
+}
+
+.marketing-button-fund:hover,
+.marketing-button-fund:focus-visible {
+  filter: brightness(0.96);
 }
 
 .marketing-button-link {
-  color: var(--marketing-violet);
-  font-weight: 650;
+  color: var(--marketing-gold-600);
+  font-weight: 600;
+}
+
+.marketing-ledger-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  align-items: baseline;
+  border-bottom: 1px solid rgba(33, 31, 29, 0.12);
+  padding: 0.75rem 0;
+  font-size: 0.8125rem;
+}
+
+.marketing-ledger-row:last-child {
+  border-bottom: 0;
+}
+
+.marketing-ledger-row .marketing-ledger-label {
+  color: var(--marketing-muted);
+}
+
+.marketing-ledger-row .marketing-ledger-value {
+  color: var(--marketing-ink);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
 }
 
 .marketing-image-frame {
@@ -66,26 +149,26 @@
   inset: 0.75rem auto auto 0.75rem;
   border-radius: 999px;
   background: rgb(255 255 255 / 0.9);
-  color: var(--marketing-violet);
+  color: var(--marketing-gold-700);
   font-size: 0.625rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.08em;
   padding: 0.375rem 0.5rem;
   text-transform: uppercase;
 }
 
 .marketing-shell :where(a, button, input, select, textarea):focus-visible {
-  outline: 2px solid var(--marketing-violet);
+  outline: 2px solid var(--marketing-gold-600);
   outline-offset: 3px;
 }
 
 .marketing-surface-dark .marketing-eyebrow {
-  color: rgb(255 255 255 / 0.72);
+  color: var(--marketing-gold-400);
 }
 
 .marketing-surface-dark
   :where(a, button, input, select, textarea):focus-visible {
-  outline-color: #fff;
+  outline-color: var(--marketing-gold-400);
 }
 
 @media (max-width: 47.999rem) {
