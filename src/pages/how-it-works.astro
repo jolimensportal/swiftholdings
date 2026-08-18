@@ -1,64 +1,64 @@
 ---
 export const prerender = true;
 
-import ImageFrame from '@/components/marketing/ImageFrame.astro';
 import MarketingHero from '@/components/marketing/MarketingHero.astro';
-import NumberedSteps from '@/components/marketing/NumberedSteps.astro';
+import TimelineSteps from '@/components/marketing/TimelineSteps.astro';
+import MarketLedger from '@/components/marketing/MarketLedger.astro';
 import { marketingImages } from '@/data/marketing/image-assets';
 import { marketingPages } from '@/data/marketing/pages';
 import MarketingLayout from '@layout/MarketingLayout.astro';
 
 const page = marketingPages.howItWorks;
-const steps = [
+const phases = [
   {
-    title: 'Start with a private briefing',
-    body: 'Share what you are looking for and the questions you need answered.',
+    name: 'Land & permits',
+    duration: 'Phase 1',
+    body: 'Title verified under Ghanaian land law, permits secured, and the site prepared.',
   },
   {
-    title: 'Explore the village direction',
-    body: 'Review the Oyarifa concept, reference visuals, and what is currently known.',
+    name: 'Foundation',
+    duration: 'Phase 2',
+    body: 'Ground works and the structural base that every capsule sits on.',
   },
   {
-    title: 'Understand the path before deciding',
-    body: 'Talk through buyer fit, timing, practical next steps, and open questions.',
+    name: 'Delivery',
+    duration: 'Phase 3',
+    body: 'The P7 capsule arrives: 38 m², nine-layer wall system, solar-ready.',
   },
   {
-    title: 'Prepare for the next confirmed step',
-    body: 'Move forward only with the information and documentation appropriate to your decision.',
+    name: 'Installation & finish',
+    duration: 'Phase 4',
+    body: 'Interiors, services, and the walkthrough that makes it a home.',
   },
-];
+  {
+    name: 'Revenue',
+    duration: 'Phase 5',
+    body: 'Stays open on the market — and the 70 / 30 settlement starts.',
+  },
+] as const;
 ---
 
 <MarketingLayout seo={page.seo}>
   <MarketingHero
     {...page.hero}
-    image={marketingImages.ownershipStory}
+    secondaryCta={page.secondaryCta}
+    image={marketingImages.homeDetail}
     ratio="3 / 2"
   />
-  <NumberedSteps
-    eyebrow="A four-part conversation"
-    title="A clear path before any decision."
-    steps={steps}
-  />
 
-  <section class="border-y border-[var(--marketing-rule)] bg-white py-16">
-    <div
-      class="marketing-container grid items-center gap-8 md:grid-cols-[0.9fr_1fr]"
-    >
-      <ImageFrame image={marketingImages.warmDetail} ratio="4 / 3" />
-      <div>
-        <p class="marketing-eyebrow">Your next question</p>
-        <h2 class="mt-3 text-4xl font-semibold tracking-[-0.04em]">
-          Begin with the details that matter to you.
-        </h2>
-        <p class="mt-5 max-w-xl leading-8 text-[var(--marketing-muted)]">
-          A private briefing gives you space to understand the current direction
-          and identify the next information you need.
-        </p>
-        <a class="marketing-button-primary mt-7" href="/briefing"
-          >Request a private briefing</a
-        >
-      </div>
-    </div>
-  </section>
+  <TimelineSteps {phases} />
+
+  <MarketLedger
+    eyebrow="The lock-in"
+    title="Five years of one operating partner."
+    body="Every capsule is operated by The Swift Project for five years from first revenue. That is what makes the 70 / 30 legible — one operator, one ledger, one settlement."
+    items={[
+      { label: 'Lock-in', value: '5 years' },
+      { label: 'Operator', value: 'The Swift Project' },
+      { label: 'Share', value: '70 / 30' },
+      { label: 'Settlement', value: 'Monthly · USD held, GHS settled' },
+      { label: 'After the lock-in', value: 'Renew, or take full control' },
+    ]}
+    cta={{ label: 'See the protections', href: '/protections' }}
+  />
 </MarketingLayout>

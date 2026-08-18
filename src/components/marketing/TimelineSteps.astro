@@ -1,0 +1,48 @@
+---
+interface Phase {
+  name: string;
+  duration: string;
+  body: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  phases: readonly Phase[];
+}
+
+const {
+  eyebrow = 'The path',
+  title = 'Five phases, one standard.',
+  phases,
+} = Astro.props;
+---
+
+<section class="marketing-container py-16 lg:py-24">
+  <p class="marketing-eyebrow">{eyebrow}</p>
+  <h2
+    class="marketing-display mt-3 max-w-xl text-4xl leading-[1.08] text-[var(--marketing-ink)]"
+  >
+    {title}
+  </h2>
+  <div class="mt-10 grid gap-0 lg:grid-cols-5">
+    {
+      phases.map((phase, index) => (
+        <div class="border-t-2 border-[var(--marketing-gold-500)] pt-5 lg:border-t lg:pr-6">
+          <span class="marketing-ledger-label">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+          <h3 class="marketing-display mt-3 text-xl text-[var(--marketing-ink)]">
+            {phase.name}
+          </h3>
+          <p class="mt-1 text-xs tracking-[0.18em] text-[var(--marketing-gold-600)] uppercase">
+            {phase.duration}
+          </p>
+          <p class="mt-3 text-sm leading-6 text-[var(--marketing-muted)]">
+            {phase.body}
+          </p>
+        </div>
+      ))
+    }
+  </div>
+</section>
