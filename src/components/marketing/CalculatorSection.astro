@@ -1,0 +1,22 @@
+---
+import Calculator from '@/components/marketing/Calculator.client';
+---
+
+<section class="marketing-container py-16 lg:py-24">
+  <div class="grid gap-10 lg:grid-cols-[1fr_1.4fr]">
+    <div>
+      <p class="marketing-eyebrow">The public view</p>
+      <h2
+        class="marketing-display mt-3 max-w-md text-4xl leading-[1.08] text-[var(--marketing-ink)]"
+      >
+        The approved case, in public.
+      </h2>
+      <p class="mt-4 max-w-md leading-7 text-[var(--marketing-muted)]">
+        A $50,000 entry at 88% occupancy and the top of the market rate range,
+        on the 70 / 30 model. Full scenarios and saved comparisons sit behind
+        the briefing.
+      </p>
+    </div>
+    <Calculator client:load />
+  </div>
+</section>
