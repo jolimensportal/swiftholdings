@@ -1,7 +1,5 @@
 ---
-export const prerender = true;
-
-import BriefingForm from '@/components/marketing/BriefingForm.astro';
+import DiscoveryForm from '@/components/marketing/DiscoveryForm.client';
 import ImageFrame from '@/components/marketing/ImageFrame.astro';
 import { marketingImages } from '@/data/marketing/image-assets';
 import { marketingPages } from '@/data/marketing/pages';
@@ -9,9 +7,9 @@ import MarketingLayout from '@layout/MarketingLayout.astro';
 
 const page = marketingPages.briefing;
 const nextSteps = [
-  'You share the essentials.',
-  'Swift reviews your request.',
-  'You get a personal reply.',
+  'Five guided steps — about you, your intent, your plans.',
+  'Your gate opens the moment you submit.',
+  'The long-form documents appear on the other side.',
 ];
 ---
 
@@ -42,11 +40,14 @@ const nextSteps = [
         }
       </ol>
       <p class="mt-8 max-w-md text-sm leading-6 text-[var(--marketing-muted)]">
-        We use your details only to reply to this request.
+        The briefing takes about five minutes. Your details are used only to
+        open your member gate and prepare your call.
       </p>
     </div>
-    <div class="border-t border-[var(--marketing-rule)] pt-6">
-      <BriefingForm />
+    <div
+      class="border-t border-[var(--marketing-rule)] pt-6 lg:border-t-0 lg:pt-0"
+    >
+      <DiscoveryForm client:load />
     </div>
   </section>
 
@@ -61,8 +62,9 @@ const nextSteps = [
           Start with the context that matters to you.
         </h2>
         <p class="mt-5 max-w-xl leading-8 text-[var(--marketing-muted)]">
-          There is no public sales funnel here. Share the essentials and Swift
-          can reply with the next relevant conversation.
+          There is no public sales funnel here. Walk the five steps and the gate
+          opens — full yield tables, availability, pricing, and the legal
+          dossier, all in your member area.
         </p>
       </div>
     </div>

@@ -139,6 +139,20 @@ const PHONE_PATTERN = /^\+?[0-9][0-9\s\-()]{6,19}$/;
 const PASSWORD_PATTERN = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{10,}$/;
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 
+export const isValidName = (name: string): boolean => name.trim().length >= 2;
+
+export const isValidEmail = (email: string): boolean =>
+  EMAIL_PATTERN.test(email.trim());
+
+export const isValidPhone = (phone: string | undefined): boolean =>
+  phone === undefined || phone.trim() === '' || PHONE_PATTERN.test(phone.trim());
+
+export const isValidPassword = (password: string): boolean =>
+  PASSWORD_PATTERN.test(password);
+
+export const PASSWORD_HINT =
+  'At least 10 characters with an uppercase letter, a lowercase letter, and a digit.';
+
 const isWeekend = (date: Date): boolean => {
   const day = date.getUTCDay();
   return day === 0 || day === 6;
@@ -152,23 +166,20 @@ export const validateDiscoveryInput = (
   const name = input.name.trim();
   const email = input.email.trim();
 
-  if (name.length < 2) {
+  if (!isValidName(name)) {
     errors.name = 'Please tell us your name.';
   }
 
-  if (!EMAIL_PATTERN.test(email)) {
+  if (!isValidEmail(email)) {
     errors.email = 'That email address does not look right.';
   }
 
-  if (input.phone !== undefined && input.phone.trim() !== '') {
-    if (!PHONE_PATTERN.test(input.phone.trim())) {
-      errors.phone = 'That phone number does not look right.';
-    }
+  if (!isValidPhone(input.phone)) {
+    errors.phone = 'That phone number does not look right.';
   }
 
-  if (!PASSWORD_PATTERN.test(input.password)) {
-    errors.password =
-      'Use at least 10 characters with an uppercase letter, a lowercase letter, and a digit.';
+  if (!isValidPassword(input.password)) {
+    errors.password = PASSWORD_HINT;
   }
 
   if (!segments.some(option => option.id === input.segment)) {
