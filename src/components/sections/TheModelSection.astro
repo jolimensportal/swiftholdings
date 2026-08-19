@@ -18,13 +18,11 @@ const steps = [
 ];
 ---
 
-<section
-  class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8 lg:py-24"
->
+<section class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
   <div class="reveal mb-3 flex items-center gap-3" style="--d:0ms">
     <span class="rule-thin w-10"></span>
     <span
-      class="font-work-sans text-xs font-medium uppercase tracking-[0.3em] text-slate-500"
+      class="font-work-sans text-xs font-medium tracking-[0.3em] text-slate-500 uppercase"
       >The Model</span
     >
   </div>
@@ -35,10 +33,15 @@ const steps = [
     A village, manufactured — then income, by the share.
   </h2>
 
-  <div class="mt-12 grid gap-px overflow-hidden border border-slate-900/10 bg-slate-900/10 md:grid-cols-3">
+  <div
+    class="mt-12 grid gap-px overflow-hidden border border-slate-900/10 bg-slate-900/10 md:grid-cols-3"
+  >
     {
       steps.map((s, i) => (
-        <div class="reveal bg-off-white p-7 sm:p-9" style={`--d:${240 + i * 110}ms`}>
+        <div
+          class="reveal bg-off-white p-7 sm:p-9"
+          style={`--d:${240 + i * 110}ms`}
+        >
           <div class="font-work-sans text-sm font-medium tracking-[0.25em] text-slate-400">
             {s.no}
           </div>

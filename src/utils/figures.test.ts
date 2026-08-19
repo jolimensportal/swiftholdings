@@ -17,7 +17,7 @@ describe('Swift Holdings figures match the Oyarifa proposal', () => {
   });
 
   it('keeps the three investment tiers', () => {
-    expect(figures.tiers.map((t) => t.name)).toEqual([
+    expect(figures.tiers.map(t => t.name)).toEqual([
       'Starter',
       'Cluster',
       'Block',

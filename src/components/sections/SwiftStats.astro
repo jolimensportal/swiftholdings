@@ -2,25 +2,41 @@
 import { figures } from '@utils/figures';
 
 const stats = [
-  { value: `$${figures.sharePriceFrom}`, label: 'Entry share price', note: 'Fractional ownership' },
-  { value: `$${figures.adrLow}–${figures.adrHigh}`, label: 'Average daily rate', note: 'ADR per capsule' },
-  { value: `${figures.occupancyLow}–${figures.occupancyHigh}%`, label: 'Occupancy (ramp)', note: 'Stabilising upward' },
-  { value: `${figures.yieldLow}–${figures.yieldHigh}%`, label: 'Target annual yield', note: 'Net of management' },
+  {
+    value: `$${figures.sharePriceFrom}`,
+    label: 'Entry share price',
+    note: 'Fractional ownership',
+  },
+  {
+    value: `$${figures.adrLow}–${figures.adrHigh}`,
+    label: 'Average daily rate',
+    note: 'ADR per capsule',
+  },
+  {
+    value: `${figures.occupancyLow}–${figures.occupancyHigh}%`,
+    label: 'Occupancy (ramp)',
+    note: 'Stabilising upward',
+  },
+  {
+    value: `${figures.yieldLow}–${figures.yieldHigh}%`,
+    label: 'Target annual yield',
+    note: 'Net of management',
+  },
 ];
 const split = `${figures.profitShareInvestor} / ${figures.profitShareOperator}`;
 ---
 
-<section
-  class="mx-auto max-w-[85rem] px-4 py-14 sm:px-6 lg:px-8 lg:py-20"
->
-  <div class="grid grid-cols-2 gap-px overflow-hidden border border-slate-900/10 bg-slate-900/10 md:grid-cols-4">
+<section class="mx-auto max-w-[85rem] px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+  <div
+    class="grid grid-cols-2 gap-px overflow-hidden border border-slate-900/10 bg-slate-900/10 md:grid-cols-4"
+  >
     {
       stats.map((s, i) => (
         <div class="reveal bg-off-white p-6 sm:p-8" style={`--d:${i * 90}ms`}>
           <div class="dm-sans text-4xl font-medium tracking-tight text-slate-900 sm:text-5xl">
             {s.value}
           </div>
-          <div class="mt-3 font-work-sans text-xs font-medium uppercase tracking-[0.2em] text-slate-500">
+          <div class="font-work-sans mt-3 text-xs font-medium tracking-[0.2em] text-slate-500 uppercase">
             {s.label}
           </div>
           <div class="mt-1 text-sm text-slate-400">{s.note}</div>
@@ -29,7 +45,7 @@ const split = `${figures.profitShareInvestor} / ${figures.profitShareOperator}`;
     }
   </div>
   <p class="mt-4 text-sm text-slate-400">
-    Profit shared <span class="font-medium text-slate-600">{split}</span> — you
-    / operator. Illustrative figures from the Oyarifa Phase I proposal.
+    Profit shared <span class="font-medium text-slate-600">{split}</span> — you /
+    operator. Illustrative figures from the Oyarifa Phase I proposal.
   </p>
 </section>

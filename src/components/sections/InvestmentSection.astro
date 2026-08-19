@@ -8,24 +8,25 @@ import { figures } from '@utils/figures';
 const tiers = figures.tiers;
 ---
 
-<section
-  class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8 lg:py-24"
->
+<section class="mx-auto max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
   <div class="reveal mb-3 flex items-center gap-3" style="--d:0ms">
     <span class="rule-thin w-10"></span>
     <span
-      class="font-work-sans text-xs font-medium uppercase tracking-[0.3em] text-slate-500"
+      class="font-work-sans text-xs font-medium tracking-[0.3em] text-slate-500 uppercase"
       >Investment</span
     >
   </div>
   <h2
     class="reveal dm-sans max-w-3xl text-3xl font-medium tracking-tight text-slate-900 sm:text-4xl lg:text-5xl"
     style="--d:120ms"
-    >
-      Buy the village by the share.
+  >
+    Buy the village by the share.
   </h2>
 
-  <div class="reveal mt-10 overflow-hidden border border-slate-900/15" style="--d:180ms">
+  <div
+    class="reveal mt-10 overflow-hidden border border-slate-900/15"
+    style="--d:180ms"
+  >
     <ResponsiveImage
       src={capsule}
       alt="A completed Swift Holdings prefab capsule in Oyarifa, Accra"
@@ -44,13 +45,13 @@ const tiers = figures.tiers;
             'reveal flex h-full flex-col border p-7 sm:p-8',
             t.featured
               ? 'border-slate-900 bg-slate-900 text-white'
-              : 'border-slate-900/15 bg-off-white',
+              : 'bg-off-white border-slate-900/15',
           ]}
           style={`--d:${240 + i * 110}ms`}
         >
           <div
             class:list={[
-              'font-work-sans text-xs font-medium uppercase tracking-[0.25em]',
+              'font-work-sans text-xs font-medium tracking-[0.25em] uppercase',
               t.featured ? 'text-slate-300' : 'text-slate-500',
             ]}
           >
@@ -69,7 +70,7 @@ const tiers = figures.tiers;
           </div>
           <p
             class:list={[
-              'mt-5 flex-1 text-pretty text-sm leading-relaxed',
+              'mt-5 flex-1 text-sm leading-relaxed text-pretty',
               t.featured ? 'text-slate-200' : 'text-slate-600',
             ]}
           >

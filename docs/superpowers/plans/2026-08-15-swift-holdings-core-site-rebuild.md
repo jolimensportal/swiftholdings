@@ -14,52 +14,52 @@
 
 ### Create
 
-| File | Responsibility |
-| --- | --- |
-| `src/assets/images/marketing/*` | Generated, committed WebP/JPEG crop derivatives only. Never copy `Desktop/PREFAB` originals here unchanged. |
-| `src/assets/styles/marketing.css` | Buyer-journey-only tokens, photo-frame rules, button hierarchy, and responsive layout helpers. |
-| `src/layout/MarketingLayout.astro` | Swift SEO/schema/font shell with the new header and footer; no DataNova defaults or client-router animation bootstrap. |
-| `src/components/marketing/SiteHeader.astro` | Accessible buyer-first header, native mobile disclosure, and briefing CTA. |
-| `src/components/marketing/SiteFooter.astro` | Minimal Swift contact/footer treatment without newsletter or investor disclaimer copy. |
-| `src/components/marketing/ImageFrame.astro` | Fixed-ratio `<picture>` renderer with visible `Illustrative reference` label. |
-| `src/components/marketing/MarketingHero.astro` | Premium photo-led hero with one primary briefing CTA and optional secondary link. |
-| `src/components/marketing/ProofStrip.astro` | Three compact project/context facts. |
-| `src/components/marketing/StorySplit.astro` | Editorial text-image relationship with an optional reversed desktop layout. |
-| `src/components/marketing/NumberedSteps.astro` | Four-step buyer process. |
-| `src/components/marketing/ConfidenceList.astro` | Verified/illustrative distinction and buyer-confidence list. |
-| `src/components/marketing/BriefingForm.astro` | Accessible direct-Formspree form with clear success, retry, and email fallback states. |
-| `src/data/marketing/site.ts` | Swift contact details, navigation items, CTA labels, and default SEO values. |
-| `src/data/marketing/pages.ts` | Typed buyer-first copy for all eight core routes. |
-| `src/data/marketing/image-manifest.json` | Canonical source name, crop, focal point, label, alt text, and derivative metadata for the 12 selected references. |
-| `src/data/marketing/image-assets.ts` | Static Astro imports that expose generated image metadata to page components. |
-| `src/data/marketing/image-manifest.test.ts` | Manifest shape, ID, ratio, and generated-asset validation tests. |
-| `src/utils/briefing-form.ts` | Pure validation and direct Formspree request-state functions. |
-| `src/utils/briefing-form.test.ts` | Validation, success, network failure, timeout, and missing-endpoint tests. |
-| `scripts/prepare-marketing-images.mjs` | Local Sharp image derivative and branded social/icon generator. |
-| `scripts/validate-marketing-images.mjs` | CI/Cloudflare-safe check that committed derivatives exist and match manifest dimensions. |
-| `src/pages/village.astro` | The Village route. |
-| `src/pages/how-it-works.astro` | Ownership process route. |
-| `src/pages/ownership.astro` | Buyer-fit and ownership route. |
-| `src/pages/accra.astro` | Oyarifa/Accra diaspora context route. |
-| `src/pages/briefing.astro` | Private briefing route. |
-| `public/_redirects` | Cloudflare Pages permanent redirects for retired legacy marketing paths. |
+| File                                            | Responsibility                                                                                                         |
+| ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `src/assets/images/marketing/*`                 | Generated, committed WebP/JPEG crop derivatives only. Never copy `Desktop/PREFAB` originals here unchanged.            |
+| `src/assets/styles/marketing.css`               | Buyer-journey-only tokens, photo-frame rules, button hierarchy, and responsive layout helpers.                         |
+| `src/layout/MarketingLayout.astro`              | Swift SEO/schema/font shell with the new header and footer; no DataNova defaults or client-router animation bootstrap. |
+| `src/components/marketing/SiteHeader.astro`     | Accessible buyer-first header, native mobile disclosure, and briefing CTA.                                             |
+| `src/components/marketing/SiteFooter.astro`     | Minimal Swift contact/footer treatment without newsletter or investor disclaimer copy.                                 |
+| `src/components/marketing/ImageFrame.astro`     | Fixed-ratio `<picture>` renderer with visible `Illustrative reference` label.                                          |
+| `src/components/marketing/MarketingHero.astro`  | Premium photo-led hero with one primary briefing CTA and optional secondary link.                                      |
+| `src/components/marketing/ProofStrip.astro`     | Three compact project/context facts.                                                                                   |
+| `src/components/marketing/StorySplit.astro`     | Editorial text-image relationship with an optional reversed desktop layout.                                            |
+| `src/components/marketing/NumberedSteps.astro`  | Four-step buyer process.                                                                                               |
+| `src/components/marketing/ConfidenceList.astro` | Verified/illustrative distinction and buyer-confidence list.                                                           |
+| `src/components/marketing/BriefingForm.astro`   | Accessible direct-Formspree form with clear success, retry, and email fallback states.                                 |
+| `src/data/marketing/site.ts`                    | Swift contact details, navigation items, CTA labels, and default SEO values.                                           |
+| `src/data/marketing/pages.ts`                   | Typed buyer-first copy for all eight core routes.                                                                      |
+| `src/data/marketing/image-manifest.json`        | Canonical source name, crop, focal point, label, alt text, and derivative metadata for the 12 selected references.     |
+| `src/data/marketing/image-assets.ts`            | Static Astro imports that expose generated image metadata to page components.                                          |
+| `src/data/marketing/image-manifest.test.ts`     | Manifest shape, ID, ratio, and generated-asset validation tests.                                                       |
+| `src/utils/briefing-form.ts`                    | Pure validation and direct Formspree request-state functions.                                                          |
+| `src/utils/briefing-form.test.ts`               | Validation, success, network failure, timeout, and missing-endpoint tests.                                             |
+| `scripts/prepare-marketing-images.mjs`          | Local Sharp image derivative and branded social/icon generator.                                                        |
+| `scripts/validate-marketing-images.mjs`         | CI/Cloudflare-safe check that committed derivatives exist and match manifest dimensions.                               |
+| `src/pages/village.astro`                       | The Village route.                                                                                                     |
+| `src/pages/how-it-works.astro`                  | Ownership process route.                                                                                               |
+| `src/pages/ownership.astro`                     | Buyer-fit and ownership route.                                                                                         |
+| `src/pages/accra.astro`                         | Oyarifa/Accra diaspora context route.                                                                                  |
+| `src/pages/briefing.astro`                      | Private briefing route.                                                                                                |
+| `public/_redirects`                             | Cloudflare Pages permanent redirects for retired legacy marketing paths.                                               |
 
 ### Modify
 
-| File | Change |
-| --- | --- |
-| `package.json` | Add image preparation/validation scripts and run derivative validation before `astro check` in `build`. |
-| `src/env.d.ts` | Type `PUBLIC_FORMSPREE_BRIEFING_ENDPOINT`. |
-| `.env.template` | Document the intentionally public briefing endpoint, static fallback behavior, and Cloudflare Pages configuration; remove Vercel deployment wording. |
-| `src/pages/index.astro` | Replace legacy investor section stack with new Home composition and `prerender = true`. |
-| `src/pages/about.astro` | Replace investor/share copy with buyer-first About Swift composition and `prerender = true`. |
-| `src/pages/protections.astro` | Replace unsupported investor safeguards with a confirmed-vs-illustrative buyer confidence page and `prerender = true`. |
-| `src/pages/404.astro` | Use `MarketingLayout` and Swift recovery links. |
-| `src/pages/robots.txt.ts` | Prerender a correct Swift Holdings robots file without a nonexistent sitemap URL. |
-| `public/manifest.webmanifest` | Replace DataNova name and teal values with Swift Holdings/violet values. |
-| `public/icon.svg` | Replace DataNova icon with the generated Swift violet monogram. |
-| `public/social.png`, `public/icon-192.png`, `public/icon-512.png`, `public/apple-touch-icon.png` | Replace template branding through the image preparation script. |
-| `README.md` | Replace Vercel deployment instructions with Cloudflare Pages build/output/environment instructions. |
+| File                                                                                             | Change                                                                                                                                               |
+| ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `package.json`                                                                                   | Add image preparation/validation scripts and run derivative validation before `astro check` in `build`.                                              |
+| `src/env.d.ts`                                                                                   | Type `PUBLIC_FORMSPREE_BRIEFING_ENDPOINT`.                                                                                                           |
+| `.env.template`                                                                                  | Document the intentionally public briefing endpoint, static fallback behavior, and Cloudflare Pages configuration; remove Vercel deployment wording. |
+| `src/pages/index.astro`                                                                          | Replace legacy investor section stack with new Home composition and `prerender = true`.                                                              |
+| `src/pages/about.astro`                                                                          | Replace investor/share copy with buyer-first About Swift composition and `prerender = true`.                                                         |
+| `src/pages/protections.astro`                                                                    | Replace unsupported investor safeguards with a confirmed-vs-illustrative buyer confidence page and `prerender = true`.                               |
+| `src/pages/404.astro`                                                                            | Use `MarketingLayout` and Swift recovery links.                                                                                                      |
+| `src/pages/robots.txt.ts`                                                                        | Prerender a correct Swift Holdings robots file without a nonexistent sitemap URL.                                                                    |
+| `public/manifest.webmanifest`                                                                    | Replace DataNova name and teal values with Swift Holdings/violet values.                                                                             |
+| `public/icon.svg`                                                                                | Replace DataNova icon with the generated Swift violet monogram.                                                                                      |
+| `public/social.png`, `public/icon-192.png`, `public/icon-512.png`, `public/apple-touch-icon.png` | Replace template branding through the image preparation script.                                                                                      |
+| `README.md`                                                                                      | Replace Vercel deployment instructions with Cloudflare Pages build/output/environment instructions.                                                  |
 
 ### Intentionally Leave Untouched in Phase 1
 
@@ -71,6 +71,7 @@
 ## Task 1: Create the Marketing Content and Image Manifest Contract
 
 **Files:**
+
 - Create: `src/data/marketing/site.ts`
 - Create: `src/data/marketing/pages.ts`
 - Create: `src/data/marketing/image-manifest.json`
@@ -100,7 +101,7 @@ const manifest = JSON.parse(
 
 describe('marketing image manifest', () => {
   it('contains the approved twelve curated source files exactly once', () => {
-    expect(manifest.images.map((image) => image.source)).toEqual([
+    expect(manifest.images.map(image => image.source)).toEqual([
       'prefab_2_2048x1365.jpg',
       'prefab_10_2500x1667.jpg',
       'prefab_6_4368x2912.jpg',
@@ -117,10 +118,10 @@ describe('marketing image manifest', () => {
   });
 
   it('declares unique positive-dimension derivatives and illustrative alt text', () => {
-    const derivativeNames = manifest.images.flatMap((image) => {
+    const derivativeNames = manifest.images.flatMap(image => {
       expect(image.label).toBe('Illustrative reference');
       expect(image.alt).toContain('Illustrative reference');
-      return image.derivatives.map((derivative) => {
+      return image.derivatives.map(derivative => {
         expect(derivative.width).toBeGreaterThan(0);
         expect(derivative.height).toBeGreaterThan(0);
         return derivative.name;
@@ -129,7 +130,6 @@ describe('marketing image manifest', () => {
 
     expect(new Set(derivativeNames).size).toBe(derivativeNames.length);
   });
-
 });
 ```
 
@@ -165,7 +165,9 @@ need mobile crops.
       "label": "Illustrative reference",
       "alt": "Illustrative reference of a warm contemporary prefab residence",
       "focalPoint": "centre",
-      "derivatives": [{ "name": "village-story", "width": 1800, "height": 1200 }]
+      "derivatives": [
+        { "name": "village-story", "width": 1800, "height": 1200 }
+      ]
     },
     {
       "id": "ownershipStory",
@@ -173,7 +175,9 @@ need mobile crops.
       "label": "Illustrative reference",
       "alt": "Illustrative reference of a modern modular home in a natural setting",
       "focalPoint": "centre",
-      "derivatives": [{ "name": "ownership-story", "width": 1800, "height": 1200 }]
+      "derivatives": [
+        { "name": "ownership-story", "width": 1800, "height": 1200 }
+      ]
     },
     {
       "id": "diasporaLifestyle",
@@ -181,7 +185,9 @@ need mobile crops.
       "label": "Illustrative reference",
       "alt": "Illustrative reference of a covered outdoor living space at a prefab home",
       "focalPoint": "centre",
-      "derivatives": [{ "name": "diaspora-lifestyle", "width": 1600, "height": 1200 }]
+      "derivatives": [
+        { "name": "diaspora-lifestyle", "width": 1600, "height": 1200 }
+      ]
     },
     {
       "id": "villageBanner",
@@ -189,7 +195,9 @@ need mobile crops.
       "label": "Illustrative reference",
       "alt": "Illustrative reference of a low-profile prefab residence in evening light",
       "focalPoint": "centre",
-      "derivatives": [{ "name": "village-banner", "width": 2520, "height": 1080 }]
+      "derivatives": [
+        { "name": "village-banner", "width": 2520, "height": 1080 }
+      ]
     },
     {
       "id": "homeDetail",
@@ -205,7 +213,9 @@ need mobile crops.
       "label": "Illustrative reference",
       "alt": "Illustrative reference of a modern prefab residence with a broad roofline",
       "focalPoint": "centre",
-      "derivatives": [{ "name": "confidence-feature", "width": 1600, "height": 1200 }]
+      "derivatives": [
+        { "name": "confidence-feature", "width": 1600, "height": 1200 }
+      ]
     },
     {
       "id": "ownershipPage",
@@ -213,7 +223,9 @@ need mobile crops.
       "label": "Illustrative reference",
       "alt": "Illustrative reference of a multi-level contemporary prefab residence",
       "focalPoint": "centre",
-      "derivatives": [{ "name": "ownership-page", "width": 1800, "height": 1200 }]
+      "derivatives": [
+        { "name": "ownership-page", "width": 1800, "height": 1200 }
+      ]
     },
     {
       "id": "architectureGallery",
@@ -221,7 +233,9 @@ need mobile crops.
       "label": "Illustrative reference",
       "alt": "Illustrative reference of a glass-fronted prefab home",
       "focalPoint": "centre",
-      "derivatives": [{ "name": "architecture-gallery", "width": 1600, "height": 1200 }]
+      "derivatives": [
+        { "name": "architecture-gallery", "width": 1600, "height": 1200 }
+      ]
     },
     {
       "id": "warmDetail",
@@ -248,7 +262,9 @@ need mobile crops.
       "label": "Illustrative reference",
       "alt": "Illustrative reference of a landscaped prefab residence",
       "focalPoint": "centre",
-      "derivatives": [{ "name": "briefing-close", "width": 1800, "height": 1200 }]
+      "derivatives": [
+        { "name": "briefing-close", "width": 1800, "height": 1200 }
+      ]
     }
   ]
 }
@@ -290,16 +306,16 @@ Create `src/data/marketing/pages.ts` with a typed object keyed by
 `MarketingPageKey`. Use the approved copy below rather than fractional-share,
 yield, rental-return, or securities language.
 
-| Key | Hero title | Required page-specific sections |
-| --- | --- | --- |
-| `home` | `A home in Accra, built with certainty.` | Oyarifa/proof strip; “The better way to make Accra home from abroad”; three reasons; selected gallery; briefing CTA. |
-| `village` | `A quieter way to return to Accra.` | Oyarifa context; village lifestyle; reference gallery; briefing CTA. |
-| `howItWorks` | `From first conversation to a home base.` | Briefing; explore the village; understand the path; prepare for the next decision. |
-| `ownership` | `Know what you are choosing before you commit.` | Buyer fit; topics covered in a briefing; clarity before commitment. |
-| `protections` | `Clarity before confidence.` | What is confirmed; what remains to be confirmed; questions to ask in a briefing. |
-| `accra` | `A homecoming needs local context.` | Oyarifa perspective; living from abroad; practical questions for a private briefing. |
-| `about` | `Why Swift exists.` | Why the village matters; standards; an honest, buyer-first next step. |
-| `briefing` | `Tell us what you are planning.` | Briefing form; privacy copy; personal-reply expectation. |
+| Key           | Hero title                                      | Required page-specific sections                                                                                      |
+| ------------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `home`        | `A home in Accra, built with certainty.`        | Oyarifa/proof strip; “The better way to make Accra home from abroad”; three reasons; selected gallery; briefing CTA. |
+| `village`     | `A quieter way to return to Accra.`             | Oyarifa context; village lifestyle; reference gallery; briefing CTA.                                                 |
+| `howItWorks`  | `From first conversation to a home base.`       | Briefing; explore the village; understand the path; prepare for the next decision.                                   |
+| `ownership`   | `Know what you are choosing before you commit.` | Buyer fit; topics covered in a briefing; clarity before commitment.                                                  |
+| `protections` | `Clarity before confidence.`                    | What is confirmed; what remains to be confirmed; questions to ask in a briefing.                                     |
+| `accra`       | `A homecoming needs local context.`             | Oyarifa perspective; living from abroad; practical questions for a private briefing.                                 |
+| `about`       | `Why Swift exists.`                             | Why the village matters; standards; an honest, buyer-first next step.                                                |
+| `briefing`    | `Tell us what you are planning.`                | Briefing form; privacy copy; personal-reply expectation.                                                             |
 
 - [ ] **Step 5: Run the manifest test and record the expected missing-asset failure**
 
@@ -316,6 +332,7 @@ git add src/data/marketing/site.ts src/data/marketing/pages.ts src/data/marketin
 ## Task 2: Generate and Validate Curated Marketing Image Derivatives
 
 **Files:**
+
 - Create: `scripts/prepare-marketing-images.mjs`
 - Create: `scripts/validate-marketing-images.mjs`
 - Create: `src/assets/images/marketing/*.webp`
@@ -391,12 +408,14 @@ for (const image of manifest.images) {
       position: image.focalPoint,
     });
 
-    await pipeline.clone().webp({ quality: 82 }).toFile(
-      join(outputDirectory, `${derivative.name}.webp`)
-    );
-    await pipeline.clone().jpeg({ quality: 86, mozjpeg: true }).toFile(
-      join(outputDirectory, `${derivative.name}.jpg`)
-    );
+    await pipeline
+      .clone()
+      .webp({ quality: 82 })
+      .toFile(join(outputDirectory, `${derivative.name}.webp`));
+    await pipeline
+      .clone()
+      .jpeg({ quality: 86, mozjpeg: true })
+      .toFile(join(outputDirectory, `${derivative.name}.jpg`));
   }
 }
 ```
@@ -415,8 +434,9 @@ const monogram = Buffer.from(`
   </svg>
 `);
 
-const homeHero = manifest.images.find((image) => image.id === 'homeHero');
-if (!homeHero) throw new Error('homeHero is missing from the marketing manifest.');
+const homeHero = manifest.images.find(image => image.id === 'homeHero');
+if (!homeHero)
+  throw new Error('homeHero is missing from the marketing manifest.');
 
 const socialOverlay = Buffer.from(`
   <svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
@@ -437,9 +457,18 @@ await sharp(join(sourceDirectory, homeHero.source))
 
 await writeFile(join(publicDirectory, 'icon.svg'), monogram);
 await Promise.all([
-  sharp(monogram).resize(192, 192).png().toFile(join(publicDirectory, 'icon-192.png')),
-  sharp(monogram).resize(512, 512).png().toFile(join(publicDirectory, 'icon-512.png')),
-  sharp(monogram).resize(180, 180).png().toFile(join(publicDirectory, 'apple-touch-icon.png')),
+  sharp(monogram)
+    .resize(192, 192)
+    .png()
+    .toFile(join(publicDirectory, 'icon-192.png')),
+  sharp(monogram)
+    .resize(512, 512)
+    .png()
+    .toFile(join(publicDirectory, 'icon-512.png')),
+  sharp(monogram)
+    .resize(180, 180)
+    .png()
+    .toFile(join(publicDirectory, 'apple-touch-icon.png')),
 ]);
 ```
 
@@ -651,6 +680,7 @@ git add package.json pnpm-lock.yaml scripts/prepare-marketing-images.mjs scripts
 ## Task 3: Establish the Isolated Swift Marketing Layout and Shared Visual Primitives
 
 **Files:**
+
 - Create: `src/assets/styles/marketing.css`
 - Create: `src/layout/MarketingLayout.astro`
 - Create: `src/components/marketing/SiteHeader.astro`
@@ -784,15 +814,47 @@ const schema: WithContext<Thing> = {
       charset="utf-8"
       title={seo.title}
       description={seo.description}
-      openGraph={{ basic: { title: seo.title, type: 'website', image: socialImage }, optional: { description: seo.description } }}
-      twitter={{ card: 'summary_large_image', title: seo.title, description: seo.description, image: socialImage, imageAlt: 'Swift Holdings illustrative prefab residence' }}
-      extend={{ link: [{ rel: 'icon', href: '/icon.svg', type: 'image/svg+xml' }, { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' }, { rel: 'manifest', href: '/manifest.webmanifest' }] }}
+      openGraph={{
+        basic: { title: seo.title, type: 'website', image: socialImage },
+        optional: { description: seo.description },
+      }}
+      twitter={{
+        card: 'summary_large_image',
+        title: seo.title,
+        description: seo.description,
+        image: socialImage,
+        imageAlt: 'Swift Holdings illustrative prefab residence',
+      }}
+      extend={{
+        link: [
+          { rel: 'icon', href: '/icon.svg', type: 'image/svg+xml' },
+          { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+          { rel: 'manifest', href: '/manifest.webmanifest' },
+        ],
+      }}
     />
     <Schema item={schema} />
-    <AstroFont config={[{ src: [], name: 'Outfit', googleFontsURL: 'https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap', preload: true, display: 'swap', selector: 'body', fallback: 'sans-serif' }]} />
+    <AstroFont
+      config={[
+        {
+          src: [],
+          name: 'Outfit',
+          googleFontsURL:
+            'https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap',
+          preload: true,
+          display: 'swap',
+          selector: 'body',
+          fallback: 'sans-serif',
+        },
+      ]}
+    />
   </head>
   <body class="marketing-shell selection:bg-[#2A1C46] selection:text-white">
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 marketing-button-primary">Skip to content</a>
+    <a
+      href="#main-content"
+      class="marketing-button-primary sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50"
+      >Skip to content</a
+    >
     <SiteHeader />
     <main id="main-content" tabindex="-1"><slot /></main>
     <SiteFooter />
@@ -813,17 +875,57 @@ const currentPath = Astro.url.pathname;
 ---
 
 <header class="border-b border-[var(--marketing-rule)] bg-white">
-  <div class="marketing-container flex min-h-18 items-center justify-between gap-4 py-4">
-    <a href="/" class="text-sm font-bold tracking-[0.04em]">SWIFT <span class="font-normal">HOLDINGS</span></a>
-    <nav class="hidden items-center gap-5 lg:flex" aria-label="Primary navigation">
-      {marketingSite.navigation.map((item) => <a href={item.href} aria-current={currentPath === item.href ? 'page' : undefined} class="text-sm text-[var(--marketing-muted)] hover:text-[var(--marketing-ink)]">{item.label}</a>)}
-      <a class="marketing-button-primary text-sm" href={marketingSite.primaryCta.href}>{marketingSite.primaryCta.label}</a>
+  <div
+    class="marketing-container flex min-h-18 items-center justify-between gap-4 py-4"
+  >
+    <a href="/" class="text-sm font-bold tracking-[0.04em]"
+      >SWIFT <span class="font-normal">HOLDINGS</span></a
+    >
+    <nav
+      class="hidden items-center gap-5 lg:flex"
+      aria-label="Primary navigation"
+    >
+      {
+        marketingSite.navigation.map(item => (
+          <a
+            href={item.href}
+            aria-current={currentPath === item.href ? 'page' : undefined}
+            class="text-sm text-[var(--marketing-muted)] hover:text-[var(--marketing-ink)]"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <a
+        class="marketing-button-primary text-sm"
+        href={marketingSite.primaryCta.href}>{marketingSite.primaryCta.label}</a
+      >
     </nav>
     <details class="relative lg:hidden">
-      <summary class="cursor-pointer rounded border border-[var(--marketing-rule)] px-3 py-2 text-sm">Menu</summary>
-      <nav class="absolute right-3 top-16 z-20 grid min-w-60 gap-1 border border-[var(--marketing-rule)] bg-white p-3 shadow-lg" aria-label="Mobile navigation">
-        {marketingSite.navigation.map((item) => <a href={item.href} aria-current={currentPath === item.href ? 'page' : undefined} class="rounded px-3 py-2 text-sm hover:bg-[#f1edf5]">{item.label}</a>)}
-        <a class="marketing-button-primary mt-2 text-sm" href={marketingSite.primaryCta.href}>{marketingSite.primaryCta.label}</a>
+      <summary
+        class="cursor-pointer rounded border border-[var(--marketing-rule)] px-3 py-2 text-sm"
+        >Menu</summary
+      >
+      <nav
+        class="absolute top-16 right-3 z-20 grid min-w-60 gap-1 border border-[var(--marketing-rule)] bg-white p-3 shadow-lg"
+        aria-label="Mobile navigation"
+      >
+        {
+          marketingSite.navigation.map(item => (
+            <a
+              href={item.href}
+              aria-current={currentPath === item.href ? 'page' : undefined}
+              class="rounded px-3 py-2 text-sm hover:bg-[#f1edf5]"
+            >
+              {item.label}
+            </a>
+          ))
+        }
+        <a
+          class="marketing-button-primary mt-2 text-sm"
+          href={marketingSite.primaryCta.href}
+          >{marketingSite.primaryCta.label}</a
+        >
       </nav>
     </details>
   </div>
@@ -854,12 +956,39 @@ interface Props {
 const { image, ratio, loading = 'lazy', class: className = '' } = Astro.props;
 ---
 
-<figure class:list={['marketing-image-frame', className]} style={`aspect-ratio:${ratio}`}>
+<figure
+  class:list={['marketing-image-frame', className]}
+  style={`aspect-ratio:${ratio}`}
+>
   <picture>
-    {image.mobile && <source media="(max-width: 767px)" srcset={image.mobile.webp.src} type="image/webp" />}
-    {image.mobile && <source media="(max-width: 767px)" srcset={image.mobile.jpeg.src} type="image/jpeg" />}
+    {
+      image.mobile && (
+        <source
+          media="(max-width: 767px)"
+          srcset={image.mobile.webp.src}
+          type="image/webp"
+        />
+      )
+    }
+    {
+      image.mobile && (
+        <source
+          media="(max-width: 767px)"
+          srcset={image.mobile.jpeg.src}
+          type="image/jpeg"
+        />
+      )
+    }
     <source srcset={image.desktop.webp.src} type="image/webp" />
-    <img src={image.desktop.jpeg.src} width={image.desktop.jpeg.width} height={image.desktop.jpeg.height} alt={image.alt} loading={loading} decoding={loading === 'eager' ? 'sync' : 'async'} class="h-full w-full object-cover" />
+    <img
+      src={image.desktop.jpeg.src}
+      width={image.desktop.jpeg.width}
+      height={image.desktop.jpeg.height}
+      alt={image.alt}
+      loading={loading}
+      decoding={loading === 'eager' ? 'sync' : 'async'}
+      class="h-full w-full object-cover"
+    />
   </picture>
   <figcaption class="marketing-image-label">{image.label}</figcaption>
 </figure>
@@ -906,16 +1035,34 @@ interface Props {
 const { eyebrow, title, lead, image, secondaryCta } = Astro.props;
 ---
 
-<section class="marketing-container grid items-center gap-10 py-12 lg:grid-cols-[1.04fr_0.96fr] lg:py-20">
+<section
+  class="marketing-container grid items-center gap-10 py-12 lg:grid-cols-[1.04fr_0.96fr] lg:py-20"
+>
   <div>
     <p class="marketing-eyebrow">{eyebrow}</p>
-    <h1 class="mt-4 max-w-xl text-5xl font-semibold tracking-[-0.05em] text-[var(--marketing-ink)] sm:text-6xl lg:text-7xl">{title}</h1>
-    <p class="mt-6 max-w-xl text-lg leading-8 text-[var(--marketing-muted)]">{lead}</p>
+    <h1
+      class="mt-4 max-w-xl text-5xl font-semibold tracking-[-0.05em] text-[var(--marketing-ink)] sm:text-6xl lg:text-7xl"
+    >
+      {title}
+    </h1>
+    <p class="mt-6 max-w-xl text-lg leading-8 text-[var(--marketing-muted)]">
+      {lead}
+    </p>
     <div class="mt-8 flex flex-wrap items-center gap-5">
-      <a class="marketing-button-primary" href={marketingSite.primaryCta.href}>{marketingSite.primaryCta.label}</a>
-      {secondaryCta && <a class="marketing-button-link" href={secondaryCta.href}>{secondaryCta.label}</a>}
+      <a class="marketing-button-primary" href={marketingSite.primaryCta.href}
+        >{marketingSite.primaryCta.label}</a
+      >
+      {
+        secondaryCta && (
+          <a class="marketing-button-link" href={secondaryCta.href}>
+            {secondaryCta.label}
+          </a>
+        )
+      }
     </div>
-    <p class="mt-6 text-sm text-[var(--marketing-muted)]">A guided conversation, not a public sales funnel.</p>
+    <p class="mt-6 text-sm text-[var(--marketing-muted)]">
+      A guided conversation, not a public sales funnel.
+    </p>
   </div>
   <ImageFrame image={image} ratio="16 / 10" loading="eager" />
 </section>
@@ -932,13 +1079,17 @@ const { items } = Astro.props;
 ---
 
 <section class="border-y border-[var(--marketing-rule)] bg-white">
-  <div class="marketing-container grid divide-y divide-[var(--marketing-rule)] md:grid-cols-3 md:divide-x md:divide-y-0">
-    {items.map((item) => (
-      <div class="py-5 md:px-6 first:md:pl-0 last:md:pr-0">
-        <p class="marketing-eyebrow">{item.label}</p>
-        <p class="mt-2 text-lg font-semibold">{item.value}</p>
-      </div>
-    ))}
+  <div
+    class="marketing-container grid divide-y divide-[var(--marketing-rule)] md:grid-cols-3 md:divide-x md:divide-y-0"
+  >
+    {
+      items.map(item => (
+        <div class="py-5 md:px-6 first:md:pl-0 last:md:pr-0">
+          <p class="marketing-eyebrow">{item.label}</p>
+          <p class="mt-2 text-lg font-semibold">{item.value}</p>
+        </div>
+      ))
+    }
   </div>
 </section>
 ```
@@ -958,7 +1109,9 @@ interface Props {
 const { eyebrow, title, body, image, reverse = false } = Astro.props;
 ---
 
-<section class="marketing-container grid items-center gap-10 py-16 lg:grid-cols-2 lg:py-24">
+<section
+  class="marketing-container grid items-center gap-10 py-16 lg:grid-cols-2 lg:py-24"
+>
   <div class:list={{ 'lg:order-2': reverse }}>
     <p class="marketing-eyebrow">{eyebrow}</p>
     <h2 class="mt-3 text-4xl font-semibold tracking-[-0.04em]">{title}</h2>
@@ -983,14 +1136,29 @@ const { eyebrow, title, steps } = Astro.props;
 
 <section class="marketing-container py-16 lg:py-24">
   <p class="marketing-eyebrow">{eyebrow}</p>
-  <h2 class="mt-3 max-w-2xl text-4xl font-semibold tracking-[-0.04em]">{title}</h2>
-  <ol class="mt-10 grid gap-6 border-t border-[var(--marketing-rule)] pt-6 md:grid-cols-2">
-    {steps.map((step, index) => (
-      <li class="grid grid-cols-[auto_1fr] gap-4">
-        <span class="grid size-7 place-items-center rounded-full bg-[#2A1C46] text-xs font-bold text-white">{index + 1}</span>
-        <div><h3 class="text-xl font-semibold">{step.title}</h3><p class="mt-2 leading-7 text-[var(--marketing-muted)]">{step.body}</p></div>
-      </li>
-    ))}
+  <h2 class="mt-3 max-w-2xl text-4xl font-semibold tracking-[-0.04em]">
+    {title}
+  </h2>
+  <ol
+    class="mt-10 grid gap-6 border-t border-[var(--marketing-rule)] pt-6 md:grid-cols-2"
+  >
+    {
+      steps.map((step, index) => (
+        <li class="grid grid-cols-[auto_1fr] gap-4">
+          <span class="grid size-7 place-items-center rounded-full bg-[#2A1C46] text-xs font-bold text-white">
+            {index + 1}
+          </span>
+          <div>
+            <>
+              <h3 class="text-xl font-semibold">{step.title}</h3>
+              <p class="mt-2 leading-7 text-[var(--marketing-muted)]">
+                {step.body}
+              </p>
+            </>
+          </div>
+        </li>
+      ))
+    }
   </ol>
 </section>
 ```
@@ -1008,10 +1176,24 @@ const { eyebrow, title, confirmed, discuss } = Astro.props;
 
 <section class="marketing-container py-16 lg:py-24">
   <p class="marketing-eyebrow">{eyebrow}</p>
-  <h2 class="mt-3 max-w-2xl text-4xl font-semibold tracking-[-0.04em]">{title}</h2>
+  <h2 class="mt-3 max-w-2xl text-4xl font-semibold tracking-[-0.04em]">
+    {title}
+  </h2>
   <div class="mt-10 grid gap-8 md:grid-cols-2">
-    <article class="border-t border-[var(--marketing-rule)] pt-5"><h3 class="text-xl font-semibold">What is clear now</h3><ul class="mt-4 grid gap-3 text-[var(--marketing-muted)]">{confirmed.map((item) => <li>{item}</li>)}</ul></article>
-    <article class="border-t border-[var(--marketing-rule)] pt-5"><h3 class="text-xl font-semibold">What to discuss directly</h3><ul class="mt-4 grid gap-3 text-[var(--marketing-muted)]">{discuss.map((item) => <li>{item}</li>)}</ul></article>
+    <article class="border-t border-[var(--marketing-rule)] pt-5">
+      <h3 class="text-xl font-semibold">What is clear now</h3><ul
+        class="mt-4 grid gap-3 text-[var(--marketing-muted)]"
+      >
+        {confirmed.map(item => <li>{item}</li>)}
+      </ul>
+    </article>
+    <article class="border-t border-[var(--marketing-rule)] pt-5">
+      <h3 class="text-xl font-semibold">What to discuss directly</h3><ul
+        class="mt-4 grid gap-3 text-[var(--marketing-muted)]"
+      >
+        {discuss.map(item => <li>{item}</li>)}
+      </ul>
+    </article>
   </div>
 </section>
 ```
@@ -1031,6 +1213,7 @@ git add src/assets/styles/marketing.css src/layout/MarketingLayout.astro src/com
 ## Task 4: Implement and Test Direct Private-Briefing Delivery
 
 **Files:**
+
 - Create: `src/utils/briefing-form.ts`
 - Create: `src/utils/briefing-form.test.ts`
 - Create: `src/components/marketing/BriefingForm.astro`
@@ -1067,7 +1250,13 @@ describe('validateBriefing', () => {
   });
 
   it('returns field messages for missing consent and invalid email', () => {
-    expect(validateBriefing({ ...validPayload, email: 'not-an-email', consent: false })).toMatchObject({
+    expect(
+      validateBriefing({
+        ...validPayload,
+        email: 'not-an-email',
+        consent: false,
+      })
+    ).toMatchObject({
       email: 'Enter a valid email address.',
       consent: 'Confirm that Swift may reply to this request.',
     });
@@ -1077,22 +1266,48 @@ describe('validateBriefing', () => {
 describe('submitBriefing', () => {
   it('silently succeeds for a honeypot submission', async () => {
     const fetcher = vi.fn();
-    await expect(submitBriefing({ endpoint: 'https://formspree.io/f/example', payload: { ...validPayload, website: 'https://bot.invalid' }, fetcher })).resolves.toEqual({ kind: 'success' });
+    await expect(
+      submitBriefing({
+        endpoint: 'https://formspree.io/f/example',
+        payload: { ...validPayload, website: 'https://bot.invalid' },
+        fetcher,
+      })
+    ).resolves.toEqual({ kind: 'success' });
     expect(fetcher).not.toHaveBeenCalled();
   });
 
   it('returns fallback when no public Formspree endpoint is configured', async () => {
-    await expect(submitBriefing({ endpoint: '', payload: validPayload })).resolves.toEqual({ kind: 'fallback' });
+    await expect(
+      submitBriefing({ endpoint: '', payload: validPayload })
+    ).resolves.toEqual({ kind: 'fallback' });
   });
 
   it('returns success only after a successful Formspree response', async () => {
-    const fetcher = vi.fn().mockResolvedValue(new Response('', { status: 200 }));
-    await expect(submitBriefing({ endpoint: 'https://formspree.io/f/example', payload: validPayload, fetcher })).resolves.toEqual({ kind: 'success' });
+    const fetcher = vi
+      .fn()
+      .mockResolvedValue(new Response('', { status: 200 }));
+    await expect(
+      submitBriefing({
+        endpoint: 'https://formspree.io/f/example',
+        payload: validPayload,
+        fetcher,
+      })
+    ).resolves.toEqual({ kind: 'success' });
   });
 
   it('keeps the form retryable after a network error', async () => {
     const fetcher = vi.fn().mockRejectedValue(new TypeError('Network failed'));
-    await expect(submitBriefing({ endpoint: 'https://formspree.io/f/example', payload: validPayload, fetcher })).resolves.toEqual({ kind: 'error', message: 'We could not send your request. Please try again or email us directly.' });
+    await expect(
+      submitBriefing({
+        endpoint: 'https://formspree.io/f/example',
+        payload: validPayload,
+        fetcher,
+      })
+    ).resolves.toEqual({
+      kind: 'error',
+      message:
+        'We could not send your request. Please try again or email us directly.',
+    });
   });
 
   it('returns a retryable error after the request times out', async () => {
@@ -1112,7 +1327,11 @@ describe('submitBriefing', () => {
         fetcher: fetcher as typeof fetch,
         timeoutMs: 0,
       })
-    ).resolves.toEqual({ kind: 'error', message: 'We could not send your request. Please try again or email us directly.' });
+    ).resolves.toEqual({
+      kind: 'error',
+      message:
+        'We could not send your request. Please try again or email us directly.',
+    });
   });
 });
 ```
@@ -1140,7 +1359,9 @@ export interface BriefingPayload {
   website: string;
 }
 
-export type BriefingFieldErrors = Partial<Record<keyof BriefingPayload, string>>;
+export type BriefingFieldErrors = Partial<
+  Record<keyof BriefingPayload, string>
+>;
 export type BriefingSubmissionResult =
   | { kind: 'success' }
   | { kind: 'fallback' }
@@ -1148,14 +1369,19 @@ export type BriefingSubmissionResult =
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export function validateBriefing(payload: BriefingPayload): BriefingFieldErrors {
+export function validateBriefing(
+  payload: BriefingPayload
+): BriefingFieldErrors {
   const errors: BriefingFieldErrors = {};
   if (!payload.name.trim()) errors.name = 'Enter your full name.';
-  if (!emailPattern.test(payload.email.trim())) errors.email = 'Enter a valid email address.';
+  if (!emailPattern.test(payload.email.trim()))
+    errors.email = 'Enter a valid email address.';
   if (!payload.country.trim()) errors.country = 'Select your current country.';
-  if (!payload.interest.trim()) errors.interest = 'Select what brings you to Swift.';
+  if (!payload.interest.trim())
+    errors.interest = 'Select what brings you to Swift.';
   if (!payload.timeframe.trim()) errors.timeframe = 'Select your timeframe.';
-  if (!payload.consent) errors.consent = 'Confirm that Swift may reply to this request.';
+  if (!payload.consent)
+    errors.consent = 'Confirm that Swift may reply to this request.';
   return errors;
 }
 
@@ -1188,9 +1414,17 @@ export async function submitBriefing({
     });
     return response.ok
       ? { kind: 'success' }
-      : { kind: 'error', message: 'We could not send your request. Please try again or email us directly.' };
+      : {
+          kind: 'error',
+          message:
+            'We could not send your request. Please try again or email us directly.',
+        };
   } catch {
-    return { kind: 'error', message: 'We could not send your request. Please try again or email us directly.' };
+    return {
+      kind: 'error',
+      message:
+        'We could not send your request. Please try again or email us directly.',
+    };
   } finally {
     clearTimeout(timeout);
   }
@@ -1222,7 +1456,8 @@ honeypot. Read the build-time public endpoint in frontmatter:
 ```astro
 ---
 import { marketingSite } from '@/data/marketing/site';
-const endpoint = import.meta.env.PUBLIC_FORMSPREE_BRIEFING_ENDPOINT?.trim() ?? '';
+const endpoint =
+  import.meta.env.PUBLIC_FORMSPREE_BRIEFING_ENDPOINT?.trim() ?? '';
 const fallbackHref = `mailto:${marketingSite.email}?subject=${encodeURIComponent('Private briefing request')}`;
 ---
 ```
@@ -1308,6 +1543,7 @@ git add src/utils/briefing-form.ts src/utils/briefing-form.test.ts src/component
 ## Task 5: Rebuild Home and The Village Around the Approved Photo-Led Direction
 
 **Files:**
+
 - Modify: `src/pages/index.astro`
 - Create: `src/pages/village.astro`
 
@@ -1343,25 +1579,48 @@ import { marketingPages } from '@/data/marketing/pages';
 
 const page = marketingPages.home;
 const reasons = [
-  { title: 'Built with precision', body: 'A prefab-led approach replaces improvised, distant decision-making with a clearer process.' },
-  { title: 'A guided ownership path', body: 'The first conversation is designed to make the next decision more informed, not more pressured.' },
-  { title: 'Designed for life abroad', body: 'The site speaks to a home base for family, return visits, and the future.' },
+  {
+    title: 'Built with precision',
+    body: 'A prefab-led approach replaces improvised, distant decision-making with a clearer process.',
+  },
+  {
+    title: 'A guided ownership path',
+    body: 'The first conversation is designed to make the next decision more informed, not more pressured.',
+  },
+  {
+    title: 'Designed for life abroad',
+    body: 'The site speaks to a home base for family, return visits, and the future.',
+  },
 ];
 ---
 
 <MarketingLayout seo={page.seo}>
-  <MarketingHero {...page.hero} image={marketingImages.homeHero} secondaryCta={{ label: 'See how it works', href: '/how-it-works' }} />
+  <MarketingHero
+    {...page.hero}
+    image={marketingImages.homeHero}
+    secondaryCta={{ label: 'See how it works', href: '/how-it-works' }}
+  />
   <ProofStrip items={page.proof} />
   <StorySplit {...page.story} image={marketingImages.villageStory} />
   <section class="marketing-container py-20">
-    <div class="grid gap-8 border-t border-[var(--marketing-rule)] pt-6 md:grid-cols-3">
-      {reasons.map((reason, index) => (
-        <article>
-          <p class="text-sm font-bold text-[var(--marketing-violet)]">0{index + 1}</p>
-          <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em]">{reason.title}</h2>
-          <p class="mt-3 leading-7 text-[var(--marketing-muted)]">{reason.body}</p>
-        </article>
-      ))}
+    <div
+      class="grid gap-8 border-t border-[var(--marketing-rule)] pt-6 md:grid-cols-3"
+    >
+      {
+        reasons.map((reason, index) => (
+          <article>
+            <p class="text-sm font-bold text-[var(--marketing-violet)]">
+              0{index + 1}
+            </p>
+            <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em]">
+              {reason.title}
+            </h2>
+            <p class="mt-3 leading-7 text-[var(--marketing-muted)]">
+              {reason.body}
+            </p>
+          </article>
+        ))
+      }
     </div>
   </section>
   <section class="marketing-container grid gap-5 pb-20 md:grid-cols-2">
@@ -1369,11 +1628,18 @@ const reasons = [
     <ImageFrame image={marketingImages.architectureGallery} ratio="4 / 3" />
   </section>
   <section class="bg-[#2A1C46] py-16 text-white">
-    <div class="marketing-container grid items-center gap-8 md:grid-cols-[1fr_0.8fr]">
+    <div
+      class="marketing-container grid items-center gap-8 md:grid-cols-[1fr_0.8fr]"
+    >
       <div>
         <p class="marketing-eyebrow text-white/70">The next step</p>
-        <h2 class="mt-3 text-4xl font-semibold tracking-[-0.04em]">See whether Swift fits your plans.</h2>
-        <a class="mt-6 inline-flex rounded-md border border-white/75 px-4 py-3 font-semibold" href="/briefing">Request a private briefing</a>
+        <h2 class="mt-3 text-4xl font-semibold tracking-[-0.04em]">
+          See whether Swift fits your plans.
+        </h2>
+        <a
+          class="mt-6 inline-flex rounded-md border border-white/75 px-4 py-3 font-semibold"
+          href="/briefing">Request a private briefing</a
+        >
       </div>
       <ImageFrame image={marketingImages.duskCta} ratio="16 / 10" />
     </div>
@@ -1430,6 +1696,7 @@ git add src/pages/index.astro src/pages/village.astro
 ## Task 6: Build How It Works, Ownership, and Protections Pages
 
 **Files:**
+
 - Create: `src/pages/how-it-works.astro`
 - Create: `src/pages/ownership.astro`
 - Modify: `src/pages/protections.astro`
@@ -1442,11 +1709,23 @@ steps:
 
 ```ts
 [
-  { title: 'Start with a private briefing', body: 'Share what you are looking for and the questions you need answered.' },
-  { title: 'Explore the village direction', body: 'Review the Oyarifa concept, reference visuals, and what is currently known.' },
-  { title: 'Understand the path before deciding', body: 'Talk through buyer fit, timing, practical next steps, and open questions.' },
-  { title: 'Prepare for the next confirmed step', body: 'Move forward only with the information and documentation appropriate to your decision.' },
-]
+  {
+    title: 'Start with a private briefing',
+    body: 'Share what you are looking for and the questions you need answered.',
+  },
+  {
+    title: 'Explore the village direction',
+    body: 'Review the Oyarifa concept, reference visuals, and what is currently known.',
+  },
+  {
+    title: 'Understand the path before deciding',
+    body: 'Talk through buyer fit, timing, practical next steps, and open questions.',
+  },
+  {
+    title: 'Prepare for the next confirmed step',
+    body: 'Move forward only with the information and documentation appropriate to your decision.',
+  },
+];
 ```
 
 Close with `warmDetail` and a briefing CTA. Do not claim a purchase contract,
@@ -1513,6 +1792,7 @@ git add src/pages/how-it-works.astro src/pages/ownership.astro src/pages/protect
 ## Task 7: Build Accra, About Swift, and the Private Briefing Route
 
 **Files:**
+
 - Create: `src/pages/accra.astro`
 - Create: `src/pages/briefing.astro`
 - Modify: `src/pages/about.astro`
@@ -1540,9 +1820,18 @@ and `villageStory` imagery. Use these principles exactly:
 
 ```ts
 const principles = [
-  { title: 'A more considered path home', body: 'Swift exists to make a return to Accra feel more legible from abroad.' },
-  { title: 'Clarity before momentum', body: 'The site and briefing are designed to surface questions before a buyer is asked to act.' },
-  { title: 'A village, not a product dashboard', body: 'The work is about a home base, local context, and a more grounded ownership conversation.' },
+  {
+    title: 'A more considered path home',
+    body: 'Swift exists to make a return to Accra feel more legible from abroad.',
+  },
+  {
+    title: 'Clarity before momentum',
+    body: 'The site and briefing are designed to surface questions before a buyer is asked to act.',
+  },
+  {
+    title: 'A village, not a product dashboard',
+    body: 'The work is about a home base, local context, and a more grounded ownership conversation.',
+  },
 ];
 ```
 
@@ -1595,6 +1884,7 @@ git add src/pages/accra.astro src/pages/about.astro src/pages/briefing.astro src
 ## Task 8: Add Cloudflare Redirects, Metadata, and Static-Deployment Hygiene
 
 **Files:**
+
 - Create: `public/_redirects`
 - Modify: `src/pages/robots.txt.ts`
 - Modify: `public/manifest.webmanifest`
@@ -1629,7 +1919,13 @@ export const prerender = true;
 
 export const GET: APIRoute = () =>
   new Response(
-    ['User-agent: *', 'Allow: /', 'Disallow: /keystatic', 'Disallow: /api/', ''].join('\n'),
+    [
+      'User-agent: *',
+      'Allow: /',
+      'Disallow: /keystatic',
+      'Disallow: /api/',
+      '',
+    ].join('\n'),
     { headers: { 'Content-Type': 'text/plain; charset=utf-8' } }
   );
 ```
@@ -1645,8 +1941,18 @@ Replace `public/manifest.webmanifest` with:
   "short_name": "Swift",
   "name": "Swift Holdings",
   "icons": [
-    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ],
   "display": "minimal-ui",
   "id": "/",
@@ -1713,6 +2019,7 @@ git add public/_redirects src/pages/robots.txt.ts public/manifest.webmanifest RE
 ## Task 9: Run the Full Offline Quality Gate Before Any Push
 
 **Files:**
+
 - Test: `src/data/marketing/image-manifest.test.ts`
 - Test: `src/utils/briefing-form.test.ts`
 - Verify: all files created or modified in Tasks 1-8

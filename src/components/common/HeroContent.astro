@@ -25,26 +25,33 @@ const afterHead = base + (lineOne.length + lineTwo.length) * step;
   <div class="hero-word mb-6 flex items-center gap-3" style={`--d:0ms`}>
     <span class="rule-thin w-10"></span>
     <span
-      class="font-work-sans text-xs font-medium uppercase tracking-[0.28em] text-white/70"
+      class="font-work-sans text-xs font-medium tracking-[0.28em] text-white/70 uppercase"
       >{eyebrow}</span
     >
   </div>
 
   {/* Headline — two deliberate lines, per-word reveal */}
   <h1
-    class="dm-sans font-medium tracking-[-0.02em] text-[clamp(2.5rem,6.5vw,5.5rem)] leading-[1.02] text-white"
+    class="dm-sans text-[clamp(2.5rem,6.5vw,5.5rem)] leading-[1.02] font-medium tracking-[-0.02em] text-white"
   >
     <span class="block">
       {
         lineOne.map((word, i) => (
-          <span class="hero-word" style={`--d:${base + i * step}ms`}>{word} </span>
+          <span class="hero-word" style={`--d:${base + i * step}ms`}>
+            {word}{' '}
+          </span>
         ))
       }
     </span>
     <span class="block">
       {
         lineTwo.map((word, i) => (
-          <span class="hero-word" style={`--d:${base + lineOne.length * step + i * step}ms`}>{word} </span>
+          <span
+            class="hero-word"
+            style={`--d:${base + lineOne.length * step + i * step}ms`}
+          >
+            {word}{' '}
+          </span>
         ))
       }
     </span>
@@ -52,7 +59,7 @@ const afterHead = base + (lineOne.length + lineTwo.length) * step;
 
   {/* Subcopy */}
   <p
-    class="hero-word mt-7 max-w-xl text-pretty font-work-sans text-lg leading-relaxed text-white/85"
+    class="hero-word font-work-sans mt-7 max-w-xl text-lg leading-relaxed text-pretty text-white/85"
     style={`--d:${afterHead + 40}ms`}
   >
     {subTitle}
