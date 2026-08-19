@@ -93,7 +93,7 @@ const defaultSchema: WithContext<Thing> = {
           name: 'Outfit',
           googleFontsURL:
             'https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap',
-          preload: true,
+          preload: false,
           display: 'swap',
           selector: 'h1, h2, h3, h4',
           fallback: 'sans-serif',
@@ -103,25 +103,13 @@ const defaultSchema: WithContext<Thing> = {
           name: 'Outfit',
           googleFontsURL:
             'https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap',
-          preload: true,
+          preload: false,
           display: 'swap',
           selector: 'body',
           fallback: 'sans-serif',
         },
       ]}
     />
-
-    {/* Remove duplicate font links during transitions */}
-    <script>
-      import type { TransitionBeforeSwapEvent } from 'astro:transitions/client';
-      document.addEventListener('astro:before-swap', e =>
-        [
-          ...(e as TransitionBeforeSwapEvent).newDocument.head.querySelectorAll(
-            'link[as="font"]'
-          ),
-        ].forEach(link => link.remove())
-      );
-    </script>
 
     {/* Smooth scroll + scroll reveal */}
     <script>
