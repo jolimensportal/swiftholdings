@@ -32,5 +32,7 @@ export default defineConfig({
     prerenderEnvironment: 'node',
     // Optimize images at build with sharp; avoid requiring a Cloudflare Images binding.
     imageService: 'compile',
+    // Explicit KV binding used for Astro sessions and member records.
+    sessionKVBindingName: 'SESSION',
   }),
 });

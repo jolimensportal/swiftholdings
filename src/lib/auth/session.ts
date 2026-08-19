@@ -1,3 +1,5 @@
+import type { AstroSession } from 'astro';
+
 export const MEMBER_SESSION_KEY = 'memberEmail';
 
 const SESSION_TTL_SECONDS = 7 * 24 * 60 * 60;
@@ -8,6 +10,21 @@ export interface SessionLike {
   delete(key: string): Promise<void>;
   destroy(): Promise<void>;
 }
+
+export const fromAstroSession = (session: AstroSession): SessionLike => ({
+  async get(key) {
+    return session.get(key);
+  },
+  async set(key, value, options) {
+    session.set(key, value, options);
+  },
+  async delete(key) {
+    session.delete(key);
+  },
+  async destroy() {
+    session.destroy();
+  },
+});
 
 export const getMemberEmail = async (
   session: SessionLike

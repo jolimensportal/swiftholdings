@@ -21,6 +21,24 @@ export function errorResponse(
 }
 
 /**
+ * CSRF-lite: require a same-host Origin header on state-changing requests.
+ * Browsers send Origin on all POSTs; missing or foreign origins are rejected.
+ */
+export function sameOriginRequest(request: Request): boolean {
+  const origin = request.headers.get('origin');
+
+  if (origin === null) {
+    return false;
+  }
+
+  try {
+    return new URL(origin).host === new URL(request.url).host;
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Forward form payloads to an optional webhook (e.g. Formspree).
  * When unset, accepts the payload in demo mode so the template works out of the box.
  */
