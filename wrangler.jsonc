@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "swift-holdings",
+  "compatibility_date": "2026-04-15",
+  "main": "./dist/server/entry.mjs",
+  "no_bundle": true,
+  "assets": {
+    "directory": "./dist/client",
+    "binding": "ASSETS"
+  },
+  "kv_namespaces": [
+    {
+      "binding": "SESSION"
+    }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}
