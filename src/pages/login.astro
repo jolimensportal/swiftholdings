@@ -1,0 +1,73 @@
+---
+import LoginForm from '@/components/marketing/LoginForm.client';
+import MarketingLayout from '@layout/MarketingLayout.astro';
+
+const rawNext = Astro.url.searchParams.get('next') ?? '';
+const next =
+  rawNext.startsWith('/') && !rawNext.startsWith('//') ? rawNext : '';
+---
+
+<MarketingLayout
+  seo={{
+    title: 'Member sign in — The Swift Project',
+    description:
+      'Sign in to the Swift Project member area to read the partnership summaries, the investor edition, and the legal dossier.',
+  }}
+>
+  <section
+    class="marketing-container grid items-start gap-12 py-16 lg:grid-cols-[0.85fr_1.05fr] lg:py-24"
+  >
+    <div class="lg:sticky lg:top-24">
+      <p class="marketing-eyebrow">Member sign in</p>
+      <h1
+        class="marketing-display mt-4 text-5xl leading-[1.05] text-[var(--marketing-ink)] sm:text-6xl"
+      >
+        Welcome back.
+      </h1>
+      <p class="mt-6 max-w-lg text-lg leading-8 text-[var(--marketing-muted)]">
+        The numbers stay inside the ecosystem. Sign in to pick up the
+        partnership summaries, the investor edition, and the legal dossier where
+        you left them.
+      </p>
+      <ul
+        class="mt-10 grid gap-4 border-t border-[var(--marketing-rule)] pt-6 text-sm"
+      >
+        <li class="grid grid-cols-[auto_1fr] gap-3">
+          <span class="marketing-ledger-label">SESSION</span>
+          <p class="text-[var(--marketing-ink)]">
+            Credentials are hashed with PBKDF2. Sessions last seven days.
+          </p>
+        </li>
+        <li class="grid grid-cols-[auto_1fr] gap-3">
+          <span class="marketing-ledger-label">DOCUMENTS</span>
+          <p class="text-[var(--marketing-ink)]">
+            Full texts, the financial edition, and the legal dossier.
+          </p>
+        </li>
+        <li class="grid grid-cols-[auto_1fr] gap-3">
+          <span class="marketing-ledger-label">NEW HERE</span>
+          <p class="text-[var(--marketing-ink)]">
+            Start with a discovery briefing — you choose your credentials at the
+            last step.
+          </p>
+        </li>
+      </ul>
+    </div>
+
+    <div
+      class="border border-[var(--marketing-gold-line)] bg-[var(--marketing-obsidian-900)] p-8 text-[var(--marketing-ink-on-dark)] lg:p-10"
+    >
+      <div class="flex items-baseline justify-between gap-4">
+        <p class="marketing-display text-2xl text-[var(--marketing-gold-400)]">
+          Member sign in
+        </p>
+        <p class="marketing-ledger-label">
+          SWIFT / {new Date().getUTCFullYear()}
+        </p>
+      </div>
+      <div class="mt-8">
+        <LoginForm client:load next={next} />
+      </div>
+    </div>
+  </section>
+</MarketingLayout>
