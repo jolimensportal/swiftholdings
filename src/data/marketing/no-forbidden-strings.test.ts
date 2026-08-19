@@ -8,6 +8,7 @@ const files = [
   '../../data/marketing/pathways.ts',
   '../../data/marketing/documents.ts',
   '../../data/marketing/calculator.ts',
+  '../../data/marketing/discovery.ts',
 ];
 
 const readAll = (): string =>
