@@ -63,7 +63,7 @@ async function main() {
   try {
     const icon = await readFile(iconPath, 'utf8');
 
-    if (!icon.includes('#2A1C46') || !icon.includes('fill="white"')) {
+    if (!icon.includes('#14141A') || !icon.includes('#E1BE92')) {
       failures.push(`invalid branding: ${relative(root, iconPath)}`);
     }
   } catch {
