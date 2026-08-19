@@ -1,0 +1,127 @@
+---
+import { getCollection } from 'astro:content';
+import { env } from 'cloudflare:workers';
+import { fromAstroSession, getMemberEmail } from '@/lib/auth/session';
+import { getMemberView } from '@/lib/auth/members';
+import MemberLayout from '@layout/MemberLayout.astro';
+
+const email =
+  Astro.session === undefined
+    ? undefined
+    : await getMemberEmail(fromAstroSession(Astro.session));
+
+if (email === undefined) {
+  return Astro.redirect('/login?next=/members');
+}
+
+const member = await getMemberView(env.SESSION, email);
+
+if (member === null) {
+  return Astro.redirect('/login?next=/members');
+}
+
+const documents = (await getCollection('documents')).toSorted((a, b) => {
+  const order = { summary: 0, investor: 1, whitepaper: 2, legal: 3 } as const;
+  return order[a.data.kind] - order[b.data.kind];
+});
+
+const kindLabels = {
+  summary: 'Partnership Summary',
+  investor: 'Financial edition',
+  whitepaper: 'Whitepaper',
+  legal: 'Legal dossier',
+} as const;
+
+const hour = new Date().getUTCHours();
+const greeting =
+  hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
+const firstName = member.name.split(' ')[0];
+---
+
+<MemberLayout
+  seo={{
+    title: `Member area — ${firstName} · The Swift Project`,
+    description:
+      'Your gated library of partnership documents, yield materials, and briefing records.',
+  }}
+>
+  <section class="marketing-container py-14 lg:py-20">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <p class="marketing-eyebrow">Member area</p>
+        <h1
+          class="marketing-display mt-3 text-5xl text-[var(--marketing-gold-400)] lg:text-6xl"
+        >
+          {greeting}, {firstName}.
+        </h1>
+        <p class="mt-4 max-w-xl leading-7 text-[var(--marketing-dim-on-dark)]">
+          Your gate is open. The full texts, the financial edition, and the
+          legal dossier are on the table below — readable here or as a PDF.
+        </p>
+      </div>
+      <dl
+        class="grid grid-cols-2 gap-px border border-[var(--marketing-gold-line)] text-sm"
+      >
+        <div class="bg-[var(--marketing-obsidian-950)] px-5 py-3">
+          <dt class="marketing-ledger-label">MEMBER</dt>
+          <dd class="mt-1 text-[var(--marketing-ink-on-dark)]">
+            {member.email}
+          </dd>
+        </div>
+        <div class="bg-[var(--marketing-obsidian-950)] px-5 py-3">
+          <dt class="marketing-ledger-label">DOCUMENTS</dt>
+          <dd class="mt-1 text-[var(--marketing-ink-on-dark)]">
+            {documents.length} open
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div
+      class="mt-12 grid gap-px bg-[var(--marketing-gold-line)] lg:grid-cols-12"
+    >
+      {
+        documents.map((document, index) => (
+          <a
+            href={`/members/documents/${document.id}`}
+            class={`group grid gap-6 bg-[var(--marketing-obsidian-900)] p-8 transition-colors hover:bg-[var(--marketing-obsidian-800)] lg:p-10 ${
+              index % 2 === 0 ? 'lg:col-span-7' : 'lg:col-span-5'
+            }`}
+          >
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <p class="marketing-ledger-label">
+                {kindLabels[document.data.kind]}
+              </p>
+              <p class="text-xs text-[var(--marketing-dim-on-dark)]">
+                {document.data.pages !== undefined &&
+                  `${document.data.pages} pages · `}
+                {document.data.readMinutes !== undefined &&
+                  `${document.data.readMinutes} minutes`}
+              </p>
+            </div>
+            <h2 class="marketing-display text-3xl leading-tight text-[var(--marketing-ink-on-dark)] group-hover:text-[var(--marketing-gold-400)] lg:text-4xl">
+              {document.data.title}
+            </h2>
+            <p class="max-w-lg text-sm leading-6 text-[var(--marketing-dim-on-dark)]">
+              {document.data.description}
+            </p>
+            <p class="text-sm font-medium text-[var(--marketing-gold-400)]">
+              Read →
+            </p>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="mt-12 border-y border-[var(--marketing-gold-line)] py-8">
+      <p class="marketing-ledger-label">BRIEFINGS</p>
+      <p
+        class="mt-3 max-w-2xl text-sm leading-7 text-[var(--marketing-dim-on-dark)]"
+      >
+        Every briefing you take is recorded, summarised, and filed here — next
+        to the documents it unlocked. Your first call's summary will appear
+        after the briefing.
+      </p>
+    </div>
+  </section>
+</MemberLayout>

@@ -1,0 +1,83 @@
+---
+import { getEntry, render } from 'astro:content';
+import PrintButton from '@/components/marketing/PrintButton.client';
+import MemberLayout from '@layout/MemberLayout.astro';
+
+const { slug } = Astro.params;
+
+if (slug === undefined) {
+  return Astro.redirect('/404');
+}
+
+const document = await getEntry('documents', slug);
+
+if (document === undefined) {
+  return Astro.redirect('/404');
+}
+
+const { Content } = await render(document);
+
+const kindLabels = {
+  summary: 'Partnership Summary',
+  investor: 'Financial edition',
+  whitepaper: 'Whitepaper',
+  legal: 'Legal dossier',
+} as const;
+---
+
+<MemberLayout
+  seo={{
+    title: `${document.data.title} · The Swift Project`,
+    description: document.data.description,
+  }}
+>
+  <section class="marketing-container py-12 lg:py-16">
+    <div
+      class="print-document mx-auto max-w-3xl bg-[var(--marketing-canvas)] px-6 py-12 text-[var(--marketing-ink)] sm:px-10 lg:px-14 lg:py-16"
+    >
+      <p class="marketing-ledger-label">
+        {kindLabels[document.data.kind]} · SWIFT / {new Date().getUTCFullYear()}
+      </p>
+      <h1
+        class="marketing-display mt-5 text-4xl leading-[1.08] text-[var(--marketing-ink)] sm:text-5xl"
+      >
+        {document.data.title}
+      </h1>
+      <div
+        class="print-meta mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[var(--marketing-rule)] pt-4 text-xs text-[var(--marketing-muted)]"
+      >
+        <span>
+          {document.data.pages !== undefined && `${document.data.pages} pages`}
+        </span>
+        <span>
+          {
+            document.data.readMinutes !== undefined &&
+              `~${document.data.readMinutes} minutes`
+          }
+        </span>
+        <span>
+          {document.data.date.toISOString().slice(0, 10)}
+        </span>
+        <span class="ml-auto">Confidential · members only</span>
+      </div>
+
+      <article
+        class="prose prose-neutral prose-headings:font-normal prose-h2:mt-12 prose-h2:border-t prose-h2:border-[var(--marketing-rule)] prose-h2:pt-6 prose-h2:text-[var(--marketing-ink)] prose-h3:text-[var(--marketing-ink)] prose-p:leading-8 prose-a:text-[var(--marketing-gold-700)] prose-strong:text-[var(--marketing-ink)] prose-th:border-[var(--marketing-rule)] prose-td:border-[var(--marketing-rule)] mt-10 max-w-none"
+      >
+        <Content />
+      </article>
+
+      <div
+        class="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--marketing-rule)] pt-6"
+      >
+        <a
+          href="/members"
+          class="text-sm font-medium text-[var(--marketing-gold-700)] underline decoration-[var(--marketing-gold-line)] underline-offset-4 print:hidden"
+        >
+          ← Back to your documents
+        </a>
+        <PrintButton client:load />
+      </div>
+    </div>
+  </section>
+</MemberLayout>

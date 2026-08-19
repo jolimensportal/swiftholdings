@@ -47,4 +47,22 @@ const whitepapers = defineCollection({
   }),
 });
 
-export const collections = { articles, reference, spreadsheets, whitepapers };
+const documents = defineCollection({
+  loader: glob({ pattern: '**/*.mdoc', base: './src/content/documents' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    date: z.date(),
+    kind: z.enum(['summary', 'investor', 'whitepaper', 'legal']),
+    pages: z.number().optional(),
+    readMinutes: z.number().optional(),
+  }),
+});
+
+export const collections = {
+  articles,
+  reference,
+  spreadsheets,
+  whitepapers,
+  documents,
+};
