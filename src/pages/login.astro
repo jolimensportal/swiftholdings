@@ -1,4 +1,5 @@
 ---
+export const prerender = true;
 import LoginForm from '@/components/marketing/LoginForm.client';
 import MarketingLayout from '@layout/MarketingLayout.astro';
 
@@ -6,6 +7,7 @@ const rawNext = Astro.url.searchParams.get('next') ?? '';
 const next =
   rawNext.startsWith('/') && !rawNext.startsWith('//') ? rawNext : '';
 ---
+export const prerender = true;
 
 <MarketingLayout
   seo={{

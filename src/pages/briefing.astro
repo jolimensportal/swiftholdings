@@ -1,4 +1,5 @@
 ---
+export const prerender = true;
 import DiscoveryForm from '@/components/marketing/DiscoveryForm.client';
 import ImageFrame from '@/components/marketing/ImageFrame.astro';
 import { marketingImages } from '@/data/marketing/image-assets';
@@ -12,6 +13,7 @@ const nextSteps = [
   'The long-form documents appear on the other side.',
 ];
 ---
+export const prerender = true;
 
 <MarketingLayout seo={page.seo}>
   <section
