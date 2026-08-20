@@ -28,9 +28,9 @@
   --container: 72rem;
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 
-  /* Gradients */
-  --hero-gradient-left: linear-gradient(90deg, rgba(15,16,17,0.98) 0%, rgba(15,16,17,0.88) 28%, rgba(15,16,17,0.38) 57%, rgba(15,16,17,0.04) 100%);
-  --hero-gradient-bottom: linear-gradient(180deg, rgba(20,20,20,0) 55%, rgba(20,20,21,0.48) 100%);
+  /* Gradients — EXACT from JSON spec */
+  --hero-gradient-left: linear-gradient(90deg, rgba(12,13,14,0.94) 0%, rgba(12,13,14,0.88) 22%, rgba(12,13,14,0.68) 38%, rgba(12,13,14,0.34) 53%, rgba(12,13,14,0.10) 68%, rgba(12,13,14,0.02) 82%, rgba(12,13,14,0) 100%);
+  --hero-gradient-bottom: linear-gradient(180deg, transparent 60%, rgba(15,16,17,0.15) 78%, rgba(15,16,17,0.50) 100%);
   --cta-gradient: linear-gradient(135deg, #E7C692 0%, #CDA773 100%);
 
   /* Fonts */
@@ -239,7 +239,7 @@
   z-index: 1;
   padding-top: clamp(3rem, 6vh, 4rem);
   padding-bottom: clamp(3.5rem, 5vh, 4.5rem);
-  max-width: 58%;
+  max-width: 50%;
 }
 
 .hero-eyebrow {
