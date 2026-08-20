@@ -1,5 +1,5 @@
 {
-  "name": "swift-portal",
+  "name": "swift-portal-app",
   "compatibility_date": "2026-08-19",
   "compatibility_flags": [
     "nodejs_compat"
