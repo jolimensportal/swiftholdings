@@ -2,78 +2,36 @@
 import { marketingSite } from '@/data/marketing/site';
 ---
 
-<footer
-  class="border-t border-[var(--marketing-gold-line)] bg-[var(--marketing-obsidian-900)] text-[var(--marketing-ink-on-dark)]"
->
-  <div
-    class="marketing-container grid gap-10 py-14 lg:grid-cols-[1.2fr_1fr_1fr]"
-  >
-    <div>
-      <p class="marketing-display text-lg tracking-[0.14em]">
-        THE SWIFT <span class="text-[var(--marketing-gold-500)]">PROJECT</span>
-      </p>
-      <p
-        class="mt-4 max-w-sm text-sm leading-7 text-[var(--marketing-dim-on-dark)]"
-      >
-        A membership ecosystem of owned P7 capsules across Ghana — built,
-        operated, and shared on a 70 / 30 model.
-      </p>
-      <p class="mt-6 text-xs text-[var(--marketing-dim-on-dark)]">
-        {marketingSite.legalName} · {marketingSite.address}
-      </p>
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer-inner">
+    <div class="site-footer-brand">
+      <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path
+          d="M16 2L22 14H10L16 2Z"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M16 2V30M4 14H28"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+        />
+      </svg>
+      <span style="font-family: var(--font-sans); font-size: 0.875rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;">SWIFT HOLDINGS</span>
     </div>
-    <div>
-      <p class="marketing-eyebrow">Explore</p>
-      <nav class="mt-4 grid gap-3 text-sm" aria-label="Footer navigation">
-        {
-          marketingSite.navigation.map(item => (
-            <a
-              class="text-[var(--marketing-dim-on-dark)] hover:text-[var(--marketing-ink-on-dark)]"
-              href={item.href}
-            >
-              {item.label}
-            </a>
-          ))
-        }
-      </nav>
-    </div>
-    <div>
-      <p class="marketing-eyebrow">Contact</p>
-      <div class="mt-4 grid gap-3 text-sm text-[var(--marketing-dim-on-dark)]">
-        <a
-          class="hover:text-[var(--marketing-ink-on-dark)]"
-          href={`tel:${marketingSite.phone}`}
-        >
-          {marketingSite.phone}
-        </a>
-        <a
-          class="hover:text-[var(--marketing-ink-on-dark)]"
-          href={`tel:${marketingSite.phoneNorthAmerica}`}
-        >
-          {marketingSite.phoneNorthAmerica}
-        </a>
-        <a
-          class="hover:text-[var(--marketing-ink-on-dark)]"
-          href={`mailto:${marketingSite.email}`}
-        >
-          {marketingSite.email}
-        </a>
-        <a
-          class="hover:text-[var(--marketing-ink-on-dark)]"
-          href={`mailto:${marketingSite.partnershipsEmail}`}
-        >
-          {marketingSite.partnershipsEmail}
-        </a>
-      </div>
-    </div>
-  </div>
-  <div class="border-t border-[var(--marketing-gold-line)]">
-    <p
-      class="marketing-container py-5 text-xs text-[var(--marketing-dim-on-dark)]"
-    >
-      © {new Date().getFullYear()}
-      {marketingSite.legalName}. Photography is illustrative reference unless
-      labelled otherwise.
+
+    <nav class="site-footer-links" aria-label="Footer navigation">
+      <a href="/#vision">Our Vision</a>
+      <a href="/#asset">The Asset</a>
+      <a href="/#locations">Locations</a>
+      <a href="/#partnership">Partnership</a>
+      <a href="/briefing">Request Briefing</a>
+    </nav>
+
+    <p class="site-footer-copyright">
+      © {new Date().getFullYear()} {marketingSite.legalName}. All rights reserved.
     </p>
   </div>
 </footer>

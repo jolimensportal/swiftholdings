@@ -1,99 +1,164 @@
 ---
-export const prerender = true;
-
 import ImageFrame from '@/components/marketing/ImageFrame.astro';
-import MarketingHero from '@/components/marketing/MarketingHero.astro';
-import StorySplit from '@/components/marketing/StorySplit.astro';
-import MarketLedger from '@/components/marketing/MarketLedger.astro';
 import { marketingImages } from '@/data/marketing/image-assets';
 import { marketingPages } from '@/data/marketing/pages';
-import { marketingSite } from '@/data/marketing/site';
 import MarketingLayout from '@layout/MarketingLayout.astro';
 
 const page = marketingPages.home;
 ---
 
 <MarketingLayout seo={page.seo} headerTheme="dark">
-  <MarketingHero
-    {...page.hero}
-    secondaryCta={page.secondaryCta}
-    image={marketingImages.homeHero}
-    ratio="4 / 3"
-  />
+  <!-- HERO SECTION -->
+  <section class="hero-section" id="vision" aria-labelledby="hero-heading">
+    <ImageFrame
+      image={marketingImages.homeHero}
+      ratio="16 / 9"
+      class="hero-image"
+      loading="eager"
+    />
+    <div class="hero-overlay-left" aria-hidden="true"></div>
+    <div class="hero-overlay-bottom" aria-hidden="true"></div>
 
-  <section class="marketing-container py-16 lg:py-24">
-    <div class="flex flex-wrap items-end justify-between gap-4">
-      <p class="marketing-eyebrow">One project, three doors</p>
-      <h2
-        class="marketing-display mt-3 max-w-2xl text-4xl leading-[1.08] text-[var(--marketing-ink)]"
-      >
-        The ecosystem, open at three levels.
-      </h2>
-    </div>
-    <div
-      class="mt-10 grid gap-px border border-[var(--marketing-gold-line)] bg-[var(--marketing-gold-line)] lg:grid-cols-3"
-    >
-      {
-        marketingSite.tiers.map((tier, index) => (
-          <article class="bg-[var(--marketing-obsidian-900)] p-8 text-[var(--marketing-ink-on-dark)] lg:p-10">
-            <p class="marketing-ledger-label">
-              {String(index + 1).padStart(2, '0')}
-            </p>
-            <h3 class="marketing-display mt-4 text-2xl">{tier.name}</h3>
-            <p class="mt-3 text-sm leading-6 text-[var(--marketing-dim-on-dark)]">
-              {tier.summary}
-            </p>
-            <a class="marketing-button-link mt-6" href={tier.cta.href}>
-              {tier.cta.label}
-            </a>
-          </article>
-        ))
-      }
+    <div class="marketing-container">
+      <div class="hero-content">
+        <div class="hero-eyebrow">GHANA</div>
+        <h1
+          id="hero-heading"
+          class="marketing-display hero-heading"
+        >
+          A luxury hospitality asset in Ghana, built with absolute certainty
+        </h1>
+        <p class="hero-body">
+          Institutional-grade real estate combined with agile modular engineering — delivering predictable yields in a high-growth market.
+        </p>
+        <div class="hero-actions">
+          <a href="/briefing" class="marketing-button-primary">
+            Request a private briefing
+          </a>
+          <a href="/#asset" class="marketing-button-secondary">
+            See how it works
+          </a>
+        </div>
+        <p class="hero-microcopy">
+          A guided partnership conversation, not a public sales funnel.
+        </p>
+      </div>
     </div>
   </section>
 
-  <MarketLedger
-    eyebrow="The market"
-    title="The numbers that ground the project."
-    body="Ghana's accommodation deficit is documented, not assumed. The ledger is public; the sources live in the dossier."
-    items={[
-      { label: 'Accra accommodation deficit', value: '300,000+' },
-      { label: 'National deficit', value: '2,000,000+' },
-      { label: 'Demand growth per year', value: '6–10%' },
-      { label: 'Market occupancy', value: '33–44%' },
-      { label: 'Unit target occupancy', value: '88%' },
-    ]}
-    cta={{ label: 'See the financials', href: '/ownership' }}
-  />
-
-  <StorySplit
-    eyebrow="For the diaspora"
-    title="A base to come home to."
-    body="Every part of the project is shaped for the diaspora: USD-denominated numbers, English documentation, escrow before build, and a settlement in GHS when you are home."
-    image={marketingImages.diasporaLifestyle}
-    reverse
-  />
-
-  <section class="marketing-surface-dark">
-    <div
-      class="marketing-container grid items-center gap-10 py-16 lg:grid-cols-[1fr_0.9fr] lg:py-20"
-    >
-      <ImageFrame image={marketingImages.duskCta} ratio="3 / 2" />
-      <div>
-        <p class="marketing-eyebrow">The next step</p>
-        <h2
-          class="marketing-display mt-3 max-w-lg text-4xl leading-[1.08] text-[var(--marketing-ink-on-dark)]"
-        >
-          Every conversation starts with a briefing.
-        </h2>
-        <p class="mt-4 max-w-lg leading-7 text-[var(--marketing-dim-on-dark)]">
-          Tell us what you are planning. The briefing decides the level of
-          detail you see — and it is the only door into the member material.
-        </p>
-        <a class="marketing-button-primary mt-7" href="/briefing">
-          Request a briefing
-        </a>
+  <!-- METADATA STRIP -->
+  <div class="metadata-strip" id="asset" aria-label="Key project details">
+    <div class="marketing-container">
+      <div class="metadata-strip-inner">
+        <div class="metadata-item">
+          <svg class="metadata-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg>
+          <span class="metadata-label">Location</span>
+          <span class="metadata-value">Prime high-growth corridor, Ghana</span>
+        </div>
+        <div class="metadata-item">
+          <svg class="metadata-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <path d="M9 9h6v6H9z" />
+          </svg>
+          <span class="metadata-label">Approach</span>
+          <span class="metadata-value">P7 Apple Capsule modular precision</span>
+        </div>
+        <div class="metadata-item">
+          <svg class="metadata-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="16" y1="13" x2="8" y2="13" />
+            <line x1="16" y1="17" x2="8" y2="17" />
+            <polyline points="10 9 9 9 8 9" />
+          </svg>
+          <span class="metadata-label">First Step</span>
+          <span class="metadata-value">Private executive briefing</span>
+        </div>
       </div>
+    </div>
+  </div>
+
+  <!-- CONSIDERED RETURN SECTION -->
+  <section class="considered-return" id="locations" aria-labelledby="considered-heading">
+    <div class="marketing-container">
+      <h2 id="considered-heading" class="section-heading">
+        A Considered Return
+      </h2>
+      <p class="considered-return-body">
+        Modular micro-resorts are superior high-yield alternatives to traditional stagnant real estate. Agile deployment, factory-controlled quality, and sustainable asset management converge to deliver returns that outpace conventional hospitality models — without the operational complexity.
+      </p>
+    </div>
+  </section>
+
+  <!-- FEATURE CARDS -->
+  <section class="feature-cards-section" id="partnership" aria-labelledby="features-heading">
+    <div class="marketing-container">
+      <h2 id="features-heading" class="section-heading" style="margin-bottom: 0;">
+        The investment thesis rests on three pillars
+      </h2>
+      <div class="feature-grid" role="list">
+        <article class="feature-card" role="listitem">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 6v6l4 2" />
+          </svg>
+          <h3 class="card-heading">Built with modular precision</h3>
+          <ul class="feature-bullets">
+            <li class="feature-bullet">Factory-controlled manufacturing</li>
+            <li class="feature-bullet">Rapid deployment, predictable timeline</li>
+            <li class="feature-bullet">Quality assurance at every stage</li>
+          </ul>
+        </article>
+        <article class="feature-card" role="listitem">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+          <h3 class="card-heading">Structured 70/30 partnership</h3>
+          <ul class="feature-bullets">
+            <li class="feature-bullet">Transparent equity alignment</li>
+            <li class="feature-bullet">Preferred returns to capital partners</li>
+            <li class="feature-bullet">Shared upside on outperformance</li>
+          </ul>
+        </article>
+        <article class="feature-card" role="listitem">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22v-8" />
+            <path d="M8 14h8" />
+            <path d="M6 22h12" />
+            <path d="M12 2v10" />
+            <path d="M17 14a4 4 0 0 1 0 8" />
+            <path d="M7 14a4 4 0 0 0 0 8" />
+          </svg>
+          <h3 class="card-heading">Designed for sustainable legacy</h3>
+          <ul class="feature-bullets">
+            <li class="feature-bullet">Eco-conscious architecture</li>
+            <li class="feature-bullet">Low-impact modular construction</li>
+            <li class="feature-bullet">Built to last, designed to adapt</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta" style="padding: clamp(4rem, 8vh, 6rem) 0; background: var(--header-bg); border-top: 1px solid rgba(255,255,255,0.04);">
+    <div class="marketing-container" style="text-align: center; max-width: 600px; margin: 0 auto;">
+      <p class="marketing-eyebrow">The next step</p>
+      <h2 class="marketing-display" style="margin-top: 1rem; font-size: clamp(2rem, 4vw, 2.5rem);">
+        Every conversation starts with a briefing
+      </h2>
+      <p class="hero-body" style="margin-top: 1rem; text-align: center;">
+        Tell us what you are planning. The briefing decides the level of detail you see — and it is the only door into the member material.
+      </p>
+      <a href="/briefing" class="marketing-button-primary" style="margin-top: 1.75rem;">
+        Request a private briefing
+      </a>
     </div>
   </section>
 </MarketingLayout>

@@ -14,7 +14,7 @@ interface Props {
   headerTheme?: 'light' | 'dark';
 }
 
-const { seo, headerTheme = 'light' } = Astro.props;
+const { seo, headerTheme = 'dark' } = Astro.props;
 const siteUrl = Astro.site ?? new URL('https://swiftholdings.pages.dev');
 const socialImage = new URL('/social.png', siteUrl).href;
 const schema: WithContext<Thing> = {
@@ -41,7 +41,7 @@ const schema: WithContext<Thing> = {
         title: seo.title,
         description: seo.description,
         image: socialImage,
-        imageAlt: 'The Swift Project illustrative prefab residence',
+        imageAlt: 'Swift Holdings luxury hospitality investment in Ghana',
       }}
       extend={{
         link: [
@@ -60,23 +60,13 @@ const schema: WithContext<Thing> = {
       config={[
         {
           src: [],
-          name: 'Manrope',
+          name: 'Inter',
           googleFontsURL:
-            'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap',
-          preload: false,
+            'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap',
+          preload: true,
           display: 'swap',
           selector: 'body',
           fallback: 'sans-serif',
-        },
-        {
-          src: [],
-          name: 'Cormorant Garamond',
-          googleFontsURL:
-            'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap',
-          preload: false,
-          display: 'swap',
-          selector: '.marketing-display',
-          fallback: 'serif',
         },
       ]}
     />

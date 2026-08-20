@@ -47,8 +47,8 @@
     linear infinite;
 
   /* https://tailwindcss.com/docs/font-family#customizing-your-theme */
-  --font-dm-sans: 'Outfit', sans-serif;
-  --font-work-sans: 'Outfit', sans-serif;
+  --font-sans: 'Inter', 'General Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Inter', 'General Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 
   @keyframes scroll {
     to {
@@ -75,7 +75,7 @@
   }
 
   body {
-    @apply font-work-sans;
+    font-family: var(--font-sans);
   }
 
   h1,
@@ -83,7 +83,7 @@
   h3,
   h4,
   .dm-sans {
-    @apply font-dm-sans;
+    font-family: var(--font-display);
   }
 
   button:not(:disabled),
