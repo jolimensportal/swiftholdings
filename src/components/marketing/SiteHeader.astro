@@ -1,106 +1,88 @@
 ---
+import { marketingSite } from '@/data/marketing/site';
+
 interface Props {
   theme?: 'light' | 'dark';
 }
 
-const { theme = 'dark' } = Astro.props;
+const { theme = 'light' } = Astro.props;
+const currentPath = Astro.url.pathname;
+const onDark = theme === 'dark';
+const ink = onDark
+  ? 'text-[var(--marketing-ink-on-dark)]'
+  : 'text-[var(--marketing-ink)]';
+const muted = onDark
+  ? 'text-[var(--marketing-dim-on-dark)]'
+  : 'text-[var(--marketing-muted)]';
+const surface = onDark
+  ? 'bg-[var(--marketing-obsidian-900)]'
+  : 'bg-[var(--marketing-canvas)]';
+const rule = onDark
+  ? 'border-[var(--marketing-gold-line)]'
+  : 'border-[var(--marketing-rule)]';
 ---
 
-<header class="site-header" role="banner">
-  <a href="/" class="site-header-brand" aria-label="Swift Holdings home">
-    <svg class="site-header-logo" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-      <path
-        d="M16 2L22 14H10L16 2Z"
-        stroke="currentColor"
-        stroke-width="1.5"
-        stroke-linejoin="round"
-      />
-      <path
-        d="M16 2V30M4 14H28"
-        stroke="currentColor"
-        stroke-width="1.5"
-        stroke-linecap="round"
-      />
-    </svg>
-    <span class="site-header-wordmark">SWIFT HOLDINGS</span>
-  </a>
-
-  <nav class="site-header-nav" aria-label="Primary navigation">
-    <a href="/#vision" class="site-header-nav-link">Our Vision</a>
-    <a href="/#asset" class="site-header-nav-link">The Asset</a>
-    <a href="/#locations" class="site-header-nav-link">Locations</a>
-    <a href="/#partnership" class="site-header-nav-link">Partnership</a>
+<header class={`border-b ${surface} ${rule}`}>
+  <div
+    class="marketing-container flex min-h-18 items-center justify-between gap-4 py-4"
+  >
     <a
-      href="/briefing"
-      class="site-header-cta"
+      href="/"
+      class={`marketing-display text-lg tracking-[0.14em] ${ink}`}
+      aria-label="The Swift Project home"
     >
-      Request a Private Briefing
+      THE SWIFT <span class="text-[var(--marketing-gold-500)]">PROJECT</span>
     </a>
-  </nav>
-
-  <details class="mobile-menu">
-    <summary class="mobile-menu-toggle" aria-label="Open menu">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="4" y1="6" x2="20" y2="6" />
-        <line x1="4" y1="12" x2="20" y2="12" />
-        <line x1="4" y1="18" x2="20" y2="18" />
-      </svg>
-    </summary>
-    <nav class="mobile-menu-panel" aria-label="Mobile navigation">
-      <a href="/#vision" class="mobile-menu-link">Our Vision</a>
-      <a href="/#asset" class="site-header-nav-link">The Asset</a>
-      <a href="/#locations" class="site-header-nav-link">Locations</a>
-      <a href="/#partnership" class="site-header-nav-link">Partnership</a>
-      <a href="/briefing" class="marketing-button-primary" style="width: 100%;">Request a Private Briefing</a>
+    <nav
+      class="hidden items-center gap-6 lg:flex"
+      aria-label="Primary navigation"
+    >
+      {
+        marketingSite.navigation.map(item => (
+          <a
+            href={item.href}
+            aria-current={currentPath === item.href ? 'page' : undefined}
+            class={`text-sm ${muted} hover:${onDark ? 'text-[var(--marketing-ink-on-dark)]' : 'text-[var(--marketing-ink)]'}`}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <a
+        class="marketing-button-primary text-sm"
+        href={marketingSite.primaryCta.href}
+      >
+        {marketingSite.primaryCta.label}
+      </a>
     </nav>
-  </details>
+    <details class="relative lg:hidden">
+      <summary
+        class={`cursor-pointer rounded border ${rule} px-3 py-2 text-sm ${ink}`}
+      >
+        Menu
+      </summary>
+      <nav
+        class={`absolute top-14 right-0 z-20 grid min-w-60 gap-1 border ${rule} bg-[var(--marketing-canvas)] p-3 shadow-lg`}
+        aria-label="Mobile navigation"
+      >
+        {
+          marketingSite.navigation.map(item => (
+            <a
+              href={item.href}
+              aria-current={currentPath === item.href ? 'page' : undefined}
+              class="rounded px-3 py-2 text-sm text-[var(--marketing-ink)] hover:bg-[rgba(200,160,108,0.12)]"
+            >
+              {item.label}
+            </a>
+          ))
+        }
+        <a
+          class="marketing-button-primary mt-2 text-sm"
+          href={marketingSite.primaryCta.href}
+        >
+          {marketingSite.primaryCta.label}
+        </a>
+      </nav>
+    </details>
+  </div>
 </header>
-
-<style>
-  .site-header-nav-link {
-    color: var(--text-secondary);
-    font-size: 0.875rem;
-    font-weight: 400;
-    text-decoration: none;
-    transition: color 180ms var(--ease);
-  }
-  .site-header-nav-link:hover {
-    color: var(--accent-light);
-  }
-  .mobile-menu-toggle {
-    background: none;
-    border: 1px solid var(--border-light);
-    border-radius: var(--radius-sm);
-    padding: 0.5rem;
-    color: var(--text-primary);
-    cursor: pointer;
-  }
-  .mobile-menu-panel {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    z-index: 20;
-    min-width: 200px;
-    background: var(--header-bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: 1rem;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  .mobile-menu-link {
-    display: block;
-    padding: 0.75rem 1rem;
-    color: var(--text-secondary);
-    font-size: 0.875rem;
-    text-decoration: none;
-    border-radius: var(--radius-sm);
-    transition: background 180ms var(--ease), color 180ms var(--ease);
-  }
-  .mobile-menu-link:hover {
-    background: rgba(208,172,122,0.08);
-    color: var(--accent-light);
-  }
-</style>
