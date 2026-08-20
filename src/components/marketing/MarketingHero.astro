@@ -1,5 +1,4 @@
 ---
-import ImageFrame from '@/components/marketing/ImageFrame.astro';
 import type { MarketingImageAsset } from '@/data/marketing/image-assets';
 import { marketingSite } from '@/data/marketing/site';
 
@@ -24,41 +23,172 @@ const {
 } = Astro.props;
 ---
 
-<section class="marketing-surface-dark bg-[var(--marketing-obsidian-900)]">
-  <div
-    class="marketing-container grid items-center gap-10 py-14 lg:grid-cols-[1.04fr_0.96fr] lg:py-20"
-  >
-    <div>
-      <p class="marketing-eyebrow">{eyebrow}</p>
-      <h1
-        class="marketing-display mt-4 max-w-xl text-5xl leading-[1.04] text-[var(--marketing-ink-on-dark)] sm:text-6xl"
+<section class="hero-section">
+  <!-- Full-bleed background image -->
+  <picture class="hero-picture">
+    <source srcset={image.desktop.webp.src} type="image/webp" />
+    <img
+      src={image.desktop.jpeg.src}
+      alt={image.alt}
+      width={image.desktop.jpeg.width}
+      height={image.desktop.jpeg.height}
+      loading="eager"
+      decoding="async"
+      class="hero-image"
+    />
+  </picture>
+
+  <!-- Cinematic gradient overlays -->
+  <div class="hero-gradient-left"></div>
+  <div class="hero-gradient-bottom"></div>
+  <div class="hero-gradient-top"></div>
+
+  <!-- Text content overlaid on the left -->
+  <div class="hero-content">
+    <p class="marketing-eyebrow">{eyebrow}</p>
+    <h1
+      class="marketing-display mt-4 text-5xl leading-[1.04] text-[var(--marketing-ink-on-dark)] sm:text-6xl"
+    >
+      {title}
+    </h1>
+    <p
+      class="mt-6 max-w-xl text-lg leading-8 text-[var(--marketing-dim-on-dark)]"
+    >
+      {lead}
+    </p>
+    <div class="mt-8 flex flex-wrap items-center gap-5">
+      <a
+        class="marketing-button-primary"
+        href={marketingSite.primaryCta.href}
       >
-        {title}
-      </h1>
-      <p
-        class="mt-6 max-w-xl text-lg leading-8 text-[var(--marketing-dim-on-dark)]"
-      >
-        {lead}
-      </p>
-      <div class="mt-8 flex flex-wrap items-center gap-5">
-        <a
-          class="marketing-button-primary"
-          href={marketingSite.primaryCta.href}
-        >
-          {marketingSite.primaryCta.label}
-        </a>
-        {
-          secondaryCta && (
-            <a class="marketing-button-outline" href={secondaryCta.href}>
-              {secondaryCta.label}
-            </a>
-          )
-        }
-      </div>
-      <p class="mt-6 text-sm text-[var(--marketing-dim-on-dark)]">
-        A guided conversation, not a public sales funnel.
-      </p>
+        {marketingSite.primaryCta.label}
+      </a>
+      {
+        secondaryCta && (
+          <a class="marketing-button-outline" href={secondaryCta.href}>
+            {secondaryCta.label}
+          </a>
+        )
+      }
     </div>
-    <ImageFrame image={image} {ratio} {mobileRatio} loading="eager" />
+    <p class="mt-6 text-sm text-[var(--marketing-dim-on-dark)]">
+      A guided conversation, not a public sales funnel.
+    </p>
   </div>
 </section>
+
+<style>
+  .hero-section {
+    position: relative;
+    width: 100%;
+    min-height: 560px;
+    overflow: hidden;
+    background: #151617;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-section {
+      min-height: 600px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .hero-section {
+      min-height: 640px;
+    }
+  }
+
+  .hero-picture {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 65% center;
+    filter: brightness(0.82) contrast(1.04) saturate(0.88);
+  }
+
+  @media (max-width: 767px) {
+    .hero-image {
+      object-position: 68% center;
+    }
+  }
+
+  /* Left-to-right dark gradient for text readability */
+  .hero-gradient-left {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      90deg,
+      rgba(12, 13, 14, 0.96) 0%,
+      rgba(12, 13, 14, 0.91) 18%,
+      rgba(12, 13, 14, 0.79) 31%,
+      rgba(12, 13, 14, 0.58) 43%,
+      rgba(12, 13, 14, 0.32) 55%,
+      rgba(12, 13, 14, 0.13) 66%,
+      rgba(12, 13, 14, 0.035) 78%,
+      rgba(12, 13, 14, 0) 90%
+    );
+  }
+
+  /* Bottom fade into dark page */
+  .hero-gradient-bottom {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(22, 23, 24, 0) 54%,
+      rgba(22, 23, 24, 0.08) 72%,
+      rgba(22, 23, 24, 0.28) 88%,
+      rgba(22, 23, 24, 0.62) 100%
+    );
+  }
+
+  /* Subtle top cinematic depth */
+  .hero-gradient-top {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(10, 11, 12, 0.12) 0%,
+      rgba(10, 11, 12, 0) 22%
+    );
+  }
+
+  /* Content layer on top of everything */
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 72px 32px;
+  }
+
+  @media (max-width: 1023px) {
+    .hero-content {
+      padding: 64px 28px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .hero-content {
+      padding: 72px 20px;
+    }
+  }
+</style>
