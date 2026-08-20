@@ -49,3 +49,4 @@ The core buyer routes are prerendered into `dist/client`. Legacy server routes r
 ## Image Truthfulness
 
 All current marketing imagery is an illustrative reference, not completed Swift Holdings project photography. The shared image component renders a visible reference label and descriptive alt text on every curated image.
+ 
