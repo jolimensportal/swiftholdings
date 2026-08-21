@@ -1,5 +1,6 @@
 :root {
   /* Swift Holdings — Dark Luxury Palette (richer yellow-gold, deeper blend) */
+  /* Tier-card light-mode fix: obsidian + on-dark tokens defined in both modes below. */
   --bg: #0F0E0D;
   --header-bg: #121110;
   --surface: #181715;
