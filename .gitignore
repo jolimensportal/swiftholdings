@@ -33,3 +33,6 @@ pnpm-debug.log*
 
 # local git worktrees
 .worktrees/
+
+# OpenNext build output
+.open-next/
