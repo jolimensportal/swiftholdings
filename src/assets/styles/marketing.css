@@ -40,6 +40,11 @@
   /* Selection */
   --selection-bg: #C8A06C;
   --selection-text: #171719;
+
+  /* Phase 2 token set (for test) */
+  --marketing-obsidian-900: #171719;
+  --marketing-canvas: #F6F4F0;
+  --marketing-gold-gradient: linear-gradient(135deg, #D0AC7A 0%, #B39062 100%);
 }
 
 /* Dark shell — primary */
@@ -561,4 +566,136 @@
     flex-direction: row;
     justify-content: space-between;
   }
+}
+/* ========================================
+   LIGHT MODE — activated by body.light-mode
+   ======================================== */
+body.light-mode {
+  --bg: #F6F4F0;
+  --header-bg: #FFFFFF;
+  --surface: #EFECE6;
+  --surface-elevated: #E8E4DC;
+  --hero-overlay: #E8E4DC;
+
+  --text-primary: #1A1917;
+  --text-secondary: #4A4740;
+  --text-muted: #7A766F;
+  --text-low: #9E9A92;
+
+  --accent: #9A7340;
+  --accent-light: #B48E52;
+  --accent-muted: #7A5E35;
+  --accent-deep: #5C4528;
+
+  --border: #D8D3C9;
+  --border-light: #E4E0D8;
+  --border-gold: #C4AA7A;
+  --border-gold-accent: rgba(154, 115, 64, 0.32);
+
+  --selection-bg: #9A7340;
+  --selection-text: #FFFFFF;
+
+  --cta-gradient: linear-gradient(135deg, #9A7340 0%, #7A5E35 100%);
+
+  color: var(--text-primary);
+}
+
+/* Light mode header */
+body.light-mode .marketing-shell header {
+  background: var(--header-bg);
+  border-bottom-color: rgba(0, 0, 0, 0.06);
+}
+
+/* Light mode primary button */
+body.light-mode .marketing-button-primary {
+  background: var(--cta-gradient);
+  color: #FFFFFF;
+}
+
+body.light-mode .marketing-button-primary:hover {
+  box-shadow: 0 8px 24px rgba(154, 115, 64, 0.25);
+}
+
+/* Light mode secondary/outline button */
+body.light-mode .marketing-button-secondary {
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--accent-deep);
+  border-color: var(--border-gold);
+}
+
+body.light-mode .marketing-button-secondary:hover {
+  background: rgba(154, 115, 64, 0.08);
+}
+
+/* Light mode cards */
+body.light-mode .feature-card {
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+body.light-mode .feature-card:hover {
+  border-color: var(--border-gold-accent);
+}
+
+/* Light mode metadata strip */
+body.light-mode .metadata-strip-inner {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: var(--border);
+}
+
+body.light-mode .metadata-item:not(:last-child) {
+  border-right-color: rgba(0, 0, 0, 0.06);
+}
+
+/* Light mode footer */
+body.light-mode .site-footer {
+  background: var(--header-bg);
+  border-top-color: rgba(0, 0, 0, 0.06);
+}
+
+/* Light mode hero — keep image vibrant but lighten gradients */
+body.light-mode .hero-gradient-left {
+  background: linear-gradient(
+    90deg,
+    rgba(246, 244, 240, 0.94) 0%,
+    rgba(246, 244, 240, 0.88) 22%,
+    rgba(246, 244, 240, 0.68) 38%,
+    rgba(246, 244, 240, 0.34) 53%,
+    rgba(246, 244, 240, 0.10) 68%,
+    rgba(246, 244, 240, 0.02) 82%,
+    rgba(246, 244, 240, 0) 100%
+  ) !important;
+}
+
+body.light-mode .hero-gradient-bottom {
+  background: linear-gradient(
+    180deg,
+    transparent 60%,
+    rgba(246, 244, 240, 0.15) 78%,
+    rgba(246, 244, 240, 0.50) 100%
+  ) !important;
+}
+
+body.light-mode .hero-gradient-top {
+  background: linear-gradient(
+    180deg,
+    rgba(240, 238, 232, 0.12) 0%,
+    rgba(240, 238, 232, 0) 22%
+  ) !important;
+}
+
+/* Light mode hero section background */
+body.light-mode .hero-section {
+  background: var(--hero-overlay) !important;
+}
+
+/* Light mode marketing surface dark */
+body.light-mode .marketing-surface-dark,
+body.light-mode section[class*="bg-[var(--marketing-obsidian-900)]"] {
+  background-color: var(--surface) !important;
+}
+
+/* Light mode focus */
+body.light-mode .marketing-shell :where(a, button, input, select, textarea):focus-visible {
+  outline-color: var(--accent);
 }

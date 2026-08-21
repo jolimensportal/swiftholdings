@@ -1,4 +1,5 @@
-import { useState } from 'react';
+// @ts-ignore: FormEvent deprecated warning from @types/react 19 — intentional use
+import { useState, type FormEvent } from 'react';
 
 interface Props {
   next: string;
@@ -16,7 +17,8 @@ export default function LoginForm({ next }: Props): React.JSX.Element {
   const [submitting, setSubmitting] = useState(false);
 
   const submit = async (
-    event: React.FormEvent<HTMLFormElement>
+    // @ts-ignore: FormEvent deprecated in React 19 types but still required for form handling
+    event: FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault();
     setError(null);

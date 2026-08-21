@@ -91,5 +91,29 @@ const schema: WithContext<Thing> = {
     <SiteHeader theme={headerTheme} />
     <main id="main-content" tabindex="-1"><slot /></main>
     <SiteFooter />
-  </body>
+  <script>
+    // Dark/Light mode toggle with localStorage persistence
+    (function() {
+      const STORAGE_KEY = "swift-theme";
+      const root = document.body;
+
+      // Apply saved theme immediately (before paint)
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved === "light") {
+        root.classList.add("light-mode");
+      }
+
+      function toggle() {
+        root.classList.toggle("light-mode");
+        const isLight = root.classList.contains("light-mode");
+        localStorage.setItem(STORAGE_KEY, isLight ? "light" : "dark");
+      }
+
+      // Bind toggle buttons
+      document.querySelectorAll("#theme-toggle, #theme-toggle-mobile").forEach(function(btn) {
+        btn.addEventListener("click", toggle);
+      });
+    })();
+  </script>
+</body>
 </html>

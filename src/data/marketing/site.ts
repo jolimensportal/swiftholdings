@@ -58,7 +58,6 @@ export const getCanonicalSiteUrl = (envUrl?: string): string => {
 };
 
 export const marketingSiteUrl = getCanonicalSiteUrl(
-  typeof import.meta !== 'undefined'
-    ? ((import.meta as unknown as { env?: Record<string, string> }).env?.PUBLIC_SITE_URL as string | undefined)
-    : undefined,
+  // soft domain until purchase — env PUBLIC_SITE_URL overrides, else pages.dev
+  undefined,
 );

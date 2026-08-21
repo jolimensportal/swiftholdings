@@ -67,7 +67,6 @@ export default function DiscoveryForm(): React.JSX.Element {
 
   const dates = nextBusinessDays(new Date(), 5);
   const availableBrackets = intent === null ? [] : getBrackets(intent);
-  const skipsBrackets = intent === 'stay';
 
   const validName = isValidName(name);
   const validEmail = isValidEmail(email);

@@ -36,6 +36,14 @@ export const THEME_PRESET_OPTIONS = [
     },
   },
   {
+    label: "Swift Luxury",
+    value: "swift-luxury",
+    primary: {
+      light: "oklch(0.58 0.12 60)",
+      dark: "oklch(0.62 0.12 60)",
+    },
+  },
+  {
     label: "Tangerine",
     value: "tangerine",
     primary: {

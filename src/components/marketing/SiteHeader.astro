@@ -54,6 +54,30 @@ const rule = onDark
       >
         {marketingSite.primaryCta.label}
       </a>
+      <!-- Dark/Light mode toggle -->
+      <button
+        id="theme-toggle"
+        type="button"
+        aria-label="Toggle dark/light mode"
+        class="theme-toggle"
+      >
+        <!-- Sun icon (visible in dark mode) -->
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <!-- Moon icon (visible in light mode) -->
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
     </nav>
     <details class="relative lg:hidden">
       <summary
@@ -82,7 +106,100 @@ const rule = onDark
         >
           {marketingSite.primaryCta.label}
         </a>
+        <!-- Mobile dark/light mode toggle -->
+        <button
+          id="theme-toggle-mobile"
+          type="button"
+          aria-label="Toggle dark/light mode"
+          class="theme-toggle mt-2 w-full"
+        >
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <span class="toggle-label"></span>
+        </button>
       </nav>
     </details>
   </div>
 </header>
+
+<style>
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+    flex-shrink: 0;
+  }
+
+  .theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--text-primary);
+  }
+
+  .theme-toggle:focus-visible {
+    outline: 2px solid var(--accent-light);
+    outline-offset: 2px;
+  }
+
+  /* Dark mode: show sun, hide moon */
+  .icon-sun { display: block; }
+  .icon-moon { display: none; }
+
+  /* Light mode: show moon, hide sun */
+  body.light-mode .icon-sun { display: none; }
+  body.light-mode .icon-moon { display: block; }
+  body.light-mode .theme-toggle {
+    border-color: rgba(0, 0, 0, 0.12);
+    color: var(--text-secondary);
+  }
+  body.light-mode .theme-toggle:hover {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.2);
+    color: var(--text-primary);
+  }
+
+  /* Mobile toggle — full width with label */
+  #theme-toggle-mobile {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+  }
+
+  .toggle-label {
+    font-size: 0.875rem;
+    font-weight: 400;
+  }
+
+  /* Dark mode label */
+  :not(body.light-mode) .toggle-label::after {
+    content: 'Switch to light mode';
+  }
+
+  /* Light mode label */
+  body.light-mode .toggle-label::after {
+    content: 'Switch to dark mode';
+  }
+</style>
