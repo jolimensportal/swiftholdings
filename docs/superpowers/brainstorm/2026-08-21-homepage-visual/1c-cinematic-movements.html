@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1c · Cinematic Movements — homepage visual candidate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --obs:#0A0908; --obs2:#12100E; --ink:#F4EFE6; --dim:rgba(244,239,230,.58); --faint:rgba(244,239,230,.3);
+    --gold:#C79A4E; --line:rgba(126,106,74,.4);
+    --serif:'Cormorant Garamond',Georgia,serif;
+    --sans:'Inter','General Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--obs);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+
+  .slate{font-size:10px;letter-spacing:.44em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:16px}
+  .slate::after{content:"";height:1px;flex:0 0 64px;background:var(--line)}
+
+  /* scene = full viewport act */
+  .scene{min-height:88vh;display:flex;align-items:center;padding:110px clamp(28px,8vw,120px)}
+  .scene.quiet{background:var(--obs)}
+  .scene.tone{background:var(--obs2)}
+  .scene-inner{max-width:1160px;width:100%;margin:0 auto}
+
+  h2{font-family:var(--serif);font-weight:500;font-size:clamp(2.6rem,5.4vw,4.6rem);line-height:1.08;letter-spacing:-.01em;max-width:20ch;text-wrap:balance}
+  h2 em{font-style:italic;font-weight:500}
+  p.prose{color:var(--dim);max-width:56ch;font-size:1.02rem;margin-top:30px}
+  .beat{font-family:var(--serif);font-style:italic;font-size:clamp(1.6rem,2.8vw,2.3rem);line-height:1.3;margin-top:60px;max-width:26ch;text-wrap:balance}
+  .gold{color:var(--gold)}
+
+  /* split scene: text + image plate */
+  .split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.92fr);gap:clamp(40px,6vw,96px);align-items:center}
+  .plate{position:relative;border:1px solid var(--line);padding:12px;background:rgba(244,239,230,.03)}
+  .plate img{aspect-ratio:4/3}
+  .plate figcaption{padding-top:12px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--faint)}
+
+  /* full-bleed scene with scrim */
+  .bleed{position:relative;min-height:92vh;display:flex;align-items:flex-end;padding:0 clamp(28px,8vw,120px) 120px}
+  .bleed>img{position:absolute;inset:0}
+  .bleed::before{content:"";position:absolute;inset:0;background:linear-gradient(to top, rgba(10,9,8,.88) 0%, rgba(10,9,8,.35) 55%, rgba(10,9,8,.25) 100%)}
+  .bleed-inner{position:relative;max-width:1160px;width:100%;margin:0 auto}
+
+  /* ledger rows */
+  .rows{margin-top:70px;border-top:1px solid var(--line)}
+  .r{display:grid;grid-template-columns:minmax(200px,320px) 1fr;gap:clamp(24px,4vw,72px);padding:26px 0;border-bottom:1px solid var(--line)}
+  .r dt{font-size:11px;letter-spacing:.28em;text-transform:uppercase;padding-top:5px}
+  .r dd{color:var(--dim);font-size:.97rem;max-width:52ch}
+
+  /* hub manifest */
+  .manifest{margin-top:70px;border-top:1px solid var(--line)}
+  .m{display:grid;grid-template-columns:auto minmax(180px,260px) 1fr auto;gap:clamp(18px,3vw,48px);align-items:baseline;padding:30px 0;border-bottom:1px solid var(--line)}
+  .m i{font-style:normal;font-family:var(--serif);font-size:1.3rem;color:var(--faint)}
+  .m b{font-weight:600;font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase}
+  .m span{color:var(--faint);font-style:italic;font-family:var(--serif);font-size:1.15rem}
+  .m em{font-style:normal;font-variant-numeric:tabular-nums;color:var(--dim)}
+
+  /* doors */
+  .doors{margin-top:80px;display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line)}
+  .door{padding:52px 40px;border-left:1px solid var(--line);transition:background .3s}
+  .door:first-child{border-left:0}
+  .door:hover{background:rgba(199,154,78,.06)}
+  .door i{font-style:normal;font-family:var(--serif);font-size:1.4rem;color:var(--gold)}
+  .door h3{font-family:var(--serif);font-weight:500;font-size:2.1rem;margin-top:22px}
+  .door p{color:var(--dim);font-size:.93rem;margin-top:14px;max-width:30ch}
+  .door u{text-decoration:none;display:inline-block;margin-top:34px;font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-400,#E7C692)}
+
+  .cta{display:inline-block;margin-top:64px;padding:19px 46px;border:1px solid var(--gold);font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--ink);transition:background .3s,color .3s}
+  .cta:hover{background:var(--gold);color:var(--obs)}
+  .cta-solid{display:inline-block;margin-top:64px;padding:19px 46px;background:var(--gold);color:var(--obs);font-size:11px;letter-spacing:.34em;text-transform:uppercase}
+  .cta-solid:hover{background:#E7C692}
+
+  footer{padding:60px clamp(28px,8vw,120px);border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--faint)}
+
+  @media (max-width:900px){
+    .scene{min-height:0;padding:96px 28px}
+    .split{grid-template-columns:1fr}
+    .doors{grid-template-columns:1fr}
+    .door{border-left:0;border-top:1px solid var(--line)}
+    .m{grid-template-columns:auto 1fr auto;row-gap:4px}
+    .m span{grid-column:2/-1}
+    .r{grid-template-columns:1fr;gap:8px}
+  }
+</style>
+</head>
+<body>
+
+  <!-- HERO UNCHANGED -->
+  <div style="position:relative;background:#000">
+    <img src="assets/home-hero-desktop.By5kmOuD.jpg" alt="" style="aspect-ratio:16/9;opacity:.9">
+    <div style="position:absolute;inset:0;display:flex;align-items:flex-end;padding:28px 40px">
+      <p style="font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:rgba(244,239,230,.7)">Hero unchanged — proposals begin below</p>
+    </div>
+  </div>
+
+  <!-- MOVEMENT I · PROBLEM -->
+  <section class="scene quiet">
+    <div class="scene-inner">
+      <p class="slate">Movement I</p>
+      <h2 style="margin-top:36px">You wanted a place in Ghana. Not another construction project to manage from abroad.</h2>
+      <p class="prose">The land. The contractor. The materials. The delays. The revised material list that arrives after you've paid. The calls across time zones. The trip home just to check what is going on.</p>
+      <p class="prose">For too many of us abroad, the dream became a remote job with no salary.</p>
+      <p class="beat">We built The Swift Project around a different question: <span class="gold">what if you could own the finished place — without personally managing everything it takes to build and run it?</span></p>
+    </div>
+  </section>
+
+  <!-- MOVEMENT II · PROPOSITION (split with architecture plate) -->
+  <section class="scene tone">
+    <div class="scene-inner split">
+      <div>
+        <p class="slate">Movement II</p>
+        <h2 style="margin-top:36px">Yours when you're home. <em>Productive when you're not.</em></h2>
+        <dl class="rows" style="margin-top:54px">
+          <div class="r"><dt>In Ghana</dt><dd>Come home to your own fully furnished residence. Reserve your dates — December, family weeks, remote-work months. Your clothes stay in the wardrobe. Your things stay where you left them.</dd></div>
+          <div class="r"><dt>Away</dt><dd>Your residence joins the village's managed hospitality operation. Guests, pricing, housekeeping, maintenance — handled by our on-ground team.</dd></div>
+        </dl>
+        <p class="beat">You don't have to choose between a place for yourself and an asset that works. It does both.</p>
+      </div>
+      <figure class="plate">
+        <img src="assets/architecture-gallery.CLH8f22L.jpg" alt="Architecture detail">
+        <figcaption>The residence · considered</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- MOVEMENT III · CAPSULE (full bleed) -->
+  <section class="bleed">
+    <img src="assets/capsule-1.BXYwW9NN_Z22r5tK.webp" alt="P7 capsule interior">
+    <div class="bleed-inner">
+      <p class="slate">Movement III</p>
+      <h2 style="margin-top:32px;max-width:24ch">Thirty-eight square metres, considered down to the last one.</h2>
+      <p class="prose" style="color:rgba(244,239,230,.75)">Full-height glazing that opens the room to the trees. Warm timber inside. A private deck for morning coffee. Engineered as a complete product — structure, insulation, services, furniture — finished before it ever reaches your plot.</p>
+      <p class="prose" style="font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;color:var(--faint)">Full-height glazing · Private composite deck · Nine-layer wall system · Solar-ready roof · Integrated services · Turnkey furnishing</p>
+    </div>
+  </section>
+
+  <!-- MOVEMENT IV · VILLAGE -->
+  <section class="scene quiet">
+    <div class="scene-inner split">
+      <figure class="plate">
+        <img src="assets/village-aerial.DcXB8qDp_1Ahy0v.webp" alt="Village aerial">
+        <figcaption>Oyarifa · Accra — flagship village</figcaption>
+      </figure>
+      <div>
+        <p class="slate">Movement IV</p>
+        <h2 style="margin-top:36px">Your residence is private. <em>The life around it is shared.</em></h2>
+        <p class="prose">A pool for slow afternoons. Fire-side evenings in December. Long tables under the pavilion. Children in the shallows while you finish your coffee. Places to be alone; places to host everyone you love.</p>
+        <p class="beat">Not a row of prefabs. A village.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOVEMENT V · MODULAR -->
+  <section class="scene tone">
+    <div class="scene-inner">
+      <p class="slate">Movement V · Why modular</p>
+      <h2 style="margin-top:36px">Most of the building happens before the building arrives.</h2>
+      <dl class="rows">
+        <div class="r"><dt>Cost control</dt><dd>Factory production removes the site surprises that inflate budgets.</dd></div>
+        <div class="r"><dt>Parallel timelines</dt><dd>Site preparation and home construction happen at once, not in sequence.</dd></div>
+        <div class="r"><dt>Repeatable quality</dt><dd>Every capsule built to the same standard, by the same team, with the same checks.</dd></div>
+        <div class="r"><dt>Faster to first stay</dt><dd>Months, not years, between decision and your first night home.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- MOVEMENT VI · OPERATING LAYER -->
+  <section class="scene quiet">
+    <div class="scene-inner">
+      <p class="slate">Movement VI</p>
+      <h2 style="margin-top:36px">You own the asset. We run the experience around it.</h2>
+      <p class="prose">While you're away, the village operates as a hospitality business — and your residence is part of it.</p>
+      <dl class="rows">
+        <div class="r"><dt>Distribution &amp; booking</dt><dd>Your residence listed across the channels guests actually use.</dd></div>
+        <div class="r"><dt>Dynamic pricing</dt><dd>Rates tuned to season and demand, so the calendar earns its keep.</dd></div>
+        <div class="r"><dt>Guest operations</dt><dd>Check-in, support, standards — handled on the ground, not from abroad.</dd></div>
+        <div class="r"><dt>Housekeeping &amp; maintenance</dt><dd>Turnovers, linen, preventive care. The unglamorous work, done.</dd></div>
+        <div class="r"><dt>Owner portal</dt><dd>Bookings, statements, and your own reservations — visible anytime.</dd></div>
+      </dl>
+      <p class="beat">So ownership never becomes another full-time job.</p>
+    </div>
+  </section>
+
+  <!-- MOVEMENT VII · CLARITY -->
+  <section class="scene tone">
+    <div class="scene-inner split">
+      <div>
+        <p class="slate">Movement VII</p>
+        <h2 style="margin-top:36px">Don't take our word for it.</h2>
+        <p class="prose">Before you decide anything, you'll understand:</p>
+        <p class="beat">Clarity first. Decision second.</p>
+      </div>
+      <ol style="list-style:none;margin-top:70px;border-top:1px solid var(--line)">
+        <li style="display:grid;grid-template-columns:70px 1fr;gap:24px;padding:24px 0;border-bottom:1px solid var(--line)"><i style="font-style:normal;font-family:var(--serif);color:var(--gold)">i.</i><span style="color:var(--dim)">Exactly what you acquire — and the rights that come with it</span></li>
+        <li style="display:grid;grid-template-columns:70px 1fr;gap:24px;padding:24px 0;border-bottom:1px solid var(--line)"><i style="font-style:normal;font-family:var(--serif);color:var(--gold)">ii.</i><span style="color:var(--dim)">What the operator manages, and what stays yours</span></li>
+        <li style="display:grid;grid-template-columns:70px 1fr;gap:24px;padding:24px 0;border-bottom:1px solid var(--line)"><i style="font-style:normal;font-family:var(--serif);color:var(--gold)">iii.</i><span style="color:var(--dim)">How revenue and costs are treated, line by line</span></li>
+        <li style="display:grid;grid-template-columns:70px 1fr;gap:24px;padding:24px 0;border-bottom:1px solid var(--line)"><i style="font-style:normal;font-family:var(--serif);color:var(--gold)">iv.</i><span style="color:var(--dim)">The assumptions behind every projection we show you</span></li>
+        <li style="display:grid;grid-template-columns:70px 1fr;gap:24px;padding:24px 0;border-bottom:1px solid var(--line)"><i style="font-style:normal;font-family:var(--serif);color:var(--gold)">v.</i><span style="color:var(--dim)">What happens if you want to exit</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- MOVEMENT VIII · NUMBERS -->
+  <section class="scene quiet">
+    <div class="scene-inner">
+      <p class="slate">Movement VIII</p>
+      <h2 style="margin-top:36px">We'd rather show you the assumptions than sell you the outcome.</h2>
+      <p class="prose">Ghana's short-let market runs at roughly 33–44% occupancy. Our model is built on documented assumptions — base case, stronger case, downside case — that you'll examine line by line in your briefing.</p>
+      <p class="prose">No headline ROI theatre. No promises we can't defend.</p>
+      <a class="cta" href="#">Request the numbers</a>
+    </div>
+  </section>
+
+  <!-- MOVEMENT IX · FOUR HUBS -->
+  <section class="scene tone">
+    <div class="scene-inner">
+      <p class="slate">Movement IX</p>
+      <h2 style="margin-top:36px">One standard. Four hubs.</h2>
+      <p class="prose">The Swift Project is a national network of hospitality villages, built to one standard. Four hubs anchor the map:</p>
+      <div class="manifest">
+        <div class="m"><i>i.</i><b>Oyarifa · Accra</b><span>Flagship village — where the network begins</span><em>48 capsules</em></div>
+        <div class="m"><i>ii.</i><b>Kumasi · Ashanti</b><span>Ashanti regional hub</span><em>24 capsules</em></div>
+        <div class="m"><i>iii.</i><b>Takoradi · Western</b><span>Coastal gateway hub</span><em>12 capsules</em></div>
+        <div class="m"><i>iv.</i><b>Tamale · Northern</b><span>Gateway to the north</span><em>12 capsules</em></div>
+      </div>
+      <p class="prose" style="margin-top:22px">96 capsules across the network.</p>
+      <p class="beat">Same capsule. Same share. Same standard. Wherever you land.</p>
+    </div>
+  </section>
+
+  <!-- MOVEMENT X · BETWEEN TWO PLACES (full bleed diaspora) -->
+  <section class="bleed">
+    <img src="assets/diaspora-lifestyle.CMb8Or9w.webp" alt="">
+    <div class="bleed-inner">
+      <p class="slate">Movement X · For those who live between two places</p>
+      <h2 style="margin-top:32px;max-width:26ch">Maybe home doesn't have to mean choosing one country over another.</h2>
+      <p class="prose" style="color:rgba(244,239,230,.78)">A key that is yours. A room that remembers you. Your children growing up with somewhere in Ghana that is theirs — not a hotel, not a relative's spare room.</p>
+      <p class="prose" style="color:rgba(244,239,230,.78)">December means something again.</p>
+      <p class="beat">"We're going home." <span class="gold">And meaning it.</span></p>
+    </div>
+  </section>
+
+  <!-- MOVEMENT XI · THREE DOORS -->
+  <section class="scene quiet">
+    <div class="scene-inner">
+      <p class="slate">Movement XI · Three ways in</p>
+      <h2 style="margin-top:36px">Stay. Own. Partner.</h2>
+      <nav class="doors">
+        <a class="door" href="#"><i>I</i><h3>Stay</h3><p>Book a visit. Feel the village before you decide anything.</p><u>Explore stays</u></a>
+        <a class="door" href="#"><i>II</i><h3>Own</h3><p>Explore ownership — the residence, the operation, the numbers.</p><u>See ownership</u></a>
+        <a class="door" href="#"><i>III</i><h3>Partner</h3><p>Bring land, capital, or operations. Build a hub with us.</p><u>Explore partnership</u></a>
+      </nav>
+    </div>
+  </section>
+
+  <!-- FINAL · DUSK CTA (full bleed) -->
+  <section class="bleed" style="min-height:96vh">
+    <img src="assets/dusk-cta-desktop.BOTe6cnu.jpg" alt="">
+    <div class="bleed-inner">
+      <p class="slate">Your next step</p>
+      <h2 style="margin-top:32px;max-width:24ch">You don't need to decide today. You need enough information to decide well.</h2>
+      <p class="prose" style="color:rgba(244,239,230,.78)">No checkout. No countdown timer. No pressure on the call. Just a structured conversation about whether this fits the life you're building.</p>
+      <a class="cta-solid" href="#">Request a private briefing</a>
+    </div>
+  </section>
+
+  <footer>
+    <span>The Swift Project</span>
+    <span>© 2026 The Swift Project · Operated by Swift Holdings</span>
+  </footer>
+</body>
+</html>

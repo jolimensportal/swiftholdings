@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Homepage — section by section</title>
+<style>
+  :root{--obs:#0A0908;--ink:#F4EFE6;--dim:rgba(244,239,230,.55);--gold:#C79A4E;--line:rgba(126,106,74,.4);--sans:'Inter',-apple-system,sans-serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--obs);color:var(--ink);font-family:var(--sans);padding:64px clamp(24px,6vw,96px)}
+  h1{font-size:1.1rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase}
+  p.sub{color:var(--dim);margin-top:14px;max-width:64ch;line-height:1.7}
+  .grid{display:grid;gap:22px;margin-top:52px;max-width:980px}
+  a.card{display:block;border:1px solid var(--line);padding:34px 38px;text-decoration:none;color:inherit;transition:border-color .25s,background .25s}
+  a.card:hover{border-color:var(--gold);background:rgba(199,154,78,.05)}
+  .id{font-size:11px;letter-spacing:.3em;color:var(--gold)}
+  h2{font-size:1.6rem;font-weight:600;letter-spacing:-.02em;margin-top:12px}
+  p.t{color:var(--dim);margin-top:10px;line-height:1.65;max-width:66ch}
+  .open{display:inline-block;margin-top:18px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+  .locked{margin-top:56px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint,rgba(244,239,230,.35))}
+</style>
+</head>
+<body>
+  <h1>Homepage · section by section</h1>
+  <p class="sub">We build one section at a time. Each option renders the untouched hero on top so you judge the seam. Pick a treatment for the current section (or describe changes) — it locks, then we move to the next.</p>
+
+  <div class="grid">
+    <a class="card" href="sections/s02-c.html">
+      <span class="id">SECTION 02 · OPTION C</span>
+      <h2>Overlay Diptych</h2>
+      <p class="t">Full-bleed prefab photo banner with the headline overlaid at its base, then two ruled half-panels (I / II) on alternating obsidian tones, beat line closing full-width.</p>
+      <span class="open">Open S02-C →</span>
+    </a>
+    <a class="card" href="sections/s02-b.html">
+      <span class="id">SECTION 02 · OPTION B</span>
+      <h2>Zigzag Bands</h2>
+      <p class="t">Oversized two-line headline, then two full-width bands that alternate text/image direction (prefab photos), beat line centered to close. Rhythmic, editorial-magazine energy.</p>
+      <span class="open">Open S02-B →</span>
+    </a>
+    <a class="card" href="sections/s02-a.html">
+      <span class="id">SECTION 02 · OPTION A</span>
+      <h2>Mirror Panels</h2>
+      <p class="t">Mirrors the locked S01 split: obsidian panel "Yours when you're home" facing an image-backed panel "Productive when you're not" with a gold seam between them, beat strip below.</p>
+      <span class="open">Open S02-A →</span>
+    </a>
+  </div>
+
+  <p class="locked">Locked so far: Hero (untouched) · Section 01 — Confrontation Split</p>
+</body>
+</html>

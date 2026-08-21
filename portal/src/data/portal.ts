@@ -58,6 +58,8 @@ export const prefabCatalog = [
     units: 48,
     funded: 18,
     status: "Funding open",
+    location: "Oyarifa · Accra",
+    image: "/prefabs/prefab_1_3820x2470.jpg",
   },
   {
     id: "P-102",
@@ -69,6 +71,7 @@ export const prefabCatalog = [
     units: 32,
     funded: 4,
     status: "Early funding",
+    image: "/prefabs/prefab_2_2048x1365.jpg",
   },
   {
     id: "P-103",
@@ -80,6 +83,7 @@ export const prefabCatalog = [
     units: 24,
     funded: 2,
     status: "Early funding",
+    image: "/prefabs/prefab_7_3200x2128.jpg",
   },
   {
     id: "P-104",
@@ -91,6 +95,7 @@ export const prefabCatalog = [
     units: 20,
     funded: 0,
     status: "Coming soon",
+    image: "/prefabs/prefab_9_2500x1667.jpg",
   },
   {
     id: "P-105",
@@ -102,6 +107,7 @@ export const prefabCatalog = [
     units: 36,
     funded: 9,
     status: "Funding open",
+    image: "/prefabs/prefab_16_2400x1200.jpg",
   },
   {
     id: "P-106",
@@ -113,6 +119,7 @@ export const prefabCatalog = [
     units: 28,
     funded: 6,
     status: "Funding open",
+    image: "/prefabs/prefab_3_1500x1034.jpg",
   },
   {
     id: "P-107",
@@ -124,6 +131,7 @@ export const prefabCatalog = [
     units: 30,
     funded: 3,
     status: "Early funding",
+    image: "/prefabs/prefab_8_2943x1962.jpg",
   },
   {
     id: "P-108",
@@ -135,6 +143,7 @@ export const prefabCatalog = [
     units: 24,
     funded: 0,
     status: "Coming soon",
+    image: "/prefabs/prefab_18_1800x1210.jpg",
   },
   {
     id: "P-109",
@@ -146,6 +155,7 @@ export const prefabCatalog = [
     units: 30,
     funded: 1,
     status: "Early funding",
+    image: "/prefabs/prefab_22_1600x1106.jpg",
   },
   {
     id: "P-110",
@@ -157,6 +167,7 @@ export const prefabCatalog = [
     units: 40,
     funded: 22,
     status: "Funding open",
+    image: "/prefabs/prefab_25_1580x1053.jpg",
   },
   {
     id: "P-111",
@@ -168,6 +179,7 @@ export const prefabCatalog = [
     units: 18,
     funded: 0,
     status: "Coming soon",
+    image: "/prefabs/prefab_24_1620x1080.jpg",
   },
   {
     id: "P-112",
@@ -179,6 +191,7 @@ export const prefabCatalog = [
     units: 34,
     funded: 11,
     status: "Funding open",
+    image: "/prefabs/prefab_21_1450x1266.jpg",
   },
 ];
 
