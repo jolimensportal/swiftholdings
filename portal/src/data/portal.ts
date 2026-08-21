@@ -119,6 +119,7 @@ export const prefabCatalog = [
     units: 28,
     funded: 6,
     status: "Funding open",
+    location: "Aburi · Eastern Region",
     image: "/prefabs/prefab_3_1500x1034.jpg",
   },
   {

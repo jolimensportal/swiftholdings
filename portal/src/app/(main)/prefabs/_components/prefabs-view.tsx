@@ -20,7 +20,7 @@ function StatusBadge({ status }: { status: string }) {
 }
 
 export function PrefabsView() {
-  const flagship = prefabCatalog[0];
+  const flagship = prefabCatalog.find((p) => p.id === "P-106") ?? prefabCatalog[0];
   const pct = (p: (typeof prefabCatalog)[number]) =>
     Math.round((p.funded / p.units) * 100);
 
