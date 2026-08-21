@@ -42,7 +42,15 @@
   --selection-text: #0F0E0D;
 
   /* Phase 2 token set (for test) */
+  --marketing-obsidian-950: #0A0908;
   --marketing-obsidian-900: #0F0E0D;
+  --marketing-obsidian-800: #1A1816;
+  --marketing-ink: #F6F3EC;
+  --marketing-ink-on-dark: #F4EFE6;
+  --marketing-dim-on-dark: rgba(244, 239, 230, 0.55);
+  --marketing-gold-500: #C79A4E;
+  --marketing-gold-400: #E7C692;
+  --marketing-gold-line: #7E6A4A;
   --marketing-canvas: #F6F4F0;
   --marketing-gold-gradient: linear-gradient(135deg, #E7C06A 0%, #C79A4E 100%);
 }
@@ -596,6 +604,16 @@ body.light-mode {
   --selection-text: #FFFFFF;
 
   --cta-gradient: linear-gradient(135deg, #B07F2A 0%, #8A6526 100%);
+
+  --marketing-obsidian-950: #EDEAE4;
+  --marketing-obsidian-900: #FFFFFF;
+  --marketing-obsidian-800: #F2EFEA;
+  --marketing-ink: #14110D;
+  --marketing-ink-on-dark: #14110D;
+  --marketing-dim-on-dark: rgba(20, 17, 13, 0.6);
+  --marketing-gold-500: #B07F2A;
+  --marketing-gold-400: #C79A3E;
+  --marketing-gold-line: #C4AA7A;
 
   color: var(--text-primary);
 }
