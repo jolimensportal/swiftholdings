@@ -20,8 +20,8 @@ sans body, generous spacing.
 5. **CTA** — acquire a new capsule with entry price.
 
 ## Decisions
-- **Currency switched `$` → `GHS`** to match Prefab Projects and the rest of the portal (user
-  approved the mockup with GHS).
+- **Currency kept as `USD ($)`** — reverted from the GHS mockup per user preference; the original
+  dollar amounts are retained (Prefab Projects remains in GHS).
 - Content is faithful to the current page (2 owned units + acquire CTA) — restyled, not
   restructured.
 - Images reuse the existing `capsule.image` URLs (hosted on the marketing site), which already

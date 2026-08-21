@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { capsules, portfolioValue } from "@/data/member-portal";
 
-const ghs = (n: number) => `GHS ${n.toLocaleString("en-US")}`;
+const usd = (n: number) => `$${n.toLocaleString("en-US")}`;
 
 export function PortfolioView() {
   const [oyarifa, tamale] = capsules;
@@ -25,7 +25,7 @@ export function PortfolioView() {
             <p className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
               Portfolio value
             </p>
-            <p className="font-heading text-3xl text-primary">{ghs(portfolioValue)}</p>
+            <p className="font-heading text-3xl text-primary">{usd(portfolioValue)}</p>
           </CardContent>
         </Card>
         <Card className="border-primary/15">
@@ -34,7 +34,7 @@ export function PortfolioView() {
               Monthly distributions
             </p>
             <p className="font-heading text-3xl text-foreground">
-              {ghs(oyarifa.yourShareMonthly ?? 0)}
+              {usd(oyarifa.yourShareMonthly ?? 0)}
             </p>
           </CardContent>
         </Card>
@@ -79,11 +79,11 @@ export function PortfolioView() {
                   Performance — 90 days
                 </span>
                 <span className="font-heading text-2xl text-primary">
-                  {ghs(oyarifa.performance90d ?? 0)}
+                  {usd(oyarifa.performance90d ?? 0)}
                 </span>
               </div>
-              <Row label="Gross revenue" value={`${ghs(oyarifa.grossMonthly ?? 0)} / mo`} />
-              <Row label="Your share — 70%" value={`${ghs(oyarifa.yourShareMonthly ?? 0)} / mo`} />
+              <Row label="Gross revenue" value={`${usd(oyarifa.grossMonthly ?? 0)} / mo`} />
+              <Row label="Your share — 70%" value={`${usd(oyarifa.yourShareMonthly ?? 0)} / mo`} />
               <Row label="Occupancy" value={`${oyarifa.occupancy}%`} />
               <div className="pt-1 text-sm text-muted-foreground">
                 Block-off dates — yours:{" "}
@@ -118,7 +118,7 @@ export function PortfolioView() {
             </div>
             <div className="ml-4 text-right text-xs">
               <p className="uppercase tracking-[0.16em] text-muted-foreground">Price</p>
-              <p className="font-heading text-2xl text-foreground">{ghs(tamale.price ?? 0)}</p>
+              <p className="font-heading text-2xl text-foreground">{usd(tamale.price ?? 0)}</p>
               <p className="mt-2 uppercase tracking-[0.16em] text-muted-foreground">Phase</p>
               <p className="mt-0.5 text-primary">{tamale.phase}</p>
               <p className="mt-2 text-primary">manage →</p>
@@ -132,7 +132,7 @@ export function PortfolioView() {
           <span className="text-sm text-muted-foreground">
             Acquire a new capsule — reserve with a 20% escrow deposit
           </span>
-          <span className="font-heading text-xl text-primary">{ghs(50_000)} entry</span>
+          <span className="font-heading text-xl text-primary">{usd(50_000)} entry</span>
         </CardContent>
       </Card>
     </div>
