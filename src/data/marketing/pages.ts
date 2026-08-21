@@ -22,21 +22,28 @@ export const marketingPages = {
   home: {
     seo: {
       title:
-        'The Swift Project | A luxury hospitality asset in Ghana, built with absolute certainty.',
+        "The Swift Project | Own your place in Ghana. Let it work while you're away.",
       description:
-        'Own a P7 capsule in Ghana on a 70 / 30 model. The Swift Project — a membership ecosystem of luxury modular hospitality across Accra, Kumasi, Tamale, and Takoradi.',
+        "Fully finished modular residences inside professionally managed hospitality villages across Accra, Kumasi, Tamale, and Takoradi. Yours when you're home. Productive when you're not.",
     },
     hero: {
-      eyebrow: 'Oyarifa · Accra',
-      title:
-        'A luxury hospitality asset in Ghana, built with absolute certainty.',
-      lead: 'The Swift Project is a membership ecosystem: guests book stays, members hold the detail, and owner-investors operate their own capsule on a 70 / 30 revenue share.',
+      eyebrow: 'THE SWIFT PROJECT · GHANA',
+      title: "Own your place in Ghana. Let it work while you're away.",
+      lead: "Fully finished modular residences inside professionally managed hospitality villages. Yours when you're home. Productive when you're not.",
     },
-    secondaryCta: { label: 'See the model', href: '/ownership' },
+    secondaryCta: { label: 'See how ownership works', href: '/how-it-works' },
     sections: [
-      'One project, three doors — Guest (book stays like a gated community open to the public), Member (discovery briefing unlocks yield tables, availability, pricing, legal dossier), and Owner-Investor (P7 capsule from $50,000 entry, 70/30 share, 5-year lock, monthly GHS settlement). Every part shaped for the diaspora: USD-denominated numbers, English documentation, escrow before build, and a settlement in GHS when you are home.',
-      'The market that grounds the project is documented, not assumed. Ghana faces a 2M+ national deficit and 300,000+ in Accra, demand growing 6–10% annually, market occupancy 33–44% versus our target 88% at $100–$132 ADR. The ledger is public; full AirDNA/GSS methodology and hub-month breakdowns are GATED and open after the briefing. Gross monthly GHS 51,400 → investor GHS 35,980 at 70% illustrates the model.',
-      'Beyond the gate your member portal awaits — portfolio GHS 127,400 chart Feb–Jul, allocation 70/30 donut, funded Plot 14 Meridian 40% and milestones, statements Q2 GHS 2,998, and a 5-doc vault (42p/38p/24p). This is the preview you see on swiftholdingsportal.securemensah.workers.dev/dashboard/default — blurred until you brief.',
+      "You wanted a place in Ghana. Not another construction project to manage from abroad. The land. The contractor. The materials. The delays. The revised material list that arrives after you've paid. The calls across time zones. The trip home just to check what is going on. For too many of us abroad, the dream became a remote job with no salary. We built The Swift Project around a different question: what if you could own the finished place — without personally managing everything it takes to build and run it?",
+      "Yours when you're home. Productive when you're not. When you're in Ghana: come home to your own fully furnished residence. Reserve your dates — December, family weeks, remote-work months. Your clothes stay in the wardrobe. Your things stay where you left them. When you're away: your residence joins the village's managed hospitality operation. Guests, pricing, housekeeping, maintenance — handled by our on-ground team. You don't have to choose between a place for yourself and an asset that works. It does both.",
+      'The P7 Capsule — thirty-eight square metres, considered down to the last one. Full-height glazing that opens the room to the trees. Warm timber inside. A private deck for morning coffee. Engineered as a complete product — structure, insulation, services, furniture — finished before it ever reaches your plot: nine-layer wall system, solar-ready roof, integrated services, turnkey furnishing.',
+      'Your residence is private. The life around it is shared. A pool for slow afternoons. Fire-side evenings in December. Long tables under the pavilion. Children in the shallows while you finish your coffee. Places to be alone; places to host everyone you love. Not a row of prefabs. A village.',
+      'Most of the building happens before the building arrives. Cost control: factory production removes the site surprises that inflate budgets. Parallel timelines: site preparation and home construction happen at once, not in sequence. Repeatable quality: every capsule built to the same standard, by the same team, with the same checks. Faster to first stay: months, not years, between decision and your first night home.',
+      "You own the asset. We run the experience around it. While you're away, the village operates as a hospitality business — and your residence is part of it. Distribution and booking across the channels guests actually use. Dynamic pricing tuned to season and demand. Guest operations handled on the ground, not from abroad. Housekeeping, linen, and preventive maintenance. An owner portal with bookings, statements, and your own reservations — visible anytime. So ownership never becomes another full-time job.",
+      "Don't take our word for it. Before you decide anything, you'll understand: exactly what you acquire — and the rights that come with it; what the operator manages, and what stays yours; how revenue and costs are treated, line by line; the assumptions behind every projection we show you; what happens if you want to exit. Clarity first. Decision second.",
+      "We'd rather show you the assumptions than sell you the outcome. Ghana's short-let market runs at roughly 33–44% occupancy. Our model is built on documented assumptions — base case, stronger case, downside case — that you'll examine line by line in your briefing. No headline ROI theatre. No promises we can't defend.",
+      'One standard. Four hubs. The Swift Project is a national network of hospitality villages, built to one standard. Four hubs anchor the map: Oyarifa · Accra — flagship village, where the network begins; Kumasi · Ashanti; Tamale · Northern; Takoradi · Western. 48, 24, 12, and 12 capsules respectively — 96 across the network. Same capsule. Same share. Same standard. Wherever you land.',
+      "Maybe home doesn't have to mean choosing one country over another. A key that is yours. A room that remembers you. Your children growing up with somewhere in Ghana that is theirs — not a hotel, not a relative's spare room. December means something again. \"We're going home.\" And meaning it.",
+      'Stay. Own. Partner. Book a visit and feel the village before you decide anything. Explore ownership — the residence, the operation, the numbers. Or bring land, capital, or operations and build a hub with us.',
     ],
   },
   village: {
@@ -156,13 +163,13 @@ export const marketingPages = {
     hero: {
       eyebrow: 'About',
       title: 'Built with certainty, not promises.',
-      lead: 'Swift Holdings builds, operates, and shares The Swift Project — a membership ecosystem designed for the diaspora returning home. 20 Edmonton St, Madina, Accra.',
+      lead: 'The Swift Project designs, builds, and operates hospitality villages for the diaspora returning home — and for Ghanaians building at home. 20 Edmonton St, Madina, Accra.',
     },
     secondaryCta: { label: 'Request a briefing', href: '/briefing' },
     sections: [
-      'Pioneering West African real estate: Swift Holdings integrates cutting-edge modular with premium hospitality to bridge local Ghanaian opportunity and sophisticated global wealth. Vision — modular innovation efficiency meets elegance: architects of speed and quality, advanced modular delivers high-end durable solutions in record time, reduced disruption, superior consistency, new benchmark for residential/commercial.',
+      'Pioneering West African real estate: The Swift Project integrates cutting-edge modular with premium hospitality to bridge local Ghanaian opportunity and sophisticated global wealth. Vision — modular innovation efficiency meets elegance: architects of speed and quality, advanced modular delivers high-end durable solutions in record time, reduced disruption, superior consistency, new benchmark for residential/commercial.',
       'Luxury hospitality operations: experiential stays blending local culture with luxury amenities, sustainable long-term yield. Ghana & global wealth bridge: rigorous operational standards, absolute transparency, secure productive culturally resonant home for international capital across 4 hubs. By the numbers: 38m² nine-layer CIGS, $50k entry, 70/30, 5y lock, 4 hubs Oyarifa·Kumasi·Tamale·Takoradi.',
-      'Speak with the operator, not a booth: calls/briefings handled by project team directly — Ghana +233 544 101016, North America +1 437 421 0963, info@swiftholdings.org, partnerships@swiftholdings-ghana.com. Legal entity now THE SWIFT PROJECT (Full rebrand per Q1-A) — parent Swift Holdings retired from marketing, retained only as historical legal until MX cutover.',
+      'Speak with the operator, not a booth: calls/briefings handled by project team directly — Ghana +233 544 101016, North America +1 437 421 0963, info@swiftholdings.org, partnerships@swiftholdings-ghana.com.',
     ],
   },
   resources: {
