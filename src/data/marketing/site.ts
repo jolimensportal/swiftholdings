@@ -50,3 +50,15 @@ export type MarketingPageKey =
   | 'about'
   | 'resources'
   | 'briefing';
+
+export const getCanonicalSiteUrl = (envUrl?: string): string => {
+  const v = envUrl?.trim();
+  if (v && v.startsWith('http')) return v.replace(/\/$/, '');
+  return 'https://swiftholdings.pages.dev';
+};
+
+export const marketingSiteUrl = getCanonicalSiteUrl(
+  typeof import.meta !== 'undefined'
+    ? ((import.meta as unknown as { env?: Record<string, string> }).env?.PUBLIC_SITE_URL as string | undefined)
+    : undefined,
+);
