@@ -3,6 +3,7 @@ export const prerender = true;
 
 import ImageFrame from '@/components/marketing/ImageFrame.astro';
 import MarketingHero from '@/components/marketing/MarketingHero.astro';
+import PortalPreview from '@/components/marketing/PortalPreview.astro';
 import StorySplit from '@/components/marketing/StorySplit.astro';
 import MarketLedger from '@/components/marketing/MarketLedger.astro';
 import { marketingImages } from '@/data/marketing/image-assets';
@@ -73,6 +74,8 @@ const page = marketingPages.home;
     image={marketingImages.diasporaLifestyle}
     reverse
   />
+
+  <PortalPreview />
 
   <section class="marketing-surface-dark">
     <div

@@ -1,6 +1,8 @@
 ---
 export const prerender = true;
 
+import GatedTeaser from '@/components/marketing/GatedTeaser.astro';
+import PortalPreview from '@/components/marketing/PortalPreview.astro';
 import MarketingHero from '@/components/marketing/MarketingHero.astro';
 import StorySplit from '@/components/marketing/StorySplit.astro';
 import MarketLedger from '@/components/marketing/MarketLedger.astro';
@@ -52,13 +54,29 @@ const page = marketingPages.ownership;
 
   <CalculatorSection />
 
+  <section class="marketing-container py-12">
+    <GatedTeaser
+      title="Full yield table"
+      countLabel="3 docs · 1.2–4.8MB · 5y 350% · GATED"
+    >
+      <div class="grid gap-2 text-sm">
+        <div class="flex justify-between"><span>Gross monthly (88% @ $132)</span><span class="font-medium">GHS 51,400</span></div>
+        <div class="flex justify-between"><span>Investor share 70%</span><span class="font-medium">GHS 35,980</span></div>
+        <div class="flex justify-between"><span>5-year 350% return (SIM)</span><span class="font-medium">GATED full scenarios</span></div>
+        <div class="flex justify-between"><span>Hub-month matrix Accra 48/Kumasi 24 etc</span><span class="font-medium">GATED</span></div>
+      </div>
+    </GatedTeaser>
+  </section>
+
   <StorySplit
     eyebrow="Why the numbers hold"
     title="Grounded in documented demand, not optimism."
-    body="The case rests on the accommodation deficit: over 300,000 rooms short in Accra and more than two million across Ghana, with demand growing 6–10% a year."
+    body="The case rests on the accommodation deficit: over 300,000 rooms short in Accra and more than two million across Ghana, with demand growing 6–10% a year. Full methodology and hub-month breakdowns are GATED and open after the briefing."
     image={marketingImages.ownershipStory}
     reverse
   />
+
+  <PortalPreview />
 
   <section class="marketing-container pb-20">
     <a class="marketing-button-primary" href="/briefing">Request a briefing</a>
