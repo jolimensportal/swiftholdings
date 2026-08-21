@@ -8,7 +8,7 @@ export function PortfolioView() {
   return (
     <div className="flex flex-col gap-6">
       <p className="text-xs uppercase tracking-[0.22em] text-primary/75">
-        Portfolio · 02 units · both in revenue
+        My Prefabs · 02 units · both in revenue
       </p>
 
       <Card className="overflow-hidden p-0">

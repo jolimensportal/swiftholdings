@@ -10,7 +10,7 @@ export default function PrefabsPage() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-semibold tracking-tight">Prefabs</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Prefab Projects</h1>
         <p className="text-muted-foreground text-sm">
           Pre-built homes funded together by members. You own a funded unit in every project you
           back.

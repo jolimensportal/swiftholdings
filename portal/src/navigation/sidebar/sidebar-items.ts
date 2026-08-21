@@ -59,8 +59,8 @@ export const sidebarItems: NavGroup[] = [
     label: "Owner",
     items: [
       { id: "dashboard", title: "Dashboard", url: "/dashboard/default", icon: LayoutDashboard },
-      { id: "portfolio", title: "Portfolio", url: "/portfolio", icon: ChartBar },
-      { id: "prefabs", title: "Prefabs", url: "/prefabs", icon: Home },
+      { id: "portfolio", title: "My Prefabs", url: "/portfolio", icon: ChartBar },
+      { id: "prefabs", title: "Prefab Projects", url: "/prefabs", icon: Home },
       { id: "marketplace", title: "Marketplace", url: "/marketplace", icon: Wallet },
       { id: "tenants", title: "Tenants", url: "/tenants", icon: Users },
     ],
