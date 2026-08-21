@@ -7,7 +7,8 @@
   "main": ".open-next/worker.js",
   "assets": {
     "directory": ".open-next/assets",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
+    "cache_control": "no-cache"
   },
   "observability": {
     "enabled": true
