@@ -3,15 +3,45 @@ export const prerender = true;
 
 import ImageFrame from '@/components/marketing/ImageFrame.astro';
 import MarketingHero from '@/components/marketing/MarketingHero.astro';
-import PortalPreview from '@/components/marketing/PortalPreview.astro';
-import StorySplit from '@/components/marketing/StorySplit.astro';
-import MarketLedger from '@/components/marketing/MarketLedger.astro';
 import { marketingImages } from '@/data/marketing/image-assets';
 import { marketingPages } from '@/data/marketing/pages';
 import { marketingSite } from '@/data/marketing/site';
+import { swiftHubs } from '@/data/marketing/locations';
 import MarketingLayout from '@layout/MarketingLayout.astro';
 
 const page = marketingPages.home;
+
+const modularAdvantages = [
+  { n: '01', title: 'Cost control', body: 'Factory production removes the site surprises that inflate budgets.' },
+  { n: '02', title: 'Parallel timelines', body: 'Site preparation and home construction happen at once, not in sequence.' },
+  { n: '03', title: 'Repeatable quality', body: 'Every capsule built to the same standard, by the same team, with the same checks.' },
+  { n: '04', title: 'Faster to first stay', body: 'Months, not years, between decision and your first night home.' },
+];
+
+const operatorRows = [
+  { title: 'Distribution & booking', body: 'Your residence listed across the channels guests actually use.' },
+  { title: 'Dynamic pricing', body: 'Rates tuned to season and demand, so the calendar earns its keep.' },
+  { title: 'Guest operations', body: 'Check-in, support, standards — handled on the ground, not from abroad.' },
+  { title: 'Housekeeping & maintenance', body: 'Turnovers, linen, preventive care. The unglamorous work, done.' },
+  { title: 'Owner portal', body: 'Bookings, statements, and your own reservations — visible anytime.' },
+];
+
+const clarityPoints = [
+  'Exactly what you acquire — and the rights that come with it',
+  'What the operator manages, and what stays yours',
+  'How revenue and costs are treated, line by line',
+  'The assumptions behind every projection we show you',
+  'What happens if you want to exit',
+];
+
+const capsuleChips = [
+  'Full-height glazing',
+  'Private composite deck',
+  'Nine-layer wall system',
+  'Solar-ready roof',
+  'Integrated services',
+  'Turnkey furnishing',
+];
 ---
 
 <MarketingLayout seo={page.seo} headerTheme="dark">
@@ -23,27 +53,236 @@ const page = marketingPages.home;
   />
 
   <section class="marketing-container py-16 lg:py-24">
-    <div class="flex flex-wrap items-end justify-between gap-4">
-      <p class="marketing-eyebrow">One project, three doors</p>
-      <h2
-        class="marketing-display mt-3 max-w-2xl text-4xl leading-[1.08] text-[var(--marketing-ink)]"
-      >
-        The ecosystem, open at three levels.
+    <p class="marketing-eyebrow">Owning back home shouldn't become a second job</p>
+    <h2 class="marketing-display mt-3 max-w-3xl text-4xl leading-[1.08] text-[var(--marketing-ink)]">
+      You wanted a place in Ghana. Not another construction project to manage from abroad.
+    </h2>
+    <p class="mt-6 max-w-2xl leading-7 text-[var(--marketing-muted)]">
+      The land. The contractor. The materials. The delays. The revised material
+      list that arrives after you've paid. The calls across time zones. The trip
+      home just to check what is going on.
+    </p>
+    <p class="mt-4 max-w-2xl leading-7 text-[var(--marketing-muted)]">
+      For too many of us abroad, the dream became a remote job with no salary.
+    </p>
+    <p class="marketing-display mt-8 max-w-2xl text-2xl italic leading-snug text-[var(--marketing-ink)]">
+      We built The Swift Project around a different question:
+      <span class="text-[var(--marketing-gold-500)]">
+        what if you could own the finished place — without personally managing
+        everything it takes to build and run it?
+      </span>
+    </p>
+  </section>
+
+  <section class="marketing-surface-dark">
+    <div class="marketing-container py-16 lg:py-24">
+      <h2 class="marketing-display max-w-3xl text-4xl leading-[1.08] text-[var(--marketing-ink-on-dark)]">
+        Yours when you're home.<br />Productive when you're not.
       </h2>
+      <div class="mt-10 grid gap-px border border-[var(--marketing-gold-line)] bg-[var(--marketing-gold-line)] lg:grid-cols-2">
+        <article class="bg-[var(--marketing-obsidian-900)] p-8 text-[var(--marketing-ink-on-dark)] lg:p-10">
+          <p class="marketing-ledger-label">When you're in Ghana</p>
+          <p class="mt-4 text-sm leading-6 text-[var(--marketing-dim-on-dark)]">
+            Come home to your own fully furnished residence. Reserve your dates
+            — December, family weeks, remote-work months. Your clothes stay in
+            the wardrobe. Your things stay where you left them.
+          </p>
+        </article>
+        <article class="bg-[var(--marketing-obsidian-900)] p-8 text-[var(--marketing-ink-on-dark)] lg:p-10">
+          <p class="marketing-ledger-label">When you're away</p>
+          <p class="mt-4 text-sm leading-6 text-[var(--marketing-dim-on-dark)]">
+            Your residence joins the village's managed hospitality operation.
+            Guests, pricing, housekeeping, maintenance — handled by our
+            on-ground team.
+          </p>
+        </article>
+      </div>
+      <p class="marketing-display mt-8 max-w-2xl text-2xl italic leading-snug text-[var(--marketing-ink-on-dark)]">
+        You don't have to choose between a place for yourself and an asset that works. It does both.
+      </p>
     </div>
-    <div
-      class="mt-10 grid gap-px border border-[var(--marketing-gold-line)] bg-[var(--marketing-gold-line)] lg:grid-cols-3"
-    >
+  </section>
+
+  <section class="marketing-container py-16 lg:py-24">
+    <p class="marketing-eyebrow">The P7 Capsule</p>
+    <h2 class="marketing-display mt-3 max-w-3xl text-4xl leading-[1.08] text-[var(--marketing-ink)]">
+      Thirty-eight square metres, considered down to the last one.
+    </h2>
+    <p class="mt-6 max-w-2xl leading-7 text-[var(--marketing-muted)]">
+      Full-height glazing that opens the room to the trees. Warm timber inside.
+      A private deck for morning coffee. Engineered as a complete product —
+      structure, insulation, services, furniture — finished before it ever
+      reaches your plot.
+    </p>
+    <ul class="mt-8 flex flex-wrap gap-3">
+      {
+        capsuleChips.map(chip => (
+          <li class="rounded-full border border-[var(--marketing-rule)] px-4 py-2 text-xs tracking-wide text-[var(--marketing-muted)]">
+            {chip}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="marketing-surface-dark">
+    <div class="marketing-container grid items-center gap-10 py-16 lg:grid-cols-[1fr_0.9fr] lg:py-20">
+      <div>
+        <p class="marketing-eyebrow">The village</p>
+        <h2 class="marketing-display mt-3 max-w-lg text-4xl leading-[1.08] text-[var(--marketing-ink-on-dark)]">
+          Your residence is private. The life around it is shared.
+        </h2>
+        <p class="mt-4 max-w-lg leading-7 text-[var(--marketing-dim-on-dark)]">
+          A pool for slow afternoons. Fire-side evenings in December. Long
+          tables under the pavilion. Children in the shallows while you finish
+          your coffee. Places to be alone; places to host everyone you love.
+        </p>
+        <p class="marketing-display mt-6 text-2xl italic text-[var(--marketing-gold-500)]">
+          Not a row of prefabs. A village.
+        </p>
+      </div>
+      <ImageFrame image={marketingImages.villageBanner} ratio="3 / 2" />
+    </div>
+  </section>
+
+  <section class="marketing-container py-16 lg:py-24">
+    <p class="marketing-eyebrow">Why modular</p>
+    <h2 class="marketing-display mt-3 max-w-3xl text-4xl leading-[1.08] text-[var(--marketing-ink)]">
+      Most of the building happens before the building arrives.
+    </h2>
+    <div class="mt-10 grid gap-px border border-[var(--marketing-gold-line)] bg-[var(--marketing-gold-line)] sm:grid-cols-2">
+      {
+        modularAdvantages.map(item => (
+          <article class="bg-[var(--marketing-canvas)] p-8">
+            <p class="marketing-ledger-label">{item.n}</p>
+            <h3 class="marketing-display mt-3 text-2xl text-[var(--marketing-ink)]">{item.title}</h3>
+            <p class="mt-3 text-sm leading-6 text-[var(--marketing-muted)]">{item.body}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="marketing-container pb-16 lg:pb-24">
+    <h2 class="marketing-display max-w-3xl text-4xl leading-[1.08] text-[var(--marketing-ink)]">
+      You own the asset. We run the experience around it.
+    </h2>
+    <p class="mt-5 max-w-2xl leading-7 text-[var(--marketing-muted)]">
+      While you're away, the village operates as a hospitality business — and
+      your residence is part of it.
+    </p>
+    <div class="mt-8 divide-y divide-[var(--marketing-rule)] border-y border-[var(--marketing-rule)]">
+      {
+        operatorRows.map(row => (
+          <div class="flex flex-col gap-1 py-5 sm:flex-row sm:items-baseline sm:gap-8">
+            <h3 class="min-w-64 text-sm font-semibold tracking-wide text-[var(--marketing-ink)]">{row.title}</h3>
+            <p class="text-sm leading-6 text-[var(--marketing-muted)]">{row.body}</p>
+          </div>
+        ))
+      }
+    </div>
+    <p class="marketing-display mt-8 text-2xl italic text-[var(--marketing-ink)]">
+      So ownership never becomes another full-time job.
+    </p>
+  </section>
+
+  <section class="marketing-container pb-16 lg:pb-24">
+    <h2 class="marketing-display max-w-3xl text-4xl leading-[1.08] text-[var(--marketing-ink)]">
+      Don't take our word for it.
+    </h2>
+    <p class="mt-5 max-w-2xl leading-7 text-[var(--marketing-muted)]">
+      Before you decide anything, you'll understand:
+    </p>
+    <ol class="mt-6 max-w-3xl">
+      {
+        clarityPoints.map((point, index) => (
+          <li class="flex items-baseline gap-5 border-b border-[var(--marketing-rule)] py-4">
+            <span class="marketing-ledger-label">{String(index + 1).padStart(2, '0')}</span>
+            <span class="text-sm leading-6 text-[var(--marketing-muted)]">{point}</span>
+          </li>
+        ))
+      }
+    </ol>
+    <p class="marketing-display mt-8 text-2xl italic text-[var(--marketing-ink)]">
+      Clarity first. Decision second.
+    </p>
+  </section>
+
+  <section class="marketing-container pb-16 lg:pb-24">
+    <h2 class="marketing-display max-w-3xl text-4xl leading-[1.08] text-[var(--marketing-ink)]">
+      We'd rather show you the assumptions than sell you the outcome.
+    </h2>
+    <p class="mt-6 max-w-2xl leading-7 text-[var(--marketing-muted)]">
+      Ghana's short-let market runs at roughly 33–44% occupancy. Our model is
+      built on documented assumptions — base case, stronger case, downside case
+      — that you'll examine line by line in your briefing.
+    </p>
+    <p class="mt-4 max-w-2xl leading-7 text-[var(--marketing-muted)]">
+      No headline ROI theatre. No promises we can't defend.
+    </p>
+    <a class="marketing-button-link mt-7" href="/briefing">Request the numbers</a>
+  </section>
+
+  <section class="marketing-container pb-16 lg:pb-24">
+    <p class="marketing-eyebrow">One standard, four hubs</p>
+    <h2 class="marketing-display mt-3 max-w-3xl text-4xl leading-[1.08] text-[var(--marketing-ink)]">
+      One standard. Four hubs.
+    </h2>
+    <p class="mt-5 max-w-2xl leading-7 text-[var(--marketing-muted)]">
+      The Swift Project is a national network of hospitality villages, built to
+      one standard. Four hubs anchor the map:
+    </p>
+    <div class="mt-8 divide-y divide-[var(--marketing-rule)] border-y border-[var(--marketing-rule)]">
+      {
+        swiftHubs.map(hub => (
+          <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 py-5">
+            <p class="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--marketing-ink)]">
+              {hub.city} · {hub.region}
+            </p>
+            <p class="text-sm italic text-[var(--marketing-muted)]">{hub.role}</p>
+            <p class="ml-auto text-sm tabular-nums text-[var(--marketing-muted)]">{hub.capsules} capsules</p>
+          </div>
+        ))
+      }
+    </div>
+    <p class="mt-4 text-sm text-[var(--marketing-muted)]">96 capsules across the network.</p>
+    <p class="marketing-display mt-6 text-2xl italic text-[var(--marketing-ink)]">
+      Same capsule. Same share. Same standard. Wherever you land.
+    </p>
+  </section>
+
+  <section class="marketing-surface-dark">
+    <div class="marketing-container py-16 text-center lg:py-24">
+      <p class="marketing-eyebrow">For those who live between two places</p>
+      <h2 class="marketing-display mx-auto mt-3 max-w-3xl text-4xl leading-[1.08] text-[var(--marketing-ink-on-dark)]">
+        Maybe home doesn't have to mean choosing one country over another.
+      </h2>
+      <p class="mx-auto mt-6 max-w-2xl leading-7 text-[var(--marketing-dim-on-dark)]">
+        A key that is yours. A room that remembers you. Your children growing up
+        with somewhere in Ghana that is theirs — not a hotel, not a relative's
+        spare room.
+      </p>
+      <p class="mx-auto mt-4 max-w-2xl leading-7 text-[var(--marketing-dim-on-dark)]">
+        December means something again.
+      </p>
+      <p class="marketing-display mx-auto mt-8 max-w-2xl text-2xl italic leading-snug text-[var(--marketing-ink-on-dark)]">
+        "We're going home." <span class="text-[var(--marketing-gold-500)]">And meaning it.</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="marketing-container py-16 lg:py-24">
+    <p class="marketing-eyebrow">Three ways in</p>
+    <h2 class="marketing-display mt-3 max-w-2xl text-4xl leading-[1.08] text-[var(--marketing-ink)]">
+      Stay. Own. Partner.
+    </h2>
+    <div class="mt-10 grid gap-px border border-[var(--marketing-gold-line)] bg-[var(--marketing-gold-line)] lg:grid-cols-3">
       {
         marketingSite.tiers.map((tier, index) => (
-          <article class="bg-[var(--marketing-obsidian-900)] p-8 text-[var(--marketing-ink-on-dark)] lg:p-10">
-            <p class="marketing-ledger-label">
-              {String(index + 1).padStart(2, '0')}
-            </p>
-            <h3 class="marketing-display mt-4 text-2xl">{tier.name}</h3>
-            <p class="mt-3 text-sm leading-6 text-[var(--marketing-dim-on-dark)]">
-              {tier.summary}
-            </p>
+          <article class="bg-[var(--marketing-canvas)] p-8 lg:p-10">
+            <p class="marketing-ledger-label">{String(index + 1).padStart(2, '0')}</p>
+            <h3 class="marketing-display mt-4 text-2xl text-[var(--marketing-ink)]">{tier.name}</h3>
+            <p class="mt-3 text-sm leading-6 text-[var(--marketing-muted)]">{tier.summary}</p>
             <a class="marketing-button-link mt-6" href={tier.cta.href}>
               {tier.cta.label}
             </a>
@@ -53,48 +292,21 @@ const page = marketingPages.home;
     </div>
   </section>
 
-  <MarketLedger
-    eyebrow="The market"
-    title="The numbers that ground the project."
-    body="Ghana's accommodation deficit is documented, not assumed. The ledger is public; the sources live in the dossier."
-    items={[
-      { label: 'Accra accommodation deficit', value: '300,000+' },
-      { label: 'National deficit', value: '2,000,000+' },
-      { label: 'Demand growth per year', value: '6–10%' },
-      { label: 'Market occupancy', value: '33–44%' },
-      { label: 'Unit target occupancy', value: '88%' },
-    ]}
-    cta={{ label: 'See the financials', href: '/ownership' }}
-  />
-
-  <StorySplit
-    eyebrow="For the diaspora"
-    title="A base to come home to."
-    body="Every part of the project is shaped for the diaspora: USD-denominated numbers, English documentation, escrow before build, and a settlement in GHS when you are home."
-    image={marketingImages.diasporaLifestyle}
-    reverse
-  />
-
-  <PortalPreview />
-
   <section class="marketing-surface-dark">
-    <div
-      class="marketing-container grid items-center gap-10 py-16 lg:grid-cols-[1fr_0.9fr] lg:py-20"
-    >
+    <div class="marketing-container grid items-center gap-10 py-16 lg:grid-cols-[1fr_0.9fr] lg:py-20">
       <ImageFrame image={marketingImages.duskCta} ratio="3 / 2" />
       <div>
-        <p class="marketing-eyebrow">The next step</p>
-        <h2
-          class="marketing-display mt-3 max-w-lg text-4xl leading-[1.08] text-[var(--marketing-ink-on-dark)]"
-        >
-          Every conversation starts with a briefing.
+        <p class="marketing-eyebrow">Your next step</p>
+        <h2 class="marketing-display mt-3 max-w-lg text-4xl leading-[1.08] text-[var(--marketing-ink-on-dark)]">
+          You don't need to decide today. You need enough information to decide well.
         </h2>
         <p class="mt-4 max-w-lg leading-7 text-[var(--marketing-dim-on-dark)]">
-          Tell us what you are planning. The briefing decides the level of
-          detail you see — and it is the only door into the member material.
+          No checkout. No countdown timer. No pressure on the call. Just a
+          structured conversation about whether this fits the life you're
+          building.
         </p>
         <a class="marketing-button-primary mt-7" href="/briefing">
-          Request a briefing
+          Request a private briefing
         </a>
       </div>
     </div>
