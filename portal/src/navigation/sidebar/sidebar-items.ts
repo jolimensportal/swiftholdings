@@ -1,14 +1,12 @@
 import {
-  Building2,
   Calendar,
   ChartBar,
+  FileText,
   FolderOpen,
-  Gauge,
   LayoutDashboard,
-  Lock,
-  type LucideIcon,
-  ReceiptText,
   Users,
+  type LucideIcon,
+  Wallet,
 } from "lucide-react";
 
 export type NavBadge = "new" | "soon";
@@ -52,80 +50,25 @@ export interface NavGroup {
 export const sidebarItems: NavGroup[] = [
   {
     id: 1,
-    label: "Portfolio",
+    label: "Owner",
     items: [
-      {
-        id: "dashboard",
-        title: "Dashboard",
-        url: "/dashboard",
-        icon: LayoutDashboard,
-      },
-      {
-        id: "portfolio",
-        title: "Portfolio",
-        url: "/portfolio",
-        icon: ChartBar,
-      },
-      {
-        id: "default",
-        title: "Overview",
-        url: "/dashboard/default",
-        icon: Gauge,
-      },
+      { id: "dashboard", title: "Dashboard", url: "/dashboard/default", icon: LayoutDashboard },
+      { id: "portfolio", title: "Portfolio", url: "/portfolio", icon: ChartBar },
+      { id: "marketplace", title: "Marketplace", url: "/marketplace", icon: Wallet },
+      { id: "tenants", title: "Tenants", url: "/tenants", icon: Users },
     ],
   },
   {
     id: 2,
-    label: "Investments",
+    label: "Resources",
     items: [
-      {
-        id: "prefabs",
-        title: "Prefabs",
-        url: "/prefabs",
-        icon: Building2,
-      },
-      {
-        id: "statements",
-        title: "Statements",
-        url: "/statements",
-        icon: ReceiptText,
-      },
+      { id: "documents", title: "Documents", url: "/documents", icon: FolderOpen },
+      { id: "briefings", title: "Briefings", url: "/briefings", icon: Calendar },
     ],
   },
   {
     id: 3,
-    label: "Documents",
-    items: [
-      {
-        id: "documents",
-        title: "Documents",
-        url: "/documents",
-        icon: FolderOpen,
-      },
-      {
-        id: "briefings",
-        title: "Briefings",
-        url: "/briefings",
-        icon: Calendar,
-      },
-    ],
-  },
-  {
-    id: 4,
-    label: "Members",
-    items: [
-      {
-        id: "users",
-        title: "Users",
-        url: "/dashboard/users",
-        icon: Users,
-      },
-      {
-        id: "roles",
-        title: "Roles",
-        url: "/dashboard/roles",
-        icon: Lock,
-      },
-    ],
+    label: "Account",
+    items: [{ id: "profile", title: "Profile", url: "/profile", icon: FileText }],
   },
 ];
