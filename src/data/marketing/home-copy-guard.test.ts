@@ -54,7 +54,7 @@ describe('homepage copy constitution', () => {
     const footer = readSrc('../../components/marketing/SiteFooter.astro');
     expect(footer).toContain('THE SWIFT PROJECT');
     expect(footer).not.toContain('SWIFT HOLDINGS');
-    expect(footer.match(/Operated by Swift Holdings/g)).toHaveLength(1);
+    expect(footer.match(/Operated by \{marketingSite\.legalName\}/g)).toHaveLength(1);
     const notFound = readSrc('../../pages/404.astro');
     expect(notFound).not.toContain('Swift Holdings');
   });
