@@ -1,0 +1,22 @@
+---
+interface Props {
+  title: string;
+  countLabel: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+const { title, countLabel, ctaLabel = 'Unlock full scenarios with a briefing →', ctaHref = '/briefing' } = Astro.props;
+---
+<div class="border border-[var(--marketing-gold-line)] bg-[var(--marketing-obsidian-900)] p-6">
+  <div class="flex items-center justify-between gap-4">
+    <h4 class="marketing-display text-[var(--marketing-ink-on-dark)]">{title}</h4>
+    <span class="rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-[11px] font-medium">🔒 GATED — briefing unlocks</span>
+  </div>
+  <div class="mt-4 blur-[3px] opacity-70 pointer-events-none select-none">
+    <slot />
+  </div>
+  <div class="mt-4 flex items-center justify-between">
+    <span class="text-xs text-[var(--marketing-dim-on-dark)]">{countLabel}</span>
+    <a class="marketing-button-primary text-xs" href={ctaHref}>{ctaLabel}</a>
+  </div>
+</div>
