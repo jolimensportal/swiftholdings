@@ -1,25 +1,25 @@
 :root {
-  /* Swift Holdings — Dark Luxury Palette (from JSON spec) */
-  --bg: #171719;
-  --header-bg: #19191B;
-  --surface: #1E1E1F;
-  --surface-elevated: #222120;
-  --hero-overlay: #111214;
+  /* Swift Holdings — Dark Luxury Palette (richer yellow-gold, deeper blend) */
+  --bg: #0F0E0D;
+  --header-bg: #121110;
+  --surface: #181715;
+  --surface-elevated: #1F1D1A;
+  --hero-overlay: #0A0A0A;
 
-  --text-primary: #F4F4F1;
-  --text-secondary: #D0C8B9;
-  --text-muted: #AAA8A1;
-  --text-low: #8D8A82;
+  --text-primary: #F6F3EC;
+  --text-secondary: #CFC6B6;
+  --text-muted: #A39E92;
+  --text-low: #837E73;
 
-  --accent: #D0AC7A;
-  --accent-light: #E7C692;
-  --accent-muted: #B39062;
-  --accent-deep: #755D3C;
+  --accent: #E7C06A;
+  --accent-light: #F4D88F;
+  --accent-muted: #C79A4E;
+  --accent-deep: #8A6A36;
 
-  --border: #353330;
-  --border-light: #454039;
-  --border-gold: #6E604C;
-  --border-gold-accent: rgba(208, 172, 122, 0.38);
+  --border: #322E29;
+  --border-light: #423C34;
+  --border-gold: #7E6A4A;
+  --border-gold-accent: rgba(231, 192, 106, 0.4);
 
   --radius-sm: 6px;
   --radius-md: 8px;
@@ -28,23 +28,23 @@
   --container: 72rem;
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 
-  /* Gradients — EXACT from JSON spec */
-  --hero-gradient-left: linear-gradient(90deg, rgba(12,13,14,0.94) 0%, rgba(12,13,14,0.88) 22%, rgba(12,13,14,0.68) 38%, rgba(12,13,14,0.34) 53%, rgba(12,13,14,0.10) 68%, rgba(12,13,14,0.02) 82%, rgba(12,13,14,0) 100%);
-  --hero-gradient-bottom: linear-gradient(180deg, transparent 60%, rgba(15,16,17,0.15) 78%, rgba(15,16,17,0.50) 100%);
-  --cta-gradient: linear-gradient(135deg, #E7C692 0%, #CDA773 100%);
+  /* Gradients — deeper blend */
+  --hero-gradient-left: linear-gradient(90deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.90) 22%, rgba(10,10,10,0.70) 38%, rgba(10,10,10,0.36) 53%, rgba(10,10,10,0.10) 68%, rgba(10,10,10,0.02) 82%, rgba(10,10,10,0) 100%);
+  --hero-gradient-bottom: linear-gradient(180deg, transparent 60%, rgba(12,11,10,0.18) 78%, rgba(12,11,10,0.55) 100%);
+  --cta-gradient: linear-gradient(135deg, #F4D88F 0%, #E7C06A 100%);
 
   /* Fonts */
   --font-sans: 'Inter', 'General Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-display: 'Inter', 'General Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* Selection */
-  --selection-bg: #C8A06C;
-  --selection-text: #171719;
+  --selection-bg: #E7C06A;
+  --selection-text: #0F0E0D;
 
   /* Phase 2 token set (for test) */
-  --marketing-obsidian-900: #171719;
+  --marketing-obsidian-900: #0F0E0D;
   --marketing-canvas: #F6F4F0;
-  --marketing-gold-gradient: linear-gradient(135deg, #D0AC7A 0%, #B39062 100%);
+  --marketing-gold-gradient: linear-gradient(135deg, #E7C06A 0%, #C79A4E 100%);
 }
 
 /* Dark shell — primary */
@@ -577,25 +577,25 @@ body.light-mode {
   --surface-elevated: #E8E4DC;
   --hero-overlay: #E8E4DC;
 
-  --text-primary: #1A1917;
-  --text-secondary: #4A4740;
-  --text-muted: #7A766F;
-  --text-low: #9E9A92;
+  --text-primary: #14110D;
+  --text-secondary: #3E3A33;
+  --text-muted: #6E6A61;
+  --text-low: #938E84;
 
-  --accent: #9A7340;
-  --accent-light: #B48E52;
-  --accent-muted: #7A5E35;
-  --accent-deep: #5C4528;
+  --accent: #B07F2A;
+  --accent-light: #C79A3E;
+  --accent-muted: #8A6526;
+  --accent-deep: #6E4F22;
 
   --border: #D8D3C9;
   --border-light: #E4E0D8;
   --border-gold: #C4AA7A;
-  --border-gold-accent: rgba(154, 115, 64, 0.32);
+  --border-gold-accent: rgba(176, 127, 42, 0.34);
 
-  --selection-bg: #9A7340;
+  --selection-bg: #B07F2A;
   --selection-text: #FFFFFF;
 
-  --cta-gradient: linear-gradient(135deg, #9A7340 0%, #7A5E35 100%);
+  --cta-gradient: linear-gradient(135deg, #B07F2A 0%, #8A6526 100%);
 
   color: var(--text-primary);
 }
