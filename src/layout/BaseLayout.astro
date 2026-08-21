@@ -141,6 +141,13 @@ const defaultSchema: WithContext<Thing> = {
           { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
         );
         document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+        // Fail-safe: if the observer misses anything, reveal all after 1.2s
+        // so content can never get stuck hidden at opacity 0.
+        setTimeout(() => {
+          document
+            .querySelectorAll('.reveal:not(.is-visible)')
+            .forEach((el) => el.classList.add('is-visible'));
+        }, 1200);
       }
       document.addEventListener('astro:page-load', initMotion);
     </script>
