@@ -1,0 +1,35 @@
+---
+import { marketingImages } from '@/data/marketing/image-assets';
+interface Props {
+  image?: typeof marketingImages.duskCta;
+}
+const { image = marketingImages.duskCta } = Astro.props;
+---
+<section class="marketing-container grid items-center gap-10 py-16 lg:grid-cols-[1.2fr_0.8fr] border-y border-[var(--marketing-rule)]">
+  <div>
+    <p class="marketing-eyebrow">Beyond the gate</p>
+    <h3 class="marketing-display mt-3 text-3xl">Your member portal</h3>
+    <p class="mt-4 leading-7 text-[var(--marketing-muted)]">What unlocks after the 5-step briefing — real Ghana dashboard (GHS 51,400 + 88% + 26/96) plus private vault. Most valuable content lives here.</p>
+    <div class="relative mt-6 overflow-hidden rounded-lg border">
+      <img
+        src="/_astro/portal-preview.placeholder.jpg"
+        alt="Illustrative reference of portal dashboard GHS 51,400 Ghana — GHS 127,400 portfolio preview"
+        width="1200"
+        height="675"
+        class="w-full object-cover"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 grid place-items-center bg-black/40 backdrop-blur-[1px]">
+        <a class="marketing-button-primary" href="/briefing">Request briefing to enter →</a>
+      </div>
+    </div>
+    <p class="mt-2 text-[11px] text-[var(--marketing-muted)]">Illustrative reference · Blurred rows 11–60 · 🔒 GATED — GHS 127,400 portfolio preview</p>
+  </div>
+  <ul class="space-y-3 text-sm leading-6 text-[var(--marketing-muted)]">
+    <li>• Portfolio GHS 127,400 chart Feb–Jul (SIM historical)</li>
+    <li>• Statements Q2 GHS 2,998 paid 30 Jun (12 mo history)</li>
+    <li>• 5-doc vault: 42p/38p/24p + Title 2.1MB</li>
+    <li>• Allocation 70/30 donut + milestones 40%</li>
+    <li>• Direct link to <a class="underline" href="https://swiftholdingsportal.securemensah.workers.dev/dashboard/default">swiftholdingsportal dashboard</a> preview</li>
+  </ul>
+</section>
