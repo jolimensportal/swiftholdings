@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>S03 · Option B — Anatomy Split</title>
+<style>
+  :root{--obs:#0A0908;--obs2:#12100E;--ink:#F4EFE6;--dim:rgba(244,239,230,.6);--faint:rgba(244,239,230,.35);--gold:#C79A4E;--gold400:#E7C692;--line:rgba(126,106,74,.4);--sans:'Inter',-apple-system,sans-serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--obs);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+
+  /* HERO — UNCHANGED */
+  .hero{position:relative;background:#000}
+  .hero img{aspect-ratio:16/9}
+  .hero-tag{position:absolute;top:20px;right:24px;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:rgba(244,239,230,.65)}
+
+  /* S01 · LOCKED */
+  .s01{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);min-height:92vh}
+  .pain{background:var(--obs);padding:clamp(56px,7vw,110px) clamp(32px,5vw,88px);display:flex;flex-direction:column;justify-content:center}
+  .eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);margin-bottom:40px;display:flex;align-items:center;gap:16px}
+  .eyebrow::after{content:"";height:1px;width:72px;background:var(--line)}
+  .pain-list{list-style:none}
+  .pain-list li{font-size:clamp(1.5rem,2.9vw,2.5rem);font-weight:600;letter-spacing:-.03em;line-height:1.16;padding:14px 0;border-bottom:1px solid rgba(126,106,74,.28)}
+  .pain-list li span{color:var(--dim);font-weight:300;font-size:.55em;letter-spacing:0;display:block;margin-top:2px}
+  .pain-list li:last-child{border-bottom:0}
+  .question{margin-top:52px;font-size:clamp(1.15rem,1.8vw,1.45rem);font-weight:300;line-height:1.5;max-width:44ch}
+  .question b{color:var(--gold400);font-weight:500}
+  .visual{position:relative;background:#000}
+  .visual img{position:absolute;inset:0}
+  .visual::before{content:"";position:absolute;inset:0;background:linear-gradient(to right, var(--obs) 0%, rgba(10,9,8,0) 30%)}
+  .visual figcaption{position:absolute;left:32px;bottom:26px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,239,230,.55)}
+
+  /* S02 · LOCKED (Overlay Diptych) */
+  .s02-banner{position:relative;min-height:78vh;display:flex;align-items:flex-end;padding:0 clamp(28px,7vw,110px) clamp(48px,6vw,84px)}
+  .s02-banner img{position:absolute;inset:0}
+  .s02-banner::before{content:"";position:absolute;inset:0;background:linear-gradient(to top, rgba(10,9,8,.94) 8%, rgba(10,9,8,.45) 55%, rgba(10,9,8,.3) 100%)}
+  .s02-banner h2{position:relative;font-size:clamp(2.4rem,5.4vw,4.8rem);font-weight:600;letter-spacing:-.035em;line-height:1.05;max-width:20ch;text-wrap:balance}
+  .s02-banner h2 em{font-style:normal;color:var(--gold400)}
+  .diptych{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+  .half{padding:clamp(52px,6vw,96px) clamp(32px,5vw,88px);position:relative}
+  .half+.half{border-left:1px solid var(--line)}
+  .half .num{font-size:12px;letter-spacing:.34em;color:var(--gold);display:block;margin-bottom:36px}
+  .half h3{font-size:clamp(1.7rem,3vw,2.6rem);font-weight:600;letter-spacing:-.03em;line-height:1.14}
+  .half p{color:var(--dim);margin-top:24px;max-width:46ch;font-size:1.02rem}
+  .half.tint{background:var(--obs2)}
+  .beat{border-top:1px solid var(--line);text-align:center;padding:clamp(56px,7vw,96px) clamp(28px,6vw,90px)}
+  .beat p{font-size:clamp(1.5rem,3vw,2.4rem);font-weight:300;letter-spacing:-.02em;line-height:1.3;max-width:34ch;margin:0 auto;text-wrap:balance}
+  .beat b{color:var(--gold400);font-weight:500}
+
+  /* S03 · B — ANATOMY SPLIT */
+  .s03{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);min-height:96vh;border-top:1px solid var(--line)}
+  .s03 .pic{position:relative;background:#000;min-height:420px}
+  .s03 .pic img{position:absolute;inset:0}
+  .s03 .pic figcaption{position:absolute;left:28px;bottom:24px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,239,230,.55)}
+  .s03 .txt{background:var(--obs2);padding:clamp(56px,7vw,110px) clamp(32px,5vw,88px);display:flex;flex-direction:column;justify-content:center}
+  .s03 h2{font-size:clamp(2.1rem,4.2vw,3.7rem);font-weight:600;letter-spacing:-.035em;line-height:1.08;max-width:18ch;text-wrap:balance}
+  .s03 p.lede{color:var(--dim);margin-top:30px;max-width:46ch;font-size:1.03rem}
+  .spec-list{list-style:none;border-top:1px solid var(--line);margin-top:44px}
+  .spec-list li{display:grid;grid-template-columns:56px 1fr;gap:22px;padding:15px 0;border-bottom:1px solid rgba(126,106,74,.28);align-items:baseline}
+  .spec-list i{font-style:normal;font-size:11px;color:var(--gold);letter-spacing:.18em;font-variant-numeric:tabular-nums}
+  .spec-list span{font-size:.97rem;color:var(--ink)}
+  @media (max-width:900px){
+    .s01{grid-template-columns:1fr;min-height:0}
+    .visual{min-height:52vh;order:-1}
+    .visual::before{background:linear-gradient(to top, var(--obs) 0%, rgba(10,9,8,0) 35%)}
+    .diptych{grid-template-columns:1fr}
+    .half+.half{border-left:0;border-top:1px solid var(--line)}
+    .s03{grid-template-columns:1fr;min-height:0}
+    .s03 .pic{min-height:56vh;order:-1}
+  }
+</style>
+</head>
+<body>
+
+  <!-- HERO · UNCHANGED -->
+  <div class="hero">
+    <img src="../assets/home-hero-desktop.By5kmOuD.jpg" alt="">
+    <p class="hero-tag">Hero unchanged</p>
+  </div>
+
+  <!-- SECTION 01 · LOCKED -->
+  <section class="s01" aria-label="The problem">
+    <div class="pain">
+      <p class="eyebrow">Owning back home shouldn't become a second job</p>
+      <ul class="pain-list">
+        <li>The land<span>and whether the papers behind it hold</span></li>
+        <li>The contractor<span>and the calls across time zones</span></li>
+        <li>The materials<span>and the revised list that arrives after you've paid</span></li>
+        <li>The delays<span>and the trip home just to check what is going on</span></li>
+      </ul>
+      <p class="question">For too many of us abroad, the dream became a remote job with no salary. We built The Swift Project around a different question: <b>what if you could own the finished place — without personally managing everything it takes to build and run it?</b></p>
+    </div>
+    <figure class="visual">
+      <img src="../assets/architecture-gallery.CLH8f22L.jpg" alt="">
+      <figcaption>Oyarifa · Accra</figcaption>
+    </figure>
+  </section>
+
+  <!-- SECTION 02 · LOCKED (Overlay Diptych) -->
+  <section class="s02-banner" aria-label="The proposition">
+    <img src="../assets/prefab_15_2286x1524.jpg" alt="">
+    <h2>Yours when you're home.<br><em>Productive when you're not.</em></h2>
+  </section>
+  <div class="diptych">
+    <article class="half">
+      <span class="num">I — WHEN YOU'RE IN GHANA</span>
+      <h3>Come home to your own fully furnished residence.</h3>
+      <p>Reserve your dates — December, family weeks, remote-work months. Your clothes stay in the wardrobe. Your things stay where you left them.</p>
+    </article>
+    <article class="half tint">
+      <span class="num">II — WHEN YOU'RE AWAY</span>
+      <h3>Your residence joins the village's managed hospitality operation.</h3>
+      <p>Guests, pricing, housekeeping, maintenance — handled by our on-ground team.</p>
+    </article>
+  </div>
+  <div class="beat">
+    <p>You don't have to choose between a place for yourself and an asset that works. <b>It does both.</b></p>
+  </div>
+
+  <!-- SECTION 03 · OPTION B — ANATOMY SPLIT -->
+  <section class="s03" aria-label="The P7 capsule">
+    <figure class="pic">
+      <img src="../assets/prefab_12_2304x1792.jpg" alt="">
+      <figcaption>P7 interior · glazing to the trees</figcaption>
+    </figure>
+    <div class="txt">
+      <p class="eyebrow">The P7 Capsule</p>
+      <h2>Thirty-eight square metres, considered down to the last one.</h2>
+      <p class="lede">Full-height glazing that opens the room to the trees. Warm timber inside. A private deck for morning coffee. Engineered as a complete product — structure, insulation, services, furniture — finished before it ever reaches your plot.</p>
+      <ul class="spec-list">
+        <li><i>01</i><span>Full-height glazing</span></li>
+        <li><i>02</i><span>Private composite deck</span></li>
+        <li><i>03</i><span>Nine-layer wall system</span></li>
+        <li><i>04</i><span>Solar-ready roof</span></li>
+        <li><i>05</i><span>Integrated services</span></li>
+        <li><i>06</i><span>Turnkey furnishing</span></li>
+      </ul>
+    </div>
+  </section>
+
+</body>
+</html>
