@@ -9,7 +9,7 @@ export function MarketplaceView() {
   return (
     <div className="flex flex-col gap-0">
       <div className="flex items-baseline justify-between pb-3">
-        <p className="text-xs uppercase tracking-[0.22em] text-primary/75">Marketplace — {f.location}</p>
+        <p className="text-xs uppercase tracking-[0.22em] text-primary/75">Prefab Market &amp; Auctions — {f.location}</p>
         <p className="text-xs text-muted-foreground">02 / 06 listings open</p>
       </div>
 
