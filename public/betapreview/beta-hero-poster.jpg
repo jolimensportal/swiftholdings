@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#0f0e0d"/>
+  <text x="800" y="450" text-anchor="middle" fill="#c79a4e" font-family="system-ui" font-size="32">Beta Hero Poster</text>
+  <text x="800" y="500" text-anchor="middle" fill="#4a453d" font-family="system-ui" font-size="16">Replace with your hero video poster frame</text>
+</svg>

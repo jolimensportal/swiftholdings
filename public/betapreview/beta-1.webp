@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+  <rect width="1200" height="900" fill="#1a1816"/>
+  <text x="600" y="430" text-anchor="middle" fill="#7e6a4a" font-family="system-ui" font-size="28">Beta Preview Image 1</text>
+  <text x="600" y="470" text-anchor="middle" fill="#4a453d" font-family="system-ui" font-size="14">Replace with your prefab image 1</text>
+</svg>

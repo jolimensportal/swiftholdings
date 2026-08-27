@@ -1,0 +1,287 @@
+---
+export const prerender = true;
+
+import MarketingLayout from '@layout/MarketingLayout.astro';
+import ImageFrame from '@/components/marketing/ImageFrame.astro';
+import ProofStrip from '@/components/marketing/ProofStrip.astro';
+
+const heroVideoUrl = import.meta.env.PUBLIC_BETA_HERO_VIDEO || null;
+const heroPoster = '/betapreview/beta-hero-poster.jpg';
+const hasVideo = Boolean(heroVideoUrl);
+---
+
+<MarketingLayout
+  headerTheme="dark"
+  seo={{
+    title: 'A Private Preview — Swift Holdings',
+    description:
+      'A quiet look at what we are building before it goes public. The finished residence, the village around it, and the numbers behind it — for investors who want to see it first.',
+  }}
+>
+  <!-- ===== VIDEO HERO ===== -->
+  <section class="beta-hero">
+    {hasVideo ? (
+      <>
+        <video
+          class="beta-hero__video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          poster={heroPoster}
+        >
+          <source src={heroVideoUrl} type="video/mp4" />
+        </video>
+      </>
+    ) : (
+      <img
+        class="beta-hero__video beta-hero__video--fallback"
+        src={heroPoster}
+        alt=""
+        aria-hidden="true"
+      />
+    )}
+    <div class="beta-hero__scrim"></div>
+    <p class="beta-hero__tag">A private preview · 2026</p>
+    <div class="beta-hero__content">
+      <p class="marketing-eyebrow">The Swift Project · A private preview</p>
+      <h1 class="marketing-display beta-hero__title">
+        A preview of what we're building — before we take it public.
+      </h1>
+      <p class="beta-hero__lead">
+        The finished residence. The village around it. The numbers behind it.
+        This page is for investors who want to see it before the launch.
+      </p>
+      <div class="mt-8 flex flex-wrap items-center gap-5">
+        <a class="marketing-button-primary" href="/briefing">Request the full briefing</a>
+        <a class="marketing-button-outline" href="/how-it-works">See the residence</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== THE RESIDENCE ===== -->
+  <section class="marketing-container py-16 lg:py-24">
+    <p class="marketing-eyebrow">The residence</p>
+    <h2 class="marketing-display mt-3 max-w-3xl text-4xl leading-[1.08] text-[var(--marketing-ink)]">
+      The finished thing, <span class="text-[var(--marketing-gold-500)]">shown plainly.</span>
+    </h2>
+    <p class="mt-6 max-w-2xl leading-7 text-[var(--marketing-muted)]">
+      Fully finished modular residences — structure, insulation, services,
+      furniture — built in the factory and complete before they reach the plot.
+      No construction project to manage from abroad.
+    </p>
+
+    <div class="mt-12 grid gap-10 md:grid-cols-3">
+      <ImageFrame
+        image={{
+          alt: 'Illustrative reference of the prefab residence in evening light',
+          label: 'Illustrative reference',
+          desktop: {
+            jpeg: { src: '/betapreview/beta-1.jpg', width: 1200, height: 900 },
+            webp: { src: '/betapreview/beta-1.webp' },
+          },
+          mobile: {
+            jpeg: { src: '/betapreview/beta-1.jpg', width: 800, height: 600 },
+            webp: { src: '/betapreview/beta-1.webp' },
+          },
+        }}
+        ratio="4 / 3"
+        mobileRatio="4 / 3"
+      />
+      <ImageFrame
+        image={{
+          alt: 'The private composite deck',
+          label: 'Illustrative reference',
+          desktop: {
+            jpeg: { src: '/betapreview/beta-2.jpg', width: 1200, height: 900 },
+            webp: { src: '/betapreview/beta-2.webp' },
+          },
+          mobile: {
+            jpeg: { src: '/betapreview/beta-2.jpg', width: 800, height: 600 },
+            webp: { src: '/betapreview/beta-2.webp' },
+          },
+        }}
+        ratio="4 / 3"
+        mobileRatio="4 / 3"
+      />
+      <ImageFrame
+        image={{
+          alt: 'The warm timber interior',
+          label: 'Illustrative reference',
+          desktop: {
+            jpeg: { src: '/betapreview/beta-3.jpg', width: 1200, height: 900 },
+            webp: { src: '/betapreview/beta-3.webp' },
+          },
+          mobile: {
+            jpeg: { src: '/betapreview/beta-3.jpg', width: 800, height: 600 },
+            webp: { src: '/betapreview/beta-3.webp' },
+          },
+        }}
+        ratio="4 / 3"
+        mobileRatio="4 / 3"
+      />
+    </div>
+  </section>
+
+  <ProofStrip
+    items={[
+      { label: 'Capsule', value: '38 m²' },
+      { label: 'Wall system', value: '9-layer' },
+      { label: 'Hubs', value: 'Accra · Kumasi · Tamale · Takoradi' },
+    ]}
+  />
+
+  <!-- ===== THE LAUNCH ===== -->
+  <section class="marketing-surface-dark">
+    <div class="marketing-container py-16 lg:py-24">
+      <p class="marketing-eyebrow">What's coming</p>
+      <h2 class="marketing-display mt-3 max-w-3xl text-4xl leading-[1.08] text-[var(--marketing-ink-on-dark)]">
+        The launch, <span class="text-[var(--marketing-gold-500)]">in three quiet steps.</span>
+      </h2>
+      <p class="mt-6 max-w-2xl leading-7 text-[var(--marketing-dim-on-dark)]">
+        No countdown, no urgency. Here is where things stand.
+      </p>
+
+      <div class="mt-10 grid gap-px border border-[var(--marketing-gold-line)] bg-[var(--marketing-gold-line)]">
+        <div class="grid gap-6 bg-[var(--marketing-obsidian-900)] p-8 lg:grid-cols-[120px_1fr_auto] lg:items-center lg:p-10">
+          <p class="text-xs uppercase tracking-[0.16em] text-[var(--marketing-gold-500)]">Now</p>
+          <div>
+            <h3 class="marketing-display text-2xl text-[var(--marketing-ink-on-dark)]">Prototype &amp; first village</h3>
+            <p class="mt-2 max-w-xl text-sm leading-6 text-[var(--marketing-dim-on-dark)]">
+              The residence built and the first hub taking shape. Your preview of the finished thing.
+            </p>
+          </div>
+          <span class="marketing-display hidden text-2xl text-[var(--marketing-gold-500)]/40 lg:block">01</span>
+        </div>
+        <div class="grid gap-6 bg-[var(--marketing-obsidian-900)] p-8 lg:grid-cols-[120px_1fr_auto] lg:items-center lg:p-10">
+          <p class="text-xs uppercase tracking-[0.16em] text-[var(--marketing-gold-500)]">Next</p>
+          <div>
+            <h3 class="marketing-display text-2xl text-[var(--marketing-ink-on-dark)]">Pilot hubs</h3>
+            <p class="mt-2 max-w-xl text-sm leading-6 text-[var(--marketing-dim-on-dark)]">
+              The operation running across the first locations, tuned on real stays.
+            </p>
+          </div>
+          <span class="marketing-display hidden text-2xl text-[var(--marketing-gold-500)]/40 lg:block">02</span>
+        </div>
+        <div class="grid gap-6 bg-[var(--marketing-obsidian-900)] p-8 lg:grid-cols-[120px_1fr_auto] lg:items-center lg:p-10">
+          <p class="text-xs uppercase tracking-[0.16em] text-[var(--marketing-gold-500)]">Public</p>
+          <div>
+            <h3 class="marketing-display text-2xl text-[var(--marketing-ink-on-dark)]">Full launch</h3>
+            <p class="mt-2 max-w-xl text-sm leading-6 text-[var(--marketing-dim-on-dark)]">
+              The network opens to everyone. You'll have seen it first.
+            </p>
+          </div>
+          <span class="marketing-display hidden text-2xl text-[var(--marketing-gold-500)]/40 lg:block">03</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CLOSE ===== -->
+  <section class="marketing-container py-20 text-center lg:py-28">
+    <p class="marketing-eyebrow">Your next step</p>
+    <h2 class="marketing-display mx-auto mt-3 max-w-2xl text-4xl leading-[1.08] text-[var(--marketing-ink)]">
+      Want the full numbers, <br class="hidden sm:block" />line by line?
+    </h2>
+    <p class="mx-auto mt-6 max-w-xl leading-7 text-[var(--marketing-muted)]">
+      Request the private investor briefing. We'll walk you through what's
+      built, what's coming, and the assumptions behind every projection.
+    </p>
+    <div class="mx-auto mt-10 flex max-w-md flex-col gap-3 sm:flex-row">
+      <input
+        type="email"
+        placeholder="Your email address"
+        class="w-full rounded border border-[var(--marketing-rule)] bg-transparent px-4 py-3 text-[var(--marketing-ink)] placeholder:text-[var(--marketing-muted)] focus:border-[var(--marketing-gold-500)] focus:outline-none"
+      />
+      <a class="marketing-button-primary whitespace-nowrap" href="/briefing">Request briefing</a>
+    </div>
+    <p class="mt-3 text-sm text-[var(--marketing-muted)]">
+      A guided conversation — not a sales funnel.
+    </p>
+  </section>
+</MarketingLayout>
+
+<style>
+  /* ===== Video hero ===== */
+  .beta-hero {
+    position: relative;
+    width: 100%;
+    min-height: 560px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    background: #0f0e0d;
+  }
+  @media (min-width: 1024px) {
+    .beta-hero { min-height: 600px; }
+  }
+  @media (max-width: 767px) {
+    .beta-hero { min-height: 620px; }
+  }
+
+  .beta-hero__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.8) contrast(1.03) saturate(0.85);
+  }
+  .beta-hero__video--fallback {
+    filter: brightness(0.75) contrast(1.02) saturate(0.8);
+  }
+
+  .beta-hero__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(10, 9, 8, 0.18) 0%,
+      rgba(10, 9, 8, 0.38) 42%,
+      rgba(10, 9, 8, 0.82) 100%
+    );
+  }
+
+  .beta-hero__tag {
+    position: absolute;
+    top: 18px;
+    right: 22px;
+    z-index: 3;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--marketing-dim-on-dark);
+    margin: 0;
+  }
+
+  .beta-hero__content {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 72px 32px;
+  }
+  @media (max-width: 767px) {
+    .beta-hero__content { padding: 56px 20px; }
+  }
+
+  .beta-hero__title {
+    font-size: clamp(34px, 5vw, 56px);
+    line-height: 1.06;
+    max-width: 720px;
+    margin: 22px 0 18px;
+    color: var(--marketing-ink-on-dark);
+  }
+
+  .beta-hero__lead {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--marketing-dim-on-dark);
+    max-width: 520px;
+  }
+</style>
