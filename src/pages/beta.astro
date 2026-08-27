@@ -7,7 +7,35 @@ import ProofStrip from '@/components/marketing/ProofStrip.astro';
 
 const heroVideoUrl = import.meta.env.PUBLIC_BETA_HERO_VIDEO || 'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4';
 const heroPoster = '/betapreview/beta-hero-poster.jpg';
-const hasVideo = true;
+
+function isEmbedUrl(url: string): boolean {
+  return /youtube\.com|youtu\.be|canva\.com|vimeo\.com|player\.vimeo\.com/.test(url);
+}
+
+function toEmbedUrl(url: string): string {
+  // YouTube
+  if (url.includes('youtube.com/watch')) {
+    const id = new URL(url).searchParams.get('v');
+    return `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&modestbranding=1&rel=0`;
+  }
+  if (url.includes('youtu.be/')) {
+    const id = url.split('youtu.be/')[1].split('?')[0];
+    return `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&modestbranding=1&rel=0`;
+  }
+  // Canva - convert watch to embed
+  if (url.includes('canva.com/design/') && url.includes('/watch')) {
+    return url.replace('/watch', '/watch?embed').replace('?embed&', '?embed&autoplay=1&');
+  }
+  // Vimeo
+  if (url.includes('vimeo.com/')) {
+    const id = url.split('vimeo.com/')[1].split('?')[0];
+    return `https://player.vimeo.com/video/${id}?autoplay=1&muted=1&loop=1&controls=0&background=1`;
+  }
+  return url;
+}
+
+const isEmbed = isEmbedUrl(heroVideoUrl);
+const embedSrc = isEmbed ? toEmbedUrl(heroVideoUrl) : heroVideoUrl;
 ---
 
 <MarketingLayout
@@ -20,7 +48,16 @@ const hasVideo = true;
 >
   <!-- ===== VIDEO HERO ===== -->
   <section class="beta-hero">
-    {hasVideo ? (
+    {isEmbed ? (
+      <iframe
+        class="beta-hero__video"
+        src={embedSrc}
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen
+        loading="lazy"
+        title="The Swift Project preview"
+      />
+    ) : (
       <>
         <video
           class="beta-hero__video"
@@ -34,13 +71,6 @@ const hasVideo = true;
           <source src={heroVideoUrl} type="video/mp4" />
         </video>
       </>
-    ) : (
-      <img
-        class="beta-hero__video beta-hero__video--fallback"
-        src={heroPoster}
-        alt=""
-        aria-hidden="true"
-      />
     )}
     <div class="beta-hero__scrim"></div>
     <p class="beta-hero__tag">A private preview · 2026</p>
