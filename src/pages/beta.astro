@@ -5,9 +5,9 @@ import MarketingLayout from '@layout/MarketingLayout.astro';
 import ImageFrame from '@/components/marketing/ImageFrame.astro';
 import ProofStrip from '@/components/marketing/ProofStrip.astro';
 
-const heroVideoUrl = import.meta.env.PUBLIC_BETA_HERO_VIDEO || null;
+const heroVideoUrl = import.meta.env.PUBLIC_BETA_HERO_VIDEO || 'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4';
 const heroPoster = '/betapreview/beta-hero-poster.jpg';
-const hasVideo = Boolean(heroVideoUrl);
+const hasVideo = true;
 ---
 
 <MarketingLayout
