@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>S10 · Option B — Window Frame</title>
+<style>
+  :root{--obs:#0A0908;--obs2:#12100E;--ink:#F4EFE6;--dim:rgba(244,239,230,.6);--faint:rgba(244,239,230,.35);--gold:#C79A4E;--gold400:#E7C692;--line:rgba(126,106,74,.4);--sans:'Inter',-apple-system,sans-serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--obs);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+
+  /* HERO — UNCHANGED */
+  .hero{position:relative;background:#000}
+  .hero img{aspect-ratio:16/9}
+  .hero-tag{position:absolute;top:20px;right:24px;font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:rgba(244,239,230,.65)}
+
+  /* S01 · LOCKED */
+  .s01{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);min-height:92vh}
+  .pain{background:var(--obs);padding:clamp(56px,7vw,110px) clamp(32px,5vw,88px);display:flex;flex-direction:column;justify-content:center}
+  .eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);margin-bottom:40px;display:flex;align-items:center;gap:16px}
+  .eyebrow::after{content:"";height:1px;width:72px;background:var(--line)}
+  .pain-list{list-style:none}
+  .pain-list li{font-size:clamp(1.5rem,2.9vw,2.5rem);font-weight:600;letter-spacing:-.03em;line-height:1.16;padding:14px 0;border-bottom:1px solid rgba(126,106,74,.28)}
+  .pain-list li span{color:var(--dim);font-weight:300;font-size:.55em;letter-spacing:0;display:block;margin-top:2px}
+  .pain-list li:last-child{border-bottom:0}
+  .question{margin-top:52px;font-size:clamp(1.15rem,1.8vw,1.45rem);font-weight:300;line-height:1.5;max-width:44ch}
+  .question b{color:var(--gold400);font-weight:500}
+  .visual{position:relative;background:#000}
+  .visual img{position:absolute;inset:0}
+  .visual::before{content:"";position:absolute;inset:0;background:linear-gradient(to right, var(--obs) 0%, rgba(10,9,8,0) 30%)}
+  .visual figcaption{position:absolute;left:32px;bottom:26px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,239,230,.55)}
+
+  /* S02 · LOCKED */
+  .s02-banner{position:relative;min-height:78vh;display:flex;align-items:flex-end;padding:0 clamp(28px,7vw,110px) clamp(48px,6vw,84px)}
+  .s02-banner img{position:absolute;inset:0}
+  .s02-banner::before{content:"";position:absolute;inset:0;background:linear-gradient(to top, rgba(10,9,8,.94) 8%, rgba(10,9,8,.45) 55%, rgba(10,9,8,.3) 100%)}
+  .s02-banner h2{position:relative;font-size:clamp(2.4rem,5.4vw,4.8rem);font-weight:600;letter-spacing:-.035em;line-height:1.05;max-width:20ch;text-wrap:balance}
+  .s02-banner h2 em{font-style:normal;color:var(--gold400)}
+  .diptych{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+  .half{padding:clamp(52px,6vw,96px) clamp(32px,5vw,88px);position:relative}
+  .half+.half{border-left:1px solid var(--line)}
+  .half .num{font-size:12px;letter-spacing:.34em;color:var(--gold);display:block;margin-bottom:36px}
+  .half h3{font-size:clamp(1.7rem,3vw,2.6rem);font-weight:600;letter-spacing:-.03em;line-height:1.14}
+  .half p{color:var(--dim);margin-top:24px;max-width:46ch;font-size:1.02rem}
+  .half.tint{background:var(--obs2)}
+  .beat{border-top:1px solid var(--line);text-align:center;padding:clamp(56px,7vw,96px) clamp(28px,6vw,90px)}
+  .beat p{font-size:clamp(1.5rem,3vw,2.4rem);font-weight:300;letter-spacing:-.02em;line-height:1.3;max-width:34ch;margin:0 auto;text-wrap:balance}
+  .beat b{color:var(--gold400);font-weight:500}
+
+  /* S03 · LOCKED */
+  .s03{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);min-height:96vh;border-top:1px solid var(--line)}
+  .s03 .pic{position:relative;background:#000;min-height:420px}
+  .s03 .pic img{position:absolute;inset:0}
+  .s03 .pic figcaption{position:absolute;left:28px;bottom:24px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,239,230,.55)}
+  .s03 .txt{background:var(--obs2);padding:clamp(56px,7vw,110px) clamp(32px,5vw,88px);display:flex;flex-direction:column;justify-content:center}
+  .s03 h2{font-size:clamp(2.1rem,4.2vw,3.7rem);font-weight:600;letter-spacing:-.035em;line-height:1.08;max-width:18ch;text-wrap:balance}
+  .s03 p.lede{color:var(--dim);margin-top:30px;max-width:46ch;font-size:1.03rem}
+  .spec-list{list-style:none;border-top:1px solid var(--line);margin-top:44px}
+  .spec-list li{display:grid;grid-template-columns:56px 1fr;gap:22px;padding:15px 0;border-bottom:1px solid rgba(126,106,74,.28);align-items:baseline}
+  .spec-list i{font-style:normal;font-size:11px;color:var(--gold);letter-spacing:.18em;font-variant-numeric:tabular-nums}
+  .spec-list span{font-size:.97rem;color:var(--ink)}
+
+  /* S04 · LOCKED */
+  .s04{background:linear-gradient(to bottom, var(--obs) 0%, #14100B 55%, #171208 100%);border-top:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.92fr);gap:clamp(40px,6vw,100px);padding:clamp(72px,9vw,140px) clamp(28px,7vw,110px);align-items:center}
+  .s04 .txt h2{font-size:clamp(2.3rem,4.8vw,4.2rem);font-weight:600;letter-spacing:-.035em;line-height:1.06;max-width:20ch;text-wrap:balance}
+  .s04 .txt h2 em{font-style:normal;color:var(--gold400)}
+  .s04 .txt p.prose{color:var(--dim);margin-top:30px;max-width:46ch;font-size:1.04rem}
+  .s04 .txt p.prose+.prose{margin-top:14px}
+  .s04-beat{margin-top:56px;padding-top:36px;border-top:1px solid rgba(199,154,78,.4)}
+  .s04-beat p{font-size:clamp(1.6rem,3vw,2.5rem);font-weight:300;letter-spacing:-.02em;line-height:1.25;max-width:22ch}
+  .s04-beat b{color:var(--gold400);font-weight:500}
+  .stack{display:grid;gap:12px}
+  .stack figure{position:relative;background:#000}
+  .stack img{aspect-ratio:16/10;width:100%;transition:transform .6s ease}
+  .stack figure:hover img{transform:scale(1.02)}
+  .stack figcaption{position:absolute;left:20px;bottom:16px;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:rgba(244,239,230,.75)}
+
+  /* S05 · LOCKED */
+  .s05-statement{position:relative;min-height:82vh;display:flex;align-items:flex-end;padding:0 clamp(28px,7vw,110px) clamp(48px,6vw,84px)}
+  .s05-statement>img{position:absolute;inset:0}
+  .s05-statement::before{content:"";position:absolute;inset:0;background:linear-gradient(to top, rgba(10,9,8,.94) 10%, rgba(10,9,8,.42) 58%, rgba(10,9,8,.25) 100%)}
+  .s05-statement h2{position:relative;font-size:clamp(2.3rem,5vw,4.4rem);font-weight:600;letter-spacing:-.035em;line-height:1.06;max-width:22ch;text-wrap:balance}
+  .s05-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+  .cell{padding:clamp(40px,4.6vw,68px) clamp(26px,3vw,44px);border-right:1px solid var(--line)}
+  .cell:last-child{border-right:0}
+  .cell i{font-style:normal;font-size:12px;color:var(--gold);letter-spacing:.26em;display:block;margin-bottom:26px}
+  .cell h3{font-size:clamp(1.25rem,1.9vw,1.7rem);font-weight:600;letter-spacing:-.025em;line-height:1.22}
+  .cell p{color:var(--dim);margin-top:14px;font-size:.98rem}
+
+  /* S06 · LOCKED (Ops Split) */
+  .s06{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);border-top:1px solid var(--line)}
+  .s06 .intro{background:var(--obs2);padding:clamp(56px,7vw,110px) clamp(32px,5vw,88px);display:flex;flex-direction:column;justify-content:center}
+  .s06 .intro h2{font-size:clamp(2.1rem,4.2vw,3.7rem);font-weight:600;letter-spacing:-.035em;line-height:1.08;max-width:17ch;text-wrap:balance}
+  .s06 .intro p.lead{color:var(--dim);margin-top:30px;max-width:42ch;font-size:1.04rem}
+  .s06 .intro .close{margin-top:56px;padding-top:32px;border-top:1px solid rgba(199,154,78,.4);font-size:clamp(1.25rem,2vw,1.7rem);font-weight:300;line-height:1.35;max-width:24ch}
+  .s06 .intro .close b{color:var(--gold400);font-weight:500}
+  .services{list-style:none;padding:clamp(48px,6vw,90px) clamp(32px,5vw,88px);display:flex;flex-direction:column;justify-content:center}
+  .services li{display:grid;grid-template-columns:minmax(0,.62fr) minmax(0,1fr);gap:clamp(16px,2.4vw,40px);padding:clamp(18px,2.2vw,26px) 0;border-bottom:1px solid var(--line);align-items:baseline}
+  .services li:first-child{padding-top:0}
+  .services li:last-child{border-bottom:0;padding-bottom:0}
+  .services i{font-style:normal;font-size:11px;color:var(--gold);letter-spacing:.2em;display:block;margin-bottom:8px;font-variant-numeric:tabular-nums}
+  .services h3{font-size:clamp(1.15rem,1.8vw,1.55rem);font-weight:600;letter-spacing:-.02em;line-height:1.25}
+  .services p{color:var(--dim);font-size:.99rem}
+
+  /* S07 · A — BRIEFING DOCUMENT (LOCKED) */
+  .doc{background:var(--obs2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:clamp(72px,9vw,140px) clamp(28px,7vw,110px)}
+  .sheet{max-width:860px;margin:0 auto;background:var(--obs);border:1px solid var(--line);padding:clamp(40px,6vw,88px) clamp(28px,5vw,80px)}
+  .sheet .eyebrow{margin-bottom:32px}
+  .sheet h2{font-size:clamp(2.1rem,4.4vw,3.8rem);font-weight:600;letter-spacing:-.035em;line-height:1.08;max-width:18ch;text-wrap:balance}
+  .sheet p.lead{color:var(--dim);margin-top:26px;font-size:1.05rem}
+  .checks{list-style:none;margin-top:48px;border-top:1px solid var(--line)}
+  .checks li{display:grid;grid-template-columns:28px 1fr;gap:20px;padding:18px 0;border-bottom:1px solid rgba(126,106,74,.28);align-items:start}
+  .checks .tick{width:13px;height:13px;margin-top:7px;background:var(--gold);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+  .checks span{font-size:clamp(1.02rem,1.5vw,1.2rem);line-height:1.5}
+  .stamp{margin-top:52px;padding-top:36px;border-top:1px solid rgba(199,154,78,.4);text-align:center}
+  .stamp p{font-size:clamp(1.5rem,3vw,2.3rem);font-weight:300;letter-spacing:-.02em;line-height:1.3;text-wrap:balance}
+  .stamp b{color:var(--gold400);font-weight:500}
+
+  /* S08 · A — SCENARIO COLUMNS (LOCKED) */
+  .scen{background:radial-gradient(1200px 520px at 50% -10%, #161310 0%, var(--obs) 60%);border-top:1px solid var(--line);padding:clamp(72px,9vw,140px) clamp(28px,7vw,110px)}
+  .scen-head{max-width:820px}
+  .scen-head h2{font-size:clamp(2.3rem,5vw,4.4rem);font-weight:600;letter-spacing:-.035em;line-height:1.06;max-width:20ch;text-wrap:balance}
+  .scen-head p{color:var(--dim);margin-top:28px;font-size:1.05rem;max-width:56ch}
+  .cases{display:grid;grid-template-columns:repeat(3,1fr);margin-top:clamp(52px,7vw,88px);border-top:1px solid var(--line)}
+  .case{padding:clamp(36px,4vw,56px) clamp(26px,3vw,44px);border-right:1px solid var(--line);display:flex;flex-direction:column}
+  .case:last-child{border-right:0}
+  .case i{font-style:normal;font-size:12px;color:var(--gold);letter-spacing:.26em;display:block;margin-bottom:24px}
+  .case h3{font-size:clamp(1.6rem,2.6vw,2.3rem);font-weight:600;letter-spacing:-.03em;line-height:1.12;margin-bottom:18px}
+  .case p{color:var(--dim);font-size:.99rem}
+  .case .rule{flex:1;border-top:1px solid rgba(126,106,74,.28);margin-top:28px}
+  .case .note{margin-top:22px;font-size:.85rem;color:var(--faint);letter-spacing:.02em}
+  .scen-foot{margin-top:56px;padding-top:36px;border-top:1px solid rgba(199,154,78,.4);text-align:center}
+  .scen-foot p{font-size:clamp(1.5rem,3vw,2.3rem);font-weight:300;letter-spacing:-.02em;line-height:1.3;text-wrap:balance}
+  .scen-foot b{color:var(--gold400);font-weight:500}
+
+  /* S09 · A — NETWORK NODES (LOCKED) */
+  .hub{background:radial-gradient(1100px 520px at 50% -10%, #161310 0%, var(--obs) 60%);border-top:1px solid var(--line);padding:clamp(72px,9vw,140px) clamp(28px,7vw,110px)}
+  .hub-head{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:clamp(32px,5vw,90px);align-items:end;margin-bottom:clamp(40px,5vw,72px)}
+  .hub-head h2{font-size:clamp(2.3rem,5vw,4.4rem);font-weight:600;letter-spacing:-.035em;line-height:1.06;max-width:14ch;text-wrap:balance}
+  .hub-head p{color:var(--dim);font-size:1.05rem;max-width:40ch;padding-bottom:6px}
+  .net{position:relative;aspect-ratio:16/9;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 auto;max-width:1000px}
+  .net svg{position:absolute;inset:0;width:100%;height:100%}
+  .net .ln{stroke:var(--line);stroke-width:1;fill:none}
+  .net .core{position:absolute;left:50%;top:50%;width:9px;height:9px;transform:translate(-50%,-50%) rotate(45deg);background:var(--gold)}
+  .node{position:absolute;transform:translate(-50%,-130%)}
+  .node .pin{width:7px;height:7px;display:block;margin:0 auto 10px;background:var(--gold400);transform:rotate(45deg)}
+  .node b{display:block;font-size:clamp(.95rem,1.3vw,1.15rem);font-weight:600;letter-spacing:.02em;white-space:nowrap}
+  .node span{display:block;font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--faint);margin-top:3px;white-space:nowrap}
+  .node.n1{left:50%;top:16%}
+  .node.n2{left:60%;top:48%}
+  .node.n3{left:26%;top:66%}
+  .node.n4{left:40%;top:80%}
+  .hub-foot{margin-top:56px;padding-top:36px;border-top:1px solid rgba(199,154,78,.4);text-align:center}
+  .hub-foot p{font-size:clamp(1.5rem,3vw,2.3rem);font-weight:300;letter-spacing:-.02em;line-height:1.3;text-wrap:balance;max-width:30ch;margin:0 auto}
+  .hub-foot b{color:var(--gold400);font-weight:500}
+
+  /* S10 · B — WINDOW FRAME */
+  .s10{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);border-top:1px solid var(--line)}
+  .s10 .txt{background:var(--obs2);padding:clamp(56px,7vw,110px) clamp(32px,5vw,88px);display:flex;flex-direction:column;justify-content:center}
+  .s10 .txt h2{font-size:clamp(2.1rem,4.2vw,3.7rem);font-weight:600;letter-spacing:-.035em;line-height:1.1;max-width:19ch;text-wrap:balance}
+  .s10 .txt p.body{color:var(--dim);margin-top:30px;max-width:44ch;font-size:1.04rem}
+  .s10 .txt p.gold{margin-top:14px;color:var(--gold400);font-size:1.15rem;font-weight:500;letter-spacing:.01em}
+  .s10-quote{margin-top:56px;padding-top:32px;border-top:1px solid rgba(199,154,78,.4)}
+  .s10-quote p{font-size:clamp(1.6rem,3vw,2.5rem);font-weight:300;letter-spacing:-.02em;line-height:1.25;max-width:24ch}
+  .s10-quote p em{font-style:normal;color:var(--gold400);font-weight:500}
+  .s10 .frame{position:relative;background:#000;min-height:460px}
+  .s10 .frame::after{content:"";position:absolute;inset:clamp(18px,3vw,36px);border:1px solid rgba(199,154,78,.5);pointer-events:none}
+  .s10 .frame img{position:absolute;inset:0}
+  .s10 .frame figcaption{position:absolute;left:clamp(26px,4vw,52px);bottom:clamp(24px,4vw,48px);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,239,230,.75)}
+  @media (max-width:900px){
+    .s01{grid-template-columns:1fr;min-height:0}.visual{min-height:52vh;order:-1}.visual::before{background:linear-gradient(to top, var(--obs) 0%, rgba(10,9,8,0) 35%)}
+    .diptych{grid-template-columns:1fr}.half+.half{border-left:0;border-top:1px solid var(--line)}
+    .s03{grid-template-columns:1fr;min-height:0}.s03 .pic{min-height:56vh;order:-1}
+    .s04{grid-template-columns:1fr}.stack{order:-1}
+    .s05-grid{grid-template-columns:1fr}.cell{border-right:0;border-bottom:1px solid var(--line)}.cell:last-child{border-bottom:0}
+    .s06{grid-template-columns:1fr}
+    .services li{grid-template-columns:1fr;grid-template-rows:auto auto;gap:6px}
+    .services h3{grid-row:1}.services p{grid-row:2}
+    .cases{grid-template-columns:1fr}.case{border-right:0;border-bottom:1px solid var(--line)}.case:last-child{border-bottom:0}
+    .hub-head{grid-template-columns:1fr}
+    .net{aspect-ratio:4/5}
+    .node b{font-size:.8rem}
+    .s10{grid-template-columns:1fr}
+    .s10 .frame{min-height:56vh;order:-1}
+  }
+</style>
+</head>
+<body>
+
+  <!-- HERO · UNCHANGED -->
+  <div class="hero">
+    <img src="../assets/home-hero-desktop.By5kmOuD.jpg" alt="">
+    <p class="hero-tag">Hero unchanged</p>
+  </div>
+
+  <!-- SECTION 01 · LOCKED -->
+  <section class="s01" aria-label="The problem">
+    <div class="pain">
+      <p class="eyebrow">Owning back home shouldn't become a second job</p>
+      <ul class="pain-list">
+        <li>The land<span>and whether the papers behind it hold</span></li>
+        <li>The contractor<span>and the calls across time zones</span></li>
+        <li>The materials<span>and the revised list that arrives after you've paid</span></li>
+        <li>The delays<span>and the trip home just to check what is going on</span></li>
+      </ul>
+      <p class="question">For too many of us abroad, the dream became a remote job with no salary. We built The Swift Project around a different question: <b>what if you could own the finished place — without personally managing everything it takes to build and run it?</b></p>
+    </div>
+    <figure class="visual">
+      <img src="../assets/architecture-gallery.CLH8f22L.jpg" alt="">
+      <figcaption>Oyarifa · Accra</figcaption>
+    </figure>
+  </section>
+
+  <!-- SECTION 02 · LOCKED -->
+  <section class="s02-banner" aria-label="The proposition">
+    <img src="../assets/prefab_15_2286x1524.jpg" alt="">
+    <h2>Yours when you're home.<br><em>Productive when you're not.</em></h2>
+  </section>
+  <div class="diptych">
+    <article class="half">
+      <span class="num">I — WHEN YOU'RE IN GHANA</span>
+      <h3>Come home to your own fully furnished residence.</h3>
+      <p>Reserve your dates — December, family weeks, remote-work months. Your clothes stay in the wardrobe. Your things stay where you left them.</p>
+    </article>
+    <article class="half tint">
+      <span class="num">II — WHEN YOU'RE AWAY</span>
+      <h3>Your residence joins the village's managed hospitality operation.</h3>
+      <p>Guests, pricing, housekeeping, maintenance — handled by our on-ground team.</p>
+    </article>
+  </div>
+  <div class="beat">
+    <p>You don't have to choose between a place for yourself and an asset that works. <b>It does both.</b></p>
+  </div>
+
+  <!-- SECTION 03 · LOCKED -->
+  <section class="s03" aria-label="The P7 capsule">
+    <figure class="pic">
+      <img src="../assets/prefab_12_2304x1792.jpg" alt="">
+      <figcaption>P7 interior · glazing to the trees</figcaption>
+    </figure>
+    <div class="txt">
+      <p class="eyebrow">The P7 Capsule</p>
+      <h2>Thirty-eight square metres, considered down to the last one.</h2>
+      <p class="lede">Full-height glazing that opens the room to the trees. Warm timber inside. A private deck for morning coffee. Engineered as a complete product — structure, insulation, services, furniture — finished before it ever reaches your plot.</p>
+      <ul class="spec-list">
+        <li><i>01</i><span>Full-height glazing</span></li>
+        <li><i>02</i><span>Private composite deck</span></li>
+        <li><i>03</i><span>Nine-layer wall system</span></li>
+        <li><i>04</i><span>Solar-ready roof</span></li>
+        <li><i>05</i><span>Integrated services</span></li>
+        <li><i>06</i><span>Turnkey furnishing</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SECTION 04 · LOCKED -->
+  <section class="s04" aria-label="The village">
+    <div class="txt">
+      <p class="eyebrow">The village</p>
+      <h2>Your residence is private.<br><em>The life around it is shared.</em></h2>
+      <p class="prose">A pool for slow afternoons. Fire-side evenings in December. Long tables under the pavilion.</p>
+      <p class="prose">Children in the shallows while you finish your coffee. Places to be alone; places to host everyone you love.</p>
+      <div class="s04-beat">
+        <p>Not a row of prefabs. <b>A village.</b></p>
+      </div>
+    </div>
+    <div class="stack">
+      <figure>
+        <img src="../assets/village-aerial.DcXB8qDp_1Ahy0v.webp" alt="">
+        <figcaption>The village · Oyarifa</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/dusk-cta-desktop.BOTe6cnu.jpg" alt="">
+        <figcaption>Fire-side evenings · December</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- SECTION 05 · LOCKED -->
+  <section class="s05-statement" aria-label="Why modular">
+    <img src="../assets/prefab_21_1450x1266.jpg" alt="">
+    <h2>Most of the building happens before the building arrives.</h2>
+  </section>
+  <div class="s05-grid">
+    <div class="cell"><i>01</i><h3>Cost control</h3><p>Factory production removes the site surprises that inflate budgets.</p></div>
+    <div class="cell"><i>02</i><h3>Parallel timelines</h3><p>Site preparation and home construction happen at once, not in sequence.</p></div>
+    <div class="cell"><i>03</i><h3>Repeatable quality</h3><p>Every capsule built to the same standard, by the same team, with the same checks.</p></div>
+    <div class="cell"><i>04</i><h3>Faster to first stay</h3><p>Months, not years, between decision and your first night home.</p></div>
+  </div>
+
+  <!-- SECTION 06 · LOCKED (Ops Split) -->
+  <section class="s06" aria-label="The operating layer">
+    <div class="intro">
+      <p class="eyebrow">The operating layer</p>
+      <h2>You own the asset. We run the experience around it.</h2>
+      <p class="lead">While you're away, the village operates as a hospitality business — and your residence is part of it.</p>
+      <p class="close">So ownership never becomes <b>another full-time job.</b></p>
+    </div>
+    <ul class="services">
+      <li><div><i>01</i><h3>Distribution &amp; booking</h3></div><p>Across the channels guests actually use.</p></li>
+      <li><div><i>02</i><h3>Dynamic pricing</h3></div><p>Tuned to season and demand.</p></li>
+      <li><div><i>03</i><h3>Guest operations</h3></div><p>Handled on the ground, not from abroad.</p></li>
+      <li><div><i>04</i><h3>Housekeeping &amp; maintenance</h3></div><p>Linen, cleaning, and preventive care on schedule.</p></li>
+      <li><div><i>05</i><h3>Owner portal</h3></div><p>Bookings, statements, and your own reservations — visible anytime.</p></li>
+    </ul>
+  </section>
+
+  <!-- SECTION 07 · LOCKED (Briefing Document) -->
+  <div class="doc">
+    <div class="sheet">
+      <p class="eyebrow">Clarity before confidence</p>
+      <h2>Don't take our word for it.</h2>
+      <p class="lead">Before you decide anything, you'll understand:</p>
+      <ul class="checks">
+        <li><span class="tick"></span><span>Exactly what you acquire — and the rights that come with it.</span></li>
+        <li><span class="tick"></span><span>What the operator manages, and what stays yours.</span></li>
+        <li><span class="tick"></span><span>How revenue and costs are treated, line by line.</span></li>
+        <li><span class="tick"></span><span>The assumptions behind every projection we show you.</span></li>
+        <li><span class="tick"></span><span>What happens if you want to exit.</span></li>
+      </ul>
+      <div class="stamp">
+        <p><b>Clarity first.</b> Decision second.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 08 · LOCKED (Scenario Columns) -->
+  <section class="scen" aria-label="The numbers">
+    <div class="scen-head">
+      <p class="eyebrow">The numbers</p>
+      <h2>We'd rather show you the assumptions than sell you the outcome.</h2>
+      <p>Ghana's short-let market runs at roughly 33–44% occupancy. Our model is built on documented assumptions — base case, stronger case, downside case — that you'll examine line by line in your briefing.</p>
+    </div>
+    <div class="cases">
+      <div class="case">
+        <i>01</i>
+        <h3>Base case</h3>
+        <p>The expectation we can defend today.</p>
+        <div class="rule"></div>
+        <p class="note">examined line by line in your briefing</p>
+      </div>
+      <div class="case">
+        <i>02</i>
+        <h3>Stronger case</h3>
+        <p>The upside if demand runs stronger.</p>
+        <div class="rule"></div>
+        <p class="note">examined line by line in your briefing</p>
+      </div>
+      <div class="case">
+        <i>03</i>
+        <h3>Downside case</h3>
+        <p>The floor we plan around.</p>
+        <div class="rule"></div>
+        <p class="note">examined line by line in your briefing</p>
+      </div>
+    </div>
+    <div class="scen-foot">
+      <p><b>No headline ROI theatre.</b> No promises we can't defend.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 09 · LOCKED (Network Nodes) -->
+  <section class="hub" aria-label="One standard, four hubs">
+    <div class="hub-head">
+      <div>
+        <p class="eyebrow">One standard · four hubs</p>
+        <h2>One standard.<br>Four hubs.</h2>
+      </div>
+      <p>The Swift Project is a national network of hospitality villages, built to one standard. Four hubs anchor the map:</p>
+    </div>
+    <div class="net">
+      <svg viewBox="0 0 800 450" preserveAspectRatio="none" aria-hidden="true">
+        <line class="ln" x1="400" y1="225" x2="400" y2="70"/>
+        <line class="ln" x1="400" y1="225" x2="496" y2="215"/>
+        <line class="ln" x1="400" y1="225" x2="200" y2="300"/>
+        <line class="ln" x1="400" y1="225" x2="320" y2="360"/>
+      </svg>
+      <span class="core"></span>
+      <div class="node n1"><span class="pin"></span><b>Tamale · Northern</b><span>Hub three</span></div>
+      <div class="node n2"><span class="pin"></span><b>Kumasi · Ashanti</b><span>Hub two</span></div>
+      <div class="node n3"><span class="pin"></span><b>Takoradi · Western</b><span>Hub four</span></div>
+      <div class="node n4"><span class="pin"></span><b>Oyarifa · Accra</b><span>Flagship village</span></div>
+    </div>
+    <div class="hub-foot">
+      <p><b>Same capsule. Same share. Same standard.</b> Wherever you land.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 10 · OPTION B — WINDOW FRAME -->
+  <section class="s10" aria-label="Between two places">
+    <div class="txt">
+      <p class="eyebrow">For those who live between two places</p>
+      <h2>Maybe home doesn't have to mean choosing one country over another.</h2>
+      <p class="body">A key that is yours. A room that remembers you. Your children growing up with somewhere in Ghana that is theirs — not a hotel, not a relative's spare room.</p>
+      <p class="gold">December means something again.</p>
+      <div class="s10-quote">
+        <p>"We're going home." <em>And meaning it.</em></p>
+      </div>
+    </div>
+    <figure class="frame">
+      <img src="../assets/diaspora-lifestyle.CMb8Or9w.webp" alt="">
+      <figcaption>The life it's for</figcaption>
+    </figure>
+  </section>
+
+</body>
+</html>

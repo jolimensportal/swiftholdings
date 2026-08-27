@@ -42,6 +42,12 @@ const capsuleChips = [
   'Integrated services',
   'Turnkey furnishing',
 ];
+
+const scenarioCases = [
+  { case: '01', title: 'Base case', body: 'The expectation we can defend today.' },
+  { case: '02', title: 'Stronger case', body: 'The upside if demand runs stronger.' },
+  { case: '03', title: 'Downside case', body: 'The floor we plan around.' },
+];
 ---
 
 <MarketingLayout seo={page.seo} headerTheme="dark">
@@ -217,10 +223,20 @@ const capsuleChips = [
       built on documented assumptions — base case, stronger case, downside case
       — that you'll examine line by line in your briefing.
     </p>
-    <p class="mt-4 max-w-2xl leading-7 text-[var(--marketing-muted)]">
+    <div class="mt-10 grid gap-px border border-[var(--marketing-gold-line)] bg-[var(--marketing-gold-line)] lg:grid-cols-3">
+      {
+        scenarioCases.map(caseRow => (
+          <article class="bg-[var(--marketing-canvas)] p-8 lg:p-10">
+            <p class="marketing-ledger-label">{caseRow.case}</p>
+            <h3 class="marketing-display mt-4 text-2xl text-[var(--marketing-ink)]">{caseRow.title}</h3>
+            <p class="mt-3 text-sm leading-6 text-[var(--marketing-muted)]">{caseRow.body}</p>
+          </article>
+        ))
+      }
+    </div>
+    <p class="marketing-display mt-8 text-2xl italic text-[var(--marketing-ink)]">
       No headline ROI theatre. No promises we can't defend.
     </p>
-    <a class="marketing-button-link mt-7" href="/briefing">Request the numbers</a>
   </section>
 
   <section class="marketing-container pb-16 lg:pb-24">
@@ -252,22 +268,25 @@ const capsuleChips = [
   </section>
 
   <section class="marketing-surface-dark">
-    <div class="marketing-container py-16 text-center lg:py-24">
-      <p class="marketing-eyebrow">For those who live between two places</p>
-      <h2 class="marketing-display mx-auto mt-3 max-w-3xl text-4xl leading-[1.08] text-[var(--marketing-ink-on-dark)]">
-        Maybe home doesn't have to mean choosing one country over another.
-      </h2>
-      <p class="mx-auto mt-6 max-w-2xl leading-7 text-[var(--marketing-dim-on-dark)]">
-        A key that is yours. A room that remembers you. Your children growing up
-        with somewhere in Ghana that is theirs — not a hotel, not a relative's
-        spare room.
-      </p>
-      <p class="mx-auto mt-4 max-w-2xl leading-7 text-[var(--marketing-dim-on-dark)]">
-        December means something again.
-      </p>
-      <p class="marketing-display mx-auto mt-8 max-w-2xl text-2xl italic leading-snug text-[var(--marketing-ink-on-dark)]">
-        "We're going home." <span class="text-[var(--marketing-gold-500)]">And meaning it.</span>
-      </p>
+    <div class="marketing-container grid items-center gap-10 py-16 lg:grid-cols-[1fr_0.9fr] lg:py-20">
+      <div>
+        <p class="marketing-eyebrow">For those who live between two places</p>
+        <h2 class="marketing-display mt-3 max-w-lg text-4xl leading-[1.08] text-[var(--marketing-ink-on-dark)]">
+          Maybe home doesn't have to mean choosing one country over another.
+        </h2>
+        <p class="mt-4 max-w-lg leading-7 text-[var(--marketing-dim-on-dark)]">
+          A key that is yours. A room that remembers you. Your children growing
+          up with somewhere in Ghana that is theirs — not a hotel, not a
+          relative's spare room.
+        </p>
+        <p class="marketing-display mt-6 text-2xl italic text-[var(--marketing-gold-500)]">
+          December means something again.
+        </p>
+        <p class="marketing-display mt-4 max-w-lg text-2xl italic leading-snug text-[var(--marketing-ink-on-dark)]">
+          "We're going home." <span class="text-[var(--marketing-gold-500)]">And meaning it.</span>
+        </p>
+      </div>
+      <ImageFrame image={marketingImages.diasporaLifestyle} ratio="3 / 2" />
     </div>
   </section>
 
