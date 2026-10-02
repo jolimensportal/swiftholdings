@@ -1,6 +1,6 @@
 export const marketingSite = {
-  name: 'THE SWIFT PROJECT',
-  legalName: 'Swift Holdings',
+  name: 'SWIFT HORIZON',
+  legalName: 'Swift Holdings',  // registered operator; unchanged by the brand rename
   email: 'info@swiftholdings.org',
   partnershipsEmail: 'partnerships@swiftholdings-ghana.com',
   phone: '+233 544 101016',
@@ -10,12 +10,9 @@ export const marketingSite = {
   navigation: [
     { href: '/village', label: 'The Village' },
     { href: '/how-it-works', label: 'How It Works' },
-    { href: '/ownership', label: 'Ownership & Financials' },
-    { href: '/protections', label: 'Protections' },
+    { href: '/ownership', label: 'Ownership' },
     { href: '/locations', label: 'Locations' },
     { href: '/partnership', label: 'Partnership' },
-    { href: '/about', label: 'About' },
-    { href: '/resources', label: 'Resources' },
   ],
   tiers: [
     {
@@ -54,10 +51,9 @@ export type MarketingPageKey =
 export const getCanonicalSiteUrl = (envUrl?: string): string => {
   const v = envUrl?.trim();
   if (v && v.startsWith('http')) return v.replace(/\/$/, '');
-  return 'https://swiftholdings.pages.dev';
+  return 'https://swifthorizon.com.gh';
 };
 
 export const marketingSiteUrl = getCanonicalSiteUrl(
-  // soft domain until purchase — env PUBLIC_SITE_URL overrides, else pages.dev
-  undefined,
+  'https://swifthorizon.com.gh',
 );
