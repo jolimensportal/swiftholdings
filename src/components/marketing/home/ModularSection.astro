@@ -1,0 +1,118 @@
+---
+import MovementTag from './MovementTag.astro';
+import Plate from './Plate.astro';
+import SectionShell from './SectionShell.astro';
+import { marketingImages } from '@/data/marketing/image-assets';
+
+const advantages = [
+  {
+    n: '01',
+    title: 'Cost control',
+    body: 'Factory production removes the site surprises that inflate budgets.',
+  },
+  {
+    n: '02',
+    title: 'Parallel timelines',
+    body: 'Site preparation and home construction happen at once, not in sequence.',
+  },
+  {
+    n: '03',
+    title: 'Repeatable quality',
+    body: 'Every capsule built to the same standard, by the same team, with the same checks.',
+  },
+  {
+    n: '04',
+    title: 'Faster to first stay',
+    body: 'Months, not years, between decision and your first night home.',
+  },
+];
+---
+
+<SectionShell tone="canvas">
+  <MovementTag numeral="III" />
+
+  <div class="split">
+    <Plate image={marketingImages.homeDetail} ratio="3 / 2" caption="Open grassland" />
+
+    <div>
+      <p class="marketing-eyebrow">Why modular</p>
+      <h2 class="statement">Most of the building happens before the building arrives.</h2>
+      <ul class="ledger">
+        {
+          advantages.map(item => (
+            <li>
+              <span class="n">{item.n}</span>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</SectionShell>
+
+<style>
+  .split {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .split {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .statement {
+    margin: 0 0 1.25rem;
+    max-width: 22ch;
+    font-size: clamp(1.4375rem, 2.6vw, 2.125rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.028em;
+    color: var(--ground-ink-on-canvas);
+  }
+
+  .ledger {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--ground-rule-on-canvas);
+  }
+
+  .ledger li {
+    display: grid;
+    grid-template-columns: 3.25rem 1fr;
+    gap: 1rem;
+    padding-block: 0.875rem;
+    border-bottom: 1px solid var(--ground-rule-on-canvas);
+  }
+
+  .n {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    line-height: 1.35;
+    color: var(--ground-gold);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ledger h3 {
+    margin: 0 0 0.25rem;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ground-ink-on-canvas);
+  }
+
+  .ledger p {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.58;
+    color: var(--ground-ink-dim-on-canvas);
+  }
+</style>

@@ -1,0 +1,113 @@
+---
+import MovementTag from './MovementTag.astro';
+import Plate from './Plate.astro';
+import SectionShell from './SectionShell.astro';
+import { marketingImages } from '@/data/marketing/image-assets';
+
+const specs = [
+  'Full-height glazing',
+  'Private composite deck',
+  'Nine-layer wall system',
+  'Solar-ready roof',
+  'Integrated services',
+  'Turnkey furnishing',
+];
+---
+
+<SectionShell tone="canvas">
+  <MovementTag numeral="III" label="The product" />
+
+  <div class="split">
+    <div>
+      <p class="marketing-eyebrow">The P7 Capsule</p>
+      <p class="cap-num">
+        <span class="big">38</span>
+        <span class="unit">Square metres</span>
+      </p>
+      <h3 class="cap-title">Considered down to the last one.</h3>
+      <p class="body">
+        Full-height glazing that opens the room to the trees. Warm timber inside. A private deck
+        for morning coffee. Engineered as a complete product — structure, insulation, services,
+        furniture — finished before it ever reaches your plot.
+      </p>
+      <ul class="specs">
+        {specs.map(spec => <li>{spec}</li>)}
+      </ul>
+    </div>
+
+    <Plate image={marketingImages.villageBanner} ratio="4 / 5" caption="P7 capsule" />
+  </div>
+</SectionShell>
+
+<style>
+  .split {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .split {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .cap-num {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin: 0 0 0.5rem;
+  }
+
+  .big {
+    font-family: var(--font-display);
+    font-size: clamp(4.25rem, 9vw, 7.5rem);
+    font-weight: 300;
+    line-height: 0.82;
+    letter-spacing: -0.05em;
+    font-variant-numeric: tabular-nums;
+    color: var(--ground-ink-on-canvas);
+  }
+
+  .unit {
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ground-gold);
+  }
+
+  .cap-title {
+    margin: 0 0 0.8rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 2vw, 1.75rem);
+    font-weight: 400;
+    line-height: 1.14;
+    color: var(--ground-ink-on-canvas);
+  }
+
+  .body {
+    margin: 0 0 1rem;
+    max-width: 60ch;
+    font-size: 1rem;
+    line-height: 1.58;
+    color: var(--ground-ink-dim-on-canvas);
+  }
+
+  .specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .specs li {
+    padding: 0.5rem 0.9rem;
+    border: 1px solid rgb(20 20 26 / 0.18);
+    border-radius: 999px;
+    font-size: 0.8125rem;
+    color: var(--ground-ink-dim-on-canvas);
+  }
+</style>

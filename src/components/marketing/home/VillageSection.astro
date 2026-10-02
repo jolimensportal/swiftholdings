@@ -1,0 +1,66 @@
+---
+import MovementTag from './MovementTag.astro';
+import Plate from './Plate.astro';
+import SectionShell from './SectionShell.astro';
+import { marketingImages } from '@/data/marketing/image-assets';
+---
+
+<SectionShell tone="canvas">
+  <MovementTag numeral="III" />
+
+  <div class="split">
+    <div>
+      <h2 class="statement">Your residence is private. The life around it is shared.</h2>
+      <p class="body">
+        A pool for slow afternoons. Fire-side evenings in December. Long tables under the pavilion.
+        Children in the shallows while you finish your coffee. Places to be alone; places to host
+        everyone you love.
+      </p>
+      <p class="moment">Not a row of prefabs. A village.</p>
+    </div>
+
+    <Plate image={marketingImages.diasporaLifestyle} ratio="3 / 2" caption="Shared pool" />
+  </div>
+</SectionShell>
+
+<style>
+  .split {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .split {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .statement {
+    margin: 0 0 1.25rem;
+    max-width: 22ch;
+    font-size: clamp(1.4375rem, 2.6vw, 2.125rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.028em;
+    color: var(--ground-ink-on-canvas);
+  }
+
+  .body {
+    margin: 0 0 1rem;
+    max-width: 60ch;
+    font-size: 1rem;
+    line-height: 1.58;
+    color: var(--ground-ink-dim-on-canvas);
+  }
+
+  .moment {
+    margin: 1.25rem 0 0;
+    max-width: 34ch;
+    font-size: 1.0625rem;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--ground-gold);
+  }
+</style>
