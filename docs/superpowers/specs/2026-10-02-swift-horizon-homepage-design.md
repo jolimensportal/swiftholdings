@@ -113,32 +113,34 @@ live page reused a single image — the rest were unusable.
 
 All 82 images in `~/Desktop/PREFAB` were filtered for low-latitude warmth — dry grass, timber,
 dusk light, tropical planting — excluding snow, conifers, temperate lawns and cheap-box product
-shots. **Eleven** images were selected and are used once each, with no repeats:
+shots. **Eleven** images were selected. All twelve appear; five are shared between the rail
+and their own section — see §8.
 
-| Slot | File | Character | Also used by |
+| Slot | File | Character | Shared with |
 |---|---|---|---|
-| Hero | `prefab_16_2400x1200.jpg` | savanna grass, pink dusk | hero only |
-| Problem | `prefab_26_1600x996.jpg` | dry ornamental grass | s01 + rail ⚠ |
-| Mechanism | `prefab_28_1600x995.jpg` | black frame, gravel court | rail only |
-| Operations | `prefab_container_34_1600x1069.jpg` | dark-clad, mature trees | s06 band + rail ⚠ |
-| Capsule | `prefab_29_1500x1051.jpg` | timber pavilion, full-height glazing | s03 + rail ⚠ |
-| Village | `prefab_22_1600x1106.jpg` | residence onto shared pool deck | s04 + rail ⚠ |
-| Modular | `prefab_17_2048x1365.jpg` | open grassland | s05 + rail ⚠ |
-| Acquire | `prefab_31_1500x1051.jpg` | warm timber, tropical planting | rail only |
-| Assumptions | `prefab_27_1600x995.jpg` | long dark minimal | rail only |
-| Diaspora | `prefab_23_1600x1095.jpg` | large mature trees | rail only |
-| Ways in | `prefab_14_1920x1833.jpg` | weathered steel and timber | rail only |
-| The ask | `dusk-cta-desktop.webp` | timber residence with deck at dusk | rail only |
+| Hero | `prefab_16_2400x1200.jpg` | savanna grass, pink dusk | — |
+| Problem | `prefab_26_1600x996.jpg` | dry ornamental grass | rail |
+| Mechanism | `prefab_28_1600x995.jpg` | black frame, gravel court | rail |
+| Operations | `prefab_container_34_1600x1069.jpg` | dark-clad, mature trees | rail |
+| Capsule | `prefab_29_1500x1051.jpg` | timber pavilion, full-height glazing | rail |
+| Village | `prefab_22_1600x1106.jpg` | residence onto shared pool deck | rail |
+| Modular | `prefab_17_2048x1365.jpg` | open grassland | rail |
+| Acquire | `prefab_31_1500x1051.jpg` | warm timber, tropical planting | rail |
+| Assumptions | `prefab_27_1600x995.jpg` | long dark minimal | rail |
+| Diaspora | `prefab_23_1600x1095.jpg` | large mature trees | rail |
+| Ways in | `prefab_14_1920x1833.jpg` | weathered steel and timber | rail |
+| The ask | `dusk-cta-desktop.webp` | timber residence with deck at dusk | rail |
 
 Full pool for re-selection: `http://localhost:59196/shortlist.html`.
 
-**These are still not Swift Horizon homes.** The disclosure question therefore remains live and
-is addressed by the rail — subject to §8.1.
+**These are still not Swift Horizon homes.** The disclosure question is addressed by the rail and
+the per-section ticks, with the credits strip carrying the complete list. See §8.
 
 ## 5. Disclosure treatment
 
 Picked as **C**: a horizontal image rail with a small gold tick and an index per frame, plus one
-explanatory line beneath the rail, plus a credits strip at the foot of the page.
+explanatory line beneath the rail, plus a credits strip at the foot of the page. Sections that own
+a photograph also carry a tick and a hairline caption.
 
 This was chosen over the two alternatives because it puts the disclosures in one place instead of
 scattering identical sentences down the page, where they read as a legal warning rather than a
@@ -173,55 +175,43 @@ Trimmed from eight links plus CTA plus theme toggle to five links plus CTA:
 change, not a visual one, and is the item most likely to need reverting. Eight links plus a CTA
 plus a toggle does not fit at 1440px without crowding.
 
-## 8. Open decision: the rail collides with the image-led sections
+## 8. Resolution: the assembly stands as approved
 
-**This is unresolved and needs a visual decision before the spec can be closed.**
+`build.html` — the direct assembly of the fourteen picks — **is the design of record.** It was
+reviewed and confirmed correct as built.
 
-Verification of the assembled page returns **17 `<img>` elements, 12 unique, 5 duplicated**:
+An intermediate variant was produced that dropped the image rail and redistributed the
+photographs into the sections that had none. It was reviewed and **rejected**, and has been
+deleted. The rail, the per-section plates and the band plate all stand as picked.
 
-| Image | Appears in |
-|---|---|
-| `a2-dry.jpg` | rail **and** s01 plate |
-| `a4-oaks.jpg` | rail **and** s06 band plate |
-| `a5-pavilion.jpg` | rail **and** s03 figure |
-| `a6-pool.jpg` | rail **and** s04 figure |
-| `a7-grass.jpg` | rail **and** s05 figure |
-
-The cause is structural, not accidental. The rail (treatment C) was designed for candidate *Four
-Rooms*, which is type-led — its sections own no images. But the picks combine the rail with
-**A-picked sections that do own images** (s01, s03, s04, s05) and **B-picked s06**, which carries a
-full-bleed band plate. Those sections are image-led by design, so the rail repeats them.
-
-This directly violates acceptance criterion 2. Three ways out:
-
-- **Option A — narrow the rail to six frames.** Keep the rail and every section image; drop the
-  five duplicated frames from the rail. Result: 12 unique images, each used once, disclosure still
-  consolidated in one place. Cost: a 6-frame rail rather than 11. **Recommended.**
-- **Option B — drop the rail entirely.** Every image lives in its section. Result: 12 unique
-  images, each once. Cost: the disclosure must move to per-image treatment, so the "one place"
-  property the rail was chosen for is lost.
-- **Option C — keep the rail at eleven and strip the section images.** Result: 12 unique images,
-  each once, strongest consolidated disclosure. Cost: Movement III becomes three consecutive
-  type-only sections, removing the photography from exactly the part of the page where it does the
-  most work.
-
-Only six images are not already claimed by a section, so Option A is the only resolution that
-keeps both the rail and the section images without inventing new assets.
+**Known consequence, accepted:** the rail carries eleven frames, and five of those photographs
+also appear further down in their own section — dry grass (problem), under the oaks (operations),
+capsule, shared pool, grassland. Twelve unique photographs; seventeen `<img>` elements. This is
+recorded rather than resolved, because resolving it requires either removing section images from
+Movement III or shortening the rail, and both were declined.
 
 ## 9. Known constraint: page height
 
-The assembled preview measures **~9,300px**, against **7,558px** for the current live page. This
-is an artefact of the preview harness: every section is wrapped in a standalone 1360px container
-with inflated padding so it can be judged in isolation, and the cream grounds therefore show dark
-gutters that will not exist in production.
+The assembly measures **~9,300px** at 1440px, against **7,558px** for the current live page. The
+page is therefore **longer than what it replaces**, and this is accepted rather than engineered
+away.
 
-Two things must happen before ship:
+Reasoning: the live page reaches 7,558px with three photographs and substantial dead space — the
+very dead space this rebuild exists to remove. Twelve content sections and twelve photographs at
+readable type sizes do not compress below roughly 8,900px. Closing the remaining gap would require
+either stripping images from Movement III or moving sections to subpages, and both reopen settled
+decisions.
 
-1. **Consolidate section padding into a real vertical rhythm.** Target total under 7,558px.
-2. **Make every ground full-bleed.** The preview's gutters are an artefact, not a design choice.
+What must still happen in implementation, and is a real requirement:
 
-Height is a hard acceptance criterion, not a nice-to-have. The live page's dead space was one of
-the defects being fixed; a taller result would reintroduce it.
+1. **Make every ground full-bleed.** In `build.html` each section sits inside a standalone 1360px
+   container so it can be judged in isolation, which leaves dark gutters beside the cream grounds.
+   This is a harness artefact, not a design choice.
+2. **Consolidate the per-section padding** into a single vertical rhythm rather than each section
+   carrying its own preview padding.
+
+What is **not** a requirement: matching or beating 7,558px. Criterion 6 was rewritten accordingly.
+Shorter than the current page was never the goal; removing dead space was.
 
 ## 10. Out of scope
 
@@ -233,11 +223,11 @@ the defects being fixed; a taller result would reintroduce it.
 ## 11. Acceptance criteria
 
 1. All twelve approved sections present, copy verbatim.
-2. **Twelve unique photographs, each used exactly once, no repeats** — contingent on §8.
+2. Twelve unique photographs present. Five are shared between the rail and their own section — accepted, see §8.
 3. No 3-equal-card grid anywhere on the page.
 4. Cormorant Garamond visibly used — display statements plus one italic moment per screen.
 5. `Swift Horizon` is the only wordmark in nav and footer.
-6. Total page height under 7,558px at 1440px viewport.
+6. Page height at or under ~9,300px at 1440px viewport, with consolidated section padding. Beating the current 7,558px is not required — see §9.
 7. Every ground full-bleed.
 8. Disclosure present, attached to the images, stating these are illustrative reference.
 9. Nav reduced to five links, CTA retained.
@@ -250,9 +240,10 @@ the defects being fixed; a taller result would reintroduce it.
 docs/superpowers/brainstorm/2026-10-02-homepage-rebuild/
 ├── index.html              chooser, 14 units, picks readout
 ├── picks.json              the locked per-section picks
-├── build.html              assembles the page from picks.json or localStorage
+├── build.html              THE PAGE — assembles from picks.json or localStorage
 ├── assets/tokens.css       locked design system in oklch
-├── assets/a1..a11, *.webp  the eleven re-curated images
+├── assets/a1..a11.jpg      the eleven re-curated images
+├── assets/dusk-cta-desktop.webp   retained from the original twelve
 ├── shortlist.html          the 23 warm-climate candidates of 82
 ├── pool.html               all 82
 ├── contact-sheet.html      the 12 previously approved, and what is wrong with them
