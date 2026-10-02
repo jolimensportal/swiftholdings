@@ -16,7 +16,21 @@ function walk(dir: string, out: string[] = []): string[] {
 
 const css = STYLE_FILES.map(p => readFileSync(join(process.cwd(), p), 'utf8')).join('\n');
 
-const definedClasses = new Set([...css.matchAll(/\.(marketing-[a-z0-9-]+)\s*[,{]/g)].map(m => m[1]!));
+// Scoped <style> blocks inside components count as definitions too — Astro scopes
+// them, but they still satisfy a `marketing-*` class used in that same file.
+function componentStyleBlocks(): string {
+  return walk(SRC)
+    .filter(file => /\.(astro|tsx)$/.test(file))
+    .map(file => readFileSync(file, 'utf8'))
+    .join('\n')
+    .replace(/<style[^>]*>([\s\S]*?)<\/style>/g, '$1');
+}
+
+const scopedCss = componentStyleBlocks();
+
+const definedClasses = new Set(
+  [...`${css}\n${scopedCss}`.matchAll(/\.(marketing-[a-z0-9-]+)\s*[,{]/g)].map(m => m[1]!),
+);
 const definedVars = new Set([...css.matchAll(/(--marketing-[a-z0-9-]+)\s*:/g)].map(m => m[1]!));
 
 // Custom properties set inline via a style attribute, not declared in a stylesheet.

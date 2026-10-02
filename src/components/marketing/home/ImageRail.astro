@@ -1,0 +1,132 @@
+---
+import type { MarketingImageAsset } from '@/data/marketing/image-assets';
+
+interface RailFrame {
+  image: MarketingImageAsset;
+  caption: string;
+}
+
+interface Props {
+  frames: RailFrame[];
+  heading?: string;
+}
+
+const { frames, heading = 'The capsule, and the village around it.' } = Astro.props;
+---
+
+<div class="rail-section">
+  <div class="marketing-container">
+    <div class="rail-head">
+      <p class="rail-title">{heading}</p>
+      <p class="rail-count">{frames.length} images &middot; all illustrative reference</p>
+    </div>
+
+    <div class="rail" tabindex="0" role="group" aria-label="Illustrative reference photographs">
+      {
+        frames.map((frame, index) => (
+          <figure class="rail-frame">
+            <img
+              src={frame.image.desktop.webp.src}
+              alt={frame.image.alt}
+              width={frame.image.desktop.webp.width}
+              height={frame.image.desktop.webp.height}
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>
+              <span class="tick" aria-hidden="true" />
+              <span class="idx">{String(index + 1).padStart(2, '0')}</span>
+              <span class="cap">{frame.caption}</span>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+
+    <p class="rail-disclosure">
+      Every photograph above is illustrative reference material, not a completed Swift Horizon
+      capsule.
+    </p>
+  </div>
+</div>
+
+<style>
+  .rail-section {
+    background: var(--marketing-obsidian-900);
+    border-block: 1px solid var(--ground-rule);
+    padding-block: clamp(2rem, 4vh, 3rem);
+  }
+
+  .rail-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .rail-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+  }
+
+  .rail-count {
+    margin: 0;
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-low);
+  }
+
+  .rail {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.5rem;
+  }
+
+  .rail-frame {
+    margin: 0;
+    flex: 0 0 240px;
+    scroll-snap-align: start;
+  }
+
+  .rail-frame img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .rail-frame figcaption {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.55rem;
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    color: var(--text-low);
+  }
+
+  .tick {
+    width: 5px;
+    height: 5px;
+    flex: 0 0 auto;
+    background: var(--marketing-gold-400);
+  }
+
+  .idx {
+    color: var(--marketing-gold-400);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .rail-disclosure {
+    margin: 1rem 0 0;
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-low);
+  }
+</style>

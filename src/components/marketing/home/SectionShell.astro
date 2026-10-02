@@ -1,0 +1,33 @@
+---
+interface Props {
+  tone: 'obsidian' | 'canvas';
+  class?: string;
+}
+
+const { tone, class: className = '' } = Astro.props;
+
+const ground = tone === 'canvas' ? 'marketing-surface-canvas' : 'marketing-surface-dark';
+---
+
+<section class:list={['marketing-home-section', ground, className]}>
+  <div class="marketing-container">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .marketing-home-section {
+    padding-block: clamp(2.25rem, 5vh, 4rem);
+    border-top: 1px solid var(--ground-rule);
+  }
+
+  .marketing-surface-canvas {
+    border-top-color: var(--ground-rule-on-canvas);
+  }
+
+  @media (max-width: 900px) {
+    .marketing-home-section {
+      padding-block: clamp(2rem, 4vh, 3rem);
+    }
+  }
+</style>

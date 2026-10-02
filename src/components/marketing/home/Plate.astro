@@ -1,0 +1,34 @@
+---
+import ImageFrame from '@/components/marketing/ImageFrame.astro';
+import type { MarketingImageAsset } from '@/data/marketing/image-assets';
+
+interface Props {
+  image: MarketingImageAsset;
+  ratio?: string;
+  caption?: string;
+  loading?: 'eager' | 'lazy';
+  class?: string;
+}
+
+const { image, ratio = '3 / 2', caption, loading = 'lazy', class: className = '' } = Astro.props;
+---
+
+<figure class:list={['plate', className]}>
+  <ImageFrame image={image} ratio={ratio} loading={loading} />
+  {caption && <span class="caption-note">{caption}</span>}
+</figure>
+
+<style>
+  .plate {
+    margin: 0;
+  }
+
+  .caption-note {
+    display: block;
+    margin-top: 0.45rem;
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--marketing-muted);
+  }
+</style>
