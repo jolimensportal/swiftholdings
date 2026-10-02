@@ -60,3 +60,30 @@ describe('marketing css contract', () => {
     expect(missing).toEqual([]);
   });
 });
+
+describe('homepage grounds', () => {
+  it('declares mode-independent ground tokens', () => {
+    for (const token of [
+      '--ground-obsidian',
+      '--ground-canvas',
+      '--ground-ink',
+      '--ground-ink-dim',
+      '--ground-gold',
+      '--ground-rule',
+    ]) {
+      expect(css).toMatch(new RegExp(`${token}\\s*:`));
+    }
+  });
+
+  it('does not flip the ground tokens in light mode', () => {
+    const lightBlock = css.slice(css.indexOf('body.light-mode'));
+    for (const token of ['--ground-obsidian', '--ground-canvas', '--ground-ink']) {
+      expect(lightBlock).not.toMatch(new RegExp(`${token}\\s*:`));
+    }
+  });
+
+  it('gives .marketing-surface-dark a base rule independent of light mode', () => {
+    const base = css.match(/^\.marketing-surface-dark\s*\{[^}]*\}/m);
+    expect(base).not.toBeNull();
+  });
+});

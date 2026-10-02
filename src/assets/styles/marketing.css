@@ -61,6 +61,18 @@
   --marketing-platinum-200: #C9CDD6;
   --marketing-muted: #6E6A61;
   --marketing-rule: #D8D3C9;
+
+  /* Section grounds — fixed, deliberately NOT flipped by the theme toggle.
+     The approved homepage rhythm depends on a fixed dark/cream sequence. */
+  --ground-obsidian: #0F0E0D;
+  --ground-canvas: #F4EFE6;
+  --ground-ink: #EDE7DC;
+  --ground-ink-dim: rgb(237 231 220 / 0.66);
+  --ground-gold: #D6AC7A;
+  --ground-rule: rgb(237 231 220 / 0.14);
+  --ground-ink-on-canvas: #14141A;
+  --ground-ink-dim-on-canvas: rgb(20 20 26 / 0.68);
+  --ground-rule-on-canvas: rgb(20 20 26 / 0.14);
 }
 
 /* Dark shell — primary */
@@ -722,8 +734,30 @@ body.light-mode .hero-section {
   background: var(--hero-overlay) !important;
 }
 
+/* Section grounds — fixed values, independent of the theme toggle. */
+.marketing-surface-dark {
+  background: var(--ground-obsidian);
+  color: var(--ground-ink);
+}
+
+.marketing-surface-canvas {
+  background: var(--ground-canvas);
+  color: var(--ground-ink-on-canvas);
+}
+
+/* The theme script writes inline styles on <body>, so light mode needs
+   !important to win. Grounds stay fixed in both modes by design. */
+body.light-mode .marketing-surface-dark {
+  background-color: var(--ground-obsidian) !important;
+  color: var(--ground-ink) !important;
+}
+
+body.light-mode .marketing-surface-canvas {
+  background-color: var(--ground-canvas) !important;
+  color: var(--ground-ink-on-canvas) !important;
+}
+
 /* Light mode marketing surface dark */
-body.light-mode .marketing-surface-dark,
 body.light-mode section[class*="bg-[var(--marketing-obsidian-900)]"] {
   background-color: var(--surface) !important;
 }
