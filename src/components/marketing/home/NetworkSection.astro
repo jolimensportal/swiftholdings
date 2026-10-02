@@ -1,0 +1,179 @@
+---
+import MovementTag from './MovementTag.astro';
+import SectionShell from './SectionShell.astro';
+import { swiftHubs } from '@/data/marketing/locations';
+
+const total = swiftHubs.reduce((sum, hub) => sum + hub.capsules, 0);
+---
+
+<SectionShell tone="obsidian">
+  <MovementTag numeral="IV" label="The network" />
+
+  <div class="split">
+    <div class="sticky">
+      <h2 class="statement">One standard. <em>Four hubs.</em></h2>
+      <p class="body">
+        Swift Horizon is a national network of hospitality villages, built to one standard. Four
+        hubs anchor the map.
+      </p>
+      <p class="moment">Same capsule. Same share. Same standard. Wherever you land.</p>
+    </div>
+
+    <div>
+      <ul class="hubs">
+        {
+          swiftHubs.map(hub => (
+            <li>
+              <span class="name">{hub.city}</span>
+              <span class="detail">
+                <em>{hub.region}</em>
+                {hub.role}
+              </span>
+              <span class="count">
+                {hub.capsules}
+                <span class="count-label">capsules</span>
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="total">
+        <span>Same capsule. Same share. Same standard. Wherever you land.</span>
+        <span class="num">{total} capsules</span>
+      </p>
+    </div>
+  </div>
+</SectionShell>
+
+<style>
+  .split {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+
+  .sticky {
+    position: sticky;
+    top: 92px;
+  }
+
+  @media (max-width: 900px) {
+    .split {
+      grid-template-columns: 1fr;
+    }
+
+    .sticky {
+      position: static;
+    }
+  }
+
+  .statement {
+    margin: 0 0 1.25rem;
+    max-width: 20ch;
+    font-size: clamp(1.4375rem, 2.6vw, 2.125rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.028em;
+  }
+
+  .statement em {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-style: italic;
+  }
+
+  .body {
+    margin: 0 0 1rem;
+    max-width: 60ch;
+    font-size: 1rem;
+    line-height: 1.58;
+    color: var(--ground-ink-dim);
+  }
+
+  .moment {
+    margin: 1.25rem 0 0;
+    max-width: 34ch;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.125rem, 1.7vw, 1.4375rem);
+    line-height: 1.28;
+    color: var(--ground-gold);
+  }
+
+  .hubs {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--ground-rule);
+  }
+
+  .hubs li {
+    display: grid;
+    grid-template-columns: 7rem 1fr 5.5rem;
+    gap: 1.5rem;
+    align-items: baseline;
+    padding-block: 0.9375rem;
+    border-bottom: 1px solid var(--ground-rule);
+  }
+
+  @media (max-width: 640px) {
+    .hubs li {
+      grid-template-columns: 1fr auto;
+    }
+
+    .detail {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .name {
+    font-family: var(--font-display);
+    font-size: clamp(1.1875rem, 2.1vw, 1.6875rem);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  .detail {
+    font-size: 0.9375rem;
+    color: var(--ground-ink-dim);
+  }
+
+  .detail em {
+    display: block;
+    margin-bottom: 0.2rem;
+    font-style: normal;
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-low);
+  }
+
+  .count {
+    text-align: right;
+    font-size: 1.25rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--ground-gold);
+  }
+
+  .count-label {
+    display: block;
+    font-size: 0.625rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-low);
+  }
+
+  .total {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin: 1.25rem 0 0;
+    font-size: 1rem;
+    color: rgb(237 231 220 / 0.72);
+  }
+
+  .num {
+    font-variant-numeric: tabular-nums;
+  }
+</style>

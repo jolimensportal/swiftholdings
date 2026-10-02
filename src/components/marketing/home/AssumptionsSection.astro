@@ -1,0 +1,122 @@
+---
+import MovementTag from './MovementTag.astro';
+import SectionShell from './SectionShell.astro';
+
+const scenarios = [
+  { tag: 'Case 01', title: 'Base case', body: 'The expectation we can defend today.' },
+  { tag: 'Case 02', title: 'Stronger case', body: 'The upside if demand runs stronger.' },
+  { tag: 'Case 03', title: 'Downside case', body: 'The floor we plan around.' },
+];
+---
+
+<SectionShell tone="obsidian">
+  <MovementTag numeral="IV" label="The numbers" />
+
+  <div class="split">
+    <div>
+      <h2 class="statement">We'd rather show you the assumptions than sell you the outcome.</h2>
+      <p class="body">
+        Ghana's short-let market runs at roughly 33–44% occupancy. Our model is built on
+        documented assumptions — base case, stronger case, downside case — that you'll examine
+        line by line in your briefing.
+      </p>
+    </div>
+
+    <div class="scenarios">
+      {
+        scenarios.map((scenario, index) => (
+          <article class:list={['scenario', `step-${index + 1}`]}>
+            <p class="tag">{scenario.tag}</p>
+            <h3>{scenario.title}</h3>
+            <p class="scenario-body">{scenario.body}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+
+  <p class="moment">No headline ROI theatre. No promises we can't defend.</p>
+</SectionShell>
+
+<style>
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .split {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .statement {
+    margin: 0 0 1.25rem;
+    max-width: 20ch;
+    font-family: var(--font-display);
+    font-size: clamp(1.6875rem, 3.3vw, 2.75rem);
+    font-weight: 400;
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+  }
+
+  .body {
+    margin: 0;
+    max-width: 60ch;
+    font-size: 1rem;
+    line-height: 1.58;
+    color: var(--ground-ink-dim);
+  }
+
+  .scenarios {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .scenario {
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--ground-rule);
+    max-width: 46ch;
+  }
+
+  .step-2 {
+    margin-left: clamp(0rem, 5vw, 4rem);
+  }
+
+  .step-3 {
+    margin-left: clamp(0rem, 10vw, 8rem);
+  }
+
+  .tag {
+    margin: 0 0 0.35rem;
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ground-gold);
+  }
+
+  .scenario h3 {
+    margin: 0 0 0.3rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 2vw, 1.625rem);
+    font-weight: 400;
+  }
+
+  .scenario-body {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--ground-ink-dim);
+  }
+
+  .moment {
+    margin: 1.5rem 0 0;
+    max-width: 40ch;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.125rem, 1.7vw, 1.4375rem);
+    line-height: 1.28;
+    color: var(--ground-gold);
+  }
+</style>

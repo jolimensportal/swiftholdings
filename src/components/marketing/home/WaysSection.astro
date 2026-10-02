@@ -1,0 +1,97 @@
+---
+import MovementTag from './MovementTag.astro';
+import SectionShell from './SectionShell.astro';
+import { marketingSite } from '@/data/marketing/site';
+---
+
+<SectionShell tone="obsidian">
+  <MovementTag numeral="IV" label="Three ways in" />
+
+  <h2 class="statement">Stay. Own. Partner.</h2>
+
+  <ul class="ways">
+    {
+      marketingSite.tiers.map((tier, index) => (
+        <li>
+          <span class="n">{String(index + 1).padStart(2, '0')}</span>
+          <h3>{tier.name}</h3>
+          <p>{tier.summary}</p>
+          <a href={tier.cta.href}>{tier.cta.label} →</a>
+        </li>
+      ))
+    }
+  </ul>
+</SectionShell>
+
+<style>
+  .statement {
+    margin: 0 0 1.5rem;
+    font-size: clamp(1.4375rem, 2.6vw, 2.125rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.028em;
+  }
+
+  .ways {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--ground-rule);
+  }
+
+  .ways li {
+    display: grid;
+    grid-template-columns: 4rem minmax(0, 15ch) 1fr auto;
+    gap: 1.5rem;
+    align-items: baseline;
+    padding-block: 1.125rem;
+    border-bottom: 1px solid var(--ground-rule);
+  }
+
+  @media (max-width: 820px) {
+    .ways li {
+      grid-template-columns: 2.75rem 1fr;
+    }
+
+    .ways p,
+    .ways a {
+      grid-column: 2;
+    }
+  }
+
+  .n {
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    color: var(--ground-gold);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ways h3 {
+    margin: 0;
+    font-size: 1.1875rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  .ways p {
+    margin: 0;
+    max-width: 42ch;
+    font-size: 0.9375rem;
+    color: var(--ground-ink-dim);
+  }
+
+  .ways a {
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    color: var(--ground-gold);
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--marketing-gold-line);
+    padding-bottom: 0.2rem;
+  }
+
+  .ways a:hover {
+    color: var(--marketing-ink-on-dark);
+    border-bottom-color: var(--ground-gold);
+  }
+</style>

@@ -1,0 +1,70 @@
+---
+import MovementTag from './MovementTag.astro';
+import Plate from './Plate.astro';
+import SectionShell from './SectionShell.astro';
+import { marketingImages } from '@/data/marketing/image-assets';
+---
+
+<SectionShell tone="obsidian">
+  <MovementTag numeral="IV" />
+
+  <div class="split">
+    <Plate image={marketingImages.architectureGallery} ratio="4 / 5" caption="Mature trees" />
+
+    <div>
+      <p class="marketing-eyebrow">For those who live between two places</p>
+      <h2 class="statement">
+        Maybe home doesn't have to mean choosing one country over another.
+      </h2>
+      <p class="body">
+        A key that is yours. A room that remembers you. Your children growing up with somewhere in
+        Ghana that is theirs — not a hotel, not a relative's spare room.
+      </p>
+      <p class="moment">
+        December means something again. "We're going home." And meaning it.
+      </p>
+    </div>
+  </div>
+</SectionShell>
+
+<style>
+  .split {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .split {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .statement {
+    margin: 0 0 1.25rem;
+    max-width: 22ch;
+    font-size: clamp(1.4375rem, 2.6vw, 2.125rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.028em;
+  }
+
+  .body {
+    margin: 0 0 1rem;
+    max-width: 60ch;
+    font-size: 1rem;
+    line-height: 1.58;
+    color: var(--ground-ink-dim);
+  }
+
+  .moment {
+    margin: 1.25rem 0 0;
+    max-width: 34ch;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.125rem, 1.7vw, 1.4375rem);
+    line-height: 1.28;
+    color: var(--ground-gold);
+  }
+</style>

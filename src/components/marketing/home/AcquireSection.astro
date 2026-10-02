@@ -1,0 +1,128 @@
+---
+import MovementTag from './MovementTag.astro';
+import SectionShell from './SectionShell.astro';
+
+const disclosures = [
+  { n: '01', title: 'Exactly what you acquire', body: 'And the rights that come with it.' },
+  { n: '02', title: 'What the operator manages', body: 'And what stays yours.' },
+  { n: '03', title: 'How revenue and costs are treated', body: 'Line by line.' },
+  { n: '04', title: 'The assumptions behind every projection', body: 'We show you.' },
+  { n: '05', title: 'What happens if you want to exit', body: 'Stated up front.' },
+];
+---
+
+<SectionShell tone="obsidian">
+  <MovementTag numeral="IV" label="Proof" />
+
+  <div class="split">
+    <div class="sticky">
+      <p class="marketing-eyebrow">Before you decide anything</p>
+      <h2 class="statement">Don't take our word for it.</h2>
+      <p class="body">You'll understand exactly this, before anything is signed.</p>
+      <p class="moment">Clarity first. Decision second.</p>
+    </div>
+
+    <ul class="ledger">
+      {
+        disclosures.map(item => (
+          <li>
+            <span class="n">{item.n}</span>
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</SectionShell>
+
+<style>
+  .split {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+
+  .sticky {
+    position: sticky;
+    top: 92px;
+  }
+
+  @media (max-width: 900px) {
+    .split {
+      grid-template-columns: 1fr;
+    }
+
+    .sticky {
+      position: static;
+    }
+  }
+
+  .statement {
+    margin: 0 0 1.25rem;
+    max-width: 20ch;
+    font-family: var(--font-display);
+    font-size: clamp(1.6875rem, 3.3vw, 2.75rem);
+    font-weight: 400;
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+  }
+
+  .body {
+    margin: 0 0 1rem;
+    max-width: 60ch;
+    font-size: 1rem;
+    line-height: 1.58;
+    color: var(--ground-ink-dim);
+  }
+
+  .moment {
+    margin: 1.25rem 0 0;
+    max-width: 34ch;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.125rem, 1.7vw, 1.4375rem);
+    line-height: 1.28;
+    color: var(--ground-gold);
+  }
+
+  .ledger {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--ground-rule);
+  }
+
+  .ledger li {
+    display: grid;
+    grid-template-columns: 3.25rem 1fr;
+    gap: 1rem;
+    padding-block: 0.875rem;
+    border-bottom: 1px solid var(--ground-rule);
+  }
+
+  .n {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    line-height: 1.35;
+    color: var(--ground-gold);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ledger h3 {
+    margin: 0 0 0.25rem;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .ledger p {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.58;
+    color: var(--ground-ink-dim);
+  }
+</style>
