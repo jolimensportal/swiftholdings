@@ -1,0 +1,126 @@
+---
+import MovementTag from './MovementTag.astro';
+import SectionShell from './SectionShell.astro';
+---
+
+<SectionShell tone="obsidian">
+  <MovementTag numeral="II" label="The mechanism" />
+
+  <div class="split">
+    <div class="sticky">
+      <h2 class="statement">Yours when you're home. <em>Productive</em> when you're not.</h2>
+      <p class="body">
+        You don't have to choose between a place for yourself and an asset that works. It does
+        both.
+      </p>
+    </div>
+
+    <div class="pair">
+      <article>
+        <div class="state">
+          <span class="n">01</span>
+          <h3>When you're in Ghana</h3>
+        </div>
+        <p>
+          Come home to your own fully furnished residence. Reserve your dates — December, family
+          weeks, remote-work months. Your clothes stay in the wardrobe. Your things stay where you
+          left them.
+        </p>
+      </article>
+      <article>
+        <div class="state">
+          <span class="n">02</span>
+          <h3>When you're away</h3>
+        </div>
+        <p>
+          Your residence joins the village's managed hospitality operation. Guests, pricing,
+          housekeeping, maintenance — handled by our on-ground team.
+        </p>
+      </article>
+    </div>
+  </div>
+</SectionShell>
+
+<style>
+  .split {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+
+  .sticky {
+    position: sticky;
+    top: 92px;
+  }
+
+  @media (max-width: 900px) {
+    .split {
+      grid-template-columns: 1fr;
+    }
+
+    .sticky {
+      position: static;
+    }
+  }
+
+  .statement {
+    margin: 0 0 1rem;
+    max-width: 20ch;
+    font-size: clamp(1.4375rem, 2.6vw, 2.125rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.028em;
+  }
+
+  .statement em {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-style: italic;
+  }
+
+  .body {
+    margin: 0;
+    max-width: 46ch;
+    font-size: 1rem;
+    line-height: 1.58;
+    color: var(--ground-ink-dim);
+  }
+
+  .pair {
+    border-top: 1px solid var(--ground-rule);
+  }
+
+  .pair article {
+    padding-block: 1.125rem;
+    border-bottom: 1px solid var(--ground-rule);
+  }
+
+  .state {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .n {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    color: var(--ground-gold);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .state h3 {
+    margin: 0;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .pair p {
+    margin: 0.4rem 0 0 2.25rem;
+    max-width: 46ch;
+    font-size: 0.9375rem;
+    line-height: 1.58;
+    color: var(--ground-ink-dim);
+  }
+</style>

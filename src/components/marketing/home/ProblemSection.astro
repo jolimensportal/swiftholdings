@@ -1,0 +1,86 @@
+---
+import MovementTag from './MovementTag.astro';
+import Plate from './Plate.astro';
+import SectionShell from './SectionShell.astro';
+import { marketingImages } from '@/data/marketing/image-assets';
+
+const image = marketingImages.villageStory;
+---
+
+<SectionShell tone="canvas">
+  <MovementTag numeral="I" />
+
+  <div class="split">
+    <div class="copy">
+      <p class="marketing-eyebrow">Owning back home shouldn't become a second job</p>
+      <h2 class="statement">
+        You wanted a place in Ghana. Not <em>another construction project</em> to manage from
+        abroad.
+      </h2>
+      <p class="body">
+        The land. The contractor. The materials. The delays. The revised material list that
+        arrives after you've paid. The calls across time zones. The trip home just to check
+        what is going on.
+      </p>
+      <p class="body">
+        For too many of us abroad, the dream became a remote job with no salary.
+      </p>
+      <p class="body">
+        We built Swift Horizon around a different question: what if you could own the finished
+        place — without personally managing everything it takes to build and run it?
+      </p>
+      <p class="moment">The dream stopped being a job. It started being an asset.</p>
+    </div>
+
+    <Plate image={image} ratio="4 / 5" caption="Dry grass" />
+  </div>
+</SectionShell>
+
+<style>
+  .split {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .split {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .statement {
+    margin: 0 0 1.25rem;
+    max-width: 20ch;
+    font-family: var(--font-display);
+    font-size: clamp(1.6875rem, 3.3vw, 2.75rem);
+    font-weight: 400;
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    color: var(--ground-ink-on-canvas);
+  }
+
+  .statement em {
+    font-weight: 300;
+    font-style: italic;
+  }
+
+  .body {
+    margin: 0 0 0.875rem;
+    max-width: 60ch;
+    font-size: 1rem;
+    line-height: 1.58;
+    color: var(--ground-ink-dim-on-canvas);
+  }
+
+  .moment {
+    margin: 1.25rem 0 0;
+    max-width: 34ch;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.125rem, 1.7vw, 1.4375rem);
+    line-height: 1.28;
+    color: var(--ground-gold);
+  }
+</style>
