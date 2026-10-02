@@ -1,0 +1,18 @@
+{
+  "_note": "Section-by-section picks, locked 2026-10-02. A = The Ledger, B = The Long Room, C = Four Rooms.",
+  "_order": ["h", "r", "s01", "s02", "s06", "s03", "s04", "s05", "s07", "s08", "s09", "s10", "s11", "s12"],
+  "h": "a",
+  "r": "c",
+  "s01": "b",
+  "s02": "c",
+  "s06": "b",
+  "s03": "a",
+  "s04": "a",
+  "s05": "a",
+  "s07": "b",
+  "s08": "b",
+  "s09": "c",
+  "s10": "a",
+  "s11": "a",
+  "s12": "c"
+}

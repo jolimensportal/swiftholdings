@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swift Horizon · homepage rebuild · section chooser</title>
+<link rel="stylesheet" href="assets/tokens.css">
+<style>
+body { background: oklch(0.17 0.01 285); }
+.wrap { max-width: 1160px; margin-inline: auto; padding: 3.5rem var(--gutter) 6rem; }
+.eyebrow { font-size: .6875rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-200); margin: 0 0 1rem; }
+h1 { font-size: clamp(1.875rem, 3.6vw, 2.75rem); line-height: 1.07; letter-spacing: -.03em; font-weight: 700; margin: 0 0 1rem; max-width: 22ch; }
+.lede { color: oklch(.93 .014 85 / .62); max-width: 60ch; margin: 0; font-size: 1.0625rem; }
+.bar { position: sticky; top: 0; z-index: 20; background: oklch(0.17 0.01 285 / .95); backdrop-filter: blur(12px); border-block: 1px solid var(--hair-dark); margin-bottom: 2.5rem; }
+.bar-in { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: .9rem; }
+.prog { font-size: .8125rem; color: oklch(.93 .014 85 / .6); font-variant-numeric: tabular-nums; }
+.track { height: 3px; background: var(--hair-dark); margin-top: .5rem; }
+.track i { display: block; height: 100%; background: var(--gold-200); width: 0; transition: width .2s; }
+.bar-actions { display: flex; gap: .6rem; }
+.btn { font-family: var(--sans); font-size: .75rem; font-weight: 600; letter-spacing: .04em; text-decoration: none; padding: .6rem 1.1rem; border: 0; cursor: pointer; }
+.btn-gold { background: var(--gold-200); color: oklch(.19 .011 285); }
+.btn-line { border: 1px solid var(--gold-line-soft); color: var(--on-dark); background: none; }
+.btn-line:hover { border-color: var(--gold-200); }
+.units { display: grid; gap: 1px; background: var(--hair-dark); border: 1px solid var(--hair-dark); }
+.unit { display: grid; grid-template-columns: 3.5rem 1fr auto; gap: 1.5rem; align-items: center; background: oklch(0.19 .011 285); padding: 1.15rem 1.5rem; cursor: pointer; transition: background .15s; }
+.unit:hover { background: oklch(0.215 .012 285); }
+.unit:focus-visible { outline: 2px solid var(--gold-200); outline-offset: -2px; }
+.unit .mv { font-family: var(--serif); font-size: .8125rem; color: var(--gold-300); letter-spacing: .1em; }
+.unit h3 { font-size: 1rem; font-weight: 600; margin: 0 0 .25rem; letter-spacing: -.01em; }
+.unit p { margin: 0; font-size: .8125rem; color: oklch(.93 .014 85 / .52); font-family: var(--serif); font-style: italic; }
+.pick { font-size: .6875rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; padding: .35rem .6rem; white-space: nowrap; }
+.pick.set { color: var(--gold-100); border: 1px solid var(--gold-line-soft); }
+.pick.unset { color: oklch(.93 .014 85 / .3); border: 1px solid var(--hair-dark); }
+.done-row { display: flex; gap: .5rem; }
+.done-row a { width: 1.5rem; height: 1.5rem; display: grid; place-items: center; font-size: .625rem; font-weight: 700; text-decoration: none; border: 1px solid var(--hair-dark); color: oklch(.93 .014 85 / .35); font-variant-numeric: tabular-nums; }
+.done-row a.on { background: var(--gold-200); color: oklch(.19 .011 285); border-color: var(--gold-200); }
+@media (max-width: 720px) { .unit { grid-template-columns: 2.5rem 1fr; } .unit .done-row { grid-column: 2; } }
+.refs { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--hair-dark); font-size: .8125rem; color: oklch(.93 .014 85 / .45); }
+.refs a { color: var(--gold-100); }
+.refs ul { margin: .85rem 0 0; padding-left: 1.1rem; display: grid; gap: .4rem; }
+.picksbox { margin-top: 2.5rem; border: 1px solid var(--gold-line-soft); }
+.pb-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .85rem 1.25rem; border-bottom: 1px solid var(--hair-dark); font-size: .75rem; letter-spacing: .06em; color: oklch(.93 .014 85 / .55); }
+#pickcode { display: block; padding: 1rem 1.25rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .8125rem; line-height: 1.7; color: var(--gold-100); word-break: break-word; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Swift Horizon · Ghana · homepage rebuild · pick per section</p>
+  <h1>Fourteen decisions, taken one at a time.</h1>
+  <p class="lede">Every section gets three treatments — <b>A</b> from The Ledger, <b>b</b> from The Long Room, <b>c</b> from Four Rooms. They keep the same copy, so you are only judging craft. Picks save in your browser as you go, then assemble the finished page.</p>
+</div>
+
+<div class="bar">
+  <div class="wrap bar-in">
+    <div>
+      <div class="prog" id="prog">0 of 14 chosen</div>
+      <div class="track"><i id="trackfill"></i></div>
+    </div>
+    <div class="bar-actions">
+      <button class="btn btn-line" id="reset">Reset</button>
+      <a class="btn btn-gold" href="build.html">Assemble the page</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="units" id="units"></div>
+
+  <div class="picksbox">
+    <div class="pb-head">
+      <span>Picks — copy this and paste it back to me so I can write the spec</span>
+      <button class="btn btn-line" id="copy">Copy</button>
+    </div>
+    <code id="pickcode">nothing chosen yet</code>
+  </div>
+
+  <div class="refs">
+    <p style="margin:0 0 .5rem;color:oklch(.93 .014 85 / .6)">Reference material</p>
+    <ul>
+      <li><a href="1a-the-ledger.html">1a · The Ledger</a> — full candidate A</li>
+      <li><a href="1b-the-long-room.html">1b · The Long Room</a> — full candidate B</li>
+      <li><a href="1c-four-rooms.html">1c · Four Rooms</a> — full candidate C</li>
+      <li><a href="shortlist.html">Warm-climate shortlist</a> — the 23 of 82 that read as Ghana</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+const UNITS = [
+  { id:'h',  mv:'—',   t:'Hero',                          s:'Own your place in Ghana.' },
+  { id:'r',  mv:'—',   t:'The image rail',                s:'Where all twelve photographs live, and how they are disclosed' },
+  { id:'s01',mv:'I',   t:'The problem',                   s:'You wanted a place in Ghana. Not another construction project.' },
+  { id:'s02',mv:'II',  t:'The mechanism',                 s:'Yours when you’re home. Productive when you’re not.' },
+  { id:'s06',mv:'II',  t:'Village operations',            s:'You own the asset. We run the experience around it.' },
+  { id:'s03',mv:'III', t:'The P7 capsule',                s:'Thirty-eight square metres, considered down to the last one.' },
+  { id:'s04',mv:'III', t:'The village',                   s:'Your residence is private. The life around it is shared.' },
+  { id:'s05',mv:'III', t:'Why modular',                   s:'Most of the building happens before the building arrives.' },
+  { id:'s07',mv:'IV',  t:'What you acquire',              s:'Don’t take our word for it.' },
+  { id:'s08',mv:'IV',  t:'The assumptions',               s:'We’d rather show you the assumptions than sell you the outcome.' },
+  { id:'s09',mv:'IV',  t:'The network',                   s:'One standard. Four hubs.' },
+  { id:'s10',mv:'IV',  t:'Between two places',            s:'Maybe home doesn’t have to mean choosing one country over another.' },
+  { id:'s11',mv:'IV',  t:'Three ways in',                 s:'Stay. Own. Partner.' },
+  { id:'s12',mv:'IV',  t:'The ask',                       s:'You don’t need to decide today.' },
+];
+const KEY = 'sh-homepage-picks';
+const read = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } };
+const write = (o) => localStorage.setItem(KEY, JSON.stringify(o));
+
+function render() {
+  const picks = read();
+  const el = document.getElementById('units');
+  el.innerHTML = UNITS.map(u => {
+    const p = picks[u.id];
+    const dots = ['a','b','c'].map(v => {
+      const on = p === v;
+      return `<a class="${on?'on':''}" href="sections/${u.id}.html" data-goto="${v}" title="Choose ${v.toUpperCase()}">${v.toUpperCase()}</a>`;
+    }).join('');
+    return `<div class="unit" data-open="sections/${u.id}.html" role="link" tabindex="0">
+      <span class="mv">${u.mv}</span>
+      <span><h3>${u.t}</h3><p>${u.s}</p></span>
+      <span class="done-row">${dots}</span>
+    </div>`;
+  }).join('');
+
+  const n = UNITS.filter(u => picks[u.id]).length;
+  document.getElementById('prog').textContent = `${n} of ${UNITS.length} chosen`;
+  document.getElementById('trackfill').style.width = `${n / UNITS.length * 100}%`;
+
+  const code = UNITS.map(u => `${u.id}:${picks[u.id] || '-'}`).join('  ');
+  document.getElementById('pickcode').textContent = code;
+
+  el.querySelectorAll('[data-open]').forEach(row => {
+    const go = (e) => {
+      if (e.target.closest('[data-goto]')) return;
+      location.href = row.dataset.open;
+    };
+    row.addEventListener('click', go);
+    row.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(e); } });
+  });
+
+  el.querySelectorAll('[data-goto]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.stopPropagation(); e.preventDefault();
+      const o = read();
+      const unitId = a.closest('.unit').dataset.open.match(/sections\/(\w+)\.html/)[1];
+      o[unitId] = a.dataset.goto;
+      write(o);
+      location.href = `sections/${unitId}.html`;
+    });
+  });
+}
+document.getElementById('reset').addEventListener('click', () => { localStorage.removeItem(KEY); render(); });
+document.getElementById('copy').addEventListener('click', async (e) => {
+  const txt = UNITS.map(u => `${u.id}=${read()[u.id] || '?'}`).join(' ');
+  const btn = e.target;
+  try { await navigator.clipboard.writeText(txt); btn.textContent = 'Copied'; }
+  catch { btn.textContent = 'Select the text instead'; }
+  setTimeout(() => { btn.textContent = 'Copy'; }, 1800);
+});
+render();
+</script>
+</body>
+</html>

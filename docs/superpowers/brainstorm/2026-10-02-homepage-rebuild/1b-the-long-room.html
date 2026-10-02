@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1b · The Long Room — Swift Horizon homepage candidate</title>
+<link rel="stylesheet" href="assets/tokens.css">
+<style>
+/* ── 1b THE LONG ROOM ────────────────────────────────────────────
+   Canvas-dominant. Cormorant used as DISPLAY type at size, not as
+   an accent. Movements separated by full-bleed image plates.
+   Obsidian appears exactly twice: the mechanism, and the ask.
+   Image disclosure: one declaration per movement kicker line —
+   no per-image captions. */
+
+.wrap { max-width: 1360px; margin-inline: auto; padding-inline: var(--gutter); }
+.canvas { background: var(--canvas); color: var(--ink-900); }
+.dark { background: var(--ink-900); color: var(--on-dark); }
+
+/* ── nav ── */
+.nav { position: sticky; top: 0; z-index: 50; background: var(--canvas); border-bottom: 1px solid oklch(0.190 0.011 285 / 0.10); }
+.nav-in { display: flex; align-items: center; gap: 2.5rem; height: 76px; }
+.mark { font-family: var(--sans); font-weight: 700; text-decoration: none; line-height: 1.05; color: var(--ink-900); }
+.mark span { display: block; font-size: 0.9375rem; }
+.mark .m2 { color: var(--gold-400); }
+.nav-links { display: flex; gap: 1.75rem; margin-left: auto; }
+.nav-links a { font-size: 0.8125rem; letter-spacing: 0.04em; text-decoration: none; color: oklch(0.190 0.011 285 / 0.7); padding-block: 0.4rem; }
+.nav-links a:hover { color: var(--gold-400); }
+.btn { display: inline-flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.04em; text-decoration: none; padding: 0.85rem 1.5rem; border: 0; cursor: pointer; }
+.btn-gold { background: oklch(0.755 0.083 72); color: oklch(0.190 0.011 285); }
+.btn-gold:hover { background: var(--gold-300); }
+.btn-ghost { border: 1px solid oklch(0.190 0.011 285 / 0.22); color: var(--ink-900); }
+.btn-ghost:hover { border-color: var(--gold-400); color: var(--gold-400); }
+.dark .btn-ghost { border-color: var(--gold-line-soft); color: var(--on-dark); }
+.dark .btn-ghost:hover { border-color: var(--gold-200); color: var(--gold-100); }
+.nav .btn-gold { padding: 0.7rem 1.25rem; white-space: nowrap; }
+
+/* ── hero: serif display, canvas ground, image plate below ── */
+.hero { padding-top: clamp(4rem, 10vh, 8rem); }
+.hero-grid { display: grid; grid-template-columns: 1.25fr 0.75fr; gap: clamp(2rem, 5vw, 5rem); align-items: end; }
+.hero h1 {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(3rem, 7.2vw, 6.25rem); line-height: 0.96;
+  letter-spacing: -0.025em; margin: 1.5rem 0 0; max-width: 14ch;
+}
+.hero .kicker { color: var(--gold-400); }
+.hero-aside { padding-bottom: 0.75rem; }
+.hero-sub { font-size: 1.0625rem; color: oklch(0.190 0.011 285 / 0.68); max-width: 40ch; margin: 0 0 2rem; }
+.hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem; }
+.hero-note { font-size: 0.8125rem; color: oklch(0.190 0.011 285 / 0.45); margin: 2rem 0 0; }
+@media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; } }
+
+.plate { margin: 0; position: relative; }
+.plate img { width: 100%; }
+.plate-tall img { aspect-ratio: 4 / 5; object-fit: cover; }
+.plate-wide img { aspect-ratio: 16 / 9; object-fit: cover; }
+
+/* full-bleed plate separator */
+.plate-full { position: relative; margin-block: 0; }
+.plate-full img { width: 100%; height: min(88vh, 820px); object-fit: cover; }
+.plate-full .band {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 1.1rem var(--gutter);
+  background: linear-gradient(transparent, oklch(0.190 0.011 285 / 0.7));
+  font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: oklch(0.930 0.014 85 / 0.7);
+}
+
+/* ── movement ── */
+.movement { padding-block: clamp(4.5rem, 10vh, 8.5rem); }
+.mv-label { display: flex; align-items: baseline; gap: 1.25rem; padding-bottom: 1.25rem; margin-bottom: clamp(2.5rem, 5vh, 4rem); border-bottom: 1px solid oklch(0.190 0.011 285 / 0.14); }
+.dark .mv-label { border-bottom-color: var(--hair-dark); }
+.mv-label .num { font-family: var(--serif); font-size: 1.25rem; color: var(--gold-400); }
+.dark .mv-label .num { color: var(--gold-300); }
+.mv-label .txt { font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600; color: oklch(0.190 0.011 285 / 0.5); }
+.dark .mv-label .txt { color: oklch(0.930 0.014 85 / 0.5); }
+/* the per-movement image disclosure sits on the label rule */
+.mv-label .imgs { margin-left: auto; font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(0.190 0.011 285 / 0.38); font-style: normal; }
+.dark .mv-label .imgs { color: oklch(0.930 0.014 85 / 0.38); }
+
+h2.display {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(2.25rem, 4.4vw, 3.75rem); line-height: 1.03;
+  letter-spacing: -0.02em; margin: 0; max-width: 20ch;
+}
+h3.sub-display { font-family: var(--serif); font-weight: 400; font-size: clamp(1.5rem, 2.4vw, 2rem); line-height: 1.12; letter-spacing: -0.01em; margin: 0 0 0.85rem; }
+p.body { color: oklch(0.190 0.011 285 / 0.68); max-width: var(--measure); margin: 0 0 1.1rem; font-size: 1.0625rem; }
+.dark p.body { color: oklch(0.930 0.014 85 / 0.68); }
+p.moment { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: clamp(1.375rem, 2.2vw, 1.875rem); line-height: 1.3; color: var(--gold-400); margin: 2.25rem 0 0; max-width: 30ch; }
+.dark p.moment { color: var(--gold-100); }
+
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 6vw, 6rem); align-items: center; }
+.split-wide-left { grid-template-columns: 1.2fr 0.8fr; }
+.split-wide-right { grid-template-columns: 0.8fr 1.2fr; }
+.split-copy-start { align-items: start; }
+@media (max-width: 900px) { .split, .split-wide-left, .split-wide-right { grid-template-columns: 1fr; } }
+
+/* numbered ledger on canvas */
+.ledger { border-top: 1px solid oklch(0.190 0.011 285 / 0.14); margin-top: 2.5rem; }
+.dark .ledger { border-top-color: var(--hair-dark); }
+.ledger-row { display: grid; grid-template-columns: 3.5rem 1fr; gap: 1.25rem; padding-block: 1.5rem; border-bottom: 1px solid oklch(0.190 0.011 285 / 0.14); }
+.dark .ledger-row { border-bottom-color: var(--hair-dark); }
+.ledger-row .n { font-family: var(--serif); font-size: 1.25rem; color: var(--gold-400); font-variant-numeric: tabular-nums; line-height: 1.3; }
+.dark .ledger-row .n { color: var(--gold-300); }
+.ledger-row h4 { font-size: 1.0625rem; font-weight: 600; margin: 0 0 0.3rem; letter-spacing: -0.01em; }
+.ledger-row p { margin: 0; font-size: 0.9375rem; color: oklch(0.190 0.011 285 / 0.6); }
+.dark .ledger-row p { color: oklch(0.930 0.014 85 / 0.6); }
+
+/* capsule: giant numeral in serif, spec list as a table */
+.capsule-num { display: flex; align-items: baseline; gap: 1.25rem; margin-bottom: 0.5rem; }
+.capsule-num .big { font-family: var(--serif); font-weight: 300; font-size: clamp(5rem, 12vw, 9.5rem); line-height: 0.85; letter-spacing: -0.045em; font-variant-numeric: tabular-nums; }
+.capsule-num .unit { font-size: 0.8125rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-400); }
+.spec-table { width: 100%; border-collapse: collapse; margin-top: 2.5rem; }
+.spec-table td { padding: 0.95rem 0; border-bottom: 1px solid oklch(0.190 0.011 285 / 0.14); font-size: 0.9375rem; }
+.spec-table td:first-child { color: var(--gold-400); width: 3.5rem; font-variant-numeric: tabular-nums; font-size: 0.8125rem; }
+
+/* scenarios: three staggered, unequal widths */
+.scenarios { display: grid; gap: 2rem; margin-top: 2.5rem; }
+.scenarios article { border-top: 1px solid var(--hair-dark); padding-top: 1.5rem; }
+.scenarios article:nth-child(1) { max-width: 34ch; }
+.scenarios article:nth-child(2) { max-width: 34ch; margin-left: clamp(0rem, 12vw, 9rem); }
+.scenarios article:nth-child(3) { max-width: 34ch; margin-left: clamp(0rem, 24vw, 18rem); }
+.scenarios .tag { font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-300); margin: 0 0 0.75rem; }
+.scenarios p { margin: 0; color: oklch(0.930 0.014 85 / 0.6); font-size: 0.9375rem; }
+
+/* hubs: four across as a hairline ledger, not cards */
+.hubs { margin-top: 2rem; border-top: 1px solid var(--hair-dark); }
+.hubs article { display: grid; grid-template-columns: 5.5rem 1fr auto; gap: 2rem; align-items: baseline; padding-block: 1.5rem; border-bottom: 1px solid var(--hair-dark); }
+.hubs .hub-name { font-family: var(--serif); font-size: clamp(1.5rem, 2.4vw, 2rem); font-weight: 500; letter-spacing: -0.01em; }
+.hubs .hub-sub { font-size: 0.9375rem; color: oklch(0.930 0.014 85 / 0.58); }
+.hubs .hub-sub em { display: block; font-style: normal; font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.930 0.014 85 / 0.4); margin-bottom: 0.3rem; }
+.hubs .hub-count { font-variant-numeric: tabular-nums; font-size: 1.5rem; color: var(--gold-200); text-align: right; }
+.hubs .hub-count span { display: block; font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; color: oklch(0.930 0.014 85 / 0.4); margin-top: 0.15rem; }
+.hubs-total { margin-top: 1.5rem; font-size: 1.0625rem; color: oklch(0.930 0.014 85 / 0.75); display: flex; justify-content: space-between; gap: 1rem; }
+@media (max-width: 700px) { .hubs article { grid-template-columns: 1fr auto; } .hubs .hub-name { grid-column: 1; } }
+
+/* ways in */
+.ways { margin-top: 2.5rem; display: grid; gap: 3.5rem; }
+.ways article { border-top: 1px solid oklch(0.190 0.011 285 / 0.14); padding-top: 1.75rem; display: grid; gap: 0.75rem; }
+.ways .n { font-family: var(--serif); font-size: 1.25rem; color: var(--gold-400); margin: 0; font-variant-numeric: tabular-nums; }
+.ways p { margin: 0; color: oklch(0.190 0.011 285 / 0.62); font-size: 0.9375rem; max-width: 42ch; }
+.ways a { font-size: 0.8125rem; letter-spacing: 0.04em; color: var(--gold-400); text-decoration: none; border-bottom: 1px solid oklch(0.567 0.077 71 / 0.4); padding-bottom: 0.15rem; justify-self: start; margin-top: 0.35rem; }
+.ways a:hover { color: var(--ink-900); border-bottom-color: var(--gold-400); }
+
+/* CTA */
+.cta-in { text-align: center; padding-block: clamp(6rem, 14vh, 11rem); }
+.cta-in h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(2.25rem, 5.4vw, 4.5rem); line-height: 1.02; letter-spacing: -0.025em; max-width: 22ch; margin: 1.25rem auto 1.5rem; }
+.cta-in p { max-width: 54ch; margin: 0 auto 2.5rem; color: oklch(0.930 0.014 85 / 0.7); font-size: 1.0625rem; }
+
+/* footer */
+.foot { border-top: 1px solid var(--hair-dark); padding-block: 4rem 3rem; background: var(--ink-850); }
+.foot-in { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 2.5rem; }
+.foot h4 { font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.930 0.014 85 / 0.42); margin: 0 0 1rem; font-weight: 600; }
+.foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+.foot a, .foot li { font-size: 0.875rem; color: oklch(0.930 0.014 85 / 0.68); text-decoration: none; }
+.foot a:hover { color: var(--gold-100); }
+.foot-base { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--hair-dark); display: flex; justify-content: space-between; gap: 1rem; font-size: 0.75rem; color: oklch(0.930 0.014 85 / 0.4); }
+@media (max-width: 820px) { .foot-in { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="mark" href="#"><span>SWIFT</span><span class="m2">HORIZON</span></a>
+    <nav class="nav-links">
+      <a href="#capsule">The Village</a>
+      <a href="#mechanism">How It Works</a>
+      <a href="#proof">Ownership</a>
+      <a href="#hubs">Locations</a>
+      <a href="#ways">Partnership</a>
+    </nav>
+    <a class="btn btn-gold" href="#ask">Request a briefing</a>
+  </div>
+</header>
+
+<!-- ══ HERO — canvas ══ -->
+<section class="canvas hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="kicker">Swift Horizon · Ghana</p>
+        <h1>Own your place in Ghana. Let it work while you're away.</h1>
+      </div>
+      <div class="hero-aside">
+        <p class="hero-sub">Fully finished modular residences inside professionally managed hospitality villages. Yours when you're home. Productive when you're not.</p>
+        <div class="hero-cta">
+          <a class="btn btn-gold" href="#ask">Request a private briefing</a>
+          <a class="btn btn-ghost" href="#mechanism">How it works</a>
+        </div>
+        <p class="hero-note">A guided conversation, not a public sales funnel.</p>
+      </div>
+    </div>
+  </div>
+  <div class="plate-full" style="margin-top:clamp(3rem,6vh,5rem)">
+    <img src="assets/a1-hero.jpg" alt="Illustrative reference of a low-profile timber residence in savanna grassland at dusk">
+    <p class="band">Swift Horizon · Oyarifa village · Illustrative reference</p>
+  </div>
+</section>
+
+<!-- ══ I THE PROBLEM ══ -->
+<section class="canvas movement" id="problem">
+  <div class="wrap">
+    <div class="mv-label">
+      <span class="num num">I</span>
+      <span class="txt">Owning back home shouldn't become a second job</span>
+      <em class="imgs">All imagery illustrative reference</em>
+    </div>
+    <div class="split split-wide-right split-copy-start">
+      <div>
+        <h2 class="display">You wanted a place in Ghana. Not another construction project to manage from abroad.</h2>
+        <p class="body" style="margin-top:1.75rem">The land. The contractor. The materials. The delays. The revised material list that arrives after you've paid. The calls across time zones. The trip home just to check what is going on.</p>
+        <p class="body">For too many of us abroad, the dream became a remote job with no salary.</p>
+        <p class="body">We built Swift Horizon around a different question: what if you could own the finished place — without personally managing everything it takes to build and run it?</p>
+        <p class="moment">The dream stopped being a job. It started being an asset.</p>
+      </div>
+      <figure class="plate plate-tall">
+        <img src="assets/a2-dry.jpg" alt="Illustrative reference of a timber and steel residence in dry ornamental grass">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ══ II THE MECHANISM (dark) ══ -->
+<section class="dark movement" id="mechanism">
+  <div class="wrap">
+    <div class="mv-label">
+      <span class="num num">II</span>
+      <span class="txt">The mechanism</span>
+      <em class="imgs">All imagery illustrative reference</em>
+    </div>
+    <h2 class="display">Yours when you're home.<br>Productive when you're not.</h2>
+
+    <div class="split split-wide-left" style="margin-top:clamp(2.5rem,5vh,4rem)">
+      <div>
+        <div class="ledger" style="margin-top:0">
+          <div class="ledger-row">
+            <p class="n num">01</p>
+            <div><h4>When you're in Ghana</h4><p>Come home to your own fully furnished residence. Reserve your dates — December, family weeks, remote-work months. Your clothes stay in the wardrobe. Your things stay where you left them.</p></div>
+          </div>
+          <div class="ledger-row">
+            <p class="n num">02</p>
+            <div><h4>When you're away</h4><p>Your residence joins the village's managed hospitality operation. Guests, pricing, housekeeping, maintenance — handled by our on-ground team.</p></div>
+          </div>
+        </div>
+        <p class="moment">You don't have to choose between a place for yourself and an asset that works. It does both.</p>
+      </div>
+      <figure class="plate plate-tall">
+        <img src="assets/a3-frame.jpg" alt="Illustrative reference of a black-framed residence opening onto a gravel court">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ops -->
+<div class="plate-full">
+  <img src="assets/a4-oaks.jpg" alt="Illustrative reference of a dark-clad residence beneath mature trees">
+  <p class="band">Village operations · Illustrative reference</p>
+</div>
+
+<section class="dark movement" style="padding-top:clamp(3.5rem,7vh,6rem)">
+  <div class="wrap">
+    <div class="split split-wide-right split-copy-start">
+      <figure class="plate plate-tall">
+        <img src="assets/a6-pool.jpg" alt="Illustrative reference of a residence opening onto a shared pool deck">
+      </figure>
+      <div>
+        <h2 class="display">You own the asset. We run the experience around it.</h2>
+        <p class="body" style="margin-top:1.75rem">While you're away, the village operates as a hospitality business — and your residence is part of it.</p>
+        <div class="ledger">
+          <div class="ledger-row"><p class="n num">01</p><div><h4>Distribution &amp; booking</h4><p>Your residence listed across the channels guests actually use.</p></div></div>
+          <div class="ledger-row"><p class="n num">02</p><div><h4>Dynamic pricing</h4><p>Rates tuned to season and demand, so the calendar earns its keep.</p></div></div>
+          <div class="ledger-row"><p class="n num">03</p><div><h4>Guest operations</h4><p>Check-in, support, standards — handled on the ground, not from abroad.</p></div></div>
+          <div class="ledger-row"><p class="n num">04</p><div><h4>Housekeeping &amp; maintenance</h4><p>Turnovers, linen, preventive care. The unglamorous work, done.</p></div></div>
+          <div class="ledger-row"><p class="n num">05</p><div><h4>Owner portal</h4><p>Bookings, statements, and your own reservations — visible anytime.</p></div></div>
+        </div>
+        <p class="moment">So ownership never becomes another full-time job.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ III THE PRODUCT ══ -->
+<section class="canvas movement" id="capsule">
+  <div class="wrap">
+    <div class="mv-label">
+      <span class="num num">III</span>
+      <span class="txt">The product</span>
+      <em class="imgs">All imagery illustrative reference</em>
+    </div>
+
+    <div class="split split-wide-left">
+      <figure class="plate">
+        <img src="assets/a5-pavilion.jpg" alt="Illustrative reference of a timber pavilion residence with full-height glazing">
+      </figure>
+      <div>
+        <div class="capsule-num">
+          <span class="big">38</span>
+          <span class="unit">Square metres</span>
+        </div>
+        <h3 class="sub-display">Considered down to the last one.</h3>
+        <p class="body">Full-height glazing that opens the room to the trees. Warm timber inside. A private deck for morning coffee. Engineered as a complete product — structure, insulation, services, furniture — finished before it ever reaches your plot.</p>
+        <table class="spec-table">
+          <tbody>
+            <tr><td>01</td><td>Full-height glazing</td></tr>
+            <tr><td>02</td><td>Private composite deck</td></tr>
+            <tr><td>03</td><td>Nine-layer wall system</td></tr>
+            <tr><td>04</td><td>Solar-ready roof</td></tr>
+            <tr><td>05</td><td>Integrated services</td></tr>
+            <tr><td>06</td><td>Turnkey furnishing</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- village life -->
+<section class="canvas movement">
+  <div class="wrap">
+    <div class="split split-wide-right">
+      <div>
+        <h2 class="display">Your residence is private. The life around it is shared.</h2>
+        <p class="body" style="margin-top:1.75rem">A pool for slow afternoons. Fire-side evenings in December. Long tables under the pavilion. Children in the shallows while you finish your coffee. Places to be alone; places to host everyone you love.</p>
+        <p class="moment">Not a row of prefabs. A village.</p>
+      </div>
+      <figure class="plate">
+        <img src="assets/a7-grass.jpg" alt="Illustrative reference of a low residence set in open grassland">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- why modular -->
+<section class="canvas movement">
+  <div class="wrap">
+    <div class="mv-label">
+      <span class="num num">III</span>
+      <span class="txt">Why modular</span>
+    </div>
+    <h2 class="display" style="max-width:24ch">Most of the building happens before the building arrives.</h2>
+    <div class="ledger" style="margin-top:clamp(2.5rem,5vh,4rem)">
+      <div class="ledger-row"><p class="n num">01</p><div><h4>Cost control</h4><p>Factory production removes the site surprises that inflate budgets.</p></div></div>
+      <div class="ledger-row"><p class="n num">02</p><div><h4>Parallel timelines</h4><p>Site preparation and home construction happen at once, not in sequence.</p></div></div>
+      <div class="ledger-row"><p class="n num">03</p><div><h4>Repeatable quality</h4><p>Every capsule built to the same standard, by the same team, with the same checks.</p></div></div>
+      <div class="ledger-row"><p class="n num">04</p><div><h4>Faster to first stay</h4><p>Months, not years, between decision and your first night home.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ IV PROOF & ASK ══ -->
+<section class="dark movement" id="proof">
+  <div class="wrap">
+    <div class="mv-label">
+      <span class="num num">IV</span>
+      <span class="txt">Proof</span>
+      <em class="imgs">All imagery illustrative reference</em>
+    </div>
+    <div class="split split-wide-left split-copy-start">
+      <div>
+        <h2 class="display">Don't take our word for it.</h2>
+        <p class="body" style="margin-top:1.5rem">Before you decide anything, you'll understand:</p>
+        <div class="ledger">
+          <div class="ledger-row"><p class="n num">01</p><div><h4>Exactly what you acquire</h4><p>And the rights that come with it.</p></div></div>
+          <div class="ledger-row"><p class="n num">02</p><div><h4>What the operator manages</h4><p>And what stays yours.</p></div></div>
+          <div class="ledger-row"><p class="n num">03</p><div><h4>How revenue and costs are treated</h4><p>Line by line.</p></div></div>
+          <div class="ledger-row"><p class="n num">04</p><div><h4>The assumptions behind every projection</h4><p>We show you.</p></div></div>
+          <div class="ledger-row"><p class="n num">05</p><div><h4>What happens if you want to exit</h4><p>Stated up front.</p></div></div>
+        </div>
+        <p class="moment">Clarity first. Decision second.</p>
+      </div>
+      <figure class="plate plate-tall">
+        <img src="assets/a8-palms.jpg" alt="Illustrative reference of a warm timber residence in tropical planting">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- assumptions -->
+<section class="dark movement" style="padding-top:0">
+  <div class="wrap">
+    <div class="split split-wide-right split-copy-start">
+      <div>
+        <h2 class="display">We'd rather show you the assumptions than sell you the outcome.</h2>
+        <p class="body" style="margin-top:1.75rem">Ghana's short-let market runs at roughly 33–44% occupancy. Our model is built on documented assumptions — base case, stronger case, downside case — that you'll examine line by line in your briefing.</p>
+        <div class="scenarios">
+          <article><p class="tag num">Case 01</p><h3 class="sub-display">Base case</h3><p>The expectation we can defend today.</p></article>
+          <article><p class="tag num">Case 02</p><h3 class="sub-display">Stronger case</h3><p>The upside if demand runs stronger.</p></article>
+          <article><p class="tag num">Case 03</p><h3 class="sub-display">Downside case</h3><p>The floor we plan around.</p></article>
+        </div>
+        <p class="moment">No headline ROI theatre. No promises we can't defend.</p>
+      </div>
+      <figure class="plate plate-tall">
+        <img src="assets/a9-minimal.jpg" alt="Illustrative reference of a long dark minimal residence">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- hubs -->
+<section class="canvas movement" id="hubs">
+  <div class="wrap">
+    <div class="mv-label">
+      <span class="num num">IV</span>
+      <span class="txt">The network</span>
+    </div>
+    <h2 class="display">One standard. Four hubs.</h2>
+    <p class="body" style="margin-top:1.5rem">Swift Horizon is a national network of hospitality villages, built to one standard. Four hubs anchor the map.</p>
+
+    <div class="hubs" style="border-top-color:oklch(0.190 0.011 285 / 0.14)">
+      <article><span class="hub-name">Oyarifa</span><span class="hub-sub"><em>Accra</em>Flagship village — where the network begins</span><span class="hub-count">48<span>capsules</span></span></article>
+      <article><span class="hub-name">Kumasi</span><span class="hub-sub"><em>Ashanti</em>Commercial heart of the south</span><span class="hub-count">24<span>capsules</span></span></article>
+      <article><span class="hub-name">Tamale</span><span class="hub-sub"><em>Northern</em>Gateway to the north</span><span class="hub-count">12<span>capsules</span></span></article>
+      <article><span class="hub-name">Takoradi</span><span class="hub-sub"><em>Western</em>Oil and port city</span><span class="hub-count">12<span>capsules</span></span></article>
+    </div>
+    <p class="hubs-total"><span>Same capsule. Same share. Same standard. Wherever you land.</span><span class="num">96 capsules</span></p>
+  </div>
+</section>
+
+<!-- diaspora full bleed -->
+<div class="plate-full">
+  <img src="assets/a10-trees.jpg" alt="Illustrative reference of a residence beneath large mature trees">
+  <p class="band">For those who live between two places · Illustrative reference</p>
+</div>
+
+<section class="canvas movement">
+  <div class="wrap" style="max-width:900px">
+    <h2 class="display" style="max-width:18ch">Maybe home doesn't have to mean choosing one country over another.</h2>
+    <p class="body" style="margin-top:1.75rem">A key that is yours. A room that remembers you. Your children growing up with somewhere in Ghana that is theirs — not a hotel, not a relative's spare room.</p>
+    <p class="moment">December means something again. "We're going home." And meaning it.</p>
+  </div>
+</section>
+
+<!-- three ways in -->
+<section class="canvas movement" id="ways" style="padding-top:0">
+  <div class="wrap">
+    <div class="split split-wide-left">
+      <div>
+        <h2 class="display">Stay. Own. Partner.</h2>
+        <div class="ways">
+          <article><p class="n num">01</p><h3 class="sub-display">Stay</h3><p>Book a visit. Feel the village before you decide anything.</p><a href="#">Explore stays →</a></article>
+          <article><p class="n num">02</p><h3 class="sub-display">Own</h3><p>Explore ownership — the residence, the operation, the numbers.</p><a href="#proof">See ownership →</a></article>
+          <article><p class="n num">03</p><h3 class="sub-display">Partner</h3><p>Bring land, capital, or operations. Build a hub with us.</p><a href="#">Explore partnership →</a></article>
+        </div>
+      </div>
+      <figure class="plate plate-tall">
+        <img src="assets/a11-corten.jpg" alt="Illustrative reference of a weathered steel and timber residence">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="dark" id="ask">
+  <div class="plate-full" style="position:relative">
+    <img src="assets/dusk-cta-desktop.webp" alt="Illustrative reference of a timber residence with deck at dusk">
+    <div class="cta-in" style="position:absolute;inset:0;display:grid;align-content:center;background:oklch(0.190 0.011 285 / 0.7)">
+      <div class="wrap">
+        <p class="kicker" style="color:var(--gold-200)">Your next step</p>
+        <h2>You don't need to decide today. You need enough information to decide well.</h2>
+        <p>No checkout. No countdown timer. No pressure on the call. Just a structured conversation about whether this fits the life you're building.</p>
+        <a class="btn btn-gold" href="#">Request a private briefing</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-in">
+      <div>
+        <p class="mark" style="margin-bottom:1rem"><span>SWIFT</span><span class="m2">HORIZON</span></p>
+        <p style="font-size:0.875rem;color:oklch(0.930 0.014 85 / 0.55);max-width:32ch">Fully finished modular residences inside professionally managed hospitality villages.</p>
+      </div>
+      <div><h4>Explore</h4><ul><li><a href="#capsule">The Village</a></li><li><a href="#mechanism">How It Works</a></li><li><a href="#proof">Ownership</a></li><li><a href="#hubs">Locations</a></li></ul></div>
+      <div><h4>Participate</h4><ul><li><a href="#">Stay</a></li><li><a href="#">Own</a></li><li><a href="#ways">Partner</a></li><li><a href="#">Resources</a></li></ul></div>
+      <div><h4>Contact</h4><ul><li><a href="#ask">Request a private briefing</a></li><li><a href="#">About</a></li><li><a href="#">Protections</a></li></ul></div>
+    </div>
+    <div class="foot-base">
+      <span>© 2026 Swift Horizon · Ghana</span>
+      <span>Image credits — every image on this page is illustrative reference</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
