@@ -35,10 +35,17 @@ describe('marketing foundation regressions', () => {
 
   it('uses contrasting text and focus styling on dark marketing surfaces', () => {
     const marketingCss = readProjectFile('../../assets/styles/marketing.css');
-    const homePage = readProjectFile('../../pages/index.astro');
+    // The homepage composes sections rather than carrying the classes itself,
+    // so the surfaces are asserted on the components it renders.
+    const sectionShell = readProjectFile(
+      '../../components/marketing/home/SectionShell.astro'
+    );
+    const askSection = readProjectFile('../../components/marketing/home/AskSection.astro');
 
     expect(marketingCss).toContain('.marketing-surface-dark');
-    expect(homePage).toContain('marketing-surface-dark');
+    expect(sectionShell).toContain('marketing-surface-dark');
+    expect(sectionShell).toContain('marketing-surface-canvas');
+    expect(askSection).toContain('marketing-surface-dark');
   });
 
   it('validates every generated public marketing asset', () => {

@@ -65,6 +65,43 @@ describe('homepage copy constitution', () => {
     expect(indexPage).not.toContain('PortalPreview');
   });
 
+  it('keeps the hub statement in the network section', () => {
+    const network = readSrc('../../components/marketing/home/NetworkSection.astro');
+
+    expect(network).toContain('One standard.');
+    expect(network).toContain('Four hubs.');
+  });
+
+  it('homepage composes the approved section order', () => {
+    const indexPage = readSrc('../../pages/index.astro');
+    const order = [
+      'MarketingHero',
+      'ImageRail',
+      'ProblemSection',
+      'MechanismSection',
+      'OperationsSection',
+      'CapsuleSection',
+      'VillageSection',
+      'ModularSection',
+      'AcquireSection',
+      'AssumptionsSection',
+      'NetworkSection',
+      'DiasporaSection',
+      'WaysSection',
+      'AskSection',
+      'ImageCredits',
+    ];
+
+    const positions = order.map(name => indexPage.indexOf(`<${name}`));
+
+    for (const position of positions) {
+      expect(position).toBeGreaterThan(-1);
+    }
+    for (let i = 1; i < positions.length; i += 1) {
+      expect(positions[i]).toBeGreaterThan(positions[i - 1]!);
+    }
+  });
+
   it('uses the canonical wordmark in the header', () => {
     const header = readSrc('../../components/marketing/SiteHeader.astro');
 
