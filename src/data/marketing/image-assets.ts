@@ -30,71 +30,71 @@ import warmDetailWebp from '@images/marketing/warm-detail.webp';
 
 export interface MarketingImageAsset {
   alt: string;
-  label: 'Illustrative reference';
+  label: string;
   desktop: { jpeg: ImageMetadata; webp: ImageMetadata };
   mobile?: { jpeg: ImageMetadata; webp: ImageMetadata };
 }
 
 export const marketingImages = {
   homeHero: {
-    alt: 'Illustrative reference of a contemporary prefab residence at dusk',
+    alt: 'Illustrative reference of a low-profile timber residence in savanna grassland at dusk',
     label: 'Illustrative reference',
     desktop: { jpeg: homeHeroDesktopJpeg, webp: homeHeroDesktopWebp },
     mobile: { jpeg: homeHeroMobileJpeg, webp: homeHeroMobileWebp },
   },
   villageStory: {
-    alt: 'Illustrative reference of a warm contemporary prefab residence',
+    alt: 'Illustrative reference of a timber and steel residence in dry ornamental grass',
     label: 'Illustrative reference',
     desktop: { jpeg: villageStoryJpeg, webp: villageStoryWebp },
   },
   ownershipStory: {
-    alt: 'Illustrative reference of a modern modular home in a natural setting',
+    alt: 'Illustrative reference of a black-framed residence opening onto a gravel court',
     label: 'Illustrative reference',
     desktop: { jpeg: ownershipStoryJpeg, webp: ownershipStoryWebp },
   },
   diasporaLifestyle: {
-    alt: 'Illustrative reference of a covered outdoor living space at a prefab home',
+    alt: 'Illustrative reference of a residence opening onto a shared pool deck',
     label: 'Illustrative reference',
     desktop: { jpeg: diasporaLifestyleJpeg, webp: diasporaLifestyleWebp },
   },
   villageBanner: {
-    alt: 'Illustrative reference of a low-profile prefab residence in evening light',
+    alt: 'Illustrative reference of a timber pavilion residence with full-height glazing',
     label: 'Illustrative reference',
     desktop: { jpeg: villageBannerJpeg, webp: villageBannerWebp },
   },
   homeDetail: {
-    alt: 'Illustrative reference of a compact timber prefab home',
+    alt: 'Illustrative reference of a low residence set in open grassland',
     label: 'Illustrative reference',
     desktop: { jpeg: homeDetailJpeg, webp: homeDetailWebp },
   },
   confidenceFeature: {
-    alt: 'Illustrative reference of a modern prefab residence with a broad roofline',
+    alt: 'Illustrative reference of a timber residence among palms at dusk',
     label: 'Illustrative reference',
     desktop: { jpeg: confidenceFeatureJpeg, webp: confidenceFeatureWebp },
   },
   ownershipPage: {
-    alt: 'Illustrative reference of a multi-level contemporary prefab residence',
+    alt: 'Illustrative reference of a long dark minimal residence',
     label: 'Illustrative reference',
     desktop: { jpeg: ownershipPageJpeg, webp: ownershipPageWebp },
   },
   architectureGallery: {
-    alt: 'Illustrative reference of a glass-fronted prefab home',
+    alt: 'Illustrative reference of a residence beneath large mature trees',
     label: 'Illustrative reference',
     desktop: { jpeg: architectureGalleryJpeg, webp: architectureGalleryWebp },
   },
   warmDetail: {
-    alt: 'Illustrative reference of a warm contemporary prefab exterior',
+    alt: 'Illustrative reference of a weathered steel and timber residence',
     label: 'Illustrative reference',
     desktop: { jpeg: warmDetailJpeg, webp: warmDetailWebp },
   },
   duskCta: {
-    alt: 'Illustrative reference of a welcoming prefab home at dusk',
+    alt: 'Illustrative reference of a dark-clad residence beneath mature trees',
     label: 'Illustrative reference',
     desktop: { jpeg: duskCtaDesktopJpeg, webp: duskCtaDesktopWebp },
     mobile: { jpeg: duskCtaMobileJpeg, webp: duskCtaMobileWebp },
   },
   briefingClose: {
-    alt: 'Illustrative reference of a landscaped prefab residence',
+    alt: 'Illustrative reference of a warm timber residence in tropical planting',
     label: 'Illustrative reference',
     desktop: { jpeg: briefingCloseJpeg, webp: briefingCloseWebp },
   },

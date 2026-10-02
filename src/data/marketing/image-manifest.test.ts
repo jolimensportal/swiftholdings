@@ -18,22 +18,8 @@ const manifest = JSON.parse(
 ) as MarketingImageManifest;
 
 describe('marketing image manifest', () => {
-  it('contains the approved twelve curated source files exactly once', () => {
-    expect(manifest.images.map(image => image.source)).toEqual([
-      'prefab_2_2048x1365.jpg',
-      'prefab_10_2500x1667.jpg',
-      'prefab_6_4368x2912.jpg',
-      'prefab_8_2943x1962.jpg',
-      'prefab_16_2400x1200.jpg',
-      'prefab_18_1800x1210.jpg',
-      'prefab_19_1800x1200.jpg',
-      'prefab_25_1580x1053.jpg',
-      'prefab_28_1600x995.jpg',
-      'prefab_29_1500x1051.jpg',
-      'prefab_31_1500x1051.jpg',
-      'prefab_37_1200x840.jpg',
-    ]);
-  });
+  // Source-file pinning lives in climate.test.ts, which asserts membership
+  // of an approved warm-climate set rather than freezing a literal array.
 
   it('declares unique positive-dimension derivatives and illustrative alt text', () => {
     const derivativeNames = manifest.images.flatMap(image => {

@@ -2,120 +2,180 @@
   "images": [
     {
       "id": "homeHero",
-      "source": "prefab_2_2048x1365.jpg",
+      "source": "prefab_16_2400x1200.jpg",
       "label": "Illustrative reference",
-      "alt": "Illustrative reference of a contemporary prefab residence at dusk",
+      "alt": "Illustrative reference of a low-profile timber residence in savanna grassland at dusk",
       "focalPoint": "centre",
       "derivatives": [
-        { "name": "home-hero-desktop", "width": 2400, "height": 1500 },
-        { "name": "home-hero-mobile", "width": 1200, "height": 1500 }
+        {
+          "name": "home-hero-desktop",
+          "width": 2400,
+          "height": 1200
+        },
+        {
+          "name": "home-hero-mobile",
+          "width": 1200,
+          "height": 1500
+        }
       ]
     },
     {
       "id": "villageStory",
-      "source": "prefab_10_2500x1667.jpg",
+      "source": "prefab_26_1600x996.jpg",
       "label": "Illustrative reference",
-      "alt": "Illustrative reference of a warm contemporary prefab residence",
+      "alt": "Illustrative reference of a timber and steel residence in dry ornamental grass",
       "focalPoint": "centre",
       "derivatives": [
-        { "name": "village-story", "width": 1800, "height": 1200 }
+        {
+          "name": "village-story",
+          "width": 1600,
+          "height": 1000
+        }
       ]
     },
     {
       "id": "ownershipStory",
-      "source": "prefab_6_4368x2912.jpg",
+      "source": "prefab_28_1600x995.jpg",
       "label": "Illustrative reference",
-      "alt": "Illustrative reference of a modern modular home in a natural setting",
+      "alt": "Illustrative reference of a black-framed residence opening onto a gravel court",
       "focalPoint": "centre",
       "derivatives": [
-        { "name": "ownership-story", "width": 1800, "height": 1200 }
+        {
+          "name": "ownership-story",
+          "width": 1600,
+          "height": 1000
+        }
       ]
     },
     {
       "id": "diasporaLifestyle",
-      "source": "prefab_8_2943x1962.jpg",
+      "source": "prefab_22_1600x1106.jpg",
       "label": "Illustrative reference",
-      "alt": "Illustrative reference of a covered outdoor living space at a prefab home",
+      "alt": "Illustrative reference of a residence opening onto a shared pool deck",
       "focalPoint": "centre",
       "derivatives": [
-        { "name": "diaspora-lifestyle", "width": 1600, "height": 1200 }
+        {
+          "name": "diaspora-lifestyle",
+          "width": 1600,
+          "height": 1100
+        }
       ]
     },
     {
       "id": "villageBanner",
-      "source": "prefab_16_2400x1200.jpg",
+      "source": "prefab_29_1500x1051.jpg",
       "label": "Illustrative reference",
-      "alt": "Illustrative reference of a low-profile prefab residence in evening light",
+      "alt": "Illustrative reference of a timber pavilion residence with full-height glazing",
       "focalPoint": "centre",
       "derivatives": [
-        { "name": "village-banner", "width": 2520, "height": 1080 }
+        {
+          "name": "village-banner",
+          "width": 1500,
+          "height": 1050
+        }
       ]
     },
     {
       "id": "homeDetail",
-      "source": "prefab_18_1800x1210.jpg",
+      "source": "prefab_17_2048x1365.jpg",
       "label": "Illustrative reference",
-      "alt": "Illustrative reference of a compact timber prefab home",
+      "alt": "Illustrative reference of a low residence set in open grassland",
       "focalPoint": "centre",
-      "derivatives": [{ "name": "home-detail", "width": 1800, "height": 1200 }]
+      "derivatives": [
+        {
+          "name": "home-detail",
+          "width": 2000,
+          "height": 1350
+        }
+      ]
     },
     {
       "id": "confidenceFeature",
-      "source": "prefab_19_1800x1200.jpg",
+      "source": "prefab_25_1580x1053.jpg",
       "label": "Illustrative reference",
-      "alt": "Illustrative reference of a modern prefab residence with a broad roofline",
+      "alt": "Illustrative reference of a timber residence among palms at dusk",
       "focalPoint": "centre",
       "derivatives": [
-        { "name": "confidence-feature", "width": 1600, "height": 1200 }
+        {
+          "name": "confidence-feature",
+          "width": 1580,
+          "height": 1050
+        }
       ]
     },
     {
       "id": "ownershipPage",
-      "source": "prefab_25_1580x1053.jpg",
+      "source": "prefab_27_1600x995.jpg",
       "label": "Illustrative reference",
-      "alt": "Illustrative reference of a multi-level contemporary prefab residence",
+      "alt": "Illustrative reference of a long dark minimal residence",
       "focalPoint": "centre",
       "derivatives": [
-        { "name": "ownership-page", "width": 1800, "height": 1200 }
+        {
+          "name": "ownership-page",
+          "width": 1600,
+          "height": 1000
+        }
       ]
     },
     {
       "id": "architectureGallery",
-      "source": "prefab_28_1600x995.jpg",
+      "source": "prefab_23_1600x1095.jpg",
       "label": "Illustrative reference",
-      "alt": "Illustrative reference of a glass-fronted prefab home",
+      "alt": "Illustrative reference of a residence beneath large mature trees",
       "focalPoint": "centre",
       "derivatives": [
-        { "name": "architecture-gallery", "width": 1600, "height": 1200 }
+        {
+          "name": "architecture-gallery",
+          "width": 1600,
+          "height": 1100
+        }
       ]
     },
     {
       "id": "warmDetail",
-      "source": "prefab_29_1500x1051.jpg",
+      "source": "prefab_14_1920x1833.jpg",
       "label": "Illustrative reference",
-      "alt": "Illustrative reference of a warm contemporary prefab exterior",
+      "alt": "Illustrative reference of a weathered steel and timber residence",
       "focalPoint": "centre",
-      "derivatives": [{ "name": "warm-detail", "width": 1600, "height": 1200 }]
+      "derivatives": [
+        {
+          "name": "warm-detail",
+          "width": 1400,
+          "height": 1340
+        }
+      ]
     },
     {
       "id": "duskCta",
-      "source": "prefab_31_1500x1051.jpg",
+      "source": "prefab_container_34_1600x1069.jpg",
       "label": "Illustrative reference",
-      "alt": "Illustrative reference of a welcoming prefab home at dusk",
+      "alt": "Illustrative reference of a dark-clad residence beneath mature trees",
       "focalPoint": "centre",
       "derivatives": [
-        { "name": "dusk-cta-desktop", "width": 2400, "height": 1500 },
-        { "name": "dusk-cta-mobile", "width": 1200, "height": 1500 }
+        {
+          "name": "dusk-cta-desktop",
+          "width": 1600,
+          "height": 1070
+        },
+        {
+          "name": "dusk-cta-mobile",
+          "width": 1100,
+          "height": 1370
+        }
       ]
     },
     {
       "id": "briefingClose",
-      "source": "prefab_37_1200x840.jpg",
+      "source": "prefab_31_1500x1051.jpg",
       "label": "Illustrative reference",
-      "alt": "Illustrative reference of a landscaped prefab residence",
+      "alt": "Illustrative reference of a warm timber residence in tropical planting",
       "focalPoint": "centre",
       "derivatives": [
-        { "name": "briefing-close", "width": 1800, "height": 1200 }
+        {
+          "name": "briefing-close",
+          "width": 1500,
+          "height": 1050
+        }
       ]
     }
   ]
