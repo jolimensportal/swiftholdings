@@ -1,0 +1,108 @@
+---
+---
+
+<section class="marketing-surface-dark ask">
+  <div class="marketing-container">
+    <div class="card">
+      <div>
+        <p class="marketing-eyebrow">Your next step</p>
+        <h2>You don't need to decide today. You need enough information to decide well.</h2>
+        <p class="body">
+          No checkout. No countdown timer. No pressure on the call. Just a structured conversation
+          about whether this fits the life you're building.
+        </p>
+        <a class="cta" href="/briefing">Request a private briefing</a>
+      </div>
+
+      <div class="side">
+        <p class="side-title">What the briefing covers</p>
+        <ul>
+          <li>What you acquire, and the rights</li>
+          <li>What we manage, what stays yours</li>
+          <li>Revenue and costs, line by line</li>
+          <li>The assumptions behind every projection</li>
+          <li>What happens if you want to exit</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ask {
+    padding-block: clamp(3rem, 7vh, 5rem);
+  }
+
+  .card {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+    padding: clamp(2rem, 5vw, 4rem);
+    background: linear-gradient(120deg, #e1be92 0%, #c8a06c 100%);
+    color: #14141a;
+  }
+
+  @media (max-width: 860px) {
+    .card {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .card h2 {
+    margin: 0 0 1.125rem;
+    max-width: 22ch;
+    font-size: clamp(1.625rem, 3.1vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+  }
+
+  .body {
+    margin: 0 0 1.5rem;
+    max-width: 52ch;
+    color: rgb(20 20 26 / 0.72);
+  }
+
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    background: #14141a;
+    color: #f4efe6;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+
+  .cta:hover {
+    background: #211f1d;
+  }
+
+  .side {
+    padding-left: 1.5rem;
+    border-left: 1px solid rgb(20 20 26 / 0.22);
+    font-size: 0.8125rem;
+    color: rgb(20 20 26 / 0.6);
+  }
+
+  .side-title {
+    margin: 0 0 0.7rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgb(20 20 26 / 0.55);
+  }
+
+  .side ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.45rem;
+  }
+</style>

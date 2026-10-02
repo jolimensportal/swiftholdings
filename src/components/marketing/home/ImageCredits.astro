@@ -1,0 +1,120 @@
+---
+import { marketingImages } from '@/data/marketing/image-assets';
+
+const captions: Record<string, string> = {
+  homeHero: 'Savanna dusk',
+  villageStory: 'Dry grass',
+  ownershipStory: 'Gravel court',
+  diasporaLifestyle: 'Shared pool',
+  villageBanner: 'P7 capsule',
+  homeDetail: 'Open grassland',
+  confidenceFeature: 'Tropical',
+  ownershipPage: 'Minimal',
+  architectureGallery: 'Mature trees',
+  warmDetail: 'Weathered steel',
+  duskCta: 'Under the oaks',
+  briefingClose: 'Deck at dusk',
+};
+
+const entries = Object.entries(marketingImages);
+---
+
+<section class="credits">
+  <div class="marketing-container">
+    <div class="grid">
+      <div>
+        <h2>Image credits</h2>
+        <p>
+          Every photograph on this page is illustrative reference material, not a completed Swift
+          Horizon capsule. Gold marks indicate each image. These will be replaced with photography
+          of the built villages as hubs come online.
+        </p>
+      </div>
+
+      <ol>
+        {
+          entries.map(([key, image], index) => (
+            <li>
+              <span class="tick" aria-hidden="true" />
+              <span class="idx">{String(index + 1).padStart(2, '0')}</span>
+              <span>{captions[key] ?? key}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .credits {
+    background: var(--marketing-obsidian-800);
+    border-top: 1px solid var(--ground-rule);
+    padding-block: 2.25rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.6fr;
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: start;
+  }
+
+  @media (max-width: 860px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  h2 {
+    margin: 0 0 0.6rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-low);
+  }
+
+  p {
+    margin: 0;
+    max-width: 44ch;
+    font-size: 0.8125rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem 1.5rem;
+  }
+
+  @media (max-width: 700px) {
+    ol {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.6875rem;
+    color: var(--text-low);
+  }
+
+  .tick {
+    width: 5px;
+    height: 5px;
+    flex: 0 0 auto;
+    background: var(--marketing-gold-400);
+  }
+
+  .idx {
+    color: var(--marketing-gold-400);
+    font-variant-numeric: tabular-nums;
+  }
+</style>
