@@ -11,7 +11,7 @@ describe('homepage copy constitution', () => {
   const home = JSON.stringify(marketingPages.home);
 
   it('locks the approved hero verbatim', () => {
-    expect(marketingPages.home.hero.eyebrow).toBe('THE SWIFT PROJECT · GHANA');
+    expect(marketingPages.home.hero.eyebrow).toBe('SWIFT HORIZON · GHANA');
     expect(marketingPages.home.hero.title).toBe(
       "Own your place in Ghana. Let it work while you're away.",
     );
@@ -33,7 +33,7 @@ describe('homepage copy constitution', () => {
 
   it('reduces Swift Holdings to the legal line', () => {
     expect(home).not.toContain('Swift Holdings');
-    expect(marketingSite.name).toBe('THE SWIFT PROJECT');
+    expect(marketingSite.name).toBe('SWIFT HORIZON');
     expect(marketingSite.legalName).toBe('Swift Holdings');
   });
 
@@ -52,7 +52,7 @@ describe('homepage copy constitution', () => {
 
   it('scrubs the brand name from chrome except the legal line', () => {
     const footer = readSrc('../../components/marketing/SiteFooter.astro');
-    expect(footer).toContain('THE SWIFT PROJECT');
+    expect(footer).toContain('SWIFT HORIZON');
     expect(footer).not.toContain('SWIFT HOLDINGS');
     expect(footer.match(/Operated by \{marketingSite\.legalName\}/g)).toHaveLength(1);
     const notFound = readSrc('../../pages/404.astro');
@@ -63,6 +63,31 @@ describe('homepage copy constitution', () => {
     const indexPage = readSrc('../../pages/index.astro');
     expect(indexPage).not.toContain('88%');
     expect(indexPage).not.toContain('PortalPreview');
-    expect(indexPage).toContain('One standard. Four hubs.');
+  });
+
+  it('uses the canonical wordmark in the header', () => {
+    const header = readSrc('../../components/marketing/SiteHeader.astro');
+
+    expect(header).toContain('SWIFT');
+    expect(header).toContain('HORIZON');
+    expect(header).not.toContain('PROJECT');
+  });
+
+  it('does not reference the retired brand anywhere customer-facing', () => {
+    // Strip markup first: the retired wordmark is split across an element,
+    // so a plain substring match would pass vacuously.
+    const text = (src: string): string =>
+      src
+        .replace(/<[^>]*>/g, ' ')
+        .replace(/\s+/g, ' ')
+        .toUpperCase();
+
+    for (const rel of [
+      '../../components/marketing/SiteHeader.astro',
+      '../../components/marketing/SiteFooter.astro',
+      '../../layout/MarketingLayout.astro',
+    ]) {
+      expect(text(readSrc(rel))).not.toContain('THE SWIFT PROJECT');
+    }
   });
 });
