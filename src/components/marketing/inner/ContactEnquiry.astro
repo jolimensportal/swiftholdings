@@ -1,0 +1,190 @@
+---
+/**
+ * Contact form on the marketing ground system.
+ *
+ * Replaces src/components/ui/forms/ContactForm.astro, which was built for a
+ * different brand: teal focus rings, a #2A1C46 purple button, floating labels.
+ * Same fields, same honeypot, same /api/contact endpoint and bindJsonForm
+ * behaviour — only the surface is brought onto the Swift Horizon grounds.
+ *
+ * The status colours bindJsonForm toggles (text-slate-600 / text-teal-800 /
+ * text-red-600) are overridden below rather than changing the shared helper,
+ * which four other forms also use.
+ */
+const strings = {
+  name: 'Full name',
+  email: 'Email',
+  message: 'How can we help?',
+  submit: 'Send message',
+  sending: 'Sending…',
+};
+---
+
+<form id="contact-form" class="contact-form" novalidate>
+  <fieldset class="fields">
+    <legend class="sr-only">{strings.submit}</legend>
+
+    {/* Honeypot — hidden from people, tempting to bots. */}
+    <div class="trap" aria-hidden="true">
+      <label for="contact-website">Website</label>
+      <input type="text" id="contact-website" name="website" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <label class="field">
+      <span class="label">{strings.name}</span>
+      <input
+        type="text"
+        name="name"
+        required
+        autocomplete="name"
+        aria-describedby="contact-form-status"
+      />
+    </label>
+
+    <label class="field">
+      <span class="label">{strings.email}</span>
+      <input
+        type="email"
+        name="email"
+        required
+        autocomplete="email"
+        aria-describedby="contact-form-status"
+      />
+    </label>
+
+    <label class="field">
+      <span class="label">{strings.message}</span>
+      <textarea name="message" rows="5" required aria-describedby="contact-form-status" />
+    </label>
+  </fieldset>
+
+  <p id="contact-form-status" class="status" role="status" aria-live="polite" data-form-status></p>
+
+  <button type="submit" data-form-submit class="submit">{strings.submit}</button>
+</form>
+
+<script>
+  import { bindJsonForm } from '@/utils/form-client';
+
+  document.addEventListener('astro:page-load', () => {
+    bindJsonForm({
+      formId: 'contact-form',
+      endpoint: '/api/contact',
+      submittingLabel: 'Sending…',
+      defaultSubmitLabel: 'Send message',
+    });
+  });
+</script>
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .trap {
+    position: absolute;
+    left: -9999px;
+  }
+
+  .fields {
+    display: grid;
+    gap: 1.25rem;
+    border: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .field {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ground-gold);
+  }
+
+  .field :global(input),
+  .field :global(textarea) {
+    width: 100%;
+    padding: 0.7rem 0.85rem;
+    background: rgb(255 255 255 / 0.04);
+    border: 1px solid var(--ground-rule);
+    color: var(--ground-ink);
+    font: inherit;
+    font-size: 0.9375rem;
+    border-radius: 2px;
+    transition: border-color 160ms ease, background 160ms ease;
+  }
+
+  .field :global(textarea) {
+    resize: vertical;
+    min-height: 7rem;
+  }
+
+  .field :global(input:focus-visible),
+  .field :global(textarea:focus-visible) {
+    outline: none;
+    border-color: var(--marketing-gold-400);
+    background: rgb(255 255 255 / 0.07);
+  }
+
+  .status {
+    margin: 1rem 0 0;
+    min-height: 1.25rem;
+    font-size: 0.875rem;
+  }
+
+  /* Override the shared helper's brand colours with this surface's tokens. */
+  .contact-form[data-status='idle'] .status,
+  .status {
+    color: var(--ground-ink-dim);
+  }
+
+  .status:global(.text-teal-800) {
+    color: var(--marketing-gold-400) !important;
+  }
+
+  .status:global(.text-red-600) {
+    color: #f0a08c !important;
+  }
+
+  .submit {
+    margin-top: 1.5rem;
+    padding: 0.7rem 1.5rem;
+    background: var(--marketing-gold-400);
+    color: #17150f;
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border: 0;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: filter 160ms ease;
+  }
+
+  .submit:hover {
+    filter: brightness(1.06);
+  }
+
+  .submit:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  .submit:focus-visible {
+    outline: 2px solid var(--marketing-gold-400);
+    outline-offset: 3px;
+  }
+</style>

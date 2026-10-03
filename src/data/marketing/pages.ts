@@ -22,18 +22,18 @@ export const marketingPages = {
   home: {
     seo: {
       title:
-        "The Swift Project | Own your place in Ghana. Let it work while you're away.",
+        "Swift Horizon | Own your place in Ghana. Let it work while you're away.",
       description:
         "Fully finished modular residences inside professionally managed hospitality villages across Accra, Kumasi, Tamale, and Takoradi. Yours when you're home. Productive when you're not.",
     },
     hero: {
-      eyebrow: 'THE SWIFT PROJECT · GHANA',
+      eyebrow: 'SWIFT HORIZON · GHANA',
       title: "Own your place in Ghana. Let it work while you're away.",
       lead: "Fully finished modular residences inside professionally managed hospitality villages. Yours when you're home. Productive when you're not.",
     },
     secondaryCta: { label: 'See how ownership works', href: '/how-it-works' },
     sections: [
-      "You wanted a place in Ghana. Not another construction project to manage from abroad. The land. The contractor. The materials. The delays. The revised material list that arrives after you've paid. The calls across time zones. The trip home just to check what is going on. For too many of us abroad, the dream became a remote job with no salary. We built The Swift Project around a different question: what if you could own the finished place — without personally managing everything it takes to build and run it?",
+      "You wanted a place in Ghana. Not another construction project to manage from abroad. The land. The contractor. The materials. The delays. The revised material list that arrives after you've paid. The calls across time zones. The trip home just to check what is going on. For too many of us abroad, the dream became a remote job with no salary. We built Swift Horizon around a different question: what if you could own the finished place — without personally managing everything it takes to build and run it?",
       "Yours when you're home. Productive when you're not. When you're in Ghana: come home to your own fully furnished residence. Reserve your dates — December, family weeks, remote-work months. Your clothes stay in the wardrobe. Your things stay where you left them. When you're away: your residence joins the village's managed hospitality operation. Guests, pricing, housekeeping, maintenance — handled by our on-ground team. You don't have to choose between a place for yourself and an asset that works. It does both.",
       'The P7 Capsule — thirty-eight square metres, considered down to the last one. Full-height glazing that opens the room to the trees. Warm timber inside. A private deck for morning coffee. Engineered as a complete product — structure, insulation, services, furniture — finished before it ever reaches your plot: nine-layer wall system, solar-ready roof, integrated services, turnkey furnishing.',
       'Your residence is private. The life around it is shared. A pool for slow afternoons. Fire-side evenings in December. Long tables under the pavilion. Children in the shallows while you finish your coffee. Places to be alone; places to host everyone you love. Not a row of prefabs. A village.',
@@ -41,14 +41,14 @@ export const marketingPages = {
       "You own the asset. We run the experience around it. While you're away, the village operates as a hospitality business — and your residence is part of it. Distribution and booking across the channels guests actually use. Dynamic pricing tuned to season and demand. Guest operations handled on the ground, not from abroad. Housekeeping, linen, and preventive maintenance. An owner portal with bookings, statements, and your own reservations — visible anytime. So ownership never becomes another full-time job.",
       "Don't take our word for it. Before you decide anything, you'll understand: exactly what you acquire — and the rights that come with it; what the operator manages, and what stays yours; how revenue and costs are treated, line by line; the assumptions behind every projection we show you; what happens if you want to exit. Clarity first. Decision second.",
       "We'd rather show you the assumptions than sell you the outcome. Ghana's short-let market runs at roughly 33–44% occupancy. Our model is built on documented assumptions — base case, stronger case, downside case — that you'll examine line by line in your briefing. No headline ROI theatre. No promises we can't defend.",
-      'One standard. Four hubs. The Swift Project is a national network of hospitality villages, built to one standard. Four hubs anchor the map: Oyarifa · Accra — flagship village, where the network begins; Kumasi · Ashanti; Tamale · Northern; Takoradi · Western. 48, 24, 12, and 12 capsules respectively — 96 across the network. Same capsule. Same share. Same standard. Wherever you land.',
+      'One standard. Four hubs. Swift Horizon is a national network of hospitality villages, built to one standard. Four hubs anchor the map: Oyarifa · Accra — flagship village, where the network begins; Kumasi · Ashanti; Tamale · Northern; Takoradi · Western. 48, 24, 12, and 12 capsules respectively — 96 across the network. Same capsule. Same share. Same standard. Wherever you land.',
       "Maybe home doesn't have to mean choosing one country over another. A key that is yours. A room that remembers you. Your children growing up with somewhere in Ghana that is theirs — not a hotel, not a relative's spare room. December means something again. \"We're going home.\" And meaning it.",
       'Stay. Own. Partner. Book a visit and feel the village before you decide anything. Explore ownership — the residence, the operation, the numbers. Or bring land, capital, or operations and build a hub with us.',
     ],
   },
   village: {
     seo: {
-      title: 'The Village | The Swift Project',
+      title: 'The Village | Swift Horizon',
       description:
         'The village: P7 capsules 38m², shared land, nine-layer wall system, solar-ready, and the resort ecosystem across Ghana.',
     },
@@ -66,7 +66,7 @@ export const marketingPages = {
   },
   howItWorks: {
     seo: {
-      title: 'How It Works | The Swift Project',
+      title: 'How It Works | Swift Horizon',
       description:
         'From discovery briefing to revenue: the five-phase path to a P7 capsule and the five-year operating lock-in.',
     },
@@ -84,14 +84,14 @@ export const marketingPages = {
   },
   ownership: {
     seo: {
-      title: 'Ownership & Financials | The Swift Project',
+      title: 'Ownership & Financials | Swift Horizon',
       description:
         'A $50,000 entry, a 70 / 30 revenue share, and an operating model built on documented market data across Ghana.',
     },
     hero: {
       eyebrow: 'Ownership & financials',
       title: 'Know what you are choosing before you commit.',
-      lead: 'One entry point, one share, one operator. The Swift Project keeps the owner path legible: $50,000, 70 / 30, and a monthly settlement. GATED full scenarios behind the briefing.',
+      lead: 'One entry point, one share, one operator. Swift Horizon keeps the owner path legible: $50,000, 70 / 30, and a monthly settlement. GATED full scenarios behind the briefing.',
     },
     secondaryCta: { label: 'See the protections', href: '/protections' },
     sections: [
@@ -102,7 +102,7 @@ export const marketingPages = {
   },
   protections: {
     seo: {
-      title: 'Protections | The Swift Project',
+      title: 'Protections | Swift Horizon',
       description:
         'Escrow, Ghanaian land law, insurance, and the legal dossier behind every capsule.',
     },
@@ -120,7 +120,7 @@ export const marketingPages = {
   },
   locations: {
     seo: {
-      title: 'Locations | The Swift Project',
+      title: 'Locations | Swift Horizon',
       description:
         'Four hubs — Greater Accra 48, Ashanti 24, Western 12, Northern 12 — and the market case for each.',
     },
@@ -138,7 +138,7 @@ export const marketingPages = {
   },
   partnership: {
     seo: {
-      title: 'Partnership | The Swift Project',
+      title: 'Partnership | Swift Horizon',
       description:
         'Two pathways: become an owner-investor, or partner with the Ecosystem Fund for institutional deployment.',
     },
@@ -156,25 +156,25 @@ export const marketingPages = {
   },
   about: {
     seo: {
-      title: 'About | The Swift Project',
+      title: 'About | Swift Horizon',
       description:
-        'Why The Swift Project exists: certainty, craft, and a better model for modular hospitality in Ghana.',
+        'Why Swift Horizon exists: certainty, craft, and a better model for modular hospitality in Ghana.',
     },
     hero: {
       eyebrow: 'About',
       title: 'Built with certainty, not promises.',
-      lead: 'The Swift Project designs, builds, and operates hospitality villages for the diaspora returning home — and for Ghanaians building at home. 20 Edmonton St, Madina, Accra.',
+      lead: 'Swift Horizon designs, builds, and operates hospitality villages for the diaspora returning home — and for Ghanaians building at home. 20 Edmonton St, Madina, Accra.',
     },
     secondaryCta: { label: 'Request a briefing', href: '/briefing' },
     sections: [
-      'Pioneering West African real estate: The Swift Project integrates cutting-edge modular with premium hospitality to bridge local Ghanaian opportunity and sophisticated global wealth. Vision — modular innovation efficiency meets elegance: architects of speed and quality, advanced modular delivers high-end durable solutions in record time, reduced disruption, superior consistency, new benchmark for residential/commercial.',
+      'Pioneering West African real estate: Swift Horizon integrates cutting-edge modular with premium hospitality to bridge local Ghanaian opportunity and sophisticated global wealth. Vision — modular innovation efficiency meets elegance: architects of speed and quality, advanced modular delivers high-end durable solutions in record time, reduced disruption, superior consistency, new benchmark for residential/commercial.',
       'Luxury hospitality operations: experiential stays blending local culture with luxury amenities, sustainable long-term yield. Ghana & global wealth bridge: rigorous operational standards, absolute transparency, secure productive culturally resonant home for international capital across 4 hubs. By the numbers: 38m² nine-layer CIGS, $50k entry, 70/30, 5y lock, 4 hubs Oyarifa·Kumasi·Tamale·Takoradi.',
       'Speak with the operator, not a booth: calls/briefings handled by project team directly — Ghana +233 544 101016, North America +1 437 421 0963, info@swiftholdings.org, partnerships@swiftholdings-ghana.com.',
     ],
   },
   resources: {
     seo: {
-      title: 'Resources | The Swift Project',
+      title: 'Resources | Swift Horizon',
       description:
         'The partnership summary, investor summary, and institutional whitepaper — behind the discovery briefing.',
     },
@@ -192,14 +192,14 @@ export const marketingPages = {
   },
   briefing: {
     seo: {
-      title: 'Briefing | The Swift Project',
+      title: 'Briefing | Swift Horizon',
       description:
         'Request a private discovery briefing on owning a P7 capsule in Ghana.',
     },
     hero: {
       eyebrow: 'Private briefing',
       title: 'Tell us what you are planning.',
-      lead: 'Share the essentials, and we reply with a more relevant next conversation. Briefings are encrypted, recorded, and summarised. Five guided steps branching by profile, gate opens the moment you submit, long-form documents appear GATED on the other side.',
+      lead: 'Share the essentials, and we reply with a more relevant next conversation. Five guided steps branching by profile, gate opens the moment you submit, long-form documents appear GATED on the other side. Submitted over TLS and visible only to your own gate.',
     },
     sections: [
       'Five guided steps: 1 Who are you? (Local Ghanaian / Diaspora Partner / Institutional Fund), 2 Why are you here? (stay/prefab/ecosystem), 3 Capital plans ($50k P7 or ecosystem), 4 Contact details (name/email/phone/password PBKDF2), 5 Briefing schedule (timezone GMT±, 5 business days, 6 slot times 09:00–17:30, 45-min encrypted calendar). Back/Continue logic handles stay skip, bracket None yet, validation inline with focus first error.',

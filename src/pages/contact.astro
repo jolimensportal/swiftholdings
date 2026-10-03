@@ -1,42 +1,146 @@
 ---
 export const prerender = true;
-import BaseLayout from '@layout/BaseLayout.astro';
-import PageHeader from '@sections/PageHeader.astro';
-import ContactForm from '@ui/forms/ContactForm.astro';
----
-export const prerender = true;
 
-<BaseLayout
+import ContactEnquiry from '@/components/marketing/inner/ContactEnquiry.astro';
+import InnerStatement from '@/components/marketing/inner/InnerStatement.astro';
+import SectionShell from '@/components/marketing/home/SectionShell.astro';
+import { marketingImages } from '@/data/marketing/image-assets';
+import MarketingLayout from '@layout/MarketingLayout.astro';
+
+const direct = [
+  'info@swiftholdings.org',
+  '+233 544 101016',
+  '+1 437 421 0963',
+  '20 Edmonton St, Madina, Accra',
+];
+---
+
+<MarketingLayout
   seo={{
-    title: 'Contact — Swift Holdings',
+    title: 'Contact · Swift Horizon',
     description:
       'Talk to Swift Holdings about the Oyarifa prefab village. Request the prospectus or join the investor list.',
   }}
+  headerTheme="dark"
 >
-  <PageHeader
-    eyebrow="Contact"
-    title="Request the prospectus."
-    lead="Send your details and we’ll share the full Oyarifa model, the live capsule plan, and the subscription steps."
-  />
+  <SectionShell tone="obsidian" class="contact-intro">
+    <p class="eyebrow">Contact</p>
+    <h1 class="title">Request the prospectus.</h1>
+    <p class="lead">
+      Send your details and we’ll share the full Oyarifa model, the live capsule plan, and the
+      subscription steps.
+    </p>
+  </SectionShell>
 
-  <section class="mx-auto max-w-[85rem] px-4 pb-16 sm:px-6 lg:px-8 lg:pb-24">
-    <div class="grid items-start gap-12 border border-slate-900/15 bg-off-white lg:grid-cols-2 lg:gap-16">
-      <div class="p-7 sm:p-10">
-        <ContactForm />
+  <SectionShell tone="obsidian">
+    <div class="split">
+      <div class="panel">
+        <ContactEnquiry />
       </div>
-      <div class="border-slate-900/15 p-7 sm:p-10 lg:border-l">
-        <h3 class="dm-sans text-xl font-medium text-slate-900">Direct</h3>
-        <div class="mt-5 space-y-2 text-slate-600">
-          <p>info@swiftholdings.org</p>
-          <p>+233 544 101016</p>
-          <p>+1 437 421 0963</p>
-          <p>20 Edmonton St, Madina, Accra</p>
-        </div>
-        <p class="mt-8 text-sm text-slate-400">
-          Private placement for eligible investors only. Not a regulated
-          securities offering in every jurisdiction.
+
+      <div>
+        <h2 class="direct-title">Direct</h2>
+        <ul class="direct-list">
+          {direct.map(item => (<li>{item}</li>))}
+        </ul>
+        <p class="disclaimer">
+          Private placement for eligible investors only. Not a regulated securities offering in
+          every jurisdiction.
         </p>
       </div>
     </div>
-  </section>
-</BaseLayout>
+  </SectionShell>
+
+  <InnerStatement
+    tone="canvas"
+    numeral=""
+    label="Or take the longer route"
+    title="The briefing is where the detail lives."
+    body="A private briefing is the place to ask about the village, local context, timing, pricing, and delivery for your situation — and where the long-form documents open."
+    image={marketingImages.briefingClose}
+    ratio="3 / 2"
+  />
+</MarketingLayout>
+
+<style>
+  .contact-intro :global(.marketing-home-section) {
+    padding-top: clamp(3rem, 9vh, 5.5rem);
+  }
+
+  .eyebrow {
+    margin: 0 0 0.75rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--marketing-gold-400);
+  }
+
+  .title {
+    margin: 0;
+    max-width: 18ch;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.024em;
+    color: var(--ground-ink);
+  }
+
+  .lead {
+    margin: 1.25rem 0 0;
+    max-width: 52ch;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--ground-ink-dim);
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .split {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .panel {
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border: 1px solid var(--ground-rule);
+    background: rgb(255 255 255 / 0.02);
+  }
+
+  .direct-title {
+    margin: 0 0 1rem;
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--marketing-gold-400);
+  }
+
+  .direct-list {
+    display: grid;
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--ground-ink);
+  }
+
+  .disclaimer {
+    margin: 2rem 0 0;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--ground-rule);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: var(--ground-ink-dim);
+  }
+</style>
