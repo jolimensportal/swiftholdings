@@ -184,11 +184,11 @@ An intermediate variant was produced that dropped the image rail and redistribut
 photographs into the sections that had none. It was reviewed and **rejected**, and has been
 deleted. The rail, the per-section plates and the band plate all stand as picked.
 
-**Known consequence, accepted:** the rail carries eleven frames, and five of those photographs
-also appear further down in their own section — dry grass (problem), under the oaks (operations),
-capsule, shared pool, grassland. Twelve unique photographs; seventeen `<img>` elements. This is
-recorded rather than resolved, because resolving it requires either removing section images from
-Movement III or shortening the rail, and both were declined.
+**Known consequence, accepted:** the rail carries eleven frames, and **six** of those photographs
+also appear further down in their own section — dry grass (problem), under the oaks (operations
+band plate), capsule, shared pool, grassland, mature trees (diaspora). Twelve unique photographs;
+eighteen `<img>` elements. This is recorded rather than resolved, because resolving it requires
+either removing section images from Movement III or shortening the rail, and both were declined.
 
 ## 9. Known constraint: page height
 
@@ -230,7 +230,7 @@ Shorter than the current page was never the goal; removing dead space was.
 ## 11. Acceptance criteria
 
 1. All twelve approved sections present, copy verbatim.
-2. Twelve unique photographs present. Five are shared between the rail and their own section — accepted, see §8.
+2. Twelve unique photographs present. Six are shared between the rail and their own section — accepted, see §8.
 3. No 3-equal-card grid anywhere on the page.
 4. Cormorant Garamond visibly used — display statements plus one italic moment per screen.
 5. `Swift Horizon` is the only wordmark in nav and footer.

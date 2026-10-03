@@ -3234,7 +3234,7 @@ Expected:
 |---|---|
 | 1 sections | ≥ 15 (12 content + hero + rail + ask + credits) |
 | 2 unique images | 12 |
-| 2 repeats | five entries, all rail-to-section — matches spec §8, accepted |
+| 2 repeats | six entries, all rail-to-section — matches spec §8, accepted |
 | 4 serif | contains `Cormorant` |
 | 6 height | 8,500–9,800 |
 | 7 full bleed | a non-transparent rgb |
