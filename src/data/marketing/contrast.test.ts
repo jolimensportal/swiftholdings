@@ -161,6 +161,20 @@ describe('ground contrast contract', () => {
     expect(tokenPaint('--ground-canvas').alpha).toBe(1);
   });
 
+  it('legacy shared text tokens clear AA on the dark ground', () => {
+    // --marketing-muted sat at 3.58:1 and --text-low at 4.38:1, both used by
+    // components shared across every marketing page.
+    expect(tokenContrast('--marketing-muted', '--ground-obsidian')).toBeGreaterThanOrEqual(4.5);
+    expect(tokenContrast('--text-low', '--ground-obsidian')).toBeGreaterThanOrEqual(4.5);
+    expect(tokenContrast('--text-low', '--marketing-obsidian-800')).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it('the eyebrow takes the bronze accent on the cream ground', () => {
+    expect(CSS).toMatch(
+      /\.marketing-surface-canvas\s+\.marketing-eyebrow\s*\{[^}]*color:\s*var\(--ground-gold-on-canvas\)/,
+    );
+  });
+
   it('both grounds declare their own caption ink', () => {
     expect(CSS).toMatch(/\.marketing-surface-dark\s*\{[^}]*--image-label-ink\s*:/);
     expect(CSS).toMatch(/\.marketing-surface-canvas\s*\{[^}]*--image-label-ink\s*:/);
@@ -202,5 +216,55 @@ describe('ground contrast contract', () => {
       .map(c => c.file);
 
     expect(users).toEqual(['AskSection.astro']);
+  });
+
+  /**
+   * The primitives are composed into every section, so a dark-ground token left
+   * in one of them reaches pages that never mention that token themselves. These
+   * caught MovementTag rendering gold at 1.42:1 on the cream ground of the live
+   * homepage, which a per-component check had missed.
+   */
+  describe('shared primitives', () => {
+    const tag = readFileSync(join(HOME_DIR, 'MovementTag.astro'), 'utf8');
+
+    it('the movement tag resolves its accent per ground', () => {
+      // The descendant combinator must sit outside :global(); inside it, Astro
+      // emits a compound selector that never matches.
+      expect(tag).toMatch(
+        /:global\(\.marketing-surface-canvas\)\s*\.movement-tag\s*\{[^}]*--tag-numeral:\s*var\(--ground-gold-on-canvas\)/,
+      );
+    });
+
+    it('the movement tag does not paint with a raw dark-ground token', () => {
+      expect(tag).not.toMatch(/color:\s*var\(--marketing-gold-400\)/);
+      expect(tag).not.toMatch(/color:\s*var\(--text-secondary\)/);
+      expect(tag).not.toMatch(/\.movement-tag:global\(/);
+    });
+
+    it('the movement tag label is legible on canvas', () => {
+      const label = /--tag-label:\s*(#[0-9a-fA-F]{3,6})/.exec(tag)?.[1];
+      expect(label).toBeDefined();
+      expect(contrastRatio(parseHex(label!), parseHex(tokenHex('--ground-canvas')))).toBeGreaterThanOrEqual(
+        4.5,
+      );
+    });
+
+    it('inner statement resolves its ink and accent per ground', () => {
+      const stmt = readFileSync(
+        join(process.cwd(), 'src/components/marketing/inner/InnerStatement.astro'),
+        'utf8',
+      );
+      expect(stmt).toMatch(/--statement-ink:\s*var\(--ground-ink-on-canvas\)/);
+      expect(stmt).toMatch(/--statement-accent:\s*var\(--ground-gold-on-canvas\)/);
+    });
+
+    it('inner ask resolves its ink and accent per ground', () => {
+      const ask = readFileSync(
+        join(process.cwd(), 'src/components/marketing/inner/InnerAsk.astro'),
+        'utf8',
+      );
+      expect(ask).toMatch(/--ask-ink:\s*var\(--ground-ink-on-canvas\)/);
+      expect(ask).toMatch(/--ask-eyebrow:\s*var\(--ground-gold-on-canvas\)/);
+    });
   });
 });

@@ -12,10 +12,10 @@ const { image = marketingImages.duskCta } = Astro.props;
     <p class="mt-4 leading-7 text-[var(--marketing-muted)]">What unlocks after the 5-step briefing — real Ghana dashboard (GHS 51,400 + 88% + 26/96) plus private vault. Most valuable content lives here.</p>
     <div class="relative mt-6 overflow-hidden rounded-lg border">
       <img
-        src="/_astro/portal-preview.placeholder.jpg"
-        alt="Illustrative reference of portal dashboard GHS 51,400 Ghana — GHS 127,400 portfolio preview"
-        width="1200"
-        height="675"
+        src={image.desktop.webp.src}
+        alt={image.alt}
+        width={image.desktop.webp.width}
+        height={image.desktop.webp.height}
         class="w-full object-cover"
         loading="lazy"
       />

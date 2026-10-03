@@ -1,0 +1,101 @@
+---
+import MovementTag from '@/components/marketing/home/MovementTag.astro';
+import SectionShell from '@/components/marketing/home/SectionShell.astro';
+
+interface Props {
+  tone: 'obsidian' | 'canvas';
+  numeral?: string;
+  /** Optional: several pages close on a bare CTA with no heading, and the copy is locked. */
+  eyebrow?: string;
+  title?: string;
+  body?: string;
+  cta?: { label: string; href: string };
+}
+
+const { tone, numeral, eyebrow, title, body, cta } = Astro.props;
+---
+
+<SectionShell tone={tone} class="inner-ask">
+  <div class="ask">
+    {numeral && <MovementTag numeral={numeral} />}
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    {title && <h2 class="title">{title}</h2>}
+    {body && <p class="body">{body}</p>}
+    {cta && (
+      <p class="action">
+        <a class="marketing-button-primary" href={cta.href}>
+          {cta.label}
+        </a>
+      </p>
+    )}
+  </div>
+</SectionShell>
+
+<style>
+  /* Same per-ground token resolution as InnerStatement. */
+  .inner-ask {
+    --ask-ink: var(--ground-ink);
+    --ask-body: var(--ground-ink-dim);
+    --ask-eyebrow: var(--ground-gold);
+  }
+
+  .inner-ask:global(.marketing-surface-canvas) {
+    --ask-ink: var(--ground-ink-on-canvas);
+    --ask-body: var(--ground-ink-dim-on-canvas);
+    --ask-eyebrow: var(--ground-gold-on-canvas);
+  }
+
+  .ask {
+    max-width: 46rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .ask :global(.movement-tag) {
+    justify-content: center;
+  }
+
+  .eyebrow {
+    margin: 0 0 0.75rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ask-eyebrow);
+  }
+
+  .title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.022em;
+    color: var(--ask-ink);
+    text-wrap: balance;
+  }
+
+  .body {
+    margin: 1.25rem auto 0;
+    max-width: 34rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ask-body);
+  }
+
+  .action {
+    margin: 1.75rem 0 0;
+  }
+
+  /* The gold button on a cream ground needs the darker bronze to stay legible. */
+  .inner-ask:global(.marketing-surface-canvas) :global(.marketing-button-primary) {
+    background: var(--ground-gold-on-canvas);
+    color: var(--ground-canvas);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .action :global(.marketing-button-primary) {
+      transition: none;
+    }
+  }
+</style>

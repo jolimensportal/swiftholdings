@@ -13,7 +13,14 @@ const { numeral, label } = Astro.props;
 </p>
 
 <style>
+  /* Gold is ~9:1 on obsidian and 1.4:1 on canvas, and the section label token is
+     likewise a dark-ground value. Both are resolved per ground here rather than
+     in each caller, because this tag is used on both. */
   .movement-tag {
+    --tag-numeral: var(--marketing-gold-400);
+    --tag-label: var(--text-secondary);
+    --tag-rule: var(--marketing-gold-line);
+
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -21,15 +28,25 @@ const { numeral, label } = Astro.props;
     font-family: var(--font-display);
     font-size: 1.125rem;
     letter-spacing: 0.16em;
-    color: var(--marketing-gold-400);
+    color: var(--tag-numeral);
     font-variant-numeric: tabular-nums;
+  }
+
+  /* The descendant combinator has to sit OUTSIDE :global(), otherwise Astro
+     compiles this to `.movement-tag[cid].marketing-surface-canvas` — a compound
+     selector demanding both classes on the same element, when the surface class
+     is on the ancestor section. That silently never matched. */
+  :global(.marketing-surface-canvas) .movement-tag {
+    --tag-numeral: var(--ground-gold-on-canvas);
+    --tag-label: #55504A;
+    --tag-rule: var(--ground-rule-on-canvas);
   }
 
   .movement-tag::after {
     content: '';
     flex: 1;
     height: 1px;
-    background: var(--marketing-gold-line);
+    background: var(--tag-rule);
   }
 
   .label {
@@ -38,6 +55,6 @@ const { numeral, label } = Astro.props;
     font-weight: 600;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--text-secondary);
+    color: var(--tag-label);
   }
 </style>

@@ -1,9 +1,12 @@
 ---
 export const prerender = true;
 
-import ImageFrame from '@/components/marketing/ImageFrame.astro';
+import InnerAsk from '@/components/marketing/inner/InnerAsk.astro';
+import InnerStatement from '@/components/marketing/inner/InnerStatement.astro';
+import MovementTag from '@/components/marketing/home/MovementTag.astro';
+import Plate from '@/components/marketing/home/Plate.astro';
+import SectionShell from '@/components/marketing/home/SectionShell.astro';
 import MarketingHero from '@/components/marketing/MarketingHero.astro';
-import StorySplit from '@/components/marketing/StorySplit.astro';
 import { marketingImages } from '@/data/marketing/image-assets';
 import { marketingPages } from '@/data/marketing/pages';
 import MarketingLayout from '@layout/MarketingLayout.astro';
@@ -11,7 +14,7 @@ import MarketingLayout from '@layout/MarketingLayout.astro';
 const page = marketingPages.village;
 ---
 
-<MarketingLayout seo={page.seo}>
+<MarketingLayout seo={page.seo} headerTheme="dark">
   <MarketingHero
     {...page.hero}
     secondaryCta={page.secondaryCta}
@@ -19,31 +22,36 @@ const page = marketingPages.village;
     ratio="21 / 9"
   />
 
-  <StorySplit
-    eyebrow="The village"
+  <InnerStatement
+    tone="canvas"
+    numeral="I"
+    label="The village"
     title="Capsules in common, land held in common."
     body="Owner-investors hold the capsule; the village holds the land. Shared walls, shared infrastructure, and a calmer rhythm than the city core — a compound, not a complex."
     image={marketingImages.villageStory}
-    reverse
+    ratio="3 / 2"
   />
 
-  <section class="marketing-container grid gap-5 py-16 lg:py-24">
-    <ImageFrame image={marketingImages.homeDetail} ratio="4 / 3" />
-  </section>
-
-  <section class="border-y border-[var(--marketing-rule)] py-16">
-    <div class="marketing-container max-w-3xl text-center">
-      <p class="marketing-eyebrow">Private briefing</p>
-      <h2 class="marketing-display mt-3 text-4xl text-[var(--marketing-ink)]">
-        Bring your plans to the conversation.
-      </h2>
-      <p class="mx-auto mt-5 max-w-xl leading-8 text-[var(--marketing-muted)]">
-        A private briefing is the place to ask about the village, local context,
-        and the details that matter to you.
-      </p>
-      <a class="marketing-button-primary mt-7" href="/briefing"
-        >Request a private briefing</a
-      >
+  <SectionShell tone="obsidian">
+    <MovementTag numeral="II" />
+    <div class="stillness">
+      <Plate image={marketingImages.homeDetail} ratio="4 / 3" />
     </div>
-  </section>
+  </SectionShell>
+
+  <InnerAsk
+    tone="canvas"
+    eyebrow="Private briefing"
+    title="Bring your plans to the conversation."
+    body="A private briefing is the place to ask about the village, local context, and the details that matter to you."
+    cta={{ label: 'Request a private briefing', href: '/briefing' }}
+  />
 </MarketingLayout>
+
+<style>
+  .stillness {
+    display: grid;
+    grid-template-columns: minmax(0, 68ch);
+    justify-content: center;
+  }
+</style>

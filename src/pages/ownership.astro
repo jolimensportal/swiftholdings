@@ -2,9 +2,10 @@
 export const prerender = true;
 
 import GatedTeaser from '@/components/marketing/GatedTeaser.astro';
+import InnerAsk from '@/components/marketing/inner/InnerAsk.astro';
+import InnerStatement from '@/components/marketing/inner/InnerStatement.astro';
 import PortalPreview from '@/components/marketing/PortalPreview.astro';
 import MarketingHero from '@/components/marketing/MarketingHero.astro';
-import StorySplit from '@/components/marketing/StorySplit.astro';
 import MarketLedger from '@/components/marketing/MarketLedger.astro';
 import CalculatorSection from '@/components/marketing/CalculatorSection.astro';
 import { marketingImages } from '@/data/marketing/image-assets';
@@ -14,7 +15,7 @@ import MarketingLayout from '@layout/MarketingLayout.astro';
 const page = marketingPages.ownership;
 ---
 
-<MarketingLayout seo={page.seo}>
+<MarketingLayout seo={page.seo} headerTheme="dark">
   <MarketingHero
     {...page.hero}
     secondaryCta={page.secondaryCta}
@@ -25,7 +26,7 @@ const page = marketingPages.ownership;
   <MarketLedger
     eyebrow="The owner path"
     title="One entry, one share, one operator."
-    body="The Swift Project keeps the owner path legible. Every capsule follows the same financial line."
+    body="Swift Horizon keeps the owner path legible. Every capsule follows the same financial line."
     items={[
       {
         label: 'Entry',
@@ -68,17 +69,21 @@ const page = marketingPages.ownership;
     </GatedTeaser>
   </section>
 
-  <StorySplit
-    eyebrow="Why the numbers hold"
+  <InnerStatement
+    tone="canvas"
+    numeral="I"
+    label="Why the numbers hold"
     title="Grounded in documented demand, not optimism."
     body="The case rests on the accommodation deficit: over 300,000 rooms short in Accra and more than two million across Ghana, with demand growing 6–10% a year. Full methodology and hub-month breakdowns are GATED and open after the briefing."
     image={marketingImages.ownershipStory}
+    ratio="3 / 2"
     reverse
   />
 
   <PortalPreview />
 
-  <section class="marketing-container pb-20">
-    <a class="marketing-button-primary" href="/briefing">Request a briefing</a>
-  </section>
+  <InnerAsk
+    tone="obsidian"
+    cta={{ label: 'Request a briefing', href: '/briefing' }}
+  />
 </MarketingLayout>

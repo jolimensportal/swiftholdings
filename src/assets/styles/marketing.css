@@ -10,7 +10,9 @@
   --text-primary: #F6F3EC;
   --text-secondary: #CFC6B6;
   --text-muted: #A39E92;
-  --text-low: #837E73;
+  /* 4.38:1 on --ground-obsidian — just under AA. 4.82:1 here, so it clears
+     the threshold on every dark ground including --marketing-obsidian-800. */
+  --text-low: #8A857A;
 
   --accent: #E7C06A;
   --accent-light: #F4D88F;
@@ -62,7 +64,8 @@
   --marketing-gold-600: #8A6526;
   --marketing-gold-700: #6E4F22;
   --marketing-platinum-200: #C9CDD6;
-  --marketing-muted: #6E6A61;
+  /* 3.58:1 on --ground-obsidian. #837E73 gives 4.77:1. */
+  --marketing-muted: #837E73;
   --marketing-rule: #D8D3C9;
 
   /* Section grounds — fixed, deliberately NOT flipped by the theme toggle.
@@ -115,6 +118,12 @@
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+}
+
+/* The gold accent is 1.5:1 on the cream ground, so the eyebrow takes the bronze
+   counterpart there — the same substitution the section accents use. */
+.marketing-surface-canvas .marketing-eyebrow {
+  color: var(--ground-gold-on-canvas);
 }
 
 .marketing-display {
@@ -755,6 +764,7 @@ body.light-mode .hero-section {
   background: var(--ground-canvas);
   color: var(--ground-ink-on-canvas);
   --image-label-ink: var(--ground-ink-dim-on-canvas);
+  --text-low: var(--ground-ink-dim-on-canvas);
 }
 
 /* The theme script writes inline styles on <body>, so light mode needs

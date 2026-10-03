@@ -1,0 +1,117 @@
+---
+import MovementTag from '@/components/marketing/home/MovementTag.astro';
+import Plate from '@/components/marketing/home/Plate.astro';
+import SectionShell from '@/components/marketing/home/SectionShell.astro';
+import type { MarketingImageAsset } from '@/data/marketing/image-assets';
+
+interface Props {
+  tone: 'obsidian' | 'canvas';
+  numeral: string;
+  label?: string;
+  title: string;
+  body: string;
+  moment?: string;
+  image: MarketingImageAsset;
+  ratio?: string;
+  caption?: string;
+  reverse?: boolean;
+}
+
+const {
+  tone,
+  numeral,
+  label,
+  title,
+  body,
+  moment,
+  image,
+  ratio = '3 / 2',
+  caption,
+  reverse = false,
+} = Astro.props;
+---
+
+<SectionShell tone={tone} class="inner-statement">
+  <MovementTag numeral={numeral} label={label} />
+
+  <div class:list={['split', { reverse }]}>
+    <div>
+      <h2 class="statement">{title}</h2>
+      <p class="body">{body}</p>
+      {moment && <p class="moment">{moment}</p>}
+    </div>
+
+    <Plate image={image} ratio={ratio} caption={caption} />
+  </div>
+</SectionShell>
+
+<style>
+  /* The ink and accent tokens are resolved per ground here rather than in each
+     caller, so a statement cannot be moved onto the other ground without the
+     contrast following it. `--ground-ink` is 8:1 on obsidian but invisible on
+     canvas; gold is the reverse. */
+  .inner-statement {
+    --statement-ink: var(--ground-ink);
+    --statement-body: var(--ground-ink-dim);
+    --statement-accent: var(--ground-gold);
+  }
+
+  .inner-statement:global(.marketing-surface-canvas) {
+    --statement-ink: var(--ground-ink-on-canvas);
+    --statement-body: var(--ground-ink-dim-on-canvas);
+    --statement-accent: var(--ground-gold-on-canvas);
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+
+  .split.reverse {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+
+  .split.reverse > :first-child {
+    order: 2;
+  }
+
+  @media (max-width: 900px) {
+    .split,
+    .split.reverse {
+      grid-template-columns: 1fr;
+    }
+
+    .split.reverse > :first-child {
+      order: 0;
+    }
+  }
+
+  .statement {
+    margin: 0 0 1.25rem;
+    max-width: 22ch;
+    font-size: clamp(1.4375rem, 2.6vw, 2.125rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.028em;
+    color: var(--statement-ink);
+  }
+
+  .body {
+    margin: 0;
+    max-width: 60ch;
+    font-size: 1rem;
+    line-height: 1.58;
+    color: var(--statement-body);
+  }
+
+  .moment {
+    margin: 1.25rem 0 0;
+    max-width: 34ch;
+    font-size: 1.0625rem;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--statement-accent);
+  }
+</style>
