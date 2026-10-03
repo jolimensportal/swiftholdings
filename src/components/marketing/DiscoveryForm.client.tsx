@@ -191,13 +191,13 @@ export default function DiscoveryForm(): React.JSX.Element {
           </p>
           <a
             className="marketing-button-primary mt-8 w-full max-w-sm"
-            href="https://swifthordingsportal.securemensah.workers.dev/documents/partnership-summary"
+            href="/members/documents/partnership-summary"
           >
             Download the Partnership Summary
           </a>
           <a
             className="mt-3 w-full max-w-sm text-center text-sm text-[var(--marketing-gold-400)] underline decoration-[var(--marketing-gold-line)] underline-offset-4"
-            href="https://swifthordingsportal.securemensah.workers.dev"
+            href="/members"
           >
             Go to your documents
           </a>
