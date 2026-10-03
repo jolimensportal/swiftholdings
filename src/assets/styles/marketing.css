@@ -72,6 +72,8 @@
   --ground-ink: #EDE7DC;
   --ground-ink-dim: rgb(237 231 220 / 0.66);
   --ground-gold: #D6AC7A;
+  /* Gold as TEXT on cream fails WCAG AA (1.83:1). Use this bronze instead. */
+  --ground-gold-on-canvas: #6E4F22;
   --ground-rule: rgb(237 231 220 / 0.14);
   --ground-ink-on-canvas: #14141A;
   --ground-ink-dim-on-canvas: rgb(20 20 26 / 0.68);
@@ -743,11 +745,13 @@ body.light-mode .hero-section {
 .marketing-surface-dark {
   background: var(--ground-obsidian);
   color: var(--ground-ink);
+  --image-label-ink: var(--ground-ink-dim);
 }
 
 .marketing-surface-canvas {
   background: var(--ground-canvas);
   color: var(--ground-ink-on-canvas);
+  --image-label-ink: var(--ground-ink-dim-on-canvas);
 }
 
 /* The theme script writes inline styles on <body>, so light mode needs
@@ -804,7 +808,8 @@ body.light-mode .marketing-shell :where(a, button, input, select, textarea):focu
 .marketing-image-frame {
   margin: 0;
   overflow: hidden;
-  background: var(--marketing-obsidian-800);
+  /* No background: it showed as a black bar behind the caption on canvas
+     grounds. aspect-ratio already reserves the space, so no layout shift. */
 }
 
 .marketing-image-frame img {
@@ -823,7 +828,7 @@ body.light-mode .marketing-shell :where(a, button, input, select, textarea):focu
   font-size: 0.6875rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--marketing-dim-on-dark);
+  color: var(--image-label-ink, var(--marketing-dim-on-dark));
 }
 
 .marketing-image-label::before {
