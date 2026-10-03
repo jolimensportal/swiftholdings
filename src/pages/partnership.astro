@@ -1,18 +1,28 @@
 ---
 export const prerender = true;
 
+import GroundLedger from '@/components/marketing/inner/GroundLedger.astro';
+import InnerAsk from '@/components/marketing/inner/InnerAsk.astro';
 import MarketingHero from '@/components/marketing/MarketingHero.astro';
+import MovementTag from '@/components/marketing/home/MovementTag.astro';
+import SectionShell from '@/components/marketing/home/SectionShell.astro';
 import PathwayBand from '@/components/marketing/PathwayBand.astro';
-import MarketLedger from '@/components/marketing/MarketLedger.astro';
+import { figures } from '@/utils/figures';
 import { marketingImages } from '@/data/marketing/image-assets';
 import { marketingPages } from '@/data/marketing/pages';
 import { pathways } from '@/data/marketing/pathways';
 import MarketingLayout from '@layout/MarketingLayout.astro';
 
 const page = marketingPages.partnership;
+const share = `${figures.profitShareInvestor} / ${figures.profitShareOperator}`;
+const entry = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  maximumFractionDigits: 0,
+}).format(figures.entryPrice);
 ---
 
-<MarketingLayout seo={page.seo}>
+<MarketingLayout seo={page.seo} headerTheme="dark">
   <MarketingHero
     {...page.hero}
     secondaryCta={page.secondaryCta}
@@ -20,23 +30,46 @@ const page = marketingPages.partnership;
     ratio="3 / 2"
   />
 
-  <section class="marketing-container py-16 lg:py-24">
-    <div class="grid gap-8 lg:grid-cols-2">
-      {pathways.map(pathway => <PathwayBand {pathway} />)}
+  <SectionShell tone="canvas">
+    <MovementTag numeral="I" label="Two pathways" />
+    <div class="paths">
+      {pathways.map(pathway => (<PathwayBand {pathway} />))}
     </div>
-  </section>
+  </SectionShell>
 
-  <MarketLedger
-    eyebrow="Why two pathways"
+  <GroundLedger
+    tone="obsidian"
+    numeral="II"
+    label="Why two pathways"
     title="Individuals own capsules. The Fund owns hubs."
-    body="The owner-investor path keeps the individual entry legible at $50,000. The Ecosystem Fund scales the same standard across all four hubs — same build, same 70 / 30, institutional reporting."
+    body="The owner-investor path keeps the individual entry legible. The Ecosystem Fund scales the same standard across all four hubs — same build, same split, institutional reporting."
     items={[
-      { label: 'Owner-investor entry', value: '$50,000' },
-      { label: 'Revenue share (both paths)', value: '70 / 30' },
+      { label: 'Owner-investor entry', value: entry },
+      { label: 'Revenue share (both paths)', value: share },
       { label: 'Operating lock-in', value: '5 years' },
       { label: 'Fund deployment', value: '4 hubs' },
-      { label: 'Settlement', value: 'Monthly · USD held, GHS settled' },
+      { label: 'Settlement', value: `${figures.settlement} · USD held, GHS settled` },
     ]}
     cta={{ label: 'Request a briefing', href: '/briefing' }}
   />
+
+  <InnerAsk
+    tone="canvas"
+    eyebrow="Next step"
+    title="Bring your plans to the conversation."
+    cta={{ label: 'Request a briefing', href: '/briefing' }}
+  />
 </MarketingLayout>
+
+<style>
+  .paths {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 900px) {
+    .paths {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

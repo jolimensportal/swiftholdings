@@ -1,0 +1,150 @@
+---
+import MovementTag from '@/components/marketing/home/MovementTag.astro';
+import SectionShell from '@/components/marketing/home/SectionShell.astro';
+
+export interface LedgerItem {
+  label: string;
+  value: string;
+  note?: string;
+}
+
+interface Props {
+  tone: 'obsidian' | 'canvas';
+  numeral?: string;
+  label?: string;
+  title: string;
+  body?: string;
+  items: readonly LedgerItem[];
+  cta?: { label: string; href: string };
+}
+
+const { tone, numeral, label, title, body, items, cta } = Astro.props;
+---
+
+<SectionShell tone={tone} class="ground-ledger">
+  {numeral && <MovementTag numeral={numeral} label={label} />}
+
+  <div class="split">
+    <div>
+      <h2 class="title">{title}</h2>
+      {body && <p class="body">{body}</p>}
+      {
+        cta && (
+          <p class="action">
+            <a class="marketing-button-secondary" href={cta.href}>
+              {cta.label}
+            </a>
+          </p>
+        )
+      }
+    </div>
+
+    <dl class="ledger">
+      {
+        items.map(item => (
+          <div class="row">
+            <dt class="label">{item.label}</dt>
+            <dd class="value">
+              {item.value}
+              {item.note && <span class="note">{item.note}</span>}
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</SectionShell>
+
+<style>
+  .ground-ledger {
+    --ledger-label: var(--marketing-gold-400);
+    --ledger-ink: var(--ground-ink);
+    --ledger-dim: var(--ground-ink-dim);
+    --ledger-rule: var(--ground-rule);
+  }
+
+  .ground-ledger:global(.marketing-surface-canvas) {
+    --ledger-label: var(--ground-gold-on-canvas);
+    --ledger-ink: var(--ground-ink-on-canvas);
+    --ledger-dim: var(--ground-ink-dim-on-canvas);
+    --ledger-rule: var(--ground-rule-on-canvas);
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .split {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .title {
+    margin: 0 0 1rem;
+    max-width: 24ch;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3.2vw, 2.25rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.024em;
+    color: var(--ledger-ink);
+    text-wrap: balance;
+  }
+
+  .body {
+    margin: 0;
+    max-width: 46ch;
+    font-size: 1rem;
+    line-height: 1.58;
+    color: var(--ledger-dim);
+  }
+
+  .action {
+    margin: 1.5rem 0 0;
+  }
+
+  .ledger {
+    margin: 0;
+    border-top: 1px solid var(--ledger-rule);
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.35rem 1.5rem;
+    padding-block: 0.9rem;
+    border-bottom: 1px solid var(--ledger-rule);
+  }
+
+  .label {
+    margin: 0;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+    color: var(--ledger-label);
+  }
+
+  .value {
+    margin: 0;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    color: var(--ledger-ink);
+  }
+
+  .note {
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 0.8125rem;
+    letter-spacing: 0;
+    color: var(--ledger-dim);
+  }
+</style>

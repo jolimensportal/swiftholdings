@@ -1,7 +1,7 @@
 ---
 export const prerender = true;
 import DiscoveryForm from '@/components/marketing/DiscoveryForm.client';
-import ImageFrame from '@/components/marketing/ImageFrame.astro';
+import InnerStatement from '@/components/marketing/inner/InnerStatement.astro';
 import { marketingImages } from '@/data/marketing/image-assets';
 import { marketingPages } from '@/data/marketing/pages';
 import MarketingLayout from '@layout/MarketingLayout.astro';
@@ -14,7 +14,7 @@ const nextSteps = [
 ];
 ---
 
-<MarketingLayout seo={page.seo}>
+<MarketingLayout seo={page.seo} headerTheme="dark">
   <section
     class="marketing-container grid gap-12 py-12 lg:grid-cols-[0.8fr_1.2fr] lg:py-20"
   >
@@ -52,22 +52,13 @@ const nextSteps = [
     </div>
   </section>
 
-  <section class="border-y border-[var(--marketing-rule)] py-16">
-    <div
-      class="marketing-container grid items-center gap-8 lg:grid-cols-[0.85fr_1fr]"
-    >
-      <ImageFrame image={marketingImages.briefingClose} ratio="3 / 2" />
-      <div>
-        <p class="marketing-eyebrow">A personal next step</p>
-        <h2 class="marketing-display mt-3 text-4xl text-[var(--marketing-ink)]">
-          Start with the context that matters to you.
-        </h2>
-        <p class="mt-5 max-w-xl leading-8 text-[var(--marketing-muted)]">
-          There is no public sales funnel here. Walk the five steps and the gate
-          opens — full yield tables, availability, pricing, and the legal
-          dossier, all in your member area.
-        </p>
-      </div>
-    </div>
-  </section>
+  <InnerStatement
+    tone="canvas"
+    numeral="I"
+    label="A personal next step"
+    title="Start with the context that matters to you."
+    body="There is no public sales funnel here. Walk the five steps and the gate opens — full yield tables, availability, pricing, and the legal dossier, all in your member area."
+    image={marketingImages.briefingClose}
+    ratio="3 / 2"
+  />
 </MarketingLayout>

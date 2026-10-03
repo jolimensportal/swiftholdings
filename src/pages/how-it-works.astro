@@ -1,44 +1,54 @@
 ---
 export const prerender = true;
 
+import GroundLedger from '@/components/marketing/inner/GroundLedger.astro';
+import InnerAsk from '@/components/marketing/inner/InnerAsk.astro';
 import MarketingHero from '@/components/marketing/MarketingHero.astro';
-import TimelineSteps from '@/components/marketing/TimelineSteps.astro';
-import MarketLedger from '@/components/marketing/MarketLedger.astro';
+import MovementTag from '@/components/marketing/home/MovementTag.astro';
+import SectionShell from '@/components/marketing/home/SectionShell.astro';
+import { figures } from '@/utils/figures';
 import { marketingImages } from '@/data/marketing/image-assets';
 import { marketingPages } from '@/data/marketing/pages';
 import MarketingLayout from '@layout/MarketingLayout.astro';
 
 const page = marketingPages.howItWorks;
+const share = `${figures.profitShareInvestor} / ${figures.profitShareOperator}`;
+
 const phases = [
   {
+    numeral: 'I',
     name: 'Land & permits',
     duration: 'Phase 1',
     body: 'Title verified under Ghanaian land law, permits secured, and the site prepared.',
   },
   {
+    numeral: 'II',
     name: 'Foundation',
     duration: 'Phase 2',
     body: 'Ground works and the structural base that every capsule sits on.',
   },
   {
+    numeral: 'III',
     name: 'Delivery',
     duration: 'Phase 3',
     body: 'The P7 capsule arrives: 38 m², nine-layer wall system, solar-ready.',
   },
   {
+    numeral: 'IV',
     name: 'Installation & finish',
     duration: 'Phase 4',
     body: 'Interiors, services, and the walkthrough that makes it a home.',
   },
   {
+    numeral: 'V',
     name: 'Revenue',
     duration: 'Phase 5',
-    body: 'Stays open on the market — and the 70 / 30 settlement starts.',
+    body: `Stays open on the market — and the ${share} settlement starts.`,
   },
 ] as const;
 ---
 
-<MarketingLayout seo={page.seo}>
+<MarketingLayout seo={page.seo} headerTheme="dark">
   <MarketingHero
     {...page.hero}
     secondaryCta={page.secondaryCta}
@@ -46,19 +56,118 @@ const phases = [
     ratio="3 / 2"
   />
 
-  <TimelineSteps {phases} />
+  <SectionShell tone="canvas">
+    <MovementTag numeral="I" label="Five phases" />
+    <ol class="phases">
+      {
+        phases.map(phase => (
+          <li class="phase">
+            <p class="phase-head">
+              <span class="phase-numeral">{phase.numeral}</span>
+              <span class="phase-duration">{phase.duration}</span>
+            </p>
+            <h2 class="phase-name">{phase.name}</h2>
+            <p class="phase-body">{phase.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </SectionShell>
 
-  <MarketLedger
-    eyebrow="The lock-in"
+  <GroundLedger
+    tone="obsidian"
+    numeral="II"
+    label="The lock-in"
     title="Five years of one operating partner."
-    body="Every capsule is operated by The Swift Project for five years from first revenue. That is what makes the 70 / 30 legible — one operator, one ledger, one settlement."
+    body="Every capsule is operated by Swift Horizon for five years from first revenue. That is what makes the split legible — one operator, one ledger, one settlement."
     items={[
       { label: 'Lock-in', value: '5 years' },
-      { label: 'Operator', value: 'The Swift Project' },
-      { label: 'Share', value: '70 / 30' },
-      { label: 'Settlement', value: 'Monthly · USD held, GHS settled' },
+      { label: 'Operator', value: 'Swift Horizon' },
+      { label: 'Share', value: share },
+      { label: 'Settlement', value: `${figures.settlement} · USD held, GHS settled` },
       { label: 'After the lock-in', value: 'Renew, or take full control' },
     ]}
     cta={{ label: 'See the protections', href: '/protections' }}
   />
+
+  <InnerAsk
+    tone="canvas"
+    eyebrow="Next step"
+    title="Walk the five phases in a briefing."
+    cta={{ label: 'Request a briefing', href: '/briefing' }}
+  />
 </MarketingLayout>
+
+<style>
+  .phases {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--ground-rule-on-canvas);
+  }
+
+  .phase {
+    display: grid;
+    gap: 0.4rem;
+    padding-block: 1.35rem;
+    border-bottom: 1px solid var(--ground-rule-on-canvas);
+  }
+
+  @media (min-width: 780px) {
+    .phase {
+      grid-template-columns: 14rem 1fr;
+      align-items: baseline;
+      column-gap: 2rem;
+    }
+
+    .phase-head {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
+
+    .phase-name {
+      margin-bottom: 0.4rem;
+    }
+  }
+
+  .phase-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+
+  .phase-numeral {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--ground-gold-on-canvas);
+  }
+
+  .phase-duration {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ground-ink-dim-on-canvas);
+  }
+
+  .phase-name {
+    margin: 0;
+    font-size: clamp(1.125rem, 2vw, 1.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.022em;
+    color: var(--ground-ink-on-canvas);
+  }
+
+  .phase-body {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.58;
+    color: var(--ground-ink-dim-on-canvas);
+  }
+</style>
