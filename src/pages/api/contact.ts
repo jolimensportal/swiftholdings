@@ -1,61 +1,92 @@
 import type { APIRoute } from 'astro';
-import { z } from 'zod';
-import { deliverFormPayload, errorResponse, jsonResponse } from '@/utils/api';
+import { getDb } from '@/db/client';
+import { getBindings } from '@/lib/env';
+import { contactEnquiries } from '@/db/schema';
+import { deliverFormPayload } from '@/utils/api';
+import { errorResponse, jsonResponse, sameOriginRequest } from '@/utils/api';
 import { getClientIp, rateLimit } from '@/utils/rate-limit';
 
-const contactSchema = z.object({
-  name: z.string().trim().min(1).max(120),
-  email: z.email().max(254),
-  message: z.string().trim().min(1).max(5000),
-  company: z.string().trim().max(200).optional(),
-  licenseType: z.string().trim().max(100).optional(),
-  // Honeypot – bots fill this; humans leave it empty
-  website: z.string().optional(),
-});
+/**
+ * Public contact enquiries.
+ *
+ * This used to validate the three fields, return `{ success: true }`, and throw
+ * the message away — a completed enquiry went nowhere at all. It now persists to
+ * `contact_enquiries`, and forwards to a webhook when one is configured, so email
+ * delivery is a configuration change rather than a code change.
+ */
+
+interface ContactBody {
+  name?: unknown;
+  email?: unknown;
+  message?: unknown;
+  website?: unknown;
+}
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const MAX_MESSAGE = 4000;
 
 export const POST: APIRoute = async ({ request }) => {
-  try {
-    const ip = getClientIp(request);
-    const limited = rateLimit(`contact:${ip}`, { limit: 5, windowMs: 60_000 });
-    if (!limited.ok) {
-      return errorResponse('Too many requests. Please try again later.', 429, {
-        retryAfterSec: limited.retryAfterSec,
-      });
-    }
+  const limited = rateLimit(`contact:${getClientIp(request)}`, {
+    limit: 5,
+    windowMs: 60_000,
+  });
 
-    const data = await request.json();
-    const parsed = contactSchema.safeParse(data);
-
-    if (!parsed.success) {
-      return errorResponse('Invalid form data.', 400, {
-        issues: z.treeifyError(parsed.error),
-      });
-    }
-
-    if (parsed.data.website) {
-      // Silent success for honeypot hits
-      return jsonResponse({ ok: true });
-    }
-
-    const { website: _honeypot, ...payload } = parsed.data;
-    const webhook =
-      import.meta.env.FORMSPREE_CONTACT_ENDPOINT ??
-      import.meta.env.FORM_WEBHOOK_CONTACT;
-
-    const result = await deliverFormPayload(webhook, {
-      ...payload,
-      form: 'contact',
+  if (!limited.ok) {
+    return errorResponse('Too many attempts. Please try again shortly.', 429, {
+      retryAfterSec: limited.retryAfterSec,
     });
-
-    return jsonResponse({
-      ok: true,
-      demo: result.demo,
-      message: result.demo
-        ? 'Thanks! (Demo mode – configure FORMSPREE_CONTACT_ENDPOINT to deliver emails.)'
-        : 'Thanks! Your message has been sent.',
-    });
-  } catch (error) {
-    console.error('Error handling contact form:', error);
-    return errorResponse('Internal server error', 500);
   }
+
+  if (!sameOriginRequest(request)) {
+    return errorResponse('Cross-origin requests are not allowed.', 403);
+  }
+
+  if (!request.headers.get('content-type')?.includes('application/json')) {
+    return errorResponse('Expected a JSON body.', 415);
+  }
+
+  const raw = (await request.json().catch(() => null)) as ContactBody | null;
+
+  if (raw === null || typeof raw !== 'object') {
+    return errorResponse('Expected a JSON body.', 400);
+  }
+
+  // Honeypot: the field is hidden from people and left empty by them, so a
+  // filled value means a bot. Answer as though it succeeded, so the bot learns
+  // nothing, and store nothing.
+  if (typeof raw.website === 'string' && raw.website.trim() !== '') {
+    return jsonResponse({ message: 'Thank you — we will be in touch.' }, 201);
+  }
+
+  const name = typeof raw.name === 'string' ? raw.name.trim() : '';
+  const email = typeof raw.email === 'string' ? raw.email.trim().toLowerCase() : '';
+  const message = typeof raw.message === 'string' ? raw.message.trim() : '';
+
+  const errors: Record<string, string> = {};
+
+  if (name.length < 2) errors.name = 'Please tell us your name.';
+  if (!EMAIL_PATTERN.test(email)) errors.email = 'That email address does not look right.';
+  if (message.length < 5) errors.message = 'Please add a little more detail.';
+  if (message.length > MAX_MESSAGE) errors.message = 'Please keep it under 4000 characters.';
+
+  if (Object.keys(errors).length > 0) {
+    return errorResponse('Please correct the highlighted fields.', 400, { errors });
+  }
+
+  const env = await getBindings();
+  const db = getDb(env);
+  const now = Date.now();
+  const id = `EN-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+
+  await db
+    .insert(contactEnquiries)
+    .values({ id, name, email, message, source: 'contact', handled: false, createdAt: now })
+    .run();
+
+  // Best-effort forward. Delivery failing must not lose the enquiry, which is
+  // already stored by this point.
+  const webhook = env.FORM_WEBHOOK_CONTACT;
+  await deliverFormPayload(webhook, { id, name, email, message }).catch(() => undefined);
+
+  return jsonResponse({ message: 'Thank you — we will be in touch.', id }, 201);
 };
