@@ -753,11 +753,22 @@ body.light-mode .hero-section {
   background: var(--hero-overlay) !important;
 }
 
-/* Section grounds — fixed values, independent of the theme toggle. */
+/* Section grounds — fixed values, independent of the theme toggle.
+
+   --surface-* are the GROUND-AGNOSTIC aliases. A component that styles itself
+   with these can be flipped between the two grounds by changing only its
+   <SectionShell tone="...">, instead of hardcoding one ground's tokens and
+   going dark-on-dark (or light-on-light) the moment it moves. The four
+   --ground-* sets are per-ground; these five resolve per ground. */
 .marketing-surface-dark {
   background: var(--ground-obsidian);
   color: var(--ground-ink);
   --image-label-ink: var(--ground-ink-dim);
+  --surface-ink: var(--ground-ink);
+  --surface-ink-dim: var(--ground-ink-dim);
+  --surface-gold: var(--ground-gold);
+  --surface-rule: var(--ground-rule);
+  --surface-hairline: rgb(237 231 220 / 0.18);
 }
 
 .marketing-surface-canvas {
@@ -765,6 +776,11 @@ body.light-mode .hero-section {
   color: var(--ground-ink-on-canvas);
   --image-label-ink: var(--ground-ink-dim-on-canvas);
   --text-low: var(--ground-ink-dim-on-canvas);
+  --surface-ink: var(--ground-ink-on-canvas);
+  --surface-ink-dim: var(--ground-ink-dim-on-canvas);
+  --surface-gold: var(--ground-gold-on-canvas);
+  --surface-rule: var(--ground-rule-on-canvas);
+  --surface-hairline: rgb(20 20 26 / 0.18);
 }
 
 /* The theme script writes inline styles on <body>, so light mode needs
