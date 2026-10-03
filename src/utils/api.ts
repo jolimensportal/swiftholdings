@@ -3,12 +3,17 @@ export function jsonResponse(
   status = 200,
   headers: HeadersInit = {}
 ): Response {
+  // Merged into a Headers rather than spread into an object literal: spreading
+  // turns a Headers instance into {} and silently discards Set-Cookie.
+  const merged = new Headers(headers);
+
+  if (!merged.has('content-type')) {
+    merged.set('content-type', 'application/json');
+  }
+
   return new Response(JSON.stringify(body), {
     status,
-    headers: {
-      'Content-Type': 'application/json',
-      ...headers,
-    },
+    headers: merged,
   });
 }
 

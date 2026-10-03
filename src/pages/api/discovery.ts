@@ -152,12 +152,14 @@ export const POST: APIRoute = async ({ request }) => {
   const session = await createMemberSession(db, email, input.password);
 
   if (session === null) {
-    return jsonResponse({ ok: true, member: { name, email } }, 201);
+    return Response.json({ ok: true, member: { name, email } }, { status: 201 });
   }
 
-  return jsonResponse(
+  // `Response.json` accepts a Headers instance; `jsonResponse` spreads its
+  // argument into a plain object, which turns Headers into {} and silently
+  // drops the auth cookie.
+  return Response.json(
     { ok: true, member: session.member },
-    201,
-    createAuthHeaders(session.token),
+    { status: 201, headers: createAuthHeaders(session.token) },
   );
 };
