@@ -640,7 +640,7 @@ body.light-mode {
   --selection-bg: #B07F2A;
   --selection-text: #FFFFFF;
 
-  --cta-gradient: linear-gradient(135deg, #B07F2A 0%, #8A6526 100%);
+  --cta-gradient: linear-gradient(135deg, #8A6526 0%, #6E4F22 100%);
 
   --marketing-obsidian-950: #EDEAE4;
   --marketing-obsidian-900: #FFFFFF;

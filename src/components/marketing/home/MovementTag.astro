@@ -18,7 +18,12 @@ const { numeral, label } = Astro.props;
      in each caller, because this tag is used on both. */
   .movement-tag {
     --tag-numeral: var(--marketing-gold-400);
-    --tag-label: var(--text-secondary);
+    /* Was --text-secondary, which is a THEME token: light mode redefines it to
+       #3E3A33 for a pale page, but the section grounds stay fixed by design, so
+       the label went near-black on obsidian at 1.71:1. This needs a GROUND
+       token, and --surface-ink-dim resolves per ground without following the
+       theme. */
+    --tag-label: var(--surface-ink-dim);
     --tag-rule: var(--marketing-gold-line);
 
     display: flex;
