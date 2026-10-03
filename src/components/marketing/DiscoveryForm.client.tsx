@@ -141,13 +141,24 @@ export default function DiscoveryForm(): React.JSX.Element {
           slotTime,
         }),
       });
-      const result = (await response.json()) as DiscoveryResult;
+      let result: DiscoveryResult;
+      try {
+        result = (await response.json()) as DiscoveryResult;
+      } catch {
+        // The server answered, but not with JSON — a proxy error page or a
+        // crashed handler. Reporting this as "the network is unreachable" sends
+        // both the user and whoever is debugging it in the wrong direction.
+        setSubmitError(
+          'The server could not accept your request. Please try again in a moment.',
+        );
+        setSubmitting(false);
+        return;
+      }
 
       if (!response.ok || !result.ok) {
         setServerErrors(result.errors ?? {});
         setSubmitError(
-          result.error ??
-            'Something went wrong. Please check the fields and try again.'
+          result.error ?? 'Something went wrong. Please check the fields and try again.',
         );
         setSubmitting(false);
         return;
