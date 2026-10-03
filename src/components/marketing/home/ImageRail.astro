@@ -12,35 +12,44 @@ interface Props {
 }
 
 const { frames, heading = 'The capsule, and the village around it.' } = Astro.props;
+const pad = (value: number): string => String(value).padStart(2, '0');
 ---
 
 <div class="rail-section">
   <div class="marketing-container">
     <div class="rail-head">
       <p class="rail-title">{heading}</p>
-      <p class="rail-count">{frames.length} images &middot; all illustrative reference</p>
+      <p class="rail-count">
+        <span class="rail-position" data-rail-position>{pad(1)}</span>
+        <span aria-hidden="true">/</span>
+        <span class="sr-only">of</span>
+        {pad(frames.length)} images &middot; all illustrative reference
+      </p>
     </div>
 
-    <div class="rail" tabindex="0" role="group" aria-label="Illustrative reference photographs">
-      {
-        frames.map((frame, index) => (
-          <figure class="rail-frame">
-            <img
-              src={frame.image.desktop.webp.src}
-              alt={frame.image.alt}
-              width={frame.image.desktop.webp.width}
-              height={frame.image.desktop.webp.height}
-              loading="lazy"
-              decoding="async"
-            />
-            <figcaption>
-              <span class="tick" aria-hidden="true" />
-              <span class="idx">{String(index + 1).padStart(2, '0')}</span>
-              <span class="cap">{frame.caption}</span>
-            </figcaption>
-          </figure>
-        ))
-      }
+    <div class="rail-viewport" data-rail-viewport>
+      <div class="rail" tabindex="0" role="group" aria-label="Illustrative reference photographs">
+        {
+          frames.map((frame, index) => (
+            <figure class="rail-frame">
+              <img
+                src={frame.image.desktop.webp.src}
+                alt={frame.image.alt}
+                width={frame.image.desktop.webp.width}
+                height={frame.image.desktop.webp.height}
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>
+                <span class="tick" aria-hidden="true" />
+                <span class="idx">{pad(index + 1)}</span>
+                <span class="cap">{frame.caption}</span>
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+      <span class="rail-fade" data-rail-fade aria-hidden="true" />
     </div>
 
     <p class="rail-disclosure">
@@ -49,6 +58,42 @@ const { frames, heading = 'The capsule, and the village around it.' } = Astro.pr
     </p>
   </div>
 </div>
+
+<script>
+  // The rail shows roughly five of eleven frames, so without this the tail is
+  // simply invisible: a trailing fade says "there is more", and the counter says
+  // where you are. Both are suppressed when everything already fits.
+  for (const viewport of document.querySelectorAll<HTMLElement>('[data-rail-viewport]')) {
+    const rail = viewport.querySelector<HTMLElement>('.rail');
+    const position = viewport.parentElement?.querySelector<HTMLElement>('[data-rail-position]');
+    const fade = viewport.querySelector<HTMLElement>('[data-rail-fade]');
+    if (!rail) continue;
+
+    const step = (): void => {
+      const frames = Array.from(rail.children) as HTMLElement[];
+      if (!frames.length) return;
+
+      // The current frame is the leftmost one still on screen: the first whose
+      // right edge extends past the rail's left edge. Testing `left` alone picks
+      // frame 0 forever, because a frame scrolled past the edge has a *negative*
+      // offset. Derived from real geometry rather than an assumed width + gap.
+      const railLeft = rail.getBoundingClientRect().left;
+      const visible = frames.findIndex(
+        frame => frame.getBoundingClientRect().right > railLeft + 1,
+      );
+      const index = (visible === -1 ? frames.length - 1 : visible) + 1;
+
+      const max = rail.scrollWidth - rail.clientWidth;
+
+      if (position) position.textContent = String(index).padStart(2, '0');
+      if (fade) fade.dataset.visible = String(max > 1 && rail.scrollLeft < max - 1);
+    };
+
+    rail.addEventListener('scroll', step, { passive: true });
+    window.addEventListener('resize', step, { passive: true });
+    step();
+  }
+</script>
 
 <style>
   .rail-section {
@@ -73,10 +118,34 @@ const { frames, heading = 'The capsule, and the village around it.' } = Astro.pr
 
   .rail-count {
     margin: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
     font-size: 0.6875rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--text-low);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .rail-position {
+    color: var(--marketing-gold-400);
+  }
+
+  /* Not defined globally in this project, so scope it here. */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .rail-viewport {
+    position: relative;
   }
 
   .rail {
@@ -85,6 +154,40 @@ const { frames, heading = 'The capsule, and the village around it.' } = Astro.pr
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     padding-bottom: 0.5rem;
+    scrollbar-width: thin;
+  }
+
+  .rail:focus-visible {
+    outline: 2px solid var(--marketing-gold-400);
+    outline-offset: 4px;
+  }
+
+  /* Trailing fade, hidden once the rail is scrolled to the end or fits entirely.
+     Proportional to the viewport: a fixed 7rem covered a quarter of the rail on a
+     phone, where only two frames are visible. */
+  .rail-fade {
+    position: absolute;
+    inset-block: 0 0.75rem;
+    inset-inline-end: 0;
+    width: clamp(2.5rem, 9vw, 7rem);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 240ms ease;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--marketing-obsidian-900) 78%
+    );
+  }
+
+  .rail-fade[data-visible='true'] {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rail-fade {
+      transition: none;
+    }
   }
 
   .rail-frame {
