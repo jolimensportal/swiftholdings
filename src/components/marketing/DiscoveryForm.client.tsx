@@ -525,10 +525,13 @@ export default function DiscoveryForm(): React.JSX.Element {
               </fieldset>
             )}
 
-            <p className="flex items-center gap-2 text-xs text-[var(--marketing-dim-on-dark)]">
-              <span aria-hidden="true">🔒</span>
-              Secure global sync — end-to-end encryption active
-            </p>
+            {/* Said "end-to-end encryption active". Nothing here encrypts
+                  content end to end: the session is a JWT in an HttpOnly cookie
+                  and the password is PBKDF2-hashed. Stating only what is true,
+                  and dropping the lock glyph, which asserted a guarantee. */}
+              <p className="text-xs text-[var(--marketing-dim-on-dark)]">
+                Sent over TLS · password stored hashed, never in plain text
+              </p>
           </div>
         )}
       </div>
