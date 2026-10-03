@@ -1,0 +1,302 @@
+---
+export const prerender = false;
+
+import { getDb } from '@/db/client';
+import { getBindings } from '@/lib/env';
+import { contactEnquiries, notifications } from '@/db/schema';
+import { desc, eq } from 'drizzle-orm';
+
+const admin = Astro.locals.admin;
+const db = getDb(await getBindings());
+
+const enquiries = await db
+  .select()
+  .from(contactEnquiries)
+  .orderBy(desc(contactEnquiries.createdAt))
+  .limit(50)
+  .all();
+
+// Briefing submissions are stored as member notifications, because the members
+// table has nowhere to put intent, bracket, timezone or the chosen slot.
+const briefings = await db
+  .select({
+    id: notifications.id,
+    title: notifications.title,
+    body: notifications.body,
+    dataJson: notifications.dataJson,
+    createdAt: notifications.createdAt,
+  })
+  .from(notifications)
+  .where(eq(notifications.type, 'discovery'))
+  .orderBy(desc(notifications.createdAt))
+  .limit(50)
+  .all();
+
+const when = (ms: number): string =>
+  new Date(ms).toISOString().replace('T', ' ').slice(0, 16) + ' UTC';
+
+type BriefingDetail = {
+  intent?: string;
+  bracket?: string | null;
+  phone?: string | null;
+  timezone?: string;
+  slotDate?: string;
+  slotTime?: string;
+  segment?: string;
+};
+
+const parse = (raw: string | null): BriefingDetail => {
+  if (!raw) return {};
+  try {
+    return JSON.parse(raw) as BriefingDetail;
+  } catch {
+    return {};
+  }
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Leads · Swift Horizon admin</title>
+  </head>
+  <body class="admin">
+    <header>
+      <p class="eyebrow">Swift Horizon</p>
+      <h1>Leads</h1>
+      <p class="who">Signed in as {admin?.email} · {admin?.role}</p>
+    </header>
+
+    <main>
+      <section>
+        <h2>Contact enquiries <span class="count">{enquiries.length}</span></h2>
+        {
+          enquiries.length === 0 ? (
+            <p class="empty">
+              Nothing yet. Submissions from <code>/contact</code> land here.
+            </p>
+          ) : (
+            <ul class="rows">
+              {enquiries.map(row => (
+                <li class="row">
+                  <div class="row-head">
+                    <strong>{row.name}</strong>
+                    <a href={`mailto:${row.email}`}>{row.email}</a>
+                    <span class="when">{when(row.createdAt)}</span>
+                    {row.handled && <span class="flag">handled</span>}
+                  </div>
+                  <p class="message">{row.message}</p>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </section>
+
+      <section>
+        <h2>Briefing requests <span class="count">{briefings.length}</span></h2>
+        {
+          briefings.length === 0 ? (
+            <p class="empty">
+              Nothing yet. Submissions from <code>/briefing</code> land here.
+            </p>
+          ) : (
+            <ul class="rows">
+              {briefings.map(row => {
+                const d = parse(row.dataJson);
+                return (
+                  <li class="row">
+                    <div class="row-head">
+                      <strong>{d.intent ?? row.title}</strong>
+                      <span class="when">{when(row.createdAt)}</span>
+                    </div>
+                    <dl class="facts">
+                      {d.segment && (
+                        <>
+                          <dt>Segment</dt>
+                          <dd>{d.segment}</dd>
+                        </>
+                      )}
+                      {d.bracket && (
+                        <>
+                          <dt>Bracket</dt>
+                          <dd>{d.bracket}</dd>
+                        </>
+                      )}
+                      {d.phone && (
+                        <>
+                          <dt>Phone</dt>
+                          <dd>{d.phone}</dd>
+                        </>
+                      )}
+                      <dt>Slot</dt>
+                      <dd>
+                        {d.slotDate} {d.slotTime} ({d.timezone})
+                      </dd>
+                    </dl>
+                  </li>
+                );
+              })}
+            </ul>
+          )
+        }
+      </section>
+    </main>
+
+    <style>
+      :global(*) {
+        box-sizing: border-box;
+      }
+
+      body.admin {
+        margin: 0;
+        padding: 2.5rem 1.25rem 4rem;
+        background: #0f0e0d;
+        color: #ede7dc;
+        font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      header,
+      main {
+        width: min(52rem, 100%);
+        margin-inline: auto;
+      }
+
+      .eyebrow {
+        margin: 0 0 0.35rem;
+        font-size: 0.6875rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #d6ac7a;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 1.75rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+
+      .who {
+        margin: 0.35rem 0 0;
+        font-size: 0.8125rem;
+        color: #837e73;
+      }
+
+      section {
+        margin-top: 2.5rem;
+      }
+
+      h2 {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin: 0 0 0.9rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 1px solid #2a2723;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #cfc6b6;
+      }
+
+      .count {
+        padding: 0.1rem 0.45rem;
+        background: #262320;
+        border-radius: 999px;
+        font-size: 0.6875rem;
+        color: #d6ac7a;
+        letter-spacing: 0.04em;
+      }
+
+      .empty {
+        margin: 0;
+        padding: 1.1rem;
+        border: 1px dashed #2f2c27;
+        font-size: 0.875rem;
+        color: #837e73;
+      }
+
+      code {
+        font-size: 0.8125em;
+        color: #d6ac7a;
+      }
+
+      .rows {
+        display: grid;
+        gap: 0.75rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .row {
+        padding: 0.9rem 1rem;
+        border: 1px solid #2a2723;
+        background: rgb(255 255 255 / 0.02);
+      }
+
+      .row-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 0.5rem 0.9rem;
+      }
+
+      .row-head strong {
+        font-size: 0.9375rem;
+      }
+
+      .row-head a {
+        font-size: 0.875rem;
+        color: #d6ac7a;
+      }
+
+      .when {
+        margin-left: auto;
+        font-size: 0.75rem;
+        color: #837e73;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .flag {
+        padding: 0.05rem 0.4rem;
+        border: 1px solid #2f4a33;
+        background: #16241a;
+        font-size: 0.6875rem;
+        color: #9fd0aa;
+      }
+
+      .message {
+        margin: 0.6rem 0 0;
+        font-size: 0.9375rem;
+        line-height: 1.55;
+        color: #cfc6b6;
+        white-space: pre-wrap;
+      }
+
+      .facts {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0.3rem 0.9rem;
+        margin: 0.7rem 0 0;
+        font-size: 0.875rem;
+      }
+
+      .facts dt {
+        color: #837e73;
+      }
+
+      .facts dd {
+        margin: 0;
+        color: #cfc6b6;
+      }
+    </style>
+  </body>
+</html>

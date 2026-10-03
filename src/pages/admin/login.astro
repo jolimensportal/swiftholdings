@@ -1,0 +1,202 @@
+---
+export const prerender = false;
+
+const error = Astro.url.searchParams.get('error');
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Sign in · Swift Horizon admin</title>
+  </head>
+  <body class="admin">
+    <main class="wrap">
+      <p class="eyebrow">Swift Horizon</p>
+      <h1>Admin sign in</h1>
+
+      {
+        error && (
+          <p class="error" role="alert">
+            {error}
+          </p>
+        )
+      }
+
+      <form id="admin-login" novalidate>
+        <label class="field">
+          <span>Email</span>
+          <input type="email" name="email" autocomplete="username" required />
+        </label>
+
+        <label class="field">
+          <span>Password</span>
+          <input type="password" name="password" autocomplete="current-password" required />
+        </label>
+
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+
+        <button type="submit">Sign in</button>
+      </form>
+
+      <p class="note">Member sign-in is at <a href="/login">/login</a>.</p>
+    </main>
+
+    <script>
+      const form = document.getElementById('admin-login') as HTMLFormElement;
+      const status = document.getElementById('status') as HTMLElement;
+      const button = form.querySelector('button') as HTMLButtonElement;
+
+      form.addEventListener('submit', async event => {
+        event.preventDefault();
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        const data = Object.fromEntries(new FormData(form).entries());
+        status.textContent = 'Signing in…';
+        button.disabled = true;
+
+        try {
+          const response = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            // scope: 'admin' is what makes createAdminSession run instead of the
+            // member path, and it sets the admin auth cookie.
+            body: JSON.stringify({ ...data, scope: 'admin' }),
+          });
+
+          if (!response.ok) {
+            const payload = (await response.json().catch(() => ({}))) as { error?: string };
+            status.textContent = payload.error ?? 'Invalid credentials.';
+            button.disabled = false;
+            return;
+          }
+
+          window.location.assign('/admin/enquiries');
+        } catch {
+          status.textContent = 'Could not reach the server. Please try again.';
+          button.disabled = false;
+        }
+      });
+    </script>
+
+    <style>
+      :global(*) {
+        box-sizing: border-box;
+      }
+
+      body.admin {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 2rem 1.25rem;
+        background: #0f0e0d;
+        color: #ede7dc;
+        font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .wrap {
+        width: min(26rem, 100%);
+      }
+
+      .eyebrow {
+        margin: 0 0 0.5rem;
+        font-size: 0.6875rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #d6ac7a;
+      }
+
+      h1 {
+        margin: 0 0 1.75rem;
+        font-size: 1.75rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+
+      .error {
+        margin: 0 0 1rem;
+        padding: 0.7rem 0.85rem;
+        border: 1px solid #7a3b2e;
+        background: #2a1613;
+        color: #f0a08c;
+        font-size: 0.875rem;
+      }
+
+      form {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .field {
+        display: grid;
+        gap: 0.35rem;
+      }
+
+      .field span {
+        font-size: 0.6875rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #837e73;
+      }
+
+      input {
+        width: 100%;
+        padding: 0.65rem 0.75rem;
+        background: rgb(255 255 255 / 0.04);
+        border: 1px solid #33302b;
+        color: #ede7dc;
+        font: inherit;
+        font-size: 0.9375rem;
+        border-radius: 2px;
+      }
+
+      input:focus-visible {
+        outline: none;
+        border-color: #d6ac7a;
+      }
+
+      .status {
+        margin: 0;
+        min-height: 1.2rem;
+        font-size: 0.875rem;
+        color: #cfc6b6;
+      }
+
+      button {
+        padding: 0.7rem 1.25rem;
+        background: #d6ac7a;
+        color: #17150f;
+        font: inherit;
+        font-size: 0.9375rem;
+        font-weight: 600;
+        border: 0;
+        border-radius: 2px;
+        cursor: pointer;
+      }
+
+      button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      .note {
+        margin: 2rem 0 0;
+        font-size: 0.8125rem;
+        color: #837e73;
+      }
+
+      .note a {
+        color: #d6ac7a;
+      }
+    </style>
+  </body>
+</html>
