@@ -1,0 +1,139 @@
+---
+import { figures } from '@/utils/figures';
+
+interface Props {
+  tone?: 'obsidian' | 'canvas';
+  label?: string;
+}
+const { tone = 'obsidian', label } = Astro.props;
+const ground = tone === 'canvas' ? 'marketing-surface-canvas' : 'marketing-surface-dark';
+const tiers = figures.tiers;
+---
+
+<section class:list={['tier-band', ground]}>
+  <div class="marketing-container">
+    {label && <p class="tag">{label}</p>}
+
+    <ul class="tiers">
+      {
+        tiers.map(tier => (
+          <li class:list={['tier', { featured: tier.featured }]}>
+            <p class="name">{tier.name}</p>
+            <p class="capsules">{tier.capsulesLabel}</p>
+            <p class="price">{tier.priceLabel}</p>
+            <p class="note">{tier.note}</p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="terms">
+      {figures.profitShareInvestor} / {figures.profitShareOperator} to the owner, settled
+      {' '}{figures.settlement.toLowerCase()}. Entry {new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 0,
+      }).format(figures.entryPrice)} for a P7 capsule, fully installed.
+    </p>
+  </div>
+</section>
+
+<style>
+  .tier-band {
+    padding-block: clamp(2.25rem, 5vh, 4rem);
+    border-top: 1px solid var(--ground-rule);
+  }
+
+  .tag {
+    margin: 0 0 1.5rem;
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    letter-spacing: 0.16em;
+    color: var(--tag-ink, var(--marketing-gold-400));
+  }
+
+  .marketing-surface-canvas .tag {
+    --tag-ink: var(--ground-gold-on-canvas);
+  }
+
+  .tiers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: var(--ground-rule);
+    border: 1px solid var(--ground-rule);
+  }
+
+  @media (max-width: 720px) {
+    .tiers {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .tier {
+    display: grid;
+    gap: 0.35rem;
+    align-content: start;
+    padding: clamp(1.1rem, 2.5vw, 1.6rem);
+    background: var(--ground);
+  }
+
+  .tier.featured {
+    background: var(--ground-raised);
+  }
+
+  .marketing-surface-dark {
+    --ground: #0f0e0d;
+    --ground-raised: #16150f;
+    --tier-ink: var(--ground-ink);
+    --tier-dim: var(--ground-ink-dim);
+  }
+
+  .marketing-surface-canvas {
+    --ground: #f4efe6;
+    --ground-raised: #ece5d8;
+    --tier-ink: var(--ground-ink-on-canvas);
+    --tier-dim: var(--ground-ink-dim-on-canvas);
+  }
+
+  .name {
+    margin: 0;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--tier-dim);
+  }
+
+  .capsules {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--tier-ink);
+  }
+
+  .price {
+    margin: 0.15rem 0 0.35rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--tier-ink);
+  }
+
+  .note {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--tier-dim);
+  }
+
+  .terms {
+    margin: 1.25rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: var(--tier-dim);
+  }
+</style>

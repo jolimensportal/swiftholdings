@@ -1,24 +1,60 @@
 ---
 export const prerender = true;
-import BaseLayout from '@layout/BaseLayout.astro';
-import PageHeader from '@sections/PageHeader.astro';
-import InsightsSection from '@sections/InsightsSection.astro';
-import LeadCTA from '@sections/LeadCTA.astro';
----
-export const prerender = true;
 
-<BaseLayout
+import EntryTiers from '@/components/marketing/inner/EntryTiers.astro';
+import InnerAsk from '@/components/marketing/inner/InnerAsk.astro';
+import InnerStatement from '@/components/marketing/inner/InnerStatement.astro';
+import MarketingHero from '@/components/marketing/MarketingHero.astro';
+import { marketingImages } from '@/data/marketing/image-assets';
+import { figures } from '@/utils/figures';
+import MarketingLayout from '@layout/MarketingLayout.astro';
+
+const share = `${figures.profitShareInvestor} / ${figures.profitShareOperator}`;
+---
+
+<MarketingLayout
   seo={{
-    title: 'Market Insights — Swift Holdings',
-    description:
-      'Why Oyarifa and Accra, and why prefab delivery now — the market context behind the Swift Holdings model.',
+    title: 'Market Insights · Swift Horizon',
+    description: `The demand behind the model: an accommodation deficit, short-let rates of $${figures.adrLow}–$${figures.adrHigh}, and prefab delivery beating conventional builds on speed.`,
   }}
+  headerTheme="dark"
 >
-  <PageHeader
+  <MarketingHero
     eyebrow="Market Insights"
-    title="Why Oyarifa, why now."
-    lead="The demand is structural: a housing deficit, a diaspora sending home billions, and a premium rental corridor where prefab beats conventional builds on speed."
+    title="Why Ghana, why now."
+    lead="The demand is structural: a housing deficit, a diaspora sending money home, and a rental corridor where prefab delivery beats conventional builds on speed."
+    secondaryCta={{ label: 'Check the numbers', href: '/ownership' }}
+    image={marketingImages.architectureGallery}
+    ratio="3 / 2"
   />
-  <InsightsSection />
-  <LeadCTA />
-</BaseLayout>
+
+  <InnerStatement
+    tone="canvas"
+    numeral="I"
+    label="The deficit"
+    title="The shortfall is documented, not forecast."
+    body="Accra is short hundreds of thousands of rooms and the national gap runs into millions, with demand growing year on year. Full methodology and hub-month breakdowns are GATED and open after the briefing."
+    image={marketingImages.ownershipStory}
+    ratio="3 / 2"
+  />
+
+  <EntryTiers tone="obsidian" label="What ownership costs" />
+
+  <InnerStatement
+    tone="canvas"
+    numeral="II"
+    label="The corridor"
+    title={`Short-let rates of $${figures.adrLow}–$${figures.adrHigh}, and a market that turns over fast.`}
+    body={`Occupancy across the corridor runs ${figures.occupancyLow}–${figures.occupancyHigh}%, which is the headroom a managed village exists to absorb. At ${share} and monthly settlement, the owner path is legible from the first month.`}
+    image={marketingImages.warmDetail}
+    ratio="3 / 2"
+    reverse
+  />
+
+  <InnerAsk
+    tone="obsidian"
+    eyebrow="Next step"
+    title="See the full picture in a briefing."
+    cta={{ label: 'Request a briefing', href: '/briefing' }}
+  />
+</MarketingLayout>

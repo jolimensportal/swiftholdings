@@ -1,26 +1,68 @@
 ---
 export const prerender = true;
-import BaseLayout from '@layout/BaseLayout.astro';
-import PageHeader from '@sections/PageHeader.astro';
-import InvestmentSection from '@sections/InvestmentSection.astro';
-import SwiftStats from '@sections/SwiftStats.astro';
-import LeadCTA from '@sections/LeadCTA.astro';
----
-export const prerender = true;
 
-<BaseLayout
+import EntryTiers from '@/components/marketing/inner/EntryTiers.astro';
+import InnerAsk from '@/components/marketing/inner/InnerAsk.astro';
+import InnerStatement from '@/components/marketing/inner/InnerStatement.astro';
+import MarketingHero from '@/components/marketing/MarketingHero.astro';
+import { marketingImages } from '@/data/marketing/image-assets';
+import { figures } from '@/utils/figures';
+import MarketingLayout from '@layout/MarketingLayout.astro';
+
+// Canonical terms come from @/utils/figures. The copy previously on this page
+// quoted a per-share entry and a different investor/operator split, paid
+// quarterly — which contradicted /ownership and the briefing form's floor.
+const share = `${figures.profitShareInvestor} / ${figures.profitShareOperator}`;
+const entry = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  maximumFractionDigits: 0,
+}).format(figures.entryPrice);
+---
+
+<MarketingLayout
   seo={{
-    title: 'Investment — Swift Holdings',
-    description:
-      'Fractional ownership of the Oyarifa prefab village, from $100 a share. Target yield 6–10%, 80/20 profit share.',
+    title: 'Investment · Swift Horizon',
+    description: `Entry from ${entry} for a P7 capsule, ${share} settled ${figures.settlement.toLowerCase()}. Owner-investor terms, documented.`,
   }}
+  headerTheme="dark"
 >
-  <PageHeader
+  <MarketingHero
     eyebrow="Investment"
-    title="Own part of Oyarifa."
-    lead="Shares start at $100. Capsules are let by Swift; net yield is distributed quarterly on an 80 / 20 split after costs."
+    title="Own a finished capsule in Ghana."
+    lead={`Entry from ${entry}, ${share} to the owner, settled ${figures.settlement.toLowerCase()}. The village is run; the residence is yours.`}
+    secondaryCta={{ label: 'See the protections', href: '/protections' }}
+    image={marketingImages.architectureGallery}
+    ratio="3 / 2"
   />
-  <InvestmentSection />
-  <SwiftStats />
-  <LeadCTA />
-</BaseLayout>
+
+  <InnerStatement
+    tone="canvas"
+    numeral="I"
+    label="How ownership works"
+    title="One entry, one share, one operator."
+    body="You hold the capsule. Swift Horizon operates the village and settles in GHS monthly, with the full owner path documented in the dossier."
+    image={marketingImages.ownershipStory}
+    ratio="3 / 2"
+  />
+
+  <EntryTiers tone="obsidian" label="Entry points" />
+
+  <InnerStatement
+    tone="canvas"
+    numeral="II"
+    label="Why it holds"
+    title="Grounded in documented demand, not optimism."
+    body="The case rests on the accommodation deficit and a rental corridor where prefab delivery beats conventional builds on speed. Full methodology is GATED and opens after the briefing."
+    image={marketingImages.confidenceFeature}
+    ratio="3 / 2"
+    reverse
+  />
+
+  <InnerAsk
+    tone="obsidian"
+    eyebrow="Next step"
+    title="Bring your questions to the briefing."
+    cta={{ label: 'Request a briefing', href: '/briefing' }}
+  />
+</MarketingLayout>

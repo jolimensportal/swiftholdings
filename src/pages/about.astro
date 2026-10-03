@@ -2,7 +2,7 @@
 export const prerender = true;
 
 import MarketingHero from '@/components/marketing/MarketingHero.astro';
-import StorySplit from '@/components/marketing/StorySplit.astro';
+import InnerStatement from '@/components/marketing/inner/InnerStatement.astro';
 import MarketLedger from '@/components/marketing/MarketLedger.astro';
 import { marketingImages } from '@/data/marketing/image-assets';
 import { marketingPages } from '@/data/marketing/pages';
@@ -12,7 +12,7 @@ import MarketingLayout from '@layout/MarketingLayout.astro';
 const page = marketingPages.about;
 ---
 
-<MarketingLayout seo={page.seo}>
+<MarketingLayout seo={page.seo} headerTheme="dark">
   <MarketingHero
     {...page.hero}
     secondaryCta={page.secondaryCta}
@@ -20,18 +20,21 @@ const page = marketingPages.about;
     ratio="3 / 2"
   />
 
-  <StorySplit
-    eyebrow="Why we exist"
+  <InnerStatement
+    tone="canvas"
+    numeral="I"
+    label="Why we exist"
     title="Certainty, craft, and a better model."
     body="Modular construction removes the schedule risk that kills hospitality builds. A single operator removes the split-incentive that complicates ownership. The briefing removes the guesswork."
     image={marketingImages.architectureGallery}
+    ratio="3 / 2"
     reverse
   />
 
   <MarketLedger
     eyebrow="By the numbers"
     title="A project kept deliberately small and legible."
-    body="Everything in The Swift Project is built to be explained in one conversation — and written down for the dossier."
+    body="Everything in Swift Horizon is built to be explained in one conversation — and written down for the dossier."
     items={[
       {
         label: 'Capsule',
