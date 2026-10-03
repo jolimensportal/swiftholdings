@@ -202,6 +202,13 @@ readable type sizes do not compress below roughly 8,900px. Closing the remaining
 either stripping images from Movement III or moving sections to subpages, and both reopen settled
 decisions.
 
+**Measured on the production build at 1440px: 8,390px.** That is 832px under the current live
+page, not over it. The preview figure of ~9,300px was inflated by the harness; the real section
+rhythm in `SectionShell.astro` is tighter.
+
+Both requirements below were met in the implementation: grounds are full-bleed and section padding
+is consolidated in one place.
+
 What must still happen in implementation, and is a real requirement:
 
 1. **Make every ground full-bleed.** In `build.html` each section sits inside a standalone 1360px

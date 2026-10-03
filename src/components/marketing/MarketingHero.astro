@@ -17,14 +17,23 @@ const {
   title,
   lead,
   image,
-  // ratio reserved for future ImageFrame aspect handling
+  ratio = '16 / 9',
+  mobileRatio = '4 / 5',
   secondaryCta,
 } = Astro.props;
 ---
 
 <section class="hero-section">
   <!-- Full-bleed background image -->
-  <picture class="hero-picture">
+  <picture
+    class="hero-picture"
+    style={`--marketing-image-desktop-ratio: ${ratio}; --marketing-image-mobile-ratio: ${mobileRatio};`}
+  >
+    <source
+      media="(max-width: 767px)"
+      srcset={image.mobile?.webp.src ?? image.desktop.webp.src}
+      type="image/webp"
+    />
     <source srcset={image.desktop.webp.src} type="image/webp" />
     <img
       src={image.desktop.jpeg.src}

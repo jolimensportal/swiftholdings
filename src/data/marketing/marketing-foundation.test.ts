@@ -48,6 +48,15 @@ describe('marketing foundation regressions', () => {
     expect(askSection).toContain('marketing-surface-dark');
   });
 
+  it('MarketingHero honours ratio and emits a mobile source', () => {
+    const hero = readProjectFile('../../components/marketing/MarketingHero.astro');
+
+    expect(hero).toContain("ratio = '");
+    expect(hero).toContain("mobileRatio = '");
+    expect(hero).toMatch(/media="\(max-width: 767px\)"/);
+    expect(hero).toContain('--marketing-image-desktop-ratio');
+  });
+
   it('validates every generated public marketing asset', () => {
     const validator = readProjectFile(
       '../../../scripts/validate-marketing-images.mjs'
