@@ -2,6 +2,15 @@
  * Shared client helper for JSON form posts with loading / success / error UI.
  * Used by contact, quote, and newsletter forms.
  */
+/**
+ * Bind a JSON form to an endpoint.
+ *
+ * Idempotent: safe to call repeatedly, and safe to call both on DOM ready and on
+ * `astro:page-load`. That second event only fires when the client router takes
+ * over a navigation, so on a plain first load — which is every page under
+ * MarketingLayout, since it has no ClientRouter — listening for it alone leaves
+ * the form unbound and the submit silently becomes a native GET.
+ */
 export function bindJsonForm(options: {
   formId: string;
   endpoint: string;

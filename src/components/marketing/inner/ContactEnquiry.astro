@@ -66,14 +66,25 @@ const strings = {
 <script>
   import { bindJsonForm } from '@/utils/form-client';
 
-  document.addEventListener('astro:page-load', () => {
+  // bindJsonForm is idempotent, so binding on both the first load and a router
+  // navigation is safe. `astro:page-load` alone never fires here: MarketingLayout
+  // has no ClientRouter.
+  const bind = (): void => {
     bindJsonForm({
       formId: 'contact-form',
       endpoint: '/api/contact',
       submittingLabel: 'Sending…',
       defaultSubmitLabel: 'Send message',
     });
-  });
+  };
+
+  document.addEventListener('astro:page-load', bind);
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bind, { once: true });
+  } else {
+    bind();
+  }
 </script>
 
 <style>
