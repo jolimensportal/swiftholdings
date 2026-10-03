@@ -101,3 +101,19 @@ describe('homepage grounds', () => {
     expect(base).not.toBeNull();
   });
 });
+
+describe('typography wiring', () => {
+  it('points the font variables at the families the layout actually loads', () => {
+    const layout = readFileSync(join(process.cwd(), 'src/layout/MarketingLayout.astro'), 'utf8');
+
+    for (const family of ['Manrope', 'Cormorant Garamond']) {
+      expect(layout, `${family} is not loaded by the layout`).toContain(family);
+    }
+
+    const sans = /--font-sans:\s*([^;]+);/.exec(css)?.[1] ?? '';
+    const display = /--font-display:\s*([^;]+);/.exec(css)?.[1] ?? '';
+
+    expect(sans).toContain('Manrope');
+    expect(display).toContain('Cormorant Garamond');
+  });
+});

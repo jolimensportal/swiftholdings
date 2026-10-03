@@ -35,8 +35,11 @@
   --cta-gradient: linear-gradient(135deg, #F4D88F 0%, #E7C06A 100%);
 
   /* Fonts */
-  --font-sans: 'Inter', 'General Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-display: 'Inter', 'General Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* Fonts — must match the families MarketingLayout.astro loads.
+     Both variables pointed at Inter, so Cormorant Garamond and Manrope were
+     downloaded on every page and never used. */
+  --font-sans: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
 
   /* Selection */
   --selection-bg: #E7C06A;
@@ -729,7 +732,9 @@ body.light-mode .hero-gradient-top {
   ) !important;
 }
 
-/* Light mode hero section background */
+/* Light mode hero base. The gradient overlays above are inverted in light
+   mode (pale veil, dark type) as a deliberate variant — the hero is the one
+   surface that does flip with the theme, unlike the section grounds. */
 body.light-mode .hero-section {
   background: var(--hero-overlay) !important;
 }
