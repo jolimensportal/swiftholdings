@@ -122,10 +122,15 @@ const phases = [
       column-gap: 2rem;
     }
 
+    /* The numeral column spans both rows; without this the body wrapped back
+       under the numeral instead of sitting under the phase name. */
     .phase-head {
-      display: flex;
-      align-items: baseline;
-      gap: 0.75rem;
+      grid-row: 1 / span 2;
+    }
+
+    .phase-name,
+    .phase-body {
+      grid-column: 2;
     }
 
     .phase-name {
