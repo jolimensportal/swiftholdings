@@ -10,6 +10,28 @@ import {
   type DiscoveryInput,
 } from './discovery';
 
+/**
+ * A date relative to today, so fixtures cannot expire.
+ *
+ * The original fixture hardcoded `2026-08-24` and started failing the moment that
+ * date passed — the validator was right, the fixture was a time bomb.
+ */
+const isoDaysFromNow = (days: number): string => {
+  const date = new Date();
+  date.setUTCDate(date.getUTCDate() + days);
+  return date.toISOString().slice(0, 10);
+};
+
+/** Next occurrence of a UTC weekday (0 = Sunday), at least a day out. */
+const nextWeekday = (weekday: number): string => {
+  for (let offset = 1; offset <= 7; offset += 1) {
+    const date = new Date();
+    date.setUTCDate(date.getUTCDate() + offset);
+    if (date.getUTCDay() === weekday) return date.toISOString().slice(0, 10);
+  }
+  throw new Error('unreachable: a weekday always occurs within seven days');
+};
+
 const validInput = (
   overrides: Partial<DiscoveryInput> = {}
 ): DiscoveryInput => ({
@@ -21,7 +43,7 @@ const validInput = (
   intent: 'prefab',
   bracket: '$100,000 – $250,000',
   timezone: 'GMT',
-  slotDate: '2026-08-24',
+  slotDate: nextWeekday(1),
   slotTime: '10:00',
   ...overrides,
 });
@@ -194,22 +216,35 @@ describe('validateDiscoveryInput', () => {
     if (!result.ok) expect(result.errors.timezone).toBeDefined();
   });
 
-  it('rejects a slot on a weekend', () => {
-    const result = validateDiscoveryInput(
-      validInput({ slotDate: '2026-08-22' })
-    );
+  it('rejects a slot on a weekend, and says so', () => {
+    // Must be a *future* Saturday. The past-date check runs before the weekend
+    // check, so a past weekend date would pass this test for the wrong reason.
+    const result = validateDiscoveryInput(validInput({ slotDate: nextWeekday(6) }));
 
     expect(result.ok).toBe(false);
-    if (!result.ok) expect(result.errors.slotDate).toBeDefined();
+    if (!result.ok) expect(result.errors.slotDate).toBe('Briefings run on weekdays.');
   });
 
-  it('rejects a slot in the past', () => {
-    const result = validateDiscoveryInput(
-      validInput({ slotDate: '2020-01-06' })
-    );
+  it('rejects a slot in the past, and says so', () => {
+    const result = validateDiscoveryInput(validInput({ slotDate: isoDaysFromNow(-3) }));
 
     expect(result.ok).toBe(false);
-    if (!result.ok) expect(result.errors.slotDate).toBeDefined();
+    if (!result.ok) expect(result.errors.slotDate).toBe('Choose a date from today.');
+  });
+
+  it('does not reject today as being in the past', () => {
+    // Guards the `startOfToday` normalisation against regressing to a strict `>`.
+    // Today may still be refused as a weekend, so assert only the past branch.
+    const result = validateDiscoveryInput(validInput({ slotDate: isoDaysFromNow(0) }));
+
+    if (!result.ok) expect(result.errors.slotDate).not.toBe('Choose a date from today.');
+  });
+
+  it('rejects a malformed date rather than letting it through', () => {
+    const result = validateDiscoveryInput(validInput({ slotDate: 'next Tuesday' }));
+
+    expect(result.ok).toBe(false);
+    if (!result.ok) expect(result.errors.slotDate).toBe('Choose a date.');
   });
 
   it('collects multiple errors at once', () => {
