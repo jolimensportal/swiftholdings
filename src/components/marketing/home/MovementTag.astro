@@ -49,6 +49,18 @@ const { numeral, label } = Astro.props;
     background: var(--tag-rule);
   }
 
+  /* The numeral is set in the sans at 600 rather than the display face.
+     Cormorant is a high-contrast face whose strokes are hairlines at this size,
+     so "I", "II" and "III" read as vertical rules rather than as characters —
+     indistinguishable from the divider beside them. Kept as Roman numerals
+     because they signal "movement"; digits would read as pagination. */
+  .numeral {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+  }
+
   .label {
     font-family: var(--font-sans);
     font-size: 0.6875rem;

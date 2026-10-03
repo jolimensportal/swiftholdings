@@ -23,13 +23,16 @@ const { image = marketingImages.duskCta } = Astro.props;
         <a class="marketing-button-primary" href="/briefing">Request briefing to enter →</a>
       </div>
     </div>
-    <p class="mt-2 text-[11px] text-[var(--marketing-muted)]">Illustrative reference · Blurred rows 11–60 · 🔒 GATED — GHS 127,400 portfolio preview</p>
+<p class="mt-2 text-[11px] text-[var(--marketing-muted)]">Illustrative reference · Blurred rows 11–60 · GATED — GHS 127,400 portfolio preview</p>
   </div>
   <ul class="space-y-3 text-sm leading-6 text-[var(--marketing-muted)]">
     <li>• Portfolio GHS 127,400 chart Feb–Jul (SIM historical)</li>
     <li>• Statements Q2 GHS 2,998 paid 30 Jun (12 mo history)</li>
     <li>• 5-doc vault: 42p/38p/24p + Title 2.1MB</li>
     <li>• Allocation 70/30 donut + milestones 40%</li>
-    <li>• Direct link to <a class="underline" href="https://swiftholdingsportal.securemensah.workers.dev/dashboard/default">swiftholdingsportal dashboard</a> preview</li>
+    <!-- Pointed at a third party's live dashboard. Publishing someone's dashboard
+         from marketing copy is an exposure and it rots; the member area is the
+         real destination and is auth-gated. -->
+    <li>• Opens in <a class="underline" href="/members">your member area</a> after the briefing</li>
   </ul>
 </section>
