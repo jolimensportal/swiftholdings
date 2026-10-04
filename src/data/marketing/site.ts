@@ -1,4 +1,4 @@
-export const MEMBER_DASHBOARD_URL = 'https://swifthorizon.com.gh/portal';
+export const MEMBER_DASHBOARD_URL = 'https://portal.swiftholdings.website';
 
 export const marketingSite = {
   name: 'SWIFT HORIZON',
