@@ -8,8 +8,6 @@ import {
   FolderOpen,
   Home,
   LayoutDashboard,
-  Megaphone,
-  Settings,
   Users,
   type LucideIcon,
   Wallet,
@@ -86,8 +84,6 @@ export const sidebarItems: NavGroup[] = [
       { id: "admin-capsules", title: "Capsules", url: "/admin/capsules", icon: Boxes },
       { id: "admin-payouts", title: "Payouts", url: "/admin/payouts", icon: Banknote },
       { id: "admin-kyc", title: "KYC Review", url: "/admin/kyc", icon: BadgeCheck },
-      { id: "admin-content", title: "Content", url: "/admin/content", icon: Megaphone },
-      { id: "admin-settings", title: "Settings", url: "/admin/settings", icon: Settings },
     ],
   },
 ];

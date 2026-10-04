@@ -1,105 +1,150 @@
-import { Download } from "lucide-react";
+import { redirect } from "next/navigation";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { fundedUnit, statements } from "@/data/portal";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { formatGhs, formatUsd, getPortalData } from "@/server/swift-api";
 
-export default function StatementsPage() {
+const monthLabel = (ym: string) => {
+  const [year, month] = ym.split("-");
+  if (!year || !month) return ym;
+  return new Date(Number(year), Number(month) - 1, 1).toLocaleDateString("en-GB", {
+    month: "long",
+    year: "numeric",
+  });
+};
+
+export default async function StatementsPage() {
+  const data = await getPortalData();
+  if (!data) redirect("/login");
+
+  const { statements, holdings } = data;
+
+  const grossTotal = statements.reduce((sum, s) => sum + s.grossUsd, 0);
+  const ownerTotal = statements.reduce((sum, s) => sum + s.ownerShareUsd, 0);
+  const outstanding = statements.filter((s) => s.status !== "paid").length;
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-1">
         <h1 className="text-2xl font-semibold tracking-tight">Units &amp; Statements</h1>
         <p className="text-muted-foreground text-sm">
-          Your funded unit and quarterly statements of account.
+          Monthly settlement of gross revenue against your 70% share.
         </p>
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
         <Card>
           <CardHeader>
-            <CardTitle className="text-sm font-semibold">Funded unit</CardTitle>
-            <CardDescription>Capital allocation</CardDescription>
+            <CardDescription>Gross revenue to date</CardDescription>
+            <CardTitle className="font-heading text-3xl">{formatUsd(grossTotal)}</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3 text-sm">
-            <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Plot</span>
-              <span className="font-medium tabular-nums">{fundedUnit.plot}</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Home</span>
-              <span className="font-medium">{fundedUnit.name}</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Phase</span>
-              <span className="font-medium">{fundedUnit.phase}</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Entry value</span>
-              <span className="font-semibold tabular-nums">GHS 50,000</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Progress</span>
-              <span className="font-medium tabular-nums">{fundedUnit.progress}%</span>
-            </div>
-            <Progress value={fundedUnit.progress} className="h-1.5 bg-foreground/10" />
-          </CardContent>
         </Card>
-
-        <Card className="lg:col-span-2">
+        <Card>
           <CardHeader>
-            <CardTitle className="text-sm font-semibold">Statements of account</CardTitle>
-            <CardDescription>Quarterly income and capital movements</CardDescription>
+            <CardDescription>Your share — 70%</CardDescription>
+            <CardTitle className="font-heading text-3xl">{formatUsd(ownerTotal)}</CardTitle>
           </CardHeader>
-          <CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardDescription>Outstanding statements</CardDescription>
+            <CardTitle className="font-heading text-3xl">{outstanding}</CardTitle>
+          </CardHeader>
+        </Card>
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Statement history</CardTitle>
+          <CardDescription>One row per settled month.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {statements.length === 0 ? (
+            <p className="text-sm text-muted-foreground">
+              No statements yet. They are issued once a capsule is in revenue.
+            </p>
+          ) : (
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Period</TableHead>
-                  <TableHead>Income</TableHead>
-                  <TableHead>Capital</TableHead>
-                  <TableHead className="hidden md:table-cell">Yield</TableHead>
-                  <TableHead className="hidden sm:table-cell">Date paid</TableHead>
-                  <TableHead className="text-right">Status</TableHead>
+                  <TableHead>Month</TableHead>
+                  <TableHead>Capsule</TableHead>
+                  <TableHead className="text-right">Gross</TableHead>
+                  <TableHead className="text-right">Your share</TableHead>
+                  <TableHead>Status</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {statements.map((s) => (
-                  <TableRow key={s.period}>
-                    <TableCell className="font-medium">{s.period}</TableCell>
-                    <TableCell className="tabular-nums">{s.income}</TableCell>
-                    <TableCell className="tabular-nums">{s.capital}</TableCell>
-                    <TableCell className="hidden tabular-nums md:table-cell">{s.yield}</TableCell>
-                    <TableCell className="hidden text-muted-foreground sm:table-cell">
-                      {s.paid}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <Badge
-                        variant={s.status === "Paid" ? "default" : "secondary"}
-                        className={
-                          s.status === "Paid"
-                            ? "bg-green-500/10 text-green-700 dark:bg-green-500/15 dark:text-green-300"
-                            : ""
-                        }
-                      >
-                        {s.status}
-                      </Badge>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                {statements.map((s) => {
+                  const holding = holdings.find((h) => h.capsuleId === s.capsuleId);
+                  return (
+                    <TableRow key={s.id}>
+                      <TableCell>{monthLabel(s.month)}</TableCell>
+                      <TableCell className="text-muted-foreground">
+                        {holding ? `${holding.hub} · ${holding.name}` : s.capsuleId}
+                      </TableCell>
+                      <TableCell className="text-right tabular-nums">
+                        {formatUsd(s.grossUsd)}
+                      </TableCell>
+                      <TableCell className="text-right tabular-nums">
+                        {formatUsd(s.ownerShareUsd)}
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant={s.status === "paid" ? "default" : "secondary"}>
+                          {s.status}
+                        </Badge>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
-            <div className="mt-4 flex justify-end">
-              <Button variant="outline" size="sm">
-                <Download className="size-4" />
-                Download statements (PDF)
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+          )}
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Capital position</CardTitle>
+          <CardDescription>
+            Capital and income units are your GHS position in the village.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="flex flex-wrap gap-8">
+          <div>
+            <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
+              Capital units
+            </p>
+            <p className="font-heading text-3xl">
+              {formatGhs(
+                holdings.reduce((sum, h) => sum + h.capitalUnits, 0),
+              )}
+            </p>
+          </div>
+          <div>
+            <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
+              Income units
+            </p>
+            <p className="font-heading text-3xl">
+              {formatGhs(holdings.reduce((sum, h) => sum + h.incomeUnits, 0))}
+            </p>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

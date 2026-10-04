@@ -1,54 +1,110 @@
+import { redirect } from "next/navigation";
+
 import { Card, CardContent } from "@/components/ui/card";
-import { briefings } from "@/data/member-portal";
+import { formatUsd, getPortalData } from "@/server/swift-api";
 
-export function BriefingsView() {
-  const [upcoming, ...past] = briefings;
+const monthLabel = (ym: string) => {
+  const [year, month] = ym.split("-");
+  if (!year || !month) return ym;
+  return new Date(Number(year), Number(month) - 1, 1).toLocaleDateString("en-GB", {
+    month: "long",
+    year: "numeric",
+  });
+};
+
+export async function BriefingsView() {
+  const data = await getPortalData();
+  if (!data) redirect("/login");
+
+  const now = Date.now();
+  const upcoming = data.briefings
+    .filter((b) => b.scheduledAt >= now)
+    .sort((a, b) => a.scheduledAt - b.scheduledAt);
+  const past = data.briefings
+    .filter((b) => b.scheduledAt < now)
+    .sort((a, b) => b.scheduledAt - a.scheduledAt);
+
   return (
-    <div className="flex flex-col gap-6">
-      <p className="text-xs uppercase tracking-[0.22em] text-primary/75">
-        Briefings · Shown in GMT · your timezone
+    <div className="flex flex-col gap-8">
+      <header className="flex flex-col gap-3">
+        <p className="text-xs uppercase tracking-[0.28em] text-primary">Briefings</p>
+        <h1 className="font-heading text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+          Your briefings
+        </h1>
+      </header>
+
+      <Section title="Upcoming" empty="Nothing scheduled.">
+        {upcoming.map((b) => (
+          <Card key={b.id} className="p-0">
+            <CardContent className="flex flex-col gap-1 py-5">
+              <p className="text-xs uppercase tracking-[0.16em] text-primary/90">
+                {new Date(b.scheduledAt).toLocaleString("en-GB", {
+                  dateStyle: "medium",
+                  timeStyle: "short",
+                  timeZone: "GMT",
+                })}{" "}
+                GMT · {b.durationMin} min
+              </p>
+              <p className="font-heading text-2xl text-foreground">{b.title}</p>
+              {b.description ? (
+                <p className="text-sm text-muted-foreground">{b.description}</p>
+              ) : null}
+              {b.host ? <p className="text-xs text-muted-foreground">With {b.host}</p> : null}
+            </CardContent>
+          </Card>
+        ))}
+      </Section>
+
+      <Section title="Past" empty="No past briefings.">
+        {past.map((b) => (
+          <Card key={b.id} className="p-0">
+            <CardContent className="flex flex-col gap-1 py-5">
+              <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
+                {new Date(b.scheduledAt).toLocaleDateString("en-GB", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })}
+              </p>
+              <p className="font-heading text-xl text-foreground">{b.title}</p>
+              {b.host ? <p className="text-xs text-muted-foreground">With {b.host}</p> : null}
+            </CardContent>
+          </Card>
+        ))}
+      </Section>
+
+      <p className="text-xs text-muted-foreground">
+        Where a briefing is marked encrypted, the recording and notes are stored privately and
+        released to you only.
       </p>
-
-      <Card className="flex items-center gap-5 p-0">
-        <CardContent className="flex flex-1 items-center gap-5 py-5">
-          <div className="text-center">
-            <p className="font-heading text-2xl text-primary">{upcoming.day}</p>
-            <p className="text-[9px] uppercase tracking-[0.22em] text-muted-foreground">{upcoming.month}</p>
-          </div>
-          <div className="flex-1">
-            <p className="text-sm font-medium text-foreground">{upcoming.title}</p>
-            <p className="text-xs text-muted-foreground">{upcoming.meta}</p>
-          </div>
-          <span className="text-primary">join</span>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardContent className="pt-6">
-          <p className="mb-2 text-xs uppercase tracking-[0.22em] text-primary/75">Past</p>
-          <div className="divide-y divide-border">
-            {past.map((b) => (
-              <div key={b.title} className="grid grid-cols-[2fr_1fr_1fr_auto] py-3 text-sm">
-                <span className="text-foreground/80">{b.title}</span>
-                <span className="text-muted-foreground">
-                  {b.day} {b.month}
-                </span>
-                <span className="text-muted-foreground">{b.meta.split("·")[0].trim()}</span>
-                <span className="text-right text-primary">notes · recording</span>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardContent className="flex items-center justify-between py-4 text-sm">
-          <span className="text-muted-foreground">
-            Every briefing is recorded, summarised, and filed to Documents.
-          </span>
-          <span className="text-primary">schedule one</span>
-        </CardContent>
-      </Card>
     </div>
   );
 }
+
+function Section({
+  title,
+  empty,
+  children,
+}: {
+  title: string;
+  empty: string;
+  children: React.ReactNode;
+}) {
+  const items = Array.isArray(children) ? children : [children];
+  const filled = items.filter(Boolean);
+
+  return (
+    <section className="flex flex-col gap-3">
+      <p className="text-xs uppercase tracking-[0.2em] text-primary">{title}</p>
+      {filled.length === 0 ? (
+        <Card>
+          <CardContent className="py-5 text-sm text-muted-foreground">{empty}</CardContent>
+        </Card>
+      ) : (
+        <div className="flex flex-col gap-3">{filled}</div>
+      )}
+    </section>
+  );
+}
+
+export { monthLabel, formatUsd };

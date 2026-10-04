@@ -1,12 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { getPortalData, type Holding } from "@/server/swift-api";
-
-const ghs = (n: number) =>
-  `GHS ${Math.round(n).toLocaleString("en-GH", { maximumFractionDigits: 0 })}`;
-
-const usd = (n: number) => `$${n.toLocaleString("en-US")}`;
+import { formatGhs, formatUsd, getPortalData, type Holding } from "@/server/swift-api";
 
 const monthLabel = (ym: string) => {
   const [year, month] = ym.split("-");
@@ -53,7 +48,7 @@ export async function PortfolioView() {
             {/* capital + income units ARE the member's position. Never multiply by
                 the capsule price — price is a separate USD figure. */}
             <p className="font-heading text-3xl text-primary">
-              {ghs(portfolio.capitalUnits + portfolio.incomeUnits)}
+              {formatGhs(portfolio.capitalUnits + portfolio.incomeUnits)}
             </p>
           </CardContent>
         </Card>
@@ -64,7 +59,7 @@ export async function PortfolioView() {
               Latest distribution
             </p>
             <p className="font-heading text-3xl text-foreground">
-              {latest ? usd(latest.ownerShareUsd) : "—"}
+              {latest ? formatUsd(latest.ownerShareUsd) : "—"}
             </p>
             {latest ? (
               <p className="text-xs text-muted-foreground">{monthLabel(latest.month)}</p>
@@ -79,7 +74,7 @@ export async function PortfolioView() {
             <p className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
               Paid to date
             </p>
-            <p className="font-heading text-3xl text-foreground">{usd(lifetimePaid)}</p>
+            <p className="font-heading text-3xl text-foreground">{formatUsd(lifetimePaid)}</p>
           </CardContent>
         </Card>
       </div>
@@ -114,7 +109,7 @@ export async function PortfolioView() {
                   </div>
                   <div className="text-right">
                     <p className="uppercase tracking-[0.16em] text-muted-foreground">Price</p>
-                    <p className="font-heading text-xl text-foreground">{usd(h.priceUsd)}</p>
+                    <p className="font-heading text-xl text-foreground">{formatUsd(h.priceUsd)}</p>
                   </div>
                 </div>
               ))}
@@ -142,7 +137,7 @@ export async function PortfolioView() {
                     >
                       {s.status}
                     </span>
-                    <span className="tabular-nums text-foreground">{usd(s.ownerShareUsd)}</span>
+                    <span className="tabular-nums text-foreground">{formatUsd(s.ownerShareUsd)}</span>
                   </span>
                 </div>
               ))}
@@ -172,9 +167,9 @@ function RevenueCard({ holding }: { holding: Holding }) {
             In revenue
           </span>
         </div>
-        <Row label="Capital units" value={ghs(holding.capitalUnits)} />
-        <Row label="Income units" value={ghs(holding.incomeUnits)} />
-        <Row label="Unit price" value={usd(holding.priceUsd)} />
+        <Row label="Capital units" value={formatGhs(holding.capitalUnits)} />
+        <Row label="Income units" value={formatGhs(holding.incomeUnits)} />
+        <Row label="Unit price" value={formatUsd(holding.priceUsd)} />
       </CardContent>
     </Card>
   );

@@ -2,12 +2,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { getPortalData } from "@/server/swift-api";
-
-const ghs = (n: number) =>
-  `GHS ${Math.round(n).toLocaleString("en-GH", { maximumFractionDigits: 0 })}`;
-
-const usd = (n: number) => `$${n.toLocaleString("en-US")}`;
+import { formatGhs, formatUsd, getPortalData } from "@/server/swift-api";
 
 const monthLabel = (ym: string) => {
   const [year, month] = ym.split("-");
@@ -41,7 +36,7 @@ export async function DashboardView() {
         <div className="mt-4 flex flex-wrap items-end gap-4">
           <div>
             <p className="text-xs uppercase tracking-[0.22em] text-primary/75">Portfolio value</p>
-            <p className="font-heading text-5xl text-primary">{ghs(position)}</p>
+            <p className="font-heading text-5xl text-primary">{formatGhs(position)}</p>
           </div>
           <p className="pb-2 text-sm text-muted-foreground">
             {holdings.length === 0
@@ -65,11 +60,11 @@ export async function DashboardView() {
       ) : null}
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Stat label="Capital units" value={ghs(portfolio.capitalUnits)} />
-        <Stat label="Income units" value={ghs(portfolio.incomeUnits)} />
+        <Stat label="Capital units" value={formatGhs(portfolio.capitalUnits)} />
+        <Stat label="Income units" value={formatGhs(portfolio.incomeUnits)} />
         <Stat
           label="Latest distribution"
-          value={latest ? usd(latest.ownerShareUsd) : "—"}
+          value={latest ? formatUsd(latest.ownerShareUsd) : "—"}
           hint={latest ? monthLabel(latest.month) : "No statements yet"}
         />
         <Stat label="Documents" value={String(documents.length)} />

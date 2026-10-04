@@ -1,33 +1,58 @@
+import { redirect } from "next/navigation";
+
 import { Card, CardContent } from "@/components/ui/card";
-import { kycQueue } from "@/data/admin";
+import { getAdminMembers, getAdminOverview } from "@/server/swift-api";
 
-const tone = (s: string) => (s === "pending" ? "text-amber-400" : "text-sky-400");
+export async function AdminKycView() {
+  const overview = await getAdminOverview();
+  if (!overview) redirect("/login");
 
-export function AdminKycView() {
+  const members = await getAdminMembers();
+  const queue = overview.kycQueue;
+  const byStatus = members.reduce<Record<string, number>>((acc, m) => {
+    acc[m.kycStatus] = (acc[m.kycStatus] ?? 0) + 1;
+    return acc;
+  }, {});
+
   return (
     <div className="flex flex-col gap-6">
-      <p className="text-xs uppercase tracking-[0.22em] text-primary/75">Review queue · {kycQueue.length} open</p>
+      <p className="text-xs uppercase tracking-[0.22em] text-primary/75">
+        KYC · {overview.counts.pendingKyc} awaiting review
+      </p>
+
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        {(["approved", "pending", "needs_info", "rejected"] as const).map((status) => (
+          <Card key={status}>
+            <CardContent className="flex flex-col gap-1 p-5">
+              <p className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+                {status.replace("_", " ")}
+              </p>
+              <p className="font-heading text-2xl text-foreground">{byStatus[status] ?? 0}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
       <Card>
         <CardContent className="pt-6">
-          <div className="divide-y divide-border">
-            {kycQueue.map((k) => (
+          <p className="text-xs uppercase tracking-[0.18em] text-primary">Review queue</p>
+          <div className="mt-3 divide-y divide-border">
+            {queue.map((k) => (
               <div
                 key={k.id}
-                className="grid grid-cols-[1.4fr_1.6fr_1fr_auto] items-center gap-2 py-3 text-sm"
+                className="grid grid-cols-[1.4fr_0.8fr_0.8fr] items-center gap-2 py-3 text-sm"
               >
-                <div>
-                  <p className="text-foreground/80">{k.member}</p>
-                  <p className="text-xs text-muted-foreground">{k.id}</p>
-                </div>
-                <span className="text-muted-foreground">{k.document}</span>
-                <span className="text-xs text-muted-foreground">{k.submitted}</span>
-                <span className={`text-xs ${tone(k.status)}`}>{k.status}</span>
+                <span className="truncate text-foreground">{k.memberId}</span>
+                <span className="text-muted-foreground">{k.status}</span>
+                <span className="text-muted-foreground">
+                  {new Date(k.submittedAt).toLocaleDateString("en-GB")}
+                </span>
               </div>
             ))}
+            {queue.length === 0 ? (
+              <p className="py-4 text-sm text-muted-foreground">Nothing awaiting review.</p>
+            ) : null}
           </div>
-          <p className="pt-4 text-xs text-muted-foreground">
-            Approve or request more documents — verification is simulated for the demo.
-          </p>
         </CardContent>
       </Card>
     </div>

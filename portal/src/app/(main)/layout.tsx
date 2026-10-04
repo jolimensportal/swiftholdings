@@ -1,20 +1,28 @@
 import type { ReactNode } from "react";
 
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 import { AppSidebar } from "@/app/(main)/_components/sidebar/app-sidebar";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { users } from "@/data/users";
+import { IdentityMenu } from "./_components/header/identity-menu";
 import { cn } from "@/lib/utils";
 import { getPreference } from "@/server/server-actions";
 
-import { AccountSwitcher } from "./_components/header/account-switcher";
 import { SearchDialog } from "./_components/header/search-dialog";
 import { ThemeSwitcher } from "./_components/header/theme-switcher";
 
 export default async function Layout({ children }: Readonly<{ children: ReactNode }>) {
   const cookieStore = await cookies();
+
+  // One gate for the whole signed-in area. Previously every screen under (main)
+  // rendered to an anonymous visitor. The session cookie is scoped to
+  // .swifthorizon.com.gh and minted by the marketing Worker, so its presence is
+  // what we trust; the API re-verifies it on every call regardless.
+  const hasSession = Boolean(cookieStore.get("swift_auth")?.value);
+  if (!hasSession) redirect("/login");
+
   const defaultOpen = cookieStore.get("sidebar_state")?.value !== "false";
   const [variant, collapsible] = await Promise.all([
     getPreference("sidebar_variant"),
@@ -58,7 +66,7 @@ export default async function Layout({ children }: Readonly<{ children: ReactNod
             </div>
             <div className="flex items-center gap-2">
               <ThemeSwitcher />
-              <AccountSwitcher users={users} />
+              <IdentityMenu />
             </div>
           </div>
         </header>

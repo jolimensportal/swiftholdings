@@ -95,11 +95,95 @@ async function apiFetch<T>(path: string): Promise<T | null> {
   }
 }
 
+export interface AdminMemberRow {
+  id: string;
+  email: string;
+  name: string;
+  segment: string;
+  tier: string;
+  kycStatus: string;
+  createdAt: number;
+}
+
+export interface AdminOverview {
+  admin: { id: string; email: string; name: string; role: string };
+  counts: {
+    members: number;
+    capsules: number;
+    pendingKyc: number;
+    pendingPayouts: number;
+    activeListings: number;
+  };
+  revenue: { grossUsd: number; ownerShareUsd: number };
+  tiers: { tier: string; count: number }[];
+  hubs: { hub: string; count: number }[];
+  kycQueue: { id: string; memberId: string; status: string; submittedAt: number }[];
+  payoutQueue: {
+    id: string;
+    memberId: string;
+    capsuleId: string;
+    amountUsd: number;
+    status: string;
+    scheduledFor: number;
+  }[];
+}
+
 /** Returns null when signed out, so callers can render a signed-out state. */
 export async function getPortalData(): Promise<PortalPayload | null> {
   return apiFetch<PortalPayload>("/api/members/portal");
 }
 
-export async function getAdminOverview(): Promise<unknown | null> {
-  return apiFetch("/api/admin/overview");
+export async function getAdminOverview(): Promise<AdminOverview | null> {
+  return apiFetch<AdminOverview>("/api/admin/overview");
+}
+
+export async function getAdminMembers(): Promise<AdminMemberRow[]> {
+  const body = await apiFetch<{ members: AdminMemberRow[] }>("/api/admin/members");
+  return body?.members ?? [];
+}
+
+export interface AdminCapsuleRow {
+  id: string;
+  hub: string;
+  name: string;
+  phase: number;
+  status: "building" | "in-revenue" | "completed";
+  priceUsd: number;
+  areaSqm: number;
+  shareRatio: string;
+  owners: number;
+  capitalUnits: number;
+}
+
+export async function getAdminCapsules(): Promise<AdminCapsuleRow[]> {
+  const body = await apiFetch<{ capsules: AdminCapsuleRow[] }>("/api/admin/capsules");
+  return body?.capsules ?? [];
+}
+
+/**
+ * Every `*_usd` integer column in D1 is stored in CENTS, not dollars.
+ * Proof: revenue_ledger 2026-08 holds grossUsd 231000, which is $2,310 —
+ * the figure the old mock file displayed as `gross: 2310`.
+ *
+ * All money goes through these two helpers so the conversion lives in exactly
+ * one place. If the schema is ever migrated to whole dollars, only this
+ * comment and the two divisors change.
+ */
+export const centsToUsd = (cents: number): number => cents / 100;
+
+export const formatUsd = (cents: number): string =>
+  `$${centsToUsd(cents).toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
+
+/** GHS position figures (capital_units, income_units) are whole pesewas already. */
+export const formatGhs = (amount: number): string =>
+  `GHS ${Math.round(amount).toLocaleString("en-GH", { maximumFractionDigits: 0 })}`;
+
+/**
+ * Presence of the cookie is not authority. The marketing Worker is the only
+ * thing that can mint one, and an admin layout must additionally prove the
+ * caller holds an admin session — otherwise any member could read /admin/*.
+ */
+export async function isAdminSession(): Promise<boolean> {
+  const overview = await getAdminOverview();
+  return overview !== null;
 }

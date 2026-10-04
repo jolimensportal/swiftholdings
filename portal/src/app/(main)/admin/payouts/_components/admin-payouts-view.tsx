@@ -1,33 +1,39 @@
+import { redirect } from "next/navigation";
+
 import { Card, CardContent } from "@/components/ui/card";
-import { payouts } from "@/data/admin";
+import { formatUsd, getAdminOverview } from "@/server/swift-api";
 
-const statusTone = (s: string) =>
-  s === "settled" ? "text-emerald-400" : s === "processing" ? "text-sky-400" : "text-amber-400";
+export async function AdminPayoutsView() {
+  const overview = await getAdminOverview();
+  if (!overview) redirect("/login");
 
-const currency = (n: number, code: string) => (n === 0 ? "—" : `${code} ${n.toLocaleString()}`);
+  const { payoutQueue, counts } = overview;
 
-export function AdminPayoutsView() {
   return (
     <div className="flex flex-col gap-6">
-      <p className="text-xs uppercase tracking-[0.22em] text-primary/75">Payout runs · most recent first</p>
+      <p className="text-xs uppercase tracking-[0.22em] text-primary/75">
+        Payouts · {counts.pendingPayouts} pending or processing
+      </p>
+
       <Card>
         <CardContent className="pt-6">
           <div className="divide-y divide-border">
-            {payouts.map((p) => (
+            {payoutQueue.map((p) => (
               <div
                 key={p.id}
-                className="grid grid-cols-[1fr_1fr_1fr_1fr_auto] items-center gap-2 py-3 text-sm"
+                className="grid grid-cols-[1.4fr_0.8fr_0.7fr_0.7fr] items-center gap-2 py-3 text-sm"
               >
-                <div>
-                  <p className="text-foreground/80">{p.member}</p>
-                  <p className="text-xs text-muted-foreground">{p.period}</p>
-                </div>
-                <span className="tabular-nums text-foreground/70">{currency(p.usd, "USD")}</span>
-                <span className="tabular-nums text-foreground/70">{currency(p.ghs, "GHS")}</span>
-                <span className={`text-xs ${statusTone(p.status)}`}>{p.status}</span>
-                <span className="text-right text-xs text-muted-foreground">{p.id}</span>
+                <span className="truncate text-foreground">{p.memberId}</span>
+                <span className="text-muted-foreground">{p.capsuleId}</span>
+                <span className="tabular-nums text-foreground">{formatUsd(p.amountUsd)}</span>
+                <span className="text-muted-foreground">{p.status}</span>
               </div>
             ))}
+            {payoutQueue.length === 0 ? (
+              <p className="py-4 text-sm text-muted-foreground">
+                No payouts queued. Payout runs are created when a statement settles.
+              </p>
+            ) : null}
           </div>
         </CardContent>
       </Card>
