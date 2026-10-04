@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ground rebalance — before / after · commit 1bae6a6</title>
+    <style>
+      :root {
+        --obsidian: #0f0e0d;
+        --surface: #1a1816;
+        --ink: #f4efe6;
+        --dim: #a39e92;
+        --gold: #e7c06a;
+        --gold-500: #c79a4e;
+        --line: #322e29;
+        --ok: #4f7a52;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        background: var(--obsidian);
+        color: var(--ink);
+        font: 15px/1.65 ui-sans-serif, -apple-system, "Segoe UI", sans-serif;
+        padding: 28px 28px 100px;
+      }
+      .wrap { max-width: 1080px; margin: 0 auto; }
+      .top {
+        position: sticky; top: 0; z-index: 20; background: var(--obsidian);
+        padding: 12px 0; border-bottom: 1px solid var(--line);
+        display: flex; gap: 18px; align-items: baseline; flex-wrap: wrap;
+      }
+      .top b { color: var(--gold); font-weight: 600; letter-spacing: 0.1em; font-size: 12px; }
+      .top a { font-size: 13px; text-decoration: none; color: var(--dim); }
+      .top a:hover { color: var(--gold); }
+      h1 {
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 38px; font-weight: 600; letter-spacing: -0.02em;
+        margin: 30px 0 4px;
+      }
+      .sub { color: var(--dim); max-width: 74ch; }
+      code, .mono { font-family: ui-monospace, Menlo, monospace; font-size: 12.5px; }
+      code { color: var(--gold-500); }
+
+      .commit {
+        margin: 22px 0 30px; padding: 16px 18px;
+        background: var(--surface); border: 1px solid var(--line);
+        border-left: 3px solid var(--gold); border-radius: 5px;
+      }
+      .commit .hash { color: var(--gold); font-weight: 600; }
+      .commit .files { color: var(--dim); font-size: 13px; margin-top: 8px; }
+      .commit .files b { color: var(--ink); font-weight: 500; }
+
+      h2 {
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 26px; font-weight: 600;
+        margin: 44px 0 4px; padding-top: 26px; border-top: 1px solid var(--line);
+      }
+      .note { color: var(--dim); max-width: 74ch; margin-bottom: 18px; }
+
+      .flip { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+      @media (max-width: 820px) { .flip { grid-template-columns: 1fr; } }
+      figure { margin: 0; }
+      .cap {
+        font-family: ui-monospace, Menlo, monospace; font-size: 11px;
+        letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 7px;
+      }
+      .cap.before { color: var(--dim); }
+      .cap.after { color: var(--ok); }
+      img {
+        width: 100%; height: auto; display: block;
+        border: 1px solid var(--line); border-radius: 4px; background: #000;
+      }
+      a.open {
+        display: inline-block; margin-top: 8px;
+        font-size: 12px; color: var(--gold-500); text-decoration: none;
+      }
+      a.open:hover { color: var(--gold); }
+
+      table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+      th, td {
+        text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line);
+        font-size: 13px; vertical-align: top;
+      }
+      th { color: var(--dim); font-weight: 500; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+      td.mono { color: var(--ink); }
+      .pass { color: var(--ok); }
+      .warn { color: #d98b4a; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="top">
+        <b>SWIFT HORIZON</b>
+        <a href="index.html">Breakdown</a>
+        <a href="board.html">Drag board</a>
+        <a href="rhythm-after.jpg">Rhythm map</a>
+        <a href="http://127.0.0.1:4321/">Live local build</a>
+      </div>
+
+      <h1>Ground rebalance — before / after</h1>
+      <p class="sub">
+        The homepage ran four consecutive cream sections and then seven consecutive
+        obsidian ones, so the ground never alternated. Two <code>tone</code> flips fixed it.
+      </p>
+
+      <div class="commit">
+        <div class="mono"><span class="hash">1bae6a6</span> · fix(marketing): alternate the section grounds</div>
+        <div class="files">
+          <b>src/assets/styles/marketing.css</b> +18 −1 · added five ground-agnostic
+          <code>--surface-*</code> aliases<br />
+          <b>src/components/marketing/home/CapsuleSection.astro</b> +7 −7 · tone canvas → obsidian<br />
+          <b>src/components/marketing/home/NetworkSection.astro</b> +8 −8 · tone obsidian → canvas
+        </div>
+      </div>
+
+      <h2>The rhythm</h2>
+      <p class="note">Was: cream ×4 straight, then obsidian ×7 straight. Now it alternates.</p>
+      <figure>
+        <a href="rhythm-after.jpg"><img src="rhythm-after.jpg" alt="Ground rhythm after the change" /></a>
+        <figcaption><a class="open" href="rhythm-after.jpg">Open full size → rhythm-after.jpg</a></figcaption>
+      </figure>
+
+      <h2>III · The product — cream → obsidian</h2>
+      <div class="flip">
+        <figure>
+          <p class="cap before">Before — cream ground</p>
+          <img src="07-III-capsule.jpg" alt="CapsuleSection on cream" />
+          <a class="open" href="07-III-capsule.jpg">Open → 07-III-capsule.jpg</a>
+        </figure>
+        <figure>
+          <p class="cap after">After — obsidian ground</p>
+          <img src="after-07-III-capsule.jpg" alt="CapsuleSection on obsidian" />
+          <a class="open" href="after-07-III-capsule.jpg">Open → after-07-III-capsule.jpg</a>
+        </figure>
+      </div>
+
+      <h2>IV · The network — obsidian → cream</h2>
+      <div class="flip">
+        <figure>
+          <p class="cap before">Before — obsidian ground</p>
+          <img src="12-IV-network.jpg" alt="NetworkSection on obsidian" />
+          <a class="open" href="12-IV-network.jpg">Open → 12-IV-network.jpg</a>
+        </figure>
+        <figure>
+          <p class="cap after">After — cream ground</p>
+          <img src="after-12-IV-network.jpg" alt="NetworkSection on cream" />
+          <a class="open" href="after-12-IV-network.jpg">Open → after-12-IV-network.jpg</a>
+        </figure>
+      </div>
+
+      <h2>Why it needed more than a tone flip</h2>
+      <p class="note">
+        <code>SectionShell</code>'s <code>tone</code> prop only sets <code>background</code> and
+        inherited <code>color</code>. Both components hardcoded one ground's own tokens, so
+        flipping alone would have left dark text on a dark ground. The five aliases make
+        <code>tone</code> truthful.
+      </p>
+      <table>
+        <thead>
+          <tr><th>Was hardcoded</th><th>Now</th><th>Resolves to</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="mono">--ground-ink-on-canvas</td><td class="mono">--surface-ink</td><td>per surface</td></tr>
+          <tr><td class="mono">--ground-ink-dim-on-canvas</td><td class="mono">--surface-ink-dim</td><td>per surface</td></tr>
+          <tr><td class="mono">--ground-gold-on-canvas</td><td class="mono">--surface-gold</td><td>per surface</td></tr>
+          <tr><td class="mono">--ground-rule</td><td class="mono">--surface-rule</td><td>per surface</td></tr>
+          <tr><td class="mono">rgb(20 20 26 / .18)</td><td class="mono">--surface-hairline</td><td>per surface</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Verification</h2>
+      <table>
+        <thead><tr><th>Check</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td>Built HTML</td><td class="pass">Capsule → marketing-surface-dark · Network → marketing-surface-canvas</td></tr>
+          <tr><td>WCAG AA, alpha composited</td><td class="pass">19 / 19 pairs pass · lowest 5.97:1</td></tr>
+          <tr><td>Marketing tests</td><td class="pass">42 pass (contrast 18, css-contract 6, foundation 7, copy-guard 11)</td></tr>
+          <tr><td>Light-mode toggle</td><td class="pass">resolves identically — aliases are custom properties, unaffected</td></tr>
+          <tr><td>390px mobile</td><td class="pass">both sections legible, pills + hairlines + bronze correct</td></tr>
+          <tr><td>Tail rhythm</td><td class="warn">still 4 obsidian in a row (Diaspora, Ways, Ask, Credits)</td></tr>
+          <tr><td>Capsule numeral spacing</td><td class="warn">pre-existing — “38” sits tight on the title (line-height 0.82)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

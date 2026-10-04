@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Swift Horizon — hero ground loop</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #0f0e0d;
+      }
+
+      /* The shared background carries no data-start, so the runtime gives it no
+         automatic layout — it must size itself or #stage collapses to 0px and
+         every tween below paints nothing. */
+      #stage {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        /* One grade over the whole composite, the way a LUT sits over a shot:
+         pull the mean down out of mid-tone into the site's obsidian register,
+         hold contrast so the lit glazing survives as the only bright event, and
+         take the pink out of the sky so it reads as dusk rather than candy. */
+        filter: brightness(0.63) contrast(1.09) saturate(0.76);
+      }
+
+      /* Every plate is the SAME photograph at the SAME oversized box, so all
+         three register pixel-exactly at scale 1 and separate only through
+         differential scale + translation. 114% width buys 134px of horizontal
+         slack per side — far needs 10px, mid 26px, near 46px. */
+      .plate {
+        position: absolute;
+        top: 0;
+        left: -7%;
+        width: 114%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 50%;
+        display: block;
+        transform-origin: 50% 50%;
+      }
+
+      .band {
+        position: absolute;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+      }
+
+      /* Mid: residence + deck. The inner plate is the FULL frame height,
+         offset so its content registers with #far. 100/38 = 263.16%, -40/38. */
+      #midBand {
+        top: 40%;
+        height: 38%;
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 22%);
+        mask-image: linear-gradient(to bottom, transparent 0%, #000 22%);
+      }
+      #mid {
+        height: 263.1579%;
+        top: -105.2632%;
+      }
+
+      /* Near: grass + rock. 100/31 = 322.58%, -69/31. */
+      #nearBand {
+        top: 69%;
+        height: 31%;
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 16%);
+        mask-image: linear-gradient(to bottom, transparent 0%, #000 16%);
+      }
+      #near {
+        height: 322.5806%;
+        top: -222.5806%;
+      }
+
+      /* Atmosphere ------------------------------------------------------- */
+
+      /* Warm air sitting on the horizon. Radial, never linear — a full-screen
+         linear gradient on a dark ground bands under H.264. Kept low: the haze
+         is atmosphere, not a light source. */
+      #haze {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          108% 64% at 63% 56%,
+          rgba(214, 172, 122, 0) 0%,
+          rgba(214, 172, 122, 0.17) 36%,
+          rgba(214, 172, 122, 0.07) 60%,
+          rgba(214, 172, 122, 0) 80%
+        );
+        mix-blend-mode: screen;
+      }
+
+      /* The single specular sweep across the glazing (~42% x, ~50% y). */
+      #glint {
+        position: absolute;
+        top: 33%;
+        left: 0;
+        width: 34%;
+        height: 34%;
+        background: radial-gradient(
+          closest-side,
+          rgba(244, 216, 143, 0.85) 0%,
+          rgba(238, 199, 122, 0.34) 42%,
+          rgba(214, 172, 122, 0) 74%
+        );
+        filter: blur(22px);
+        mix-blend-mode: screen;
+      }
+
+      /* One off-centre radial does the type bed. Centred at 58% 52% with radii
+         tighter than the frame, its falloff reaches further into the top-left
+         (r≈1.03) than the bottom-right (r≈0.83), so the left side darkens on
+         its own geometry — no directional scrim needed, and radial avoids the
+         H.264 banding a full-screen linear gradient would cause on a dark
+         ground. An oversized ellipse silently does nothing, because every
+         visible pixel then sits inside the transparent stop. */
+      #vignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          72% 82% at 58% 52%,
+          rgba(15, 14, 13, 0) 24%,
+          rgba(15, 14, 13, 0.3) 58%,
+          rgba(15, 14, 13, 0.8) 100%
+        );
+      }
+
+      /* Static seeded grain. Deterministic (fixed seed), and deliberately
+         un-animated: moving grain at 30fps over a dark ground shimmers under
+         H.264 and reads as idle motion. */
+      #grain {
+        position: absolute;
+        inset: 0;
+        opacity: 0.05;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' seed='7' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23n)'/%3E%3C/svg%3E");
+        background-repeat: repeat;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="24"
+      data-width="1920"
+      data-height="1080"
+    >
+      <div id="stage" aria-hidden="true">
+        <img id="far" class="plate" src="assets/home-hero-desktop.jpg" alt="" />
+        <div id="midBand" class="band">
+          <img id="mid" class="plate" src="assets/home-hero-desktop.jpg" alt="" />
+        </div>
+        <div id="nearBand" class="band">
+          <img id="near" class="plate" src="assets/home-hero-desktop.jpg" alt="" />
+        </div>
+        <div id="haze"></div>
+        <div id="glint"></div>
+        <div id="vignette"></div>
+        <div id="grain"></div>
+      </div>
+    </div>
+
+    <script>
+      const LOOP = 24;
+
+      const tl = gsap.timeline({ paused: true });
+
+      // Three depth planes, each a push-and-return that lands back on its exact
+      // start value at t = LOOP.
+      //
+      // GSAP gotcha that cost the first build: with `yoyo`, each *iteration* is
+      // one `duration` long (not two), and `yoyo` is ignored entirely unless
+      // `repeat` is set. So total = duration x (repeat + 1), and a loop only
+      // closes if that count is EVEN — otherwise it finishes at its peak and
+      // the seam pops. Every tween below therefore pairs duration with an odd
+      // `repeat`.
+
+      // Far — sky, canopy, distant grass. Two iterations of 12s, the slowest
+      // reversal in the loop, which is why it carries the smallest amplitude.
+      tl.fromTo(
+        "#far",
+        { x: 0, scale: 1 },
+        { x: -10, scale: 1.035, duration: LOOP / 2, ease: "sine.inOut", yoyo: true, repeat: 1 },
+        0
+      );
+
+      // Mid — residence and deck. Four iterations of 6s.
+      tl.fromTo(
+        "#mid",
+        { x: 0, scale: 1 },
+        {
+          x: -26,
+          scale: 1.06,
+          duration: LOOP / 4,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: 3,
+        },
+        0
+      );
+
+      // Near — grass and rock. Six iterations of 4s, so each individual
+      // reversal is a small dip rather than the whole camera stopping.
+      tl.fromTo(
+        "#near",
+        { x: 0, scale: 1 },
+        {
+          x: -46,
+          scale: 1.1,
+          duration: LOOP / 6,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: 5,
+        },
+        0
+      );
+
+      // Haze breathes on the mid plane's rhythm.
+      tl.fromTo(
+        "#haze",
+        { opacity: 0.34, y: 0 },
+        {
+          opacity: 0.5,
+          y: -18,
+          duration: LOOP / 4,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: 3,
+        },
+        0
+      );
+
+      // One specular sweep per loop, left to right, fading in and fully out
+      // before the seam. Keyframes rather than yoyo so the light never travels
+      // backwards on the return leg.
+      tl.fromTo(
+        "#glint",
+        { xPercent: -70, opacity: 0 },
+        {
+          keyframes: [
+            { xPercent: 40, opacity: 0.55, duration: 5, ease: "sine.inOut" },
+            { xPercent: 300, opacity: 0.42, duration: 9, ease: "sine.inOut" },
+            { xPercent: 560, opacity: 0, duration: 10, ease: "sine.in" },
+          ],
+        },
+        0
+      );
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

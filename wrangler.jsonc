@@ -36,6 +36,7 @@
     // Was true, which meant the Worker answered every request before the assets
     // router was consulted, so the rules in public/_redirects were never read and
     // all seven returned 200 with the destination's body instead of a 301.
+    // For /portal proxy to work, the Worker must run first so middleware intercepts.
     "run_worker_first": false,
     // Default auto-trailing-slash made every internal link take a 307 hop
     // (/village -> /village/). The site's own links are written without the

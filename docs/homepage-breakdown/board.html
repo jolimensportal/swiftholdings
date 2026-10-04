@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Swift Horizon — drag the homepage into a new order</title>
+    <style>
+      :root {
+        --obsidian: #0f0e0d;
+        --surface: #1a1816;
+        --ink: #f4efe6;
+        --dim: #a39e92;
+        --gold: #e7c06a;
+        --gold-500: #c79a4e;
+        --bronze: #6e4f22;
+        --line: #322e29;
+        --canvas: #f6f4f0;
+        --warn: #d98b4a;
+        --bad: #c96a5a;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        background: var(--obsidian);
+        color: var(--ink);
+        font: 15px/1.6 ui-sans-serif, -apple-system, "Segoe UI", sans-serif;
+        padding: 32px 28px 120px;
+      }
+      .wrap { max-width: 1500px; margin: 0 auto; }
+
+      .top {
+        position: sticky; top: 0; z-index: 50; background: var(--obsidian);
+        padding: 12px 0; border-bottom: 1px solid var(--line);
+        display: flex; gap: 18px; align-items: baseline; flex-wrap: wrap;
+      }
+      .top b { color: var(--gold); font-weight: 600; letter-spacing: 0.1em; font-size: 12px; }
+      .top a { font-size: 13px; text-decoration: none; color: var(--dim); }
+      .top a:hover { color: var(--gold); }
+
+      h1 {
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 36px; font-weight: 600; letter-spacing: -0.02em;
+        margin: 28px 0 6px;
+      }
+      .sub { color: var(--dim); max-width: 76ch; }
+
+      .layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 400px;
+        gap: 28px;
+        align-items: start;
+        margin-top: 26px;
+      }
+      @media (max-width: 1100px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+
+      /* Board — flex + gap, never inline-flow siblings, so drag-reorder edits
+         survive a reflow and the drop geometry stays predictable. */
+      #board {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: #0c0b0a;
+        min-height: 240px;
+      }
+      .tile {
+        position: relative;
+        width: 210px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        overflow: hidden;
+        cursor: grab;
+        display: flex;
+        flex-direction: column;
+      }
+      .tile:hover { border-color: #5a4a33; }
+      .tile.dragging { opacity: 0.28; cursor: grabbing; }
+      .tile.drop-before { box-shadow: -3px 0 0 0 var(--gold); }
+      .tile.drop-after { box-shadow: 3px 0 0 0 var(--gold); }
+      .tile img {
+        width: 100%; height: 96px; object-fit: cover;
+        object-position: top center; display: block; background: #000;
+      }
+      .tile .meta { padding: 8px 9px 9px; display: flex; flex-direction: column; gap: 3px; }
+      .tile .pos {
+        font-family: ui-monospace, Menlo, monospace; font-size: 10px;
+        color: var(--gold); letter-spacing: 0.08em;
+      }
+      .tile .nm {
+        font-family: ui-monospace, Menlo, monospace; font-size: 11.5px;
+        color: var(--ink); line-height: 1.3;
+      }
+      .tile .mv {
+        font-family: ui-monospace, Menlo, monospace; font-size: 10px;
+        color: var(--dim); display: flex; gap: 6px; flex-wrap: wrap;
+      }
+      .tile .mv .num {
+        border: 1px solid #4a3d29; border-radius: 3px; padding: 0 4px; color: var(--gold-500);
+      }
+      .tile .mv .lb { color: #6f6a60; }
+      .tile[data-mv="I"] .pos { color: var(--gold-500); }
+
+      aside {
+        position: sticky; top: 64px;
+        display: flex; flex-direction: column; gap: 14px;
+      }
+      .panel {
+        background: var(--surface); border: 1px solid var(--line);
+        border-radius: 6px; padding: 16px;
+      }
+      .panel h2 {
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 20px; font-weight: 600; margin-bottom: 4px;
+      }
+      .panel .cap {
+        font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+        color: var(--dim); margin-bottom: 12px;
+      }
+      pre {
+        background: #0c0b0a; border: 1px solid var(--line); border-radius: 4px;
+        padding: 12px; overflow: auto; max-height: 420px;
+        font-family: ui-monospace, Menlo, monospace; font-size: 11.5px;
+        line-height: 1.65; color: #cfc6b6; white-space: pre;
+      }
+      pre .c { color: #5f5a51; }
+      pre .k { color: var(--gold); }
+      .btnrow { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+      button {
+        font: 600 12.5px/1 ui-sans-serif, sans-serif;
+        padding: 10px 14px; border-radius: 5px; cursor: pointer;
+        background: transparent; color: var(--ink);
+        border: 1px solid var(--line);
+      }
+      button:hover { border-color: var(--gold-500); color: var(--gold); }
+      button.primary {
+        background: linear-gradient(135deg, #f4d88f, #e7c06a);
+        color: #281c0c; border: 0;
+      }
+      button.primary:hover { filter: brightness(1.07); color: #281c0c; }
+      #notes { display: flex; flex-direction: column; gap: 8px; }
+      .note {
+        display: flex; gap: 9px; align-items: flex-start;
+        font-size: 12.5px; line-height: 1.5;
+        padding: 9px 10px; border-radius: 4px;
+        background: #0c0b0a; border: 1px solid var(--line);
+        border-left: 2px solid var(--line);
+        color: var(--dim);
+      }
+      .note.ok { border-left-color: #4f7a52; }
+      .note.warn { border-left-color: var(--warn); color: #e2b48c; }
+      .note.bad { border-left-color: var(--bad); color: #e8a89c; }
+      .note b { color: var(--ink); font-weight: 600; }
+      .count { color: var(--dim); font-size: 12px; margin-top: 10px; }
+      .count b { color: var(--gold); }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="top">
+        <b>SWIFT HORIZON</b>
+        <a href="index.html">← Breakdown</a>
+        <a href="arrangement-1a.jpg">1a</a>
+        <a href="arrangement-1b.jpg">1b</a>
+        <a href="arrangement-1c.jpg">1c</a>
+        <a href="#">Drag board</a>
+      </div>
+
+      <h1>Drag the homepage into a new order.</h1>
+      <p class="sub">
+        Every section is a real tile. Drag to reorder — the movement spine, the
+        component order and the warnings update live. When you like it, copy the
+        generated <code>index.astro</code> body or download the file.
+      </p>
+
+      <div class="layout">
+        <div id="board" aria-label="Homepage sections, drag to reorder"></div>
+
+        <aside>
+          <div class="panel">
+            <h2>Checks</h2>
+            <div class="cap">Live against your order</div>
+            <div id="notes"></div>
+            <div class="count"><b id="total">16</b> sections · <b id="delta">0</b> moved from current</div>
+          </div>
+
+          <div class="panel">
+            <h2>index.astro body</h2>
+            <div class="cap">Replaces lines 41–65</div>
+            <pre id="out"></pre>
+            <div class="btnrow">
+              <button class="primary" id="copy">Copy</button>
+              <button id="dl">Download index.astro</button>
+              <button id="reset">Reset to current</button>
+              <button id="undo">Undo</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <script>
+      // id, component, image, movement numeral, movement label
+      const SECTIONS = [
+        { id: '01-hero',        comp: 'MarketingHero',      img: '01-hero.jpg',        mv: '',   label: '',              code: '<MarketingHero {...page.hero} secondaryCta={page.secondaryCta} image={marketingImages.homeHero} />' },
+        { id: '02-rail',        comp: 'ImageRail',          img: '02-rail.jpg',        mv: '',   label: 'The capsule',      code: '<ImageRail frames={railFrames} />' },
+        { id: '03-I-problem',   comp: 'ProblemSection',     img: '03-I-problem.jpg',   mv: 'I',   label: '',              code: '<ProblemSection />' },
+        { id: '04-II-mechanism',comp: 'MechanismSection',   img: '04-II-mechanism.jpg',mv: 'II',  label: 'The mechanism',  code: '<MechanismSection />' },
+        { id: '05-band',        comp: 'OperationsSection',  img: '05-band.jpg',        mv: '',    label: 'band (locked to 06)', code: '<!-- band figure — emitted by OperationsSection, cannot move alone -->' },
+        { id: '06-II-operations',comp:'OperationsSection',  img: '06-II-operations.jpg',mv: 'II', label: '',               code: '<OperationsSection />' },
+        { id: '07-III-capsule', comp: 'CapsuleSection',     img: '07-III-capsule.jpg', mv: 'III', label: 'The product',    code: '<CapsuleSection />' },
+        { id: '08-III-village', comp: 'VillageSection',     img: '08-III-village.jpg', mv: 'III', label: '',              code: '<VillageSection />' },
+        { id: '09-III-modular', comp: 'ModularSection',     img: '09-III-modular.jpg', mv: 'III', label: 'Why modular',   code: '<ModularSection />' },
+        { id: '10-IV-proof',    comp: 'AcquireSection',     img: '10-IV-proof.jpg',    mv: 'IV',  label: 'Proof',         code: '<AcquireSection />' },
+        { id: '11-IV-numbers',  comp: 'AssumptionsSection', img: '11-IV-numbers.jpg',  mv: 'IV',  label: 'The numbers',   code: '<AssumptionsSection />' },
+        { id: '12-IV-network',  comp: 'NetworkSection',     img: '12-IV-network.jpg',  mv: 'IV',  label: 'The network',   code: '<NetworkSection />' },
+        { id: '13-IV-diaspora', comp: 'DiasporaSection',    img: '13-IV-diaspora.jpg', mv: 'IV',  label: '',              code: '<DiasporaSection />' },
+        { id: '14-IV-ways',     comp: 'WaysSection',        img: '14-IV-ways.jpg',     mv: 'IV',  label: 'Three ways in', code: '<WaysSection />' },
+        { id: '15-ask',         comp: 'AskSection',         img: '15-ask.jpg',         mv: '',    label: 'Your next step', code: '<AskSection />' },
+        { id: '16-credits',     comp: 'ImageCredits',       img: '16-credits.jpg',     mv: '',    label: '',              code: '<ImageCredits />' },
+      ];
+      const CURRENT = SECTIONS.map(s => s.id);
+      const ROMAN = { I: 1, II: 2, III: 3, IV: 4 };
+
+      const board = document.getElementById('board');
+      const byId = Object.fromEntries(SECTIONS.map(s => [s.id, s]));
+      let history = [];
+
+      function tile(s, pos) {
+        const el = document.createElement('div');
+        el.className = 'tile' + (s.id === '05-band' ? ' locked' : '');
+        el.draggable = s.id !== '05-band';
+        el.dataset.id = s.id;
+        el.innerHTML =
+          '<img src="' + s.img + '" alt="" draggable="false" />' +
+          '<div class="meta">' +
+            '<span class="pos">' + String(pos).padStart(2, '0') + '</span>' +
+            '<span class="nm">' + s.comp + '</span>' +
+            '<span class="mv">' +
+              (s.mv ? '<span class="num">' + s.mv + '</span>' : '') +
+              (s.label ? '<span class="lb">' + s.label + '</span>' : '') +
+            '</span>' +
+          '</div>';
+        return el;
+      }
+
+      /* OperationsSection.astro emits its band figure (line 37) BEFORE its own
+         <section>, so the band is welded to 06 and cannot be ordered alone.
+         Re-seat it next to 06 after every reorder rather than letting a drag
+         put it somewhere the build cannot reproduce. */
+      function seatBand() {
+        const band = board.querySelector('[data-id="05-band"]');
+        const owner = board.querySelector('[data-id="06-II-operations"]');
+        if (band && owner) owner.before(band);
+      }
+
+      function render() {
+        seatBand();
+        const order = Array.from(board.children).map(el => el.dataset.id);
+        order.forEach((id, i) => board.children[i].replaceWith(tile(byId[id], i + 1)));
+        update(order);
+      }
+
+      function update(order) {
+        const moved = order.filter((id, i) => id !== CURRENT[i]).length;
+
+        // --- output code ---
+        const lines = order.map(id => byId[id].code);
+        // Must escape: raw innerHTML would parse <MarketingHero /> as a bogus
+        // element and the panel would render empty.
+        const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        document.getElementById('out').innerHTML = lines
+          .map(l => l.startsWith('<!--') ? '<span class="c">' + esc(l) + '</span>' : esc(l))
+          .join('\n');
+
+        // --- checks ---
+        const notes = [];
+        const ids = new Set(order);
+
+        const mvs = order.map(id => byId[id].mv).filter(Boolean);
+        const nums = mvs.map(m => ROMAN[m]);
+        let monotonic = true;
+        for (let i = 1; i < nums.length; i++) if (nums[i] < nums[i - 1]) monotonic = false;
+
+        if (!monotonic) {
+          notes.push(['warn', 'Movement spine backtracks',
+            'Your I → II → III → IV sequence is out of order. MovementTag renders the numeral literally, so a first-time visitor will read it as a mistake.']);
+        } else {
+          notes.push(['ok', 'Movement spine holds',
+            'I → II → III → IV never goes backwards.']);
+        }
+
+        if (ids.has('10-IV-proof') && ids.has('15-ask')) {
+          notes.push(['warn', 'Proof duplicates the Ask card',
+            'AcquireSection and AskSection both list the same five points — what you acquire / what we manage / revenue and costs / the assumptions / exit. Roughly 2400px apart.']);
+        } else {
+          notes.push(['ok', 'No duplicated five-point list',
+            'AcquireSection or the Ask card has been dropped, so the list appears once.']);
+        }
+
+        if (order[0] !== '01-hero') {
+          notes.push(['bad', 'Hero is not first',
+            'MarketingHero must open the layout or the scrim and header theme break.']);
+        }
+        if (order.indexOf('15-ask') < order.length - 3 && ids.has('15-ask')) {
+          notes.push(['warn', 'Ask is buried',
+            'AskSection is more than two sections from the end.']);
+        }
+
+        const firstProof = order.findIndex(id => id === '11-IV-numbers');
+        if (firstProof > 8) {
+          notes.push(['warn', 'The numbers arrive late',
+            'AssumptionsSection sits at position ' + (firstProof + 1) + ' of ' + order.length +
+            '. A qualified buyer scanning for commercial substance has already read nine sections. Note there is still no price, share split or lock-in anywhere on the page.']);
+        } else if (firstProof > 0) {
+          notes.push(['ok', 'The numbers arrive early',
+            'AssumptionsSection is at position ' + (firstProof + 1) + '.']);
+        }
+
+        notes.push(['ok', 'Band figure is seated correctly',
+          'Tile 05 is welded to OperationsSection (it is emitted by that component), so it follows 06 automatically.']);
+
+        document.getElementById('notes').innerHTML = notes.map(n =>
+          '<div class="note ' + n[0] + '"><div><b>' + n[1] + '</b><br>' + n[2] + '</div></div>'
+        ).join('');
+
+        document.getElementById('total').textContent = order.length;
+        document.getElementById('delta').textContent = moved;
+      }
+
+      // --- drag & drop ---
+      let dragging = null;
+
+      board.addEventListener('dragstart', e => {
+        const t = e.target.closest('.tile');
+        if (!t) return;
+        dragging = t;
+        t.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        try { e.dataTransfer.setData('text/plain', t.dataset.id); } catch (_) {}
+      });
+
+      board.addEventListener('dragover', e => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        const over = e.target.closest('.tile');
+        if (!over || over === dragging) return;
+        document.querySelectorAll('.tile').forEach(t => t.classList.remove('drop-before', 'drop-after'));
+        const r = over.getBoundingClientRect();
+        const after = e.clientY > r.top + r.height / 2 || e.clientX > r.left + r.width / 2;
+        over.classList.add(after ? 'drop-after' : 'drop-before');
+      });
+
+      board.addEventListener('drop', e => {
+        e.preventDefault();
+        const over = e.target.closest('.tile');
+        if (!over || over === dragging || !dragging) return;
+        const after = over.classList.contains('drop-after');
+        history.push(Array.from(board.children).map(el => el.dataset.id));
+        over.classList.remove('drop-before', 'drop-after');
+        if (after) over.after(dragging); else over.before(dragging);
+        render();
+      });
+
+      board.addEventListener('dragend', () => {
+        if (!dragging) return;
+        dragging.classList.remove('dragging');
+        document.querySelectorAll('.tile').forEach(t => t.classList.remove('drop-before', 'drop-after'));
+        dragging = null;
+        render();
+      });
+
+      // --- buttons ---
+      document.getElementById('reset').onclick = () => {
+        history.push(Array.from(board.children).map(el => el.dataset.id));
+        board.innerHTML = '';
+        CURRENT.forEach((id, i) => board.appendChild(tile(byId[id], i + 1)));
+        render();
+      };
+
+      document.getElementById('undo').onclick = () => {
+        const prev = history.pop();
+        if (!prev) return;
+        board.innerHTML = '';
+        prev.forEach((id, i) => board.appendChild(tile(byId[id], i + 1)));
+        render();
+      };
+
+      document.getElementById('copy').onclick = async e => {
+        const btn = e.target;
+        try {
+          await navigator.clipboard.writeText(document.getElementById('out').innerText);
+          btn.textContent = 'Copied';
+        } catch (_) {
+          btn.textContent = 'Copy failed — select manually';
+        }
+        setTimeout(() => { btn.textContent = 'Copy'; }, 1600);
+      };
+
+      document.getElementById('dl').onclick = () => {
+        const body = document.getElementById('out').innerText;
+        const blob = new Blob([body + '\n'], { type: 'text/plain' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'index.astro';
+        a.click();
+        URL.revokeObjectURL(a.href);
+      };
+
+      CURRENT.forEach((id, i) => board.appendChild(tile(byId[id], i + 1)));
+      render();
+    </script>
+  </body>
+</html>

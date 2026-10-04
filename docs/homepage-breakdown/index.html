@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Swift Horizon — homepage breakdown</title>
+    <style>
+      :root {
+        --obsidian: #0f0e0d;
+        --surface: #1a1816;
+        --ink: #f4efe6;
+        --dim: #a39e92;
+        --gold: #e7c06a;
+        --gold-500: #c79a4e;
+        --line: #322e29;
+        --canvas: #f6f4f0;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        background: var(--obsidian);
+        color: var(--ink);
+        font: 15px/1.6 ui-sans-serif, -apple-system, "Segoe UI", sans-serif;
+        padding: 48px 32px 96px;
+      }
+      .wrap { max-width: 1180px; margin: 0 auto; }
+      h1 {
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 42px; font-weight: 600; letter-spacing: -0.02em;
+      }
+      .sub { color: var(--dim); margin-top: 8px; max-width: 62ch; }
+      h2 {
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 27px; font-weight: 600;
+        margin: 56px 0 4px; padding-top: 28px;
+        border-top: 1px solid var(--line);
+      }
+      h2:first-of-type { border-top: 0; }
+      .note { color: var(--dim); max-width: 72ch; margin-bottom: 20px; }
+      .tag {
+        display: inline-block; font-size: 11px; letter-spacing: 0.14em;
+        text-transform: uppercase; color: var(--gold);
+        border: 1px solid #4a3d29; border-radius: 4px; padding: 3px 8px;
+        margin-bottom: 12px;
+      }
+      a { color: var(--gold); }
+      figure { margin: 0 0 8px; }
+      img {
+        width: 100%; height: auto; display: block;
+        border: 1px solid var(--line); border-radius: 4px;
+        background: var(--surface);
+      }
+      figcaption { color: var(--dim); font-size: 13px; padding: 8px 2px; }
+      .cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+      .tiles a { display: block; }
+      .tiles figcaption { font-family: ui-monospace, Menlo, monospace; font-size: 11px; }
+      .top {
+        position: sticky; top: 0; z-index: 5; background: var(--obsidian);
+        padding: 12px 0; margin-bottom: 20px;
+        border-bottom: 1px solid var(--line);
+        display: flex; gap: 18px; flex-wrap: wrap; align-items: baseline;
+      }
+      .top b { color: var(--gold); font-weight: 600; letter-spacing: 0.1em; font-size: 12px; }
+      .top a { font-size: 13px; text-decoration: none; color: var(--dim); }
+      .top a:hover { color: var(--gold); }
+      code { font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: var(--gold-500); }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Homepage breakdown &amp; rearrangement</h1>
+      <p class="sub">
+        Captured from the live <code>swifthorizon.com.gh</code> at 1440&nbsp;w, sliced into
+        one file per section. Three candidate orderings are built from the same tiles —
+        only the sequence changes. Click any image to open it full size.
+      </p>
+
+      <div class="top">
+        <b>JUMP TO</b>
+        <a href="before-after.html">Before / after — commit 1bae6a6</a>
+        <a href="board.html">Drag &amp; reorder board</a>
+        <a href="#cand">Three candidates</a>
+        <a href="#current">Current order</a>
+        <a href="#tiles">All 16 sections</a>
+      </div>
+
+      <p style="margin:16px 0 0">
+        <a href="before-after.html" style="font-size:14px">→ Before / after — the dark/light ground rebalance (commit 1bae6a6)</a>
+      </p>
+      <p style="margin:8px 0 0">
+        <a href="board.html" style="font-size:14px">→ Drag &amp; reorder board — build your own order here</a>
+      </p>
+
+      <h2 id="cand">Three candidate orderings</h2>
+
+      <h3 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:23px;color:var(--gold);margin:28px 0 2px">1c — Two acts</h3>
+      <span class="tag">16 sections kept</span>
+      <p class="note">
+        Act 1 is the place (problem → mechanism → operations → capsule → village).
+        Act 2 is the investment (modular → numbers → network → proof → diaspora → ask).
+        Matches how a buyer actually decides: <em>want to live here</em>, then <em>does it work</em>.
+        Cost: the I–IV movement spine needs re-labelling.
+      </p>
+      <figure>
+        <a href="arrangement-1c.jpg"><img src="arrangement-1c.jpg" alt="Arrangement 1c — Two acts" /></a>
+        <figcaption>Open full size → arrangement-1c.jpg</figcaption>
+      </figure>
+
+      <h3 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:23px;color:var(--gold);margin:28px 0 2px">1b — Kill the duplicate</h3>
+      <span class="tag">15 sections — one removed</span>
+      <p class="note">
+        Drops <code>AcquireSection</code> (&ldquo;Proof&rdquo;) entirely, because the Ask card already
+        lists the identical five points. The flat tail becomes Numbers → Network → Diaspora →
+        Ways → Ask, which escalates instead of repeating. Cost: loses the
+        &ldquo;don&rsquo;t take our word for it&rdquo; beat.
+      </p>
+      <figure>
+        <a href="arrangement-1b.jpg"><img src="arrangement-1b.jpg" alt="Arrangement 1b — Kill the duplicate" /></a>
+        <figcaption>Open full size → arrangement-1b.jpg</figcaption>
+      </figure>
+
+      <h3 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:23px;color:var(--gold);margin:28px 0 2px">1a — Substance forward</h3>
+      <span class="tag">16 sections kept</span>
+      <p class="note">
+        Keeps everything, pulls Numbers + Network up to sit right after the mechanism so a
+        qualified buyer knows within two screens whether this is investable.
+        Cost: the product lands late, so the emotional P7 beat arrives after the commercial case.
+      </p>
+      <figure>
+        <a href="arrangement-1a.jpg"><img src="arrangement-1a.jpg" alt="Arrangement 1a — Substance forward" /></a>
+        <figcaption>Open full size → arrangement-1a.jpg</figcaption>
+      </figure>
+
+      <h2 id="current">Current order — all 16 sections</h2>
+      <p class="note">Straight read of what ships today.</p>
+      <figure>
+        <a href="00-contact-sheet.jpg"><img src="00-contact-sheet.jpg" alt="Contact sheet of all 16 sections in current order" /></a>
+        <figcaption>Open full size → 00-contact-sheet.jpg</figcaption>
+      </figure>
+
+      <h2 id="tiles">Every section, individually</h2>
+      <p class="note">Click any tile for the full-resolution section.</p>
+      <div class="tiles">
+        <figure><a href="01-hero.jpg"><img src="01-hero.jpg" alt="" /></a><figcaption>01 · MarketingHero</figcaption></figure>
+        <figure><a href="02-rail.jpg"><img src="02-rail.jpg" alt="" /></a><figcaption>02 · ImageRail</figcaption></figure>
+        <figure><a href="03-I-problem.jpg"><img src="03-I-problem.jpg" alt="" /></a><figcaption>03 · ProblemSection — I</figcaption></figure>
+        <figure><a href="04-II-mechanism.jpg"><img src="04-II-mechanism.jpg" alt="" /></a><figcaption>04 · MechanismSection — II</figcaption></figure>
+        <figure><a href="05-band.jpg"><img src="05-band.jpg" alt="" /></a><figcaption>05 · Operations band figure</figcaption></figure>
+        <figure><a href="06-II-operations.jpg"><img src="06-II-operations.jpg" alt="" /></a><figcaption>06 · OperationsSection — II</figcaption></figure>
+        <figure><a href="07-III-capsule.jpg"><img src="07-III-capsule.jpg" alt="" /></a><figcaption>07 · CapsuleSection — III</figcaption></figure>
+        <figure><a href="08-III-village.jpg"><img src="08-III-village.jpg" alt="" /></a><figcaption>08 · VillageSection — III</figcaption></figure>
+        <figure><a href="09-III-modular.jpg"><img src="09-III-modular.jpg" alt="" /></a><figcaption>09 · ModularSection — III</figcaption></figure>
+        <figure><a href="10-IV-proof.jpg"><img src="10-IV-proof.jpg" alt="" /></a><figcaption>10 · AcquireSection — IV Proof</figcaption></figure>
+        <figure><a href="11-IV-numbers.jpg"><img src="11-IV-numbers.jpg" alt="" /></a><figcaption>11 · AssumptionsSection — IV</figcaption></figure>
+        <figure><a href="12-IV-network.jpg"><img src="12-IV-network.jpg" alt="" /></a><figcaption>12 · NetworkSection — IV</figcaption></figure>
+        <figure><a href="13-IV-diaspora.jpg"><img src="13-IV-diaspora.jpg" alt="" /></a><figcaption>13 · DiasporaSection — IV</figcaption></figure>
+        <figure><a href="14-IV-ways.jpg"><img src="14-IV-ways.jpg" alt="" /></a><figcaption>14 · WaysSection — IV</figcaption></figure>
+        <figure><a href="15-ask.jpg"><img src="15-ask.jpg" alt="" /></a><figcaption>15 · AskSection</figcaption></figure>
+        <figure><a href="16-credits.jpg"><img src="16-credits.jpg" alt="" /></a><figcaption>16 · ImageCredits</figcaption></figure>
+      </div>
+    </div>
+  </body>
+</html>

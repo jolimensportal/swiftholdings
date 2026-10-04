@@ -3,3 +3,4 @@
 /oyarifa /locations 301
 /members /portal 301
 /members/* /portal 301
+/portal /portal/unavailable 302
