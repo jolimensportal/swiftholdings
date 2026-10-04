@@ -1,5 +1,5 @@
 /platform /village 301
 /accra /locations 301
 /oyarifa /locations 301
-/members https://swifthordingsportal.securemensah.workers.dev 301
-/members/* https://swifthordingsportal.securemensah.workers.dev/:splat 301
+/members /portal 301
+/members/* /portal 301
