@@ -1,5 +1,5 @@
 /platform /village 301
 /accra /locations 301
 /oyarifa /locations 301
-/members https://portal.swiftholdings.website 301
-/members/* https://portal.swiftholdings.website/:splat 301
+/members https://portal.swifthorizon.com.gh/ 301
+/members/* https://portal.swifthorizon.com.gh/:splat 301
