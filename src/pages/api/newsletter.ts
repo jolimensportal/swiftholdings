@@ -1,57 +1,36 @@
 import type { APIRoute } from 'astro';
-import { z } from 'zod';
-import { deliverFormPayload, errorResponse, jsonResponse } from '@/utils/api';
-import { getClientIp, rateLimit } from '@/utils/rate-limit';
+import { getDb } from '@/db/client';
+import { getBindings } from '@/lib/env';
+import { members } from '@/db/schema';
+import { eq } from 'drizzle-orm';
 
-const newsletterSchema = z.object({
-  email: z.email().max(254),
-  website: z.string().optional(),
-});
+export const POST: APIRoute = async ({ request, locals }) => {
+  const db = getDb(await getBindings());
+  const body = (await request.json().catch(() => ({}))) as { email?: unknown };
+  const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
 
-export const POST: APIRoute = async ({ request }) => {
-  try {
-    const ip = getClientIp(request);
-    const limited = rateLimit(`newsletter:${ip}`, {
-      limit: 5,
-      windowMs: 60_000,
-    });
-    if (!limited.ok) {
-      return errorResponse('Too many requests. Please try again later.', 429, {
-        retryAfterSec: limited.retryAfterSec,
-      });
-    }
-
-    const data = await request.json();
-    const parsed = newsletterSchema.safeParse(data);
-
-    if (!parsed.success) {
-      return errorResponse('Please enter a valid email address.', 400, {
-        issues: z.treeifyError(parsed.error),
-      });
-    }
-
-    if (parsed.data.website) {
-      return jsonResponse({ ok: true });
-    }
-
-    const webhook =
-      import.meta.env.FORMSPREE_NEWSLETTER_ENDPOINT ??
-      import.meta.env.FORM_WEBHOOK_NEWSLETTER;
-
-    const result = await deliverFormPayload(webhook, {
-      email: parsed.data.email,
-      form: 'newsletter',
-    });
-
-    return jsonResponse({
-      ok: true,
-      demo: result.demo,
-      message: result.demo
-        ? 'Subscribed! (Demo mode – configure FORMSPREE_NEWSLETTER_ENDPOINT to deliver.)'
-        : 'Thanks for subscribing!',
-    });
-  } catch (error) {
-    console.error('Error handling newsletter form:', error);
-    return errorResponse('Internal server error', 500);
+  if (!email || !email.includes('@')) {
+    return Response.json({ error: 'Valid email required' }, { status: 400 });
   }
+
+  const existing = await db.select().from(members).where(eq(members.email, email)).get();
+  if (existing) return Response.json({ success: true, message: 'Already subscribed' });
+
+  const now = Date.now();
+  await db
+    .insert(members)
+    .values({
+      id: `NL-${Date.now().toString(36).toUpperCase()}`,
+      email,
+      name: email.split('@')[0],
+      passwordHash: '',
+      segment: 'diaspora',
+      tier: 'guest',
+      kycStatus: 'pending',
+      createdAt: now,
+      updatedAt: now,
+    })
+    .run();
+
+  return Response.json({ success: true }, { status: 201 });
 };

@@ -17,10 +17,10 @@ interface Props {
 const { seo, schema } = Astro.props;
 const socialImage = `${Astro.site}social.png`; // Path to the default social sharing image
 
-const ogTitle = seo?.title ?? 'DataNova - Unlock Insights from Your Excel Data';
+const ogTitle = seo?.title ?? 'Swift Horizon';
 const ogDescription =
   seo?.description ??
-  "Transform your Excel workspace with DataNova's powerful analytics suite. Get insights, predictive models, and visualizations in minutes with no coding required.";
+  'Swift Horizon builds and operates modular hospitality villages in Ghana. Own a finished capsule that works while you are away.';
 
 // Define default JSON-LD Schema.org data if no schema is passed
 const defaultSchema: WithContext<Thing> = {
@@ -29,15 +29,15 @@ const defaultSchema: WithContext<Thing> = {
   inLanguage: 'en-US',
   '@id': Astro.url.href,
   url: Astro.url.href,
-  name: 'DataNova',
+  name: 'Swift Horizon',
   description:
-    "Unlock powerful data insights with DataNova's advanced analytics suite for Excel. Visualize, analyze, and make data-driven decisions in minutes with seamless Excel integration, AI-powered analysis, and predictive forecasting models.",
+    'Swift Horizon builds and operates modular hospitality villages in Ghana. Own a finished capsule that works while you are away.',
   isPartOf: {
     '@type': 'WebSite',
     url: `${Astro.site}`,
-    name: 'DataNova',
+    name: 'Swift Horizon',
     description:
-      'DataNova Analytics Inc. provides advanced analytics for Excel to help businesses unlock actionable insights quickly with no coding required.',
+      'Swift Horizon operates hospitality villages in Ghana for diaspora owners and returning Ghanaians.',
   },
 };
 ---
@@ -47,9 +47,9 @@ const defaultSchema: WithContext<Thing> = {
     {/* SEO Meta Tags */}
     <SEO
       charset="utf-8"
-      title={seo?.title ?? 'DataNova'}
+      title={seo?.title ?? 'Swift Horizon'}
       description={seo?.description ??
-        "Unlock powerful data insights with DataNova's advanced analytics suite for Excel. Visualize, analyze, and make data-driven decisions in minutes with seamless Excel integration, AI-powered analysis, and predictive forecasting models."}
+        'Swift Horizon builds and operates modular hospitality villages in Ghana. Own a finished capsule that works while you are away.'}
       openGraph={{
         basic: {
           title: ogTitle,
@@ -60,12 +60,13 @@ const defaultSchema: WithContext<Thing> = {
           description: ogDescription,
         },
       }}
+      canonical={new URL(Astro.url.pathname, Astro.site).href}
       twitter={{
         card: 'summary_large_image',
         title: ogTitle,
         description: ogDescription,
         image: socialImage,
-        imageAlt: 'DataNova Logo.',
+        imageAlt: 'Swift Horizon',
       }}
       extend={{
         link: [

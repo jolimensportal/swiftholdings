@@ -86,7 +86,7 @@ const rule = onDark
         Menu
       </summary>
       <nav
-        class={`absolute top-14 right-0 z-20 grid min-w-60 gap-1 border ${rule} bg-[var(--marketing-canvas)] p-3 shadow-lg`}
+        class={`absolute top-14 right-0 z-20 grid min-w-60 gap-1 border ${rule} ${surface} p-3 shadow-lg`}
         aria-label="Mobile navigation"
       >
         {
@@ -94,7 +94,7 @@ const rule = onDark
             <a
               href={item.href}
               aria-current={currentPath === item.href ? 'page' : undefined}
-              class="rounded px-3 py-2 text-sm text-[var(--marketing-ink)] hover:bg-[rgba(200,160,108,0.12)]"
+              class={`rounded px-3 py-2 text-sm ${ink} hover:bg-[rgba(200,160,108,0.12)]`}
             >
               {item.label}
             </a>

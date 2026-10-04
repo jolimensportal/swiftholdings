@@ -36,3 +36,5 @@ pnpm-debug.log*
 
 # OpenNext build output
 .open-next/
+
+.dev.vars

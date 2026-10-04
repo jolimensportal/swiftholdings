@@ -11,7 +11,7 @@ import svelte from '@astrojs/svelte';
 export default defineConfig({
   // The `site` property specifies the base URL for your site.
   // Update this to your Cloudflare Pages URL / custom domain before deploying.
-  site: 'https://swiftholdings.pages.dev',
+  site: 'https://swifthorizon.com.gh',
   prefetch: true,
   trailingSlash: 'never',
   experimental: {

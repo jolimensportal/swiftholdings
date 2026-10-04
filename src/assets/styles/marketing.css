@@ -715,6 +715,25 @@ body.light-mode .site-footer {
   border-top-color: rgba(0, 0, 0, 0.06);
 }
 
+/* The rule above whitens the footer ground but never adjusted its text, so in
+   light mode the links measured 2.67:1, the copyright 3.20:1 and the brand
+   3.63:1 on white — three AA failures. These use the existing light-mode inks. */
+body.light-mode .site-footer-links a {
+  color: var(--text-secondary);
+}
+
+body.light-mode .site-footer-links a:hover {
+  color: var(--accent-deep);
+}
+
+body.light-mode .site-footer-copyright {
+  color: var(--text-muted);
+}
+
+body.light-mode .site-footer-brand {
+  color: var(--accent-deep);
+}
+
 /* Light mode hero — keep image vibrant but lighten gradients */
 body.light-mode .hero-gradient-left {
   background: linear-gradient(

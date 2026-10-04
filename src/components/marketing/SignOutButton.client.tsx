@@ -7,7 +7,7 @@ export default function SignOutButton(): React.JSX.Element {
     setBusy(true);
 
     try {
-      await fetch('/api/logout', { method: 'POST' });
+      await fetch('/api/auth/logout', { method: 'POST' });
     } finally {
       window.location.assign('/');
     }

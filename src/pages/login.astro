@@ -1,75 +1,131 @@
 ---
-export const prerender = true;
-import LoginForm from '@/components/marketing/LoginForm.client';
-import MarketingLayout from '@layout/MarketingLayout.astro';
+import SignOutButton from '@/components/marketing/SignOutButton.client';
+import { SEO } from 'astro-seo';
+import '@styles/global.css';
+import '@styles/marketing.css';
 
-const rawNext = Astro.url.searchParams.get('next') ?? '';
-const next =
-  rawNext.startsWith('/') && !rawNext.startsWith('//') ? rawNext : '';
+interface Props {
+  seo: { title: string; description: string };
+}
+
+const next = Astro.url.searchParams.get('next') || 'https://swifthordingsportal.securemensah.workers.dev';
+const title = 'Sign in · Swift Horizon';
+const description = 'Access your member portal';
 ---
-export const prerender = true;
 
-<MarketingLayout
-  seo={{
-    title: 'Member sign in — The Swift Project',
-    description:
-      'Sign in to the Swift Project member area to read the partnership summaries, the investor edition, and the legal dossier.',
-  }}
->
-  <section
-    class="marketing-container grid items-start gap-12 py-16 lg:grid-cols-[0.85fr_1.05fr] lg:py-24"
-  >
-    <div class="lg:sticky lg:top-24">
-      <p class="marketing-eyebrow">Member sign in</p>
-      <h1
-        class="marketing-display mt-4 text-5xl leading-[1.05] text-[var(--marketing-ink)] sm:text-6xl"
-      >
-        Welcome back.
-      </h1>
-      <p class="mt-6 max-w-lg text-lg leading-8 text-[var(--marketing-muted)]">
-        The numbers stay inside the ecosystem. Sign in to pick up the
-        partnership summaries, the investor edition, and the legal dossier where
-        you left them.
-      </p>
-      <ul
-        class="mt-10 grid gap-4 border-t border-[var(--marketing-rule)] pt-6 text-sm"
-      >
-        <li class="grid grid-cols-[auto_1fr] gap-3">
-          <span class="marketing-ledger-label">SESSION</span>
-          <p class="text-[var(--marketing-ink)]">
-            Credentials are hashed with PBKDF2. Sessions last seven days.
-          </p>
-        </li>
-        <li class="grid grid-cols-[auto_1fr] gap-3">
-          <span class="marketing-ledger-label">DOCUMENTS</span>
-          <p class="text-[var(--marketing-ink)]">
-            Full texts, the financial edition, and the legal dossier.
-          </p>
-        </li>
-        <li class="grid grid-cols-[auto_1fr] gap-3">
-          <span class="marketing-ledger-label">NEW HERE</span>
-          <p class="text-[var(--marketing-ink)]">
-            Start with a discovery briefing — you choose your credentials at the
-            last step.
-          </p>
-        </li>
-      </ul>
-    </div>
+<html lang="en">
+  <head>
+    <SEO
+      charset="utf-8"
+      title={title}
+      description={description}
+      noindex
+      nofollow
+      extend={{
+        link: [
+          { rel: 'icon', href: '/icon.svg', type: 'image/svg+xml' },
+          { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+          { rel: 'manifest', href: '/manifest.webmanifest' },
+        ],
+        meta: [{ name: 'viewport', content: 'width=device-width' }],
+      }}
+    />
+    <style>
+      :root {
+        --marketing-obsidian-950: #0a0a0a;
+        --marketing-canvas: #f4efe6;
+        --marketing-gold-400: #d6ac7a;
+        --marketing-gold-500: #c8a06c;
+        --marketing-gold-line: rgba(214, 172, 122, 0.14);
+        --marketing-ink-on-dark: #ede7dc;
+        --marketing-dim-on-dark: rgba(237, 231, 220, 0.6);
+      }
+    </style>
+  </head>
+  <body class="bg-[var(--marketing-obsidian-950)] text-[var(--marketing-ink-on-dark)] min-h-screen flex flex-col">
+    <header class="border-b border-[var(--marketing-gold-line)]">
+      <div class="marketing-container flex items-center justify-between gap-4 py-4">
+        <a href="/" class="text-xl font-semibold text-[var(--marketing-gold-400)]">
+          Swift Horizon
+        </a>
+        <a href="/" class="text-sm text-[var(--marketing-dim-on-dark)] hover:text-[var(--marketing-gold-400)]">
+          Public site
+        </a>
+      </div>
+    </header>
 
-    <div
-      class="border border-[var(--marketing-gold-line)] bg-[var(--marketing-obsidian-900)] p-8 text-[var(--marketing-ink-on-dark)] lg:p-10"
-    >
-      <div class="flex items-baseline justify-between gap-4">
-        <p class="marketing-display text-2xl text-[var(--marketing-gold-400)]">
-          Member sign in
-        </p>
-        <p class="marketing-ledger-label">
-          SWIFT / {new Date().getUTCFullYear()}
-        </p>
+    <main class="flex-1 flex items-center justify-center p-4">
+      <div class="w-full max-w-md">
+        <h1 class="font-heading text-3xl font-semibold tracking-tight text-center mb-2">Sign in</h1>
+        <p class="text-muted-foreground text-center mb-8">Access your member portal</p>
+
+        <form id="login-form" class="space-y-4">
+          <div>
+            <label for="email" class="block text-sm font-medium mb-1">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              autocomplete="email"
+              class="w-full px-3 py-2 rounded-lg border border-white/10 bg-white/5 text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[var(--marketing-gold-400)]"
+              placeholder="you@example.com"
+            />
+          </div>
+          <div>
+            <label for="password" class="block text-sm font-medium mb-1">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              autocomplete="current-password"
+              class="w-full px-3 py-2 rounded-lg border border-white/10 bg-white/5 text-white placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[var(--marketing-gold-400)]"
+              placeholder="••••••••"
+            />
+          </div>
+          <button
+            type="submit"
+            class="w-full bg-[var(--marketing-gold-400)] text-[var(--marketing-obsidian-950)] font-semibold py-3 px-4 rounded-lg hover:bg-[var(--marketing-gold-500)] transition-colors"
+          >
+            Sign in
+          </button>
+          <p class="text-center text-xs text-muted-foreground">
+            Not a member yet? <a href="/#contact" class="underline hover:text-foreground">Request access</a>
+          </p>
+        </form>
       </div>
-      <div class="mt-8">
-        <LoginForm client:load next={next} />
-      </div>
-    </div>
-  </section>
-</MarketingLayout>
+    </main>
+
+    <footer class="border-t border-[rgba(214,172,122,0.14)] py-8 text-center text-xs text-[var(--marketing-dim-on-dark)]">
+      Swift Horizon · Confidential
+    </footer>
+
+    <script>
+      document.getElementById('login-form')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target as HTMLFormElement;
+        const data = Object.fromEntries(new FormData(form));
+        const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+        btn.disabled = true;
+        btn.textContent = 'Signing in...';
+        try {
+          const res = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+            credentials: 'include',
+          });
+          const json = await res.json() as { error?: string };
+          if (!res.ok) throw new Error(json.error || 'Login failed');
+          window.location.href = new URLSearchParams(window.location.search).get('next') || 'https://swifthordingsportal.securemensah.workers.dev';
+        } catch (err: unknown) {
+          const message = err instanceof Error ? err.message : 'Login failed';
+          alert(message);
+          btn.disabled = false;
+          btn.textContent = 'Sign in';
+        }
+      });
+    </script>
+  </body>
+</html>

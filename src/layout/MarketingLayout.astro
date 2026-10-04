@@ -15,7 +15,7 @@ interface Props {
 }
 
 const { seo, headerTheme = 'light' } = Astro.props;
-const siteUrl = Astro.site ?? new URL('https://swiftholdings.pages.dev');
+const siteUrl = Astro.site ?? new URL('https://swifthorizon.com.gh');
 const socialImage = new URL('/social.png', siteUrl).href;
 const schema: WithContext<Thing> = {
   '@context': 'https://schema.org',
@@ -41,7 +41,7 @@ const schema: WithContext<Thing> = {
         title: seo.title,
         description: seo.description,
         image: socialImage,
-        imageAlt: 'The Swift Project illustrative prefab residence',
+        imageAlt: 'Swift Horizon illustrative prefab residence',
       }}
       extend={{
         link: [

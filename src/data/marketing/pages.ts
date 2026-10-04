@@ -204,7 +204,7 @@ export const marketingPages = {
     sections: [
       'Five guided steps: 1 Who are you? (Local Ghanaian / Diaspora Partner / Institutional Fund), 2 Why are you here? (stay/prefab/ecosystem), 3 Capital plans ($50k P7 or ecosystem), 4 Contact details (name/email/phone/password PBKDF2), 5 Briefing schedule (timezone GMT±, 5 business days, 6 slot times 09:00–17:30, 45-min encrypted calendar). Back/Continue logic handles stay skip, bracket None yet, validation inline with focus first error.',
       'Secure intake architecture: full name & contact verified, investor profile classification, tiered capital brackets across 4 hubs, interactive calendar executive availability. Secure calendar integration Calendly Enterprise/custom API — automated encrypted invite with virtual room/boardroom coordinates, global timezone sync, shield motif. Submissions POST /api/discovery → Drizzle member + SESSION KV.',
-      'After submit: “You are in” — 20% progress bar → 100%, gate open, member ID SW-0024 etc, download Partnership Summary 42p, Go to your documents → /members/documents/partnership-summary. Values preserved on failure, retry + mailto fallback if PUBLIC_FORMSPREE_BRIEFING_ENDPOINT blank, no client-side logging, honeypot, rate-limit, same-origin check.',
+      'After submit: “You are in” — 20% progress bar → 100%, gate open, member ID SW-0024 etc, download Partnership Summary 42p, Go to your documents → the hosted member dashboard at swifthordingsportal.securemensah.workers.dev/documents/partnership-summary. Values preserved on failure, retry + mailto fallback if PUBLIC_FORMSPREE_BRIEFING_ENDPOINT blank, no client-side logging, honeypot, rate-limit, same-origin check.',
     ],
   },
 } as const satisfies Record<MarketingPageKey, MarketingPage>;

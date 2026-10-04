@@ -1,10 +1,9 @@
 import type { APIRoute } from 'astro';
 import { eq, sql } from 'drizzle-orm';
 import { z } from 'zod';
-import { db } from '@/db/client';
+import { getDb } from '@/db/client';
+import { getBindings } from '@/lib/env';
 import { feedback } from '@/db/schema';
-import { errorResponse, jsonResponse } from '@/utils/api';
-import { getClientIp, rateLimit } from '@/utils/rate-limit';
 
 const slugSchema = z
   .string()
@@ -18,67 +17,43 @@ const voteSchema = z.object({
   type: z.enum(['helpful', 'notHelpful']),
 });
 
-async function getFeedbackCounts(slug: string) {
+async function getFeedbackCounts(db: ReturnType<typeof getDb>, slug: string) {
   const row = await db
     .select()
     .from(feedback)
     .where(eq(feedback.slug, slug))
-    .then(rows => rows[0] || { helpful: 0, notHelpful: 0 });
+    .get();
 
   return {
-    helpful: row.helpful ?? 0,
-    notHelpful: row.notHelpful ?? 0,
+    helpful: row?.helpful ?? 0,
+    notHelpful: row?.notHelpful ?? 0,
   };
 }
 
-/** Read feedback counts for a slug. */
-export const GET: APIRoute = async ({ url, request }) => {
+export const GET: APIRoute = async ({ url, locals }) => {
   try {
-    const ip = getClientIp(request);
-    const limited = rateLimit(`feedback-get:${ip}`, {
-      limit: 60,
-      windowMs: 60_000,
-    });
-    if (!limited.ok) {
-      return errorResponse('Too many requests.', 429, {
-        retryAfterSec: limited.retryAfterSec,
-      });
-    }
-
+    const db = getDb(await getBindings());
     const slugResult = slugSchema.safeParse(url.searchParams.get('slug'));
     if (!slugResult.success) {
-      return errorResponse('A valid slug query parameter is required.', 400);
+      return new Response(JSON.stringify({ error: 'A valid slug query parameter is required.' }), { status: 400 });
     }
 
-    const counts = await getFeedbackCounts(slugResult.data);
-    return jsonResponse(counts);
+    const counts = await getFeedbackCounts(db, slugResult.data);
+    return new Response(JSON.stringify(counts), { status: 200 });
   } catch (error) {
     console.error('Error reading feedback:', error);
-    return errorResponse('Internal server error', 500);
+    return new Response(JSON.stringify({ error: 'Internal server error' }), { status: 500 });
   }
 };
 
-/** Submit helpful / notHelpful feedback for a slug. */
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    const ip = getClientIp(request);
-    const limited = rateLimit(`feedback-post:${ip}`, {
-      limit: 20,
-      windowMs: 60_000,
-    });
-    if (!limited.ok) {
-      return errorResponse('Too many requests.', 429, {
-        retryAfterSec: limited.retryAfterSec,
-      });
-    }
-
+    const db = getDb(await getBindings());
     const data = await request.json();
     const parsed = voteSchema.safeParse(data);
 
     if (!parsed.success) {
-      return errorResponse('Invalid feedback payload.', 400, {
-        issues: z.treeifyError(parsed.error),
-      });
+      return new Response(JSON.stringify({ error: 'Invalid feedback payload.' }), { status: 400 });
     }
 
     const { slug, type } = parsed.data;
@@ -96,7 +71,7 @@ export const POST: APIRoute = async ({ request }) => {
               helpful: feedback.helpful,
               notHelpful: feedback.notHelpful,
             })
-            .then(res => res[0])
+            .get()
         : await db
             .insert(feedback)
             .values({ slug, notHelpful: 1 })
@@ -108,11 +83,11 @@ export const POST: APIRoute = async ({ request }) => {
               helpful: feedback.helpful,
               notHelpful: feedback.notHelpful,
             })
-            .then(res => res[0]);
+            .get();
 
-    return jsonResponse(updatedFeedback);
+    return new Response(JSON.stringify(updatedFeedback), { status: 200 });
   } catch (error) {
     console.error('Error handling feedback:', error);
-    return errorResponse('Internal server error', 500);
+    return new Response(JSON.stringify({ error: 'Internal server error' }), { status: 500 });
   }
 };

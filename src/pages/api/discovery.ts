@@ -149,7 +149,7 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  const session = await createMemberSession(db, email, input.password);
+  const session = await createMemberSession(db, email, input.password, env.JWT_SECRET);
 
   if (session === null) {
     return Response.json({ ok: true, member: { name, email } }, { status: 201 });
