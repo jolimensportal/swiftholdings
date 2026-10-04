@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { MEMBER_DASHBOARD_URL } from '@/data/marketing/site';
 import {
   PASSWORD_HINT,
   getBrackets,
@@ -191,13 +192,13 @@ export default function DiscoveryForm(): React.JSX.Element {
           </p>
           <a
             className="marketing-button-primary mt-8 w-full max-w-sm"
-            href="https://swifthordingsportal.securemensah.workers.dev/documents/partnership-summary"
+            href={`${MEMBER_DASHBOARD_URL}/documents/partnership-summary`}
           >
             Download the Partnership Summary
           </a>
           <a
             className="mt-3 w-full max-w-sm text-center text-sm text-[var(--marketing-gold-400)] underline decoration-[var(--marketing-gold-line)] underline-offset-4"
-            href="https://swifthordingsportal.securemensah.workers.dev"
+            href={MEMBER_DASHBOARD_URL}
           >
             Go to your documents
           </a>

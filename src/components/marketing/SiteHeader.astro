@@ -49,6 +49,13 @@ const rule = onDark
         ))
       }
       <a
+        href={marketingSite.memberPortal.href}
+        rel="noopener"
+        class={`text-sm ${muted} hover:${onDark ? 'text-[var(--marketing-ink-on-dark)]' : 'text-[var(--marketing-ink)]'}`}
+      >
+        {marketingSite.memberPortal.label}
+      </a>
+      <a
         class="marketing-button-primary text-sm"
         href={marketingSite.primaryCta.href}
       >
@@ -100,6 +107,13 @@ const rule = onDark
             </a>
           ))
         }
+        <a
+          href={marketingSite.memberPortal.href}
+          rel="noopener"
+          class={`rounded px-3 py-2 text-sm ${ink} hover:bg-[rgba(200,160,108,0.12)]`}
+        >
+          {marketingSite.memberPortal.label}
+        </a>
         <a
           class="marketing-button-primary mt-2 text-sm"
           href={marketingSite.primaryCta.href}

@@ -1,5 +1,6 @@
 ---
 import SignOutButton from '@/components/marketing/SignOutButton.client';
+import { MEMBER_DASHBOARD_URL } from '@/data/marketing/site';
 import { SEO } from 'astro-seo';
 import '@styles/global.css';
 import '@styles/marketing.css';
@@ -8,10 +9,11 @@ interface Props {
   seo: { title: string; description: string };
 }
 
-const next = Astro.url.searchParams.get('next') || 'https://swifthordingsportal.securemensah.workers.dev';
+const next = Astro.url.searchParams.get('next') || MEMBER_DASHBOARD_URL;
 const title = 'Sign in · Swift Horizon';
 const description = 'Access your member portal';
 ---
+import { MEMBER_DASHBOARD_URL } from '@/data/marketing/site';
 
 <html lang="en">
   <head>
@@ -59,7 +61,7 @@ const description = 'Access your member portal';
         <h1 class="font-heading text-3xl font-semibold tracking-tight text-center mb-2">Sign in</h1>
         <p class="text-muted-foreground text-center mb-8">Access your member portal</p>
 
-        <form id="login-form" class="space-y-4">
+        <form id="login-form" class="space-y-4" data-dashboard={MEMBER_DASHBOARD_URL}>
           <div>
             <label for="email" class="block text-sm font-medium mb-1">Email</label>
             <input
@@ -105,6 +107,7 @@ const description = 'Access your member portal';
       document.getElementById('login-form')?.addEventListener('submit', async (e) => {
         e.preventDefault();
         const form = e.target as HTMLFormElement;
+        const dashboard = form.dataset.dashboard ?? '';
         const data = Object.fromEntries(new FormData(form));
         const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
         btn.disabled = true;
@@ -118,7 +121,7 @@ const description = 'Access your member portal';
           });
           const json = await res.json() as { error?: string };
           if (!res.ok) throw new Error(json.error || 'Login failed');
-          window.location.href = new URLSearchParams(window.location.search).get('next') || 'https://swifthordingsportal.securemensah.workers.dev';
+          window.location.href = new URLSearchParams(window.location.search).get('next') || dashboard;
         } catch (err: unknown) {
           const message = err instanceof Error ? err.message : 'Login failed';
           alert(message);

@@ -1,3 +1,6 @@
+export const MEMBER_DASHBOARD_URL =
+  'https://swifthordingsportal.securemensah.workers.dev';
+
 export const marketingSite = {
   name: 'SWIFT HORIZON',
   legalName: 'Swift Holdings',  // registered operator; unchanged by the brand rename
@@ -7,6 +10,9 @@ export const marketingSite = {
   phoneNorthAmerica: '+1 437 421 0963',
   address: '20 Edmonton St, Madina, Accra',
   primaryCta: { label: 'Request a private briefing', href: '/briefing' },
+  // The member portal is hosted on a separate Cloudflare account, so it can
+  // never share a session with this site. One source of truth for the link.
+  memberPortal: { label: 'Member sign in', href: MEMBER_DASHBOARD_URL },
   navigation: [
     { href: '/village', label: 'The Village' },
     { href: '/how-it-works', label: 'How It Works' },
