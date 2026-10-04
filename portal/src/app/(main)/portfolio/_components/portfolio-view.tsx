@@ -1,21 +1,46 @@
+import { redirect } from "next/navigation";
+
 import { Card, CardContent } from "@/components/ui/card";
-import { capsules, portfolioValue } from "@/data/member-portal";
+import { getPortalData, type Holding } from "@/server/swift-api";
+
+const ghs = (n: number) =>
+  `GHS ${Math.round(n).toLocaleString("en-GH", { maximumFractionDigits: 0 })}`;
 
 const usd = (n: number) => `$${n.toLocaleString("en-US")}`;
 
-export function PortfolioView() {
-  const [oyarifa, tamale] = capsules;
+const monthLabel = (ym: string) => {
+  const [year, month] = ym.split("-");
+  if (!year || !month) return ym;
+  const date = new Date(Number(year), Number(month) - 1, 1);
+  return date.toLocaleDateString("en-GB", { month: "long", year: "numeric" });
+};
+
+export async function PortfolioView() {
+  const data = await getPortalData();
+
+  if (!data) redirect("/login");
+
+  const { portfolio, holdings, statements } = data;
+  const inRevenue = holdings.filter((h) => h.status === "in-revenue");
+  const inBuild = holdings.filter((h) => h.status !== "in-revenue");
+
+  const lifetimePaid = statements
+    .filter((s) => s.status === "paid")
+    .reduce((sum, s) => sum + s.ownerShareUsd, 0);
+
+  const latest = statements[0];
 
   return (
     <div className="flex flex-col gap-8">
       <header className="flex flex-col gap-3">
-        <p className="text-xs uppercase tracking-[0.28em] text-primary">My Prefabs</p>
+        <p className="text-xs uppercase tracking-[0.28em] text-primary">My holdings</p>
         <h1 className="font-heading text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
-          My Prefab Holdings
+          My Portfolio
         </h1>
         <p className="max-w-xl text-sm leading-relaxed text-muted-foreground">
-          The prefab units you own across the village — one in revenue, one in build. You hold a 70
-          / 30 share in each.
+          {holdings.length === 0
+            ? "No capsule is allocated to you yet. Once one is, your position and distributions appear here."
+            : `${holdings.length === 1 ? "One capsule is" : `${holdings.length} capsules are`} allocated to you, with your share of each.`}
         </p>
       </header>
 
@@ -25,123 +50,139 @@ export function PortfolioView() {
             <p className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
               Portfolio value
             </p>
-            <p className="font-heading text-3xl text-primary">{usd(portfolioValue)}</p>
+            {/* capital + income units ARE the member's position. Never multiply by
+                the capsule price — price is a separate USD figure. */}
+            <p className="font-heading text-3xl text-primary">
+              {ghs(portfolio.capitalUnits + portfolio.incomeUnits)}
+            </p>
           </CardContent>
         </Card>
+
         <Card className="border-primary/15">
           <CardContent className="flex flex-col gap-1 p-5">
             <p className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-              Monthly distributions
+              Latest distribution
             </p>
             <p className="font-heading text-3xl text-foreground">
-              {usd(oyarifa.yourShareMonthly ?? 0)}
+              {latest ? usd(latest.ownerShareUsd) : "—"}
             </p>
+            {latest ? (
+              <p className="text-xs text-muted-foreground">{monthLabel(latest.month)}</p>
+            ) : (
+              <p className="text-xs text-muted-foreground">No statements yet</p>
+            )}
           </CardContent>
         </Card>
+
         <Card className="border-primary/15">
           <CardContent className="flex flex-col gap-1 p-5">
             <p className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-              Occupancy
+              Paid to date
             </p>
-            <p className="font-heading text-3xl text-foreground">{oyarifa.occupancy}%</p>
+            <p className="font-heading text-3xl text-foreground">{usd(lifetimePaid)}</p>
           </CardContent>
         </Card>
       </div>
 
-      <section className="flex flex-col gap-3">
-        <p className="text-xs uppercase tracking-[0.2em] text-primary">In revenue</p>
-        <Card className="overflow-hidden p-0">
-          <div className="grid lg:grid-cols-[1.35fr_1fr]">
-            <div className="relative min-h-80">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={oyarifa.image}
-                alt=""
-                className="absolute inset-0 h-full w-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-background/10" />
-              <span className="absolute right-5 top-4 rounded-full bg-primary/15 px-3 py-1 text-xs uppercase tracking-[0.18em] text-primary">
-                In revenue
-              </span>
-              <div className="absolute bottom-5 left-6">
-                <p className="text-xs uppercase tracking-[0.22em] text-primary/90">
-                  {oyarifa.id} · {oyarifa.location}
-                </p>
-                <p className="font-heading text-3xl text-foreground">Your first capsule</p>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Owned since {oyarifa.ownedSince} · {oyarifa.share} share · fully tenanted
-                </p>
-              </div>
-            </div>
-            <CardContent className="flex flex-col gap-3 py-6">
-              <div className="flex items-center justify-between">
-                <span className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
-                  Performance — 90 days
-                </span>
-                <span className="font-heading text-2xl text-primary">
-                  {usd(oyarifa.performance90d ?? 0)}
-                </span>
-              </div>
-              <Row label="Gross revenue" value={`${usd(oyarifa.grossMonthly ?? 0)} / mo`} />
-              <Row label="Your share — 70%" value={`${usd(oyarifa.yourShareMonthly ?? 0)} / mo`} />
-              <Row label="Occupancy" value={`${oyarifa.occupancy}%`} />
-              <div className="pt-1 text-sm text-muted-foreground">
-                Block-off dates — yours:{" "}
-                <span className="rounded bg-primary/15 px-2 py-1 text-xs text-primary">
-                  {oyarifa.blockOff}
-                </span>{" "}
-                <span className="ml-2 text-xs">+ reserve</span>
-              </div>
+      {inRevenue.length > 0 ? (
+        <section className="flex flex-col gap-3">
+          <p className="text-xs uppercase tracking-[0.2em] text-primary">In revenue</p>
+          {inRevenue.map((h) => (
+            <RevenueCard key={h.capsuleId} holding={h} />
+          ))}
+        </section>
+      ) : null}
+
+      {inBuild.length > 0 ? (
+        <section className="flex flex-col gap-3">
+          <p className="text-xs uppercase tracking-[0.2em] text-primary">In build</p>
+          <Card className="p-0">
+            <CardContent className="flex flex-col gap-2 py-5">
+              {inBuild.map((h) => (
+                <div
+                  key={h.capsuleId}
+                  className="flex items-center justify-between border-b border-border pb-2 last:border-0 last:pb-0"
+                >
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.16em] text-primary/90">
+                      {h.hub} · Phase {h.phase}
+                    </p>
+                    <p className="font-heading text-xl text-foreground">{h.name}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {h.areaSqm} m² · {h.shareRatio} split
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className="uppercase tracking-[0.16em] text-muted-foreground">Price</p>
+                    <p className="font-heading text-xl text-foreground">{usd(h.priceUsd)}</p>
+                  </div>
+                </div>
+              ))}
             </CardContent>
-          </div>
-        </Card>
-      </section>
+          </Card>
+        </section>
+      ) : null}
 
-      <section className="flex flex-col gap-3">
-        <p className="text-xs uppercase tracking-[0.2em] text-primary">In build</p>
-        <Card className="flex items-stretch gap-0 p-0">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={tamale.image}
-            alt=""
-            className="h-44 w-40 object-cover sm:h-auto sm:w-64"
-          />
-          <CardContent className="flex flex-1 items-center justify-between py-5">
-            <div>
-              <p className="text-xs uppercase tracking-[0.22em] text-primary/90">
-                {tamale.id} · {tamale.location}
-              </p>
-              <p className="font-heading text-2xl text-foreground">Second capsule</p>
-              <p className="text-xs text-muted-foreground">
-                Plans completed · awaiting foundation · next payment {tamale.nextPayment}
-              </p>
-            </div>
-            <div className="ml-4 text-right text-xs">
-              <p className="uppercase tracking-[0.16em] text-muted-foreground">Price</p>
-              <p className="font-heading text-2xl text-foreground">{usd(tamale.price ?? 0)}</p>
-              <p className="mt-2 uppercase tracking-[0.16em] text-muted-foreground">Phase</p>
-              <p className="mt-0.5 text-primary">{tamale.phase}</p>
-              <p className="mt-2 text-primary">manage →</p>
-            </div>
-          </CardContent>
-        </Card>
-      </section>
-
-      <Card className="flex items-center justify-between border-primary/15 bg-primary/5">
-        <CardContent className="flex w-full items-center justify-between py-4">
-          <span className="text-sm text-muted-foreground">
-            Acquire a new capsule — reserve with a 20% escrow deposit
-          </span>
-          <span className="font-heading text-xl text-primary">{usd(50_000)} entry</span>
-        </CardContent>
-      </Card>
+      {statements.length > 0 ? (
+        <section className="flex flex-col gap-3">
+          <p className="text-xs uppercase tracking-[0.2em] text-primary">Statements</p>
+          <Card className="p-0">
+            <CardContent className="py-2">
+              {statements.map((s) => (
+                <div
+                  key={s.id}
+                  className="flex items-center justify-between border-b border-border py-2.5 text-sm last:border-0"
+                >
+                  <span className="text-muted-foreground">{monthLabel(s.month)}</span>
+                  <span className="flex items-center gap-4">
+                    <span
+                      className={`text-xs uppercase tracking-[0.12em] ${
+                        s.status === "paid" ? "text-primary" : "text-muted-foreground"
+                      }`}
+                    >
+                      {s.status}
+                    </span>
+                    <span className="tabular-nums text-foreground">{usd(s.ownerShareUsd)}</span>
+                  </span>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        </section>
+      ) : null}
     </div>
+  );
+}
+
+function RevenueCard({ holding }: { holding: Holding }) {
+  return (
+    <Card className="p-0">
+      <CardContent className="flex flex-col gap-3 py-5">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <p className="text-xs uppercase tracking-[0.16em] text-primary/90">
+              {holding.hub} · {holding.name}
+            </p>
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              Owned since {new Date(holding.ownedSince).toLocaleDateString("en-GB")} ·{" "}
+              {holding.shareRatio} split
+            </p>
+          </div>
+          <span className="rounded-full bg-primary/15 px-3 py-1 text-xs uppercase tracking-[0.14em] text-primary">
+            In revenue
+          </span>
+        </div>
+        <Row label="Capital units" value={ghs(holding.capitalUnits)} />
+        <Row label="Income units" value={ghs(holding.incomeUnits)} />
+        <Row label="Unit price" value={usd(holding.priceUsd)} />
+      </CardContent>
+    </Card>
   );
 }
 
 function Row({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex justify-between border-b border-border py-2.5 text-sm">
+    <div className="flex justify-between border-b border-border py-2.5 text-sm last:border-0">
       <span className="text-muted-foreground">{label}</span>
       <span className="tabular-nums text-foreground">{value}</span>
     </div>

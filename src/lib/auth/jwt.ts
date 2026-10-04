@@ -94,13 +94,23 @@ export function getAuthCookie(request: Request): string | null {
   return null;
 }
 
+/**
+ * Scoped to the whole apex so the session is shared between the marketing host
+ * and the portal host — a member signs in once and the portal's server sees the
+ * same cookie. Both hosts are ours, so the widened scope is deliberate.
+ */
+const AUTH_COOKIE_DOMAIN = '.swifthorizon.com.gh';
+
 export function setAuthCookie(headers: Headers, token: string): void {
   headers.append(
     'Set-Cookie',
-    `${AUTH_COOKIE}=${token}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=${DEFAULT_TTL_SECONDS}`
+    `${AUTH_COOKIE}=${token}; HttpOnly; Secure; SameSite=Lax; Domain=${AUTH_COOKIE_DOMAIN}; Path=/; Max-Age=${DEFAULT_TTL_SECONDS}`
   );
 }
 
 export function clearAuthCookie(headers: Headers): void {
-  headers.append('Set-Cookie', `${AUTH_COOKIE}=; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=0`);
+  headers.append(
+    'Set-Cookie',
+    `${AUTH_COOKIE}=; HttpOnly; Secure; SameSite=Lax; Domain=${AUTH_COOKIE_DOMAIN}; Path=/; Max-Age=0`
+  );
 }
