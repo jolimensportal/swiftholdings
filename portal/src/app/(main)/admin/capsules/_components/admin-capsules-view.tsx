@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation";
 
 import { Card, CardContent } from "@/components/ui/card";
+import Link from "next/link";
+
 import { formatGhs, formatUsd, getAdminCapsules, getAdminOverview } from "@/server/swift-api";
 
 const statusTone = (s: string) =>
@@ -19,9 +21,17 @@ export async function AdminCapsulesView() {
 
   return (
     <div className="flex flex-col gap-6">
-      <p className="text-xs uppercase tracking-[0.22em] text-primary/75">
-        Capsules · {capsules.length} total · {inRevenue} in revenue
-      </p>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <p className="text-xs uppercase tracking-[0.22em] text-primary/75">
+          Capsules · {capsules.length} total · {inRevenue} in revenue
+        </p>
+        <Link
+          href="/admin/capsules/onboard"
+          className="rounded bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground"
+        >
+          Onboard a prefab
+        </Link>
+      </div>
 
       <Card>
         <CardContent className="pt-6">
