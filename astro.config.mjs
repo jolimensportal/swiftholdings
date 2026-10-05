@@ -27,6 +27,15 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   output: 'server',
+  // Astro's built-in checkOrigin compares the Origin header to the Host and
+  // rejects the form POSTs the portal admin sends to this API, because the
+  // portal runs on portal.swifthorizon.com.gh while the API answers on
+  // swifthorizon.com.gh. Replaced by the explicit allowlist in
+  // src/utils/cors.ts, which permits only our own hosts and is enforced in
+  // middleware before any handler runs.
+  security: {
+    checkOrigin: false,
+  },
   adapter: cloudflare({
     // workerd's native binary build script was skipped in this env; use Node for build-time prerender.
     prerenderEnvironment: 'node',

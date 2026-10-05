@@ -3,7 +3,20 @@ import { asc, eq } from 'drizzle-orm';
 import { getDb } from '@/db/client';
 import { getBindings } from '@/lib/env';
 import { capsuleImages, capsules, ownerships } from '@/db/schema';
+import { corsHeaders } from '@/utils/cors';
 import { jsonResponse } from '@/utils/api';
+
+/**
+ * With Astro's blanket checkOrigin disabled (see astro.config.mjs), every
+ * admin write re-checks the Origin itself. Cookies authenticate the admin but
+ * do not stop a cross-site form POST riding an authenticated session, so this
+ * allowlist is the CSRF defence for these endpoints.
+ */
+function adminRequestAllowed(request: Request): boolean {
+  const origin = request.headers.get('origin');
+  if (origin === null) return false;
+  return corsHeaders(request).get('access-control-allow-origin') === origin;
+}
 
 const HUB_MAX = 64;
 const NAME_MAX = 120;
@@ -63,6 +76,7 @@ const STATUSES = new Set(['building', 'in-revenue', 'completed']);
 /** Onboard a new prefab unit. Price is in cents, matching the rest of the schema. */
 export const POST: APIRoute = async ({ request, locals }) => {
   if (!locals.admin) return jsonResponse({ error: 'Unauthorized' }, 401);
+  if (!adminRequestAllowed(request)) return jsonResponse({ error: 'Forbidden' }, 403);
 
   // Astro's CSRF guard rejects a cross-site PUT carrying a form body, so a
   // multipart upload arrives here on POST with _method=upload.
@@ -119,6 +133,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 /** Update an existing capsule. Used by the onboarding wizard's later steps. */
 export const PATCH: APIRoute = async ({ request, locals }) => {
   if (!locals.admin) return jsonResponse({ error: 'Unauthorized' }, 401);
+  if (!adminRequestAllowed(request)) return jsonResponse({ error: 'Forbidden' }, 403);
 
   const body = (await request.json().catch(() => ({}))) as CapsuleInput & { id?: unknown };
   const id = typeof body.id === 'string' ? body.id.trim() : '';
