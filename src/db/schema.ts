@@ -189,3 +189,38 @@ export const contactEnquiries = sqliteTable(
   },
   (t) => [index('contact_enquiries_created_idx').on(t.createdAt)]
 );
+
+/**
+ * Photographs for a capsule.
+ *
+ * `capsules.image_r2_key` holds a single hero image only, which cannot carry a
+ * gallery. Onboarding a prefab means attaching the whole set, so each upload
+ * gets its own row and an explicit position for ordering.
+ *
+ * R2 keys are never exposed to members; they are served through
+ * /api/capsules/[id]/images, which checks the caller's session.
+ */
+export const capsuleImages = sqliteTable(
+  'capsule_images',
+  {
+    id: text('id').primaryKey(),
+    capsuleId: text('capsule_id')
+      .references(() => capsules.id)
+      .notNull(),
+    r2Key: text('r2_key').notNull(),
+    /** First image is the hero shown wherever a capsule appears as a card. */
+    isHero: integer('is_hero', { mode: 'boolean' }).default(false).notNull(),
+    position: integer('position').default(0).notNull(),
+    width: integer('width'),
+    height: integer('height'),
+    mimeType: text('mime_type'),
+    sizeBytes: integer('size_bytes'),
+    /** Free-text provenance, e.g. "Alibaba supplier reference". */
+    caption: text('caption'),
+    createdAt: integer('created_at').notNull(),
+  },
+  (t) => [
+    index('capsule_images_capsule_idx').on(t.capsuleId),
+    index('capsule_images_position_idx').on(t.capsuleId, t.position),
+  ]
+);
