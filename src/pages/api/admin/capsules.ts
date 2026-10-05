@@ -64,6 +64,12 @@ const STATUSES = new Set(['building', 'in-revenue', 'completed']);
 export const POST: APIRoute = async ({ request, locals }) => {
   if (!locals.admin) return jsonResponse({ error: 'Unauthorized' }, 401);
 
+  // Astro's CSRF guard rejects a cross-site PUT carrying a form body, so a
+  // multipart upload arrives here on POST with _method=upload.
+  if (request.headers.get('content-type')?.includes('multipart/form-data')) {
+    return uploadImages(request, locals);
+  }
+
   const body = (await request.json().catch(() => ({}))) as CapsuleInput;
 
   const name = typeof body.name === 'string' ? body.name.trim() : '';
@@ -144,8 +150,7 @@ export const PATCH: APIRoute = async ({ request, locals }) => {
  * request. Each file is stored under capsules/<id>/ in the R2 bucket and gets
  * its own row so the gallery can be ordered and the hero can be chosen.
  */
-export const PUT: APIRoute = async ({ request, locals }) => {
-  if (!locals.admin) return jsonResponse({ error: 'Unauthorized' }, 401);
+async function uploadImages(request: Request, locals: App.Locals): Promise<Response> {
 
   const form = await request.formData().catch(() => null);
   if (!form) return jsonResponse({ error: 'Expected multipart form data' }, 400);
