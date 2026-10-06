@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { formatUsd, getPortalData } from "@/server/swift-api";
+import { getPortalData, getViewer } from "@/server/swift-api";
 
 const monthLabel = (ym: string) => {
   const [year, month] = ym.split("-");
@@ -13,6 +13,9 @@ const monthLabel = (ym: string) => {
 };
 
 export async function BriefingsView() {
+  const viewer = await getViewer();
+  if (!viewer) redirect("/login");
+  if (viewer.kind === "admin") redirect("/admin/members");
   const data = await getPortalData();
   if (!data) redirect("/login");
 
@@ -107,4 +110,3 @@ function Section({
   );
 }
 
-export { monthLabel, formatUsd };

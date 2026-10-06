@@ -16,7 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { formatGhs, formatUsd, getPortalData } from "@/server/swift-api";
+import { formatGhs, formatUsd, getPortalData, getViewer } from "@/server/swift-api";
 
 const monthLabel = (ym: string) => {
   const [year, month] = ym.split("-");
@@ -28,6 +28,9 @@ const monthLabel = (ym: string) => {
 };
 
 export default async function StatementsPage() {
+  const viewer = await getViewer();
+  if (!viewer) redirect("/login");
+  if (viewer.kind === "admin") redirect("/admin/members");
   const data = await getPortalData();
   if (!data) redirect("/login");
 

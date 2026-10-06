@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { formatGhs, formatUsd, getPortalData, type Holding } from "@/server/swift-api";
+import { formatGhs, formatUsd, getPortalData, getViewer, type Holding } from "@/server/swift-api";
 
 const monthLabel = (ym: string) => {
   const [year, month] = ym.split("-");
@@ -11,6 +11,11 @@ const monthLabel = (ym: string) => {
 };
 
 export async function PortfolioView() {
+  const viewer = await getViewer();
+  if (!viewer) redirect("/login");
+  // Admins have no member record; send them to their console.
+  if (viewer.kind === "admin") redirect("/admin/members");
+
   const data = await getPortalData();
 
   if (!data) redirect("/login");

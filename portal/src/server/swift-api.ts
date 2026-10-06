@@ -133,6 +133,25 @@ export async function getPortalData(): Promise<PortalPayload | null> {
   return apiFetch<PortalPayload>("/api/members/portal");
 }
 
+/**
+ * Identity for whichever session is present. Admins are not members, so the
+ * member endpoint 401s for them; without this, every member screen threw an
+ * error page when a super admin navigated there.
+ */
+export async function getViewer(): Promise<
+  | { kind: "member"; member: PortalMember }
+  | { kind: "admin"; admin: { id: string; email: string; name: string; role: string } }
+  | null
+> {
+  const admin = await getAdminOverview();
+  if (admin) return { kind: "admin", admin: admin.admin };
+
+  const portal = await getPortalData();
+  if (portal) return { kind: "member", member: portal.member };
+
+  return null;
+}
+
 export async function getAdminOverview(): Promise<AdminOverview | null> {
   return apiFetch<AdminOverview>("/api/admin/overview");
 }
@@ -140,6 +159,15 @@ export async function getAdminOverview(): Promise<AdminOverview | null> {
 export async function getAdminMembers(): Promise<AdminMemberRow[]> {
   const body = await apiFetch<{ members: AdminMemberRow[] }>("/api/admin/members");
   return body?.members ?? [];
+}
+
+export interface AdminCapsuleImage {
+  id: string;
+  position: number;
+  isHero: boolean;
+  caption: string | null;
+  mimeType: string | null;
+  sizeBytes: number | null;
 }
 
 export interface AdminCapsuleRow {
@@ -153,6 +181,7 @@ export interface AdminCapsuleRow {
   shareRatio: string;
   owners: number;
   capitalUnits: number;
+  images: AdminCapsuleImage[];
 }
 
 export async function getAdminCapsules(): Promise<AdminCapsuleRow[]> {

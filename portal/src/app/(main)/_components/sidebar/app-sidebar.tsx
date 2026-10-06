@@ -42,7 +42,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenuButton asChild size="lg">
               <Link prefetch={false} href="/dashboard/default">
                 <span className="font-heading text-base leading-none">
-                  THE SWIFT <span className="text-primary">PROJECT</span>
+                  SWIFT <span className="text-primary">HORIZON</span>
                 </span>
               </Link>
             </SidebarMenuButton>

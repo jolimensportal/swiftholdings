@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { formatGhs, formatUsd, getPortalData } from "@/server/swift-api";
+import { formatGhs, formatUsd, getPortalData, getViewer } from "@/server/swift-api";
 
 const monthLabel = (ym: string) => {
   const [year, month] = ym.split("-");
@@ -14,6 +14,11 @@ const monthLabel = (ym: string) => {
 };
 
 export async function DashboardView() {
+  const viewer = await getViewer();
+  if (!viewer) redirect("/login");
+  // Admins have no member record; send them to their console.
+  if (viewer.kind === "admin") redirect("/admin/members");
+
   const data = await getPortalData();
 
   if (!data) redirect("/login");

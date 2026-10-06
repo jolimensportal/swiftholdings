@@ -1,9 +1,12 @@
 import { redirect } from "next/navigation";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { getPortalData } from "@/server/swift-api";
+import { getPortalData, getViewer } from "@/server/swift-api";
 
 export async function ProfileView() {
+  const viewer = await getViewer();
+  if (!viewer) redirect("/login");
+  if (viewer.kind === "admin") redirect("/admin/members");
   const data = await getPortalData();
   if (!data) redirect("/login");
 
