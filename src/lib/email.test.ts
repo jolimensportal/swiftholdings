@@ -14,7 +14,7 @@ describe('resendRequest', () => {
       );
 
     const result = await resendRequest('re_123', {
-      from: 'Swift Horizon Limited <info@swifthorizon.com.gh>',
+      from: 'Swift Horizon <info@swifthorizon.com.gh>',
       to: ['someone@example.com'],
       subject: 'hi',
       html: '<p>hi</p>',
@@ -29,7 +29,7 @@ describe('resendRequest', () => {
       'Bearer re_123'
     );
     expect(JSON.parse(String(init?.body)).from).toBe(
-      'Swift Horizon Limited <info@swifthorizon.com.gh>'
+      'Swift Horizon <info@swifthorizon.com.gh>'
     );
   });
 
@@ -120,7 +120,7 @@ describe('sendEmail', () => {
 
     const payload = JSON.parse(String(fetchSpy.mock.calls[0][1]?.body));
     expect(payload.text).toBe('Bracketed at 50k-100k');
-    expect(payload.from).toContain('Swift Horizon Limited');
+    expect(payload.from).toBe('Swift Horizon <info@swifthorizon.com.gh>');
   });
 
   it('is a no-op returning the input when no key is configured', async () => {

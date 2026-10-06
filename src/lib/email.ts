@@ -17,7 +17,14 @@
 
 const RESEND_ENDPOINT = 'https://api.resend.com/emails';
 
-export const DEFAULT_SENDER = 'Swift Horizon Limited <info@swifthorizon.com.gh>';
+/**
+ * Sender display name is the short brand, not the registered entity.
+ * "Swift Horizon Limited" is long enough that Gmail, Outlook and iOS Mail
+ * truncate the sender column to "Swift Horizon Limi…", which looks like a
+ * delivery glitch. The registered name stays in the footer, the legal dossier
+ * and every document; the envelope name is a presentation choice.
+ */
+export const DEFAULT_SENDER = 'Swift Horizon <info@swifthorizon.com.gh>';
 
 export interface ResendPayload {
   from?: string;
