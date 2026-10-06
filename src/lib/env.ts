@@ -19,6 +19,10 @@ export interface Bindings {
   JWT_SECRET: string;
   /** Optional. Set to forward contact enquiries; storage does not depend on it. */
   FORM_WEBHOOK_CONTACT?: string;
+  /** Optional. Resend key; outbound mail is skipped when absent. */
+  RESEND_API_KEY?: string;
+  /** Where operator notifications go. Defaults to info@ when absent. */
+  NOTIFY_EMAIL?: string;
 }
 
 let cached: Bindings | null = null;

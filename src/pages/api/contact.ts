@@ -5,6 +5,7 @@ import { contactEnquiries } from '@/db/schema';
 import { deliverFormPayload } from '@/utils/api';
 import { errorResponse, jsonResponse, sameOriginRequest } from '@/utils/api';
 import { getClientIp, rateLimit } from '@/utils/rate-limit';
+import { sendEmail } from '@/lib/email';
 
 /**
  * Public contact enquiries.
@@ -87,6 +88,28 @@ export const POST: APIRoute = async ({ request }) => {
   // already stored by this point.
   const webhook = env.FORM_WEBHOOK_CONTACT;
   await deliverFormPayload(webhook, { id, name, email, message }).catch(() => undefined);
+
+  // Notify the operator directly, so enquiries still reach them if no webhook is
+  // configured. Same rule as above: the row is durable, mail is best-effort.
+  const mail = await sendEmail(env.RESEND_API_KEY, {
+    to: [env.NOTIFY_EMAIL ?? 'info@swifthorizon.com.gh'],
+    subject: `Website enquiry — ${name}`,
+    replyTo: email,
+    body: [
+      `A new enquiry arrived on swifthorizon.com.gh/contact.`,
+      ``,
+      `Reference: ${id}`,
+      `Name: ${name}`,
+      `Email: ${email}`,
+      ``,
+      `Message:`,
+      message,
+    ].join('\n'),
+  });
+
+  if (mail.sent === false && mail.configured) {
+    console.error('[contact] operator notification failed:', mail.error);
+  }
 
   return jsonResponse({ message: 'Thank you — we will be in touch.', id }, 201);
 };

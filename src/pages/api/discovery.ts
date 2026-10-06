@@ -11,6 +11,7 @@ import {
 import { validateDiscoveryInput, type DiscoveryInput } from '@/data/marketing/discovery';
 import { errorResponse, jsonResponse, sameOriginRequest } from '@/utils/api';
 import { getClientIp, rateLimit } from '@/utils/rate-limit';
+import { buildDiscoveryNotice, resendRequest } from '@/lib/email';
 
 type MemberSegment = 'ghanaian' | 'diaspora' | 'institutional';
 
@@ -140,6 +141,31 @@ export const POST: APIRoute = async ({ request }) => {
       createdAt: now,
     })
     .run();
+
+  // Notify the operator by email. The lead is already durably stored above, so a
+  // mail failure must not fail the request — the operator would find out by
+  // missing an email rather than by a lead that never arrived.
+  const notice = buildDiscoveryNotice({
+    name,
+    segment: input.segment,
+    intent: input.intent,
+    bracket: input.bracket ?? null,
+    phone: input.phone ?? null,
+    slotDate: input.slotDate,
+    slotTime: input.slotTime,
+  });
+
+  const mail = await resendRequest(env.RESEND_API_KEY, {
+    to: [env.NOTIFY_EMAIL ?? 'info@swifthorizon.com.gh'],
+    subject: notice.subject,
+    html: notice.html,
+    text: notice.text,
+    replyTo: email,
+  });
+
+  if (mail.sent === false && mail.configured) {
+    console.error('[discovery] operator notification failed:', mail.error);
+  }
 
   if (existing !== undefined) {
     return jsonResponse({

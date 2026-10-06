@@ -13,4 +13,6 @@ interface Env {
   JWT_SECRET: string;
   /** Optional. Set to forward contact enquiries; storage does not depend on it. */
   FORM_WEBHOOK_CONTACT?: string;
+  RESEND_API_KEY?: string;
+  NOTIFY_EMAIL?: string;
 }
