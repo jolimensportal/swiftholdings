@@ -9,7 +9,7 @@ const ROOT = fileURLToPath(new URL('../../', import.meta.url));
 /**
  * Directories whose contents are user-facing and must not reintroduce a retired
  * brand. `src/content/documents` is excluded: those are contract documents that
- * legitimately name the registered operator, Swift Holdings.
+ * legitimately name the registered operator, Swift Horizon Limited.
  */
 const SCANNED_DIRS = ['src/pages', 'src/layout', 'src/components', 'src/data', 'src/utils', 'portal/src', 'public'];
 
@@ -37,8 +37,8 @@ describe('brand identity: Swift Horizon', () => {
     expect(marketingSite.name).toBe('SWIFT HORIZON');
   });
 
-  it('keeps Swift Holdings as the registered operator', () => {
-    expect(marketingSite.legalName).toBe('Swift Holdings');
+  it('keeps Swift Horizon Limited as the registered operator', () => {
+    expect(marketingSite.legalName).toBe('Swift Horizon Limited');
   });
 
   it('points at the live domain, not the retired pages.dev origin', () => {

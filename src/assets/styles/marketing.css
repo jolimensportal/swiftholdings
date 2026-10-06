@@ -1,5 +1,5 @@
 :root {
-  /* Swift Holdings — Dark Luxury Palette (richer yellow-gold, deeper blend) */
+  /* Swift Horizon — Dark Luxury Palette (richer yellow-gold, deeper blend) */
   /* Tier-card light-mode fix: obsidian + on-dark tokens defined in both modes below. */
   --bg: #0F0E0D;
   --header-bg: #121110;
@@ -599,6 +599,14 @@
 
 .site-footer-links a:hover {
   color: var(--accent-light);
+}
+
+/* The member portal is off-site and authenticated, so it is separated from the
+   public page list rather than reading as just another destination. */
+.site-footer-links a.site-footer-member {
+  color: var(--accent-light);
+  padding-left: 2rem;
+  border-left: 1px solid var(--border);
 }
 
 .site-footer-copyright {

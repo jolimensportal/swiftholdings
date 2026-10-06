@@ -32,6 +32,13 @@ import { marketingSite } from '@/data/marketing/site';
       <a href="/about">About</a>
       <a href="/resources">Resources</a>
       <a href="/briefing">Request Briefing</a>
+      <a
+        href={marketingSite.memberPortal.href}
+        rel="noopener"
+        class="site-footer-member"
+      >
+        {marketingSite.memberPortal.label}
+      </a>
     </nav>
 
     <p class="site-footer-copyright">

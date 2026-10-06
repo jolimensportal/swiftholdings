@@ -169,7 +169,7 @@ export const marketingPages = {
     sections: [
       'Pioneering West African real estate: Swift Horizon integrates cutting-edge modular with premium hospitality to bridge local Ghanaian opportunity and sophisticated global wealth. Vision — modular innovation efficiency meets elegance: architects of speed and quality, advanced modular delivers high-end durable solutions in record time, reduced disruption, superior consistency, new benchmark for residential/commercial.',
       'Luxury hospitality operations: experiential stays blending local culture with luxury amenities, sustainable long-term yield. Ghana & global wealth bridge: rigorous operational standards, absolute transparency, secure productive culturally resonant home for international capital across 4 hubs. By the numbers: 38m² nine-layer CIGS, $50k entry, 70/30, 5y lock, 4 hubs Oyarifa·Kumasi·Tamale·Takoradi.',
-      'Speak with the operator, not a booth: calls/briefings handled by project team directly — Ghana +233 544 101016, North America +1 437 421 0963, info@swiftholdings.org, partnerships@swiftholdings-ghana.com.',
+      'Speak with the operator, not a booth: calls/briefings handled by project team directly — Ghana +233 544 101016, North America +1 437 421 0963, info@swifthorizon.com.gh, partners@swifthorizon.com.gh.',
     ],
   },
   resources: {

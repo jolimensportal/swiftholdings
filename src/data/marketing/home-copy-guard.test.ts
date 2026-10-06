@@ -31,10 +31,10 @@ describe('homepage copy constitution', () => {
     }
   });
 
-  it('reduces Swift Holdings to the legal line', () => {
-    expect(home).not.toContain('Swift Holdings');
+  it('reduces the legal name to the legal line', () => {
+    expect(home).not.toContain('Swift Horizon Limited');
     expect(marketingSite.name).toBe('SWIFT HORIZON');
-    expect(marketingSite.legalName).toBe('Swift Holdings');
+    expect(marketingSite.legalName).toBe('Swift Horizon Limited');
   });
 
   it('presents Stay / Own / Partner instead of tier jargon', () => {
@@ -56,7 +56,7 @@ describe('homepage copy constitution', () => {
     expect(footer).not.toContain('SWIFT HOLDINGS');
     expect(footer.match(/Operated by \{marketingSite\.legalName\}/g)).toHaveLength(1);
     const notFound = readSrc('../../pages/404.astro');
-    expect(notFound).not.toContain('Swift Holdings');
+    expect(notFound).not.toContain('Swift Horizon Limited');
   });
 
   it('drops the 88% target and portal preview from the homepage', () => {

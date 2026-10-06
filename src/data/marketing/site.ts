@@ -2,9 +2,9 @@ export const MEMBER_DASHBOARD_URL = 'https://portal.swifthorizon.com.gh';
 
 export const marketingSite = {
   name: 'SWIFT HORIZON',
-  legalName: 'Swift Holdings',  // registered operator; unchanged by the brand rename
-  email: 'info@swiftholdings.org',
-  partnershipsEmail: 'partnerships@swiftholdings-ghana.com',
+  legalName: 'Swift Horizon Limited',  // registered legal entity; brand and company name are the same
+  email: 'info@swifthorizon.com.gh',
+  partnershipsEmail: 'partners@swifthorizon.com.gh',
   phone: '+233 544 101016',
   phoneNorthAmerica: '+1 437 421 0963',
   address: '20 Edmonton St, Madina, Accra',

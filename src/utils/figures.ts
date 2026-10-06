@@ -60,7 +60,7 @@ export const figures = {
     },
   ],
   contacts: {
-    email: 'info@swiftholdings.org',
+    email: 'info@swifthorizon.com.gh',
     phoneGh: '+233 544 101016',
     phoneCa: '+1 437 421 0963',
     address: '20 Edmonton St, Madina, Accra',
