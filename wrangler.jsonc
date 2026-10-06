@@ -1,11 +1,18 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "swift-holdings",
+  "name": "swift-horizon",
+  // Do NOT add a `main` field here. @cloudflare/vite-plugin builds the Worker
+  // itself and writes dist/server/wrangler.json; .wrangler/deploy/config.json
+  // points wrangler at that generated file. Setting `main` here makes the plugin
+  // look for a file it has not written yet, and the build fails.
   "compatibility_date": "2026-04-15",
   "compatibility_flags": ["nodejs_compat"],
   "d1_databases": [
     {
       "binding": "DB",
+      // Still named swift-holdings in Cloudflare: the D1 PATCH endpoint accepts
+      // only read_replication, so a rename is dashboard-only. The binding
+      // resolves by database_id, which is what makes this safe to leave.
       "database_name": "swift-holdings",
       "database_id": "a7f608d9-da85-4700-99ab-acad8c9d3817"
     }
