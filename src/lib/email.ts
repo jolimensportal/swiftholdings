@@ -40,13 +40,15 @@ export type SendResult =
   | { sent: false; configured: false }
   | { sent: false; configured: true; error: string };
 
-const escapeHtml = (value: string): string =>
-  value
+/** Exported so the operator console can reuse the exact same escaping. */
+export function escapeHtml(value: string): string {
+  return value
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
+}
 
 /**
  * POST to Resend. Resolves to a result rather than rejecting, so a caller can
