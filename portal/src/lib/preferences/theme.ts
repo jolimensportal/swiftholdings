@@ -36,11 +36,11 @@ export const THEME_PRESET_OPTIONS = [
     },
   },
   {
-    label: "Swift Luxury",
-    value: "swift-luxury",
+    label: "Obsidian Champagne",
+    value: "obsidian-champagne",
     primary: {
-      light: "oklch(0.58 0.12 60)",
-      dark: "oklch(0.62 0.12 60)",
+      light: "oklch(0.569 0.067 84)",
+      dark: "oklch(0.789 0.065 86)",
     },
   },
   {

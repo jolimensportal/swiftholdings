@@ -62,7 +62,7 @@ export const PREFERENCE_REGISTRY = {
 
   theme_preset: definePreference({
     values: THEME_PRESET_VALUES,
-    defaultValue: "swift-luxury",
+    defaultValue: "obsidian-champagne",
     persistence: "client-cookie",
     attribute: "data-theme-preset",
   }),

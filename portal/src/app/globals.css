@@ -6,7 +6,7 @@
 @import "../styles/presets/brutalist.css";
 @import "../styles/presets/soft-pop.css";
 @import "../styles/presets/tangerine.css";
-@import "../styles/presets/swift-luxury.css";
+@import "../styles/presets/obsidian-champagne.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -49,7 +49,6 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --font-heading: var(--font-cormorant-garamond);
   --font-sans: var(--font-sans);
 }
 
@@ -127,6 +126,12 @@ These serve as the fallback; there is no separate default.css file. */
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+}
+
+:root {
+  /* Display face. Declared outside @theme because the theme block did not
+     emit it, leaving font-heading unset and every heading in the sans. */
+  --font-heading: var(--font-playfair-display);
 }
 
 @layer base {
