@@ -40,7 +40,7 @@ export const THEME_PRESET_OPTIONS = [
     value: "obsidian-champagne",
     primary: {
       light: "oklch(0.569 0.067 84)",
-      dark: "oklch(0.855 0.092 85)",
+      dark: "oklch(0.880 0.108 83)",
     },
   },
   {

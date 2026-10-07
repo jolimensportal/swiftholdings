@@ -11,11 +11,14 @@ value: obsidian-champagne
  * chroma 0.15, which read as a loud yellow rather than metal.
  *
  * Here the ground is a cool near-black (hue ~240, chroma 0.005) and the
- * champagne sits at chroma 0.092, less than two thirds the previous saturation.
- * That single change is what turns "gold" into "champagne" — a metal rather than
- * a pigment. Lightness and chroma were raised together to 0.855 / 0.092 so the
- * accent reads as metal catching light rather than paint. Light mode keeps the
- * same hue but a darker value, to hold contrast on a pale ground.
+ * champagne sits at chroma 0.108. That reduction from the original 0.15 is what
+ * turns "gold" into metal rather than pigment — but it is deliberately not
+ * pushed further. sRGB has a hard ceiling here: the red channel saturates
+ * before the others, so lightness and chroma trade directly against each other.
+ * At chroma 0.09 the brightest in-gamut value is L 0.916; at 0.15 it falls to
+ * L 0.857. Past that point gold clips to a flat yellow and reads cheap again.
+ * Light mode keeps the same hue at a darker value to hold contrast on a pale
+ * ground.
  */
 
 /* Dark — the primary experience. */
@@ -30,7 +33,7 @@ value: obsidian-champagne
   --popover: oklch(0.202 0.006 237);
   --popover-foreground: oklch(0.944 0.012 85);
 
-  --primary: oklch(0.855 0.092 85);
+  --primary: oklch(0.880 0.108 83);
   --primary-foreground: oklch(0.167 0.005 248);
 
   --secondary: oklch(0.245 0.008 240);
@@ -40,14 +43,14 @@ value: obsidian-champagne
   --muted-foreground: oklch(0.612 0.014 244);
 
   --accent: oklch(0.245 0.008 240);
-  --accent-foreground: oklch(0.855 0.092 85);
+  --accent-foreground: oklch(0.880 0.108 83);
 
   --destructive: oklch(0.601 0.099 17);
   --border: oklch(0.286 0.01 242);
   --input: oklch(0.309 0.012 243);
-  --ring: oklch(0.855 0.092 85);
+  --ring: oklch(0.880 0.108 83);
 
-  --chart-1: oklch(0.855 0.092 85);
+  --chart-1: oklch(0.880 0.108 83);
   --chart-2: oklch(0.707 0.038 250);
   --chart-3: oklch(0.713 0.039 131);
   --chart-4: oklch(0.705 0.034 45);
@@ -55,12 +58,12 @@ value: obsidian-champagne
 
   --sidebar: oklch(0.184 0.006 237);
   --sidebar-foreground: oklch(0.9 0.01 85);
-  --sidebar-primary: oklch(0.855 0.092 85);
+  --sidebar-primary: oklch(0.880 0.108 83);
   --sidebar-primary-foreground: oklch(0.167 0.005 248);
   --sidebar-accent: oklch(0.245 0.008 240);
   --sidebar-accent-foreground: oklch(0.85 0.012 85);
   --sidebar-border: oklch(0.262 0.01 242);
-  --sidebar-ring: oklch(0.855 0.092 85);
+  --sidebar-ring: oklch(0.880 0.108 83);
 }
 
 .dark:root[data-theme-preset="obsidian-champagne"] {
@@ -72,7 +75,7 @@ value: obsidian-champagne
   --popover: oklch(0.202 0.006 237);
   --popover-foreground: oklch(0.944 0.012 85);
 
-  --primary: oklch(0.855 0.092 85);
+  --primary: oklch(0.880 0.108 83);
   --primary-foreground: oklch(0.167 0.005 248);
 
   --secondary: oklch(0.245 0.008 240);
@@ -82,14 +85,14 @@ value: obsidian-champagne
   --muted-foreground: oklch(0.612 0.014 244);
 
   --accent: oklch(0.245 0.008 240);
-  --accent-foreground: oklch(0.855 0.092 85);
+  --accent-foreground: oklch(0.880 0.108 83);
 
   --destructive: oklch(0.601 0.099 17);
   --border: oklch(0.286 0.01 242);
   --input: oklch(0.309 0.012 243);
-  --ring: oklch(0.855 0.092 85);
+  --ring: oklch(0.880 0.108 83);
 
-  --chart-1: oklch(0.855 0.092 85);
+  --chart-1: oklch(0.880 0.108 83);
   --chart-2: oklch(0.707 0.038 250);
   --chart-3: oklch(0.713 0.039 131);
   --chart-4: oklch(0.705 0.034 45);
@@ -97,12 +100,12 @@ value: obsidian-champagne
 
   --sidebar: oklch(0.184 0.006 237);
   --sidebar-foreground: oklch(0.9 0.01 85);
-  --sidebar-primary: oklch(0.855 0.092 85);
+  --sidebar-primary: oklch(0.880 0.108 83);
   --sidebar-primary-foreground: oklch(0.167 0.005 248);
   --sidebar-accent: oklch(0.245 0.008 240);
   --sidebar-accent-foreground: oklch(0.85 0.012 85);
   --sidebar-border: oklch(0.262 0.01 242);
-  --sidebar-ring: oklch(0.855 0.092 85);
+  --sidebar-ring: oklch(0.880 0.108 83);
 }
 
 /* Light — same accent hue, so the brand holds in both. */

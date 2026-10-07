@@ -20,7 +20,26 @@ import {
   Roboto_Slab,
 } from "next/font/google";
 
+import localFont from "next/font/local";
+
 import { GeistPixelSquare } from "geist/font/pixel";
+
+/*
+ * General Sans (Indian Type Foundry). Self-hosted from Fontshare rather than
+ * linked from their CDN, so there is no third-party request on the critical
+ * path and the files are served from our own origin.
+ */
+const generalSans = localFont({
+  src: [
+    { path: "./files/general-sans-400.woff2", weight: "400", style: "normal" },
+    { path: "./files/general-sans-500.woff2", weight: "500", style: "normal" },
+    { path: "./files/general-sans-600.woff2", weight: "600", style: "normal" },
+    { path: "./files/general-sans-700.woff2", weight: "700", style: "normal" },
+  ],
+  variable: "--font-general-sans",
+  display: "swap",
+  fallback: ["system-ui", "-apple-system", "Segoe UI", "sans-serif"],
+});
 
 const inter = Inter({
   subsets: ["latin"],
@@ -193,6 +212,10 @@ export const fontRegistry = {
   playfairDisplay: {
     label: "Playfair Display",
     font: playfairDisplay,
+  },
+  generalSans: {
+    label: "General Sans",
+    font: generalSans,
   },
   manrope: {
     label: "Manrope",

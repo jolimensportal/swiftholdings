@@ -129,9 +129,9 @@ These serve as the fallback; there is no separate default.css file. */
 }
 
 :root {
-  /* Display face. Declared outside @theme because the theme block did not
-     emit it, leaving font-heading unset and every heading in the sans. */
-  --font-heading: var(--font-playfair-display);
+  /* One family throughout. The fintech register uses a single sans at
+     multiple sizes rather than a separate display face. */
+  --font-heading: var(--font-general-sans);
 }
 
 @layer base {
@@ -181,6 +181,9 @@ These serve as the fallback; there is no separate default.css file. */
     box-shadow: var(--shadow-2xl);
   }
 
+  html[data-font="generalSans"] body {
+    --font-sans: var(--font-general-sans);
+  }
   html[data-font="inter"] body {
     --font-sans: var(--font-inter);
   }
