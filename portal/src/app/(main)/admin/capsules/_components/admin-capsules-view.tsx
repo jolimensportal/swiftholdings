@@ -22,14 +22,17 @@ export async function AdminCapsulesView() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="text-xs uppercase tracking-[0.22em] text-primary/75">
-          Capsules · {capsules.length} total · {inRevenue} in revenue
-        </p>
+        <div>
+          <h1 className="font-heading text-2xl text-foreground">Onboard a prefab</h1>
+          <p className="mt-0.5 text-xs tracking-[0.22em] text-primary/75 uppercase">
+            {capsules.length} on record · {inRevenue} in revenue
+          </p>
+        </div>
         <Link
           href="/admin/capsules/onboard"
-          className="rounded bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground"
+          className="rounded bg-primary px-3 py-2 text-sm font-medium text-primary-foreground"
         >
-          Onboard a prefab
+          Add a prefab
         </Link>
       </div>
 

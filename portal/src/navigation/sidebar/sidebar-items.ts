@@ -1,6 +1,6 @@
 import {
-  Banknote,
   BadgeCheck,
+  Banknote,
   Boxes,
   Calendar,
   ChartBar,
@@ -8,8 +8,9 @@ import {
   FolderOpen,
   Home,
   LayoutDashboard,
-  Users,
   type LucideIcon,
+  Mail,
+  Users,
   Wallet,
 } from "lucide-react";
 
@@ -81,9 +82,10 @@ export const sidebarItems: NavGroup[] = [
     label: "Super Admin",
     items: [
       { id: "admin-members", title: "Members", url: "/admin/members", icon: Users },
-      { id: "admin-capsules", title: "Capsules", url: "/admin/capsules", icon: Boxes },
+      { id: "admin-capsules", title: "Onboard a prefab", url: "/admin/capsules", icon: Boxes },
       { id: "admin-payouts", title: "Payouts", url: "/admin/payouts", icon: Banknote },
       { id: "admin-kyc", title: "KYC Review", url: "/admin/kyc", icon: BadgeCheck },
+      { id: "admin-email", title: "Email", url: "/admin/email", icon: Mail },
     ],
   },
 ];
