@@ -38,6 +38,8 @@ export interface Holding {
   paymentPlanJson: string | null;
   /** Public id of the capsule's hero photograph, if one has been uploaded. */
   heroImageId: string | null;
+  /** Provenance for the hero, e.g. a supplier reference rather than the unit. */
+  heroCaption: string | null;
 }
 
 export interface Statement {

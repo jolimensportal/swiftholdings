@@ -23,7 +23,8 @@ const STATUS_LABEL: Record<Holding["status"], string> = {
  * an empty grey box, which keeps the page composed before photography lands.
  */
 export function CapsulePlate({ holding, showFigures = true }: CapsulePlateProps) {
-  const { heroImageId, hub, name, status, areaSqm, shareRatio, capitalUnits, incomeUnits, priceUsd } = holding;
+  const { heroImageId, heroCaption, hub, name, status, areaSqm, shareRatio, capitalUnits, incomeUnits, priceUsd } =
+    holding;
 
   return (
     <article className="group overflow-hidden rounded-lg border border-border bg-card">
@@ -45,6 +46,15 @@ export function CapsulePlate({ holding, showFigures = true }: CapsulePlateProps)
         <span className="absolute left-3 top-3 rounded-full bg-background/80 px-2.5 py-1 text-[10px] uppercase tracking-[0.14em] text-foreground backdrop-blur-sm">
           {STATUS_LABEL[status]}
         </span>
+
+        {/* Provenance, shown when the photograph is a supplier reference rather
+            than the completed unit. Without this a member could reasonably read
+            a catalogue image as their own asset. */}
+        {heroCaption ? (
+          <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/95 to-transparent px-3 pb-2 pt-6 text-[10px] leading-snug text-muted-foreground">
+            {heroCaption}
+          </span>
+        ) : null}
       </div>
 
       <div className="flex flex-col gap-3 p-5">

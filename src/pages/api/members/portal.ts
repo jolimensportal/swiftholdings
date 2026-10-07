@@ -47,16 +47,23 @@ export const GET: APIRoute = async ({ locals }) => {
    * of numbers. Only the hero is sent: the public image route takes an image id
    * and resolves the R2 key server-side, so no storage key reaches the client.
    */
-  const heroByCapsule = new Map<string, string>();
+  const heroByCapsule = new Map<string, { id: string; caption: string | null }>();
   if (capsuleIds.length) {
     const heroes = await db
-      .select({ id: capsuleImages.id, capsuleId: capsuleImages.capsuleId })
+      .select({
+        id: capsuleImages.id,
+        capsuleId: capsuleImages.capsuleId,
+        caption: capsuleImages.caption,
+      })
       .from(capsuleImages)
       .where(and(inArray(capsuleImages.capsuleId, capsuleIds), eq(capsuleImages.isHero, true)))
       .all();
-    for (const h of heroes) heroByCapsule.set(h.capsuleId, h.id);
+    for (const h of heroes) heroByCapsule.set(h.capsuleId, { id: h.id, caption: h.caption });
   }
-  const holdingsWithImages = held.map((row) => ({ ...row, heroImageId: heroByCapsule.get(row.capsuleId) ?? null }));
+  const holdingsWithImages = held.map((row) => {
+    const hero = heroByCapsule.get(row.capsuleId);
+    return { ...row, heroImageId: hero?.id ?? null, heroCaption: hero?.caption ?? null };
+  });
 
   const statements = capsuleIds.length
     ? await db
