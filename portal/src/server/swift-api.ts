@@ -8,7 +8,10 @@ import { cookies } from "next/headers";
  * and is forwarded verbatim. Server-side fetching means no CORS round trip and
  * no token ever reaches the browser bundle.
  */
-const API_ORIGIN = process.env.SWIFT_API_ORIGIN ?? "https://swifthorizon.com.gh";
+export const API_ORIGIN = process.env.SWIFT_API_ORIGIN ?? "https://swifthorizon.com.gh";
+
+/** Public URL for a capsule photograph, served by the marketing Worker. */
+export const capsuleImageUrl = (imageId: string): string => `${API_ORIGIN}/api/capsules/images/${imageId}`;
 
 export interface PortalMember {
   id: string;
@@ -33,6 +36,8 @@ export interface Holding {
   incomeUnits: number;
   lockInUntil: number | null;
   paymentPlanJson: string | null;
+  /** Public id of the capsule's hero photograph, if one has been uploaded. */
+  heroImageId: string | null;
 }
 
 export interface Statement {

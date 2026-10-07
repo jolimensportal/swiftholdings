@@ -165,6 +165,40 @@ export const PATCH: APIRoute = async ({ request, locals }) => {
  * request. Each file is stored under capsules/<id>/ in the R2 bucket and gets
  * its own row so the gallery can be ordered and the hero can be chosen.
  */
+/**
+ * Detect an image format from its bytes.
+ *
+ * A declared content-type is not trustworthy here: the supplied photograph
+ * folders contain files named `.jpg` whose contents are actually WebP, and a
+ * browser asked to decode those as JPEG will refuse them. The extension and the
+ * stored mime type must therefore both come from the bytes, never from the
+ * request.
+ */
+function sniffImageMime(bytes: ArrayBuffer): { mime: string; ext: string } | null {
+  const view = new Uint8Array(bytes);
+  const ascii = (start: number, length: number) =>
+    String.fromCharCode(...view.subarray(start, start + length));
+
+  // JPEG: SOI marker FF D8 FF
+  if (view.length > 3 && view[0] === 0xff && view[1] === 0xd8 && view[2] === 0xff) {
+    return { mime: 'image/jpeg', ext: 'jpg' };
+  }
+  // PNG: 89 50 4E 47
+  if (view.length > 8 && view[0] === 0x89 && ascii(1, 3) === 'PNG') {
+    return { mime: 'image/png', ext: 'png' };
+  }
+  // WebP: "RIFF" .... "WEBP"
+  if (view.length > 12 && ascii(0, 4) === 'RIFF' && ascii(8, 4) === 'WEBP') {
+    return { mime: 'image/webp', ext: 'webp' };
+  }
+  // AVIF / HEIF: .... "ftypavif" or "ftypheic"
+  if (view.length > 12 && ascii(4, 4) === 'ftyp') {
+    const brand = ascii(8, 4);
+    if (brand === 'avif' || brand === 'avis') return { mime: 'image/avif', ext: 'avif' };
+  }
+  return null;
+}
+
 async function uploadImages(request: Request, locals: App.Locals): Promise<Response> {
 
   const form = await request.formData().catch(() => null);
@@ -182,7 +216,6 @@ async function uploadImages(request: Request, locals: App.Locals): Promise<Respo
   const files = form.getAll('images').filter((f): f is File => f instanceof File && f.size > 0);
   if (files.length === 0) return jsonResponse({ error: 'No images supplied' }, 400);
 
-  const ALLOWED = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/avif']);
   const now = Date.now();
 
   const already = await db
@@ -195,11 +228,13 @@ async function uploadImages(request: Request, locals: App.Locals): Promise<Respo
   const saved: { id: string; r2Key: string; position: number; isHero: boolean }[] = [];
 
   for (const [index, file] of files.entries()) {
-    if (!ALLOWED.has(file.type)) continue;
+    const detected = sniffImageMime(await file.arrayBuffer());
+    // Reject anything we cannot positively identify as an image.
+    if (!detected) continue;
 
-    const r2Key = `capsules/${capsuleId}/${makeId('IMG')}.${file.type.split('/')[1] ?? 'jpg'}`;
+    const r2Key = `capsules/${capsuleId}/${makeId('IMG')}.${detected.ext}`;
     await env.DOCUMENTS.put(r2Key, await file.arrayBuffer(), {
-      httpMetadata: { contentType: file.type },
+      httpMetadata: { contentType: detected.mime },
     });
 
     const id = makeId('CIMG');
@@ -214,7 +249,7 @@ async function uploadImages(request: Request, locals: App.Locals): Promise<Respo
         r2Key,
         isHero,
         position,
-        mimeType: file.type,
+        mimeType: detected.mime,
         sizeBytes: file.size,
         caption: String(form.get('caption') ?? '').trim() || null,
         createdAt: now,

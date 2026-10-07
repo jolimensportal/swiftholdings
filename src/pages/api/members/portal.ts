@@ -1,8 +1,8 @@
 import type { APIRoute } from 'astro';
-import { desc, eq, inArray } from 'drizzle-orm';
+import { and, desc, eq, inArray } from 'drizzle-orm';
 import { getDb } from '@/db/client';
 import { getBindings } from '@/lib/env';
-import { briefings, capsules, documents, members, ownerships, revenueLedger } from '@/db/schema';
+import { briefings, capsuleImages, capsules, documents, members, ownerships, revenueLedger } from '@/db/schema';
 import { jsonResponse } from '@/utils/api';
 
 /**
@@ -41,6 +41,22 @@ export const GET: APIRoute = async ({ locals }) => {
     .all();
 
   const capsuleIds = held.map((row) => row.capsuleId);
+
+  /*
+   * Hero photograph per holding, so a unit reads as a place rather than a row
+   * of numbers. Only the hero is sent: the public image route takes an image id
+   * and resolves the R2 key server-side, so no storage key reaches the client.
+   */
+  const heroByCapsule = new Map<string, string>();
+  if (capsuleIds.length) {
+    const heroes = await db
+      .select({ id: capsuleImages.id, capsuleId: capsuleImages.capsuleId })
+      .from(capsuleImages)
+      .where(and(inArray(capsuleImages.capsuleId, capsuleIds), eq(capsuleImages.isHero, true)))
+      .all();
+    for (const h of heroes) heroByCapsule.set(h.capsuleId, h.id);
+  }
+  const holdingsWithImages = held.map((row) => ({ ...row, heroImageId: heroByCapsule.get(row.capsuleId) ?? null }));
 
   const statements = capsuleIds.length
     ? await db
@@ -95,7 +111,7 @@ export const GET: APIRoute = async ({ locals }) => {
       kycStatus: member.kycStatus,
     },
     portfolio,
-    holdings: held,
+    holdings: holdingsWithImages,
     statements,
     documents: docs,
     briefings: upcoming,
