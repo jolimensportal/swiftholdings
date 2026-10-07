@@ -77,10 +77,7 @@ export interface PortalPayload {
 
 async function apiFetch<T>(path: string): Promise<T | null> {
   const jar = await cookies();
-  const cookie = jar
-    .get("swift_auth")
-    ? `swift_auth=${jar.get("swift_auth")?.value}`
-    : "";
+  const cookie = jar.get("swift_auth") ? `swift_auth=${jar.get("swift_auth")?.value}` : "";
 
   try {
     const response = await fetch(`${API_ORIGIN}${path}`, {
@@ -215,4 +212,109 @@ export const formatGhs = (amount: number): string =>
 export async function isAdminSession(): Promise<boolean> {
   const overview = await getAdminOverview();
   return overview !== null;
+}
+/**
+ * Operator mail console types and calls.
+ *
+ * Mutations go through `apiMutate`, not `apiFetch`: the console POSTs with a
+ * JSON body, and the marketing Worker requires one. `apiFetch` has no body
+ * parameter and no error channel, so reusing it would mean silently dropping the
+ * operator's message on any 4xx.
+ */
+export interface EmailContact {
+  id: string;
+  name: string;
+  email: string;
+  createdAt: number;
+  handled: boolean;
+}
+
+export interface EmailDirectoryRow {
+  id: string;
+  name: string;
+  email: string;
+  segment: string;
+  tier: string;
+  createdAt: number;
+}
+
+export interface EmailTemplate {
+  id: string;
+  name: string;
+  subject: string;
+  body: string;
+  createdAt: number;
+  updatedAt: number;
+}
+
+export interface EmailConsoleData {
+  enquiries: EmailContact[];
+  directory: EmailDirectoryRow[];
+  templates: EmailTemplate[];
+}
+
+export async function getEmailConsoleData(): Promise<EmailConsoleData | null> {
+  return apiFetch<EmailConsoleData>("/api/admin/email");
+}
+
+interface MutateResult {
+  ok: boolean;
+  status: number;
+  error?: string;
+  detail?: string;
+  id?: string;
+}
+
+async function apiMutate(path: string, payload: Record<string, unknown>): Promise<MutateResult> {
+  const jar = await cookies();
+  const token = jar.get("swift_auth")?.value;
+
+  try {
+    const response = await fetch(`${API_ORIGIN}${path}`, {
+      method: "POST",
+      headers: {
+        cookie: token ? `swift_auth=${token}` : "",
+        accept: "application/json",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(payload),
+      cache: "no-store",
+    });
+
+    const body = (await response.json().catch(() => ({}))) as {
+      error?: string;
+      detail?: string;
+      id?: string;
+    };
+
+    if (!response.ok) {
+      return {
+        ok: false,
+        status: response.status,
+        error: body.error ?? "The request was rejected.",
+        detail: body.detail,
+      };
+    }
+
+    return { ok: true, status: response.status, id: body.id };
+  } catch {
+    return { ok: false, status: 0, error: "Could not reach the mail service." };
+  }
+}
+
+export function sendEmailFromConsole(message: { to: string[]; subject: string; body: string }): Promise<MutateResult> {
+  return apiMutate("/api/admin/email", { action: "send", ...message });
+}
+
+export function saveEmailTemplate(template: {
+  id?: string;
+  name: string;
+  subject: string;
+  body: string;
+}): Promise<MutateResult> {
+  return apiMutate("/api/admin/email", { action: "save-template", ...template });
+}
+
+export function deleteEmailTemplate(id: string): Promise<MutateResult> {
+  return apiMutate("/api/admin/email", { action: "delete-template", id });
 }

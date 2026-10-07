@@ -224,3 +224,23 @@ export const capsuleImages = sqliteTable(
     index('capsule_images_position_idx').on(t.capsuleId, t.position),
   ]
 );
+
+/**
+ * Reusable outbound message bodies for the operator console's composer.
+ *
+ * Only the subject and plain-text body are stored. Keeping templates to plain
+ * text is deliberate: a stored HTML template is a stored injection surface,
+ * because whatever renders it later has to escape whatever the operator typed.
+ */
+export const emailTemplates = sqliteTable(
+  'email_templates',
+  {
+    id: text('id').primaryKey(),
+    name: text('name').notNull(),
+    subject: text('subject').notNull(),
+    body: text('body').notNull(),
+    createdAt: integer('created_at').notNull(),
+    updatedAt: integer('updated_at').notNull(),
+  },
+  (t) => [index('email_templates_updated_idx').on(t.updatedAt)]
+);
