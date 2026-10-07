@@ -93,21 +93,45 @@ const schema: WithContext<Thing> = {
     <main id="main-content" tabindex="-1"><slot /></main>
     <SiteFooter />
   <script>
-    // Dark/Light mode toggle with localStorage persistence
+    // Dark/Light mode toggle. The choice is written to localStorage *and* to a
+    // cookie scoped to .swifthorizon.com.gh, because localStorage is
+    // per-origin: portal.swifthorizon.com.gh cannot read what this host stored.
+    // The cookie is what carries the choice into the portal, and the portal's
+    // boot script prefers it. Reading it before paint avoids a flash of the
+    // wrong theme on arrival.
     (function() {
       const STORAGE_KEY = "swift-theme";
+      const COOKIE = "swift-theme";
+      const COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
       const root = document.body;
 
-      // Apply saved theme immediately (before paint)
-      const saved = localStorage.getItem(STORAGE_KEY);
+      function readCookie(name: string): string | null {
+        var match = document.cookie.split("; ").find(function (row) {
+          return row.indexOf(name + "=") === 0;
+        });
+        return match ? decodeURIComponent(match.split("=").slice(1).join("=")) : null;
+      }
+
+      function writeCookie(value: string): void {
+        document.cookie =
+          COOKIE + "=" + value +
+          "; Domain=.swifthorizon.com.gh; Path=/; Max-Age=" + COOKIE_MAX_AGE +
+          "; SameSite=Lax; Secure";
+      }
+
+      // Cookie first: it is the only value both hosts can see.
+      var saved = readCookie(COOKIE) || localStorage.getItem(STORAGE_KEY);
       if (saved === "light") {
         root.classList.add("light-mode");
+      } else if (saved === "dark") {
+        root.classList.remove("light-mode");
       }
 
       function toggle() {
         root.classList.toggle("light-mode");
-        const isLight = root.classList.contains("light-mode");
+        var isLight = root.classList.contains("light-mode");
         localStorage.setItem(STORAGE_KEY, isLight ? "light" : "dark");
+        writeCookie(isLight ? "light" : "dark");
       }
 
       // Bind toggle buttons

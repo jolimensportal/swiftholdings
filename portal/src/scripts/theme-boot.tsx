@@ -35,8 +35,15 @@ export function ThemeBootScript() {
           var mode = definition.persistence;
           var value = null;
 
+          // The shared cross-host cookie wins. swifthorizon.com.gh writes it on
+          // every toggle, and it is the only place the two hosts can both see,
+          // so a member who chose light there arrives here in light.
+          if (key === "theme_mode") {
+            value = readCookie("swift-theme");
+          }
+
           if (mode === "localStorage") {
-            value = readLocal(key);
+            value = value || readLocal(key);
           }
 
           if (!value && (mode === "client-cookie" || mode === "server-cookie")) {
